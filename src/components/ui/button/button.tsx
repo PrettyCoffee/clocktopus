@@ -6,6 +6,7 @@ import {
 
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import { Link } from "wouter"
 
 import {
   AsChildProp,
@@ -51,6 +52,7 @@ export interface ButtonProps
   isLoading?: boolean
   href?: string
   target?: HTMLAttributeAnchorTarget
+  to?: string
 }
 
 export const Button = ({
@@ -66,7 +68,14 @@ export const Button = ({
   disabled,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  const Comp = asChild ? Slot : props.href != null ? "a" : "button"
+  const Comp = asChild
+    ? Slot
+    : props.to != null
+      ? Link
+      : props.href != null
+        ? "a"
+        : "button"
+
   return (
     <Comp
       {...props}

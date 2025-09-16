@@ -22,6 +22,7 @@ const Main = ({ children, className }: PropsWithChildren & ClassNameProp) => (
 interface SideAction extends Required<IconProp> {
   title: string
   href?: string
+  to?: string
   onClick?: () => void
 }
 
