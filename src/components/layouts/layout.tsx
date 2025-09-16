@@ -1,17 +1,20 @@
 import { PropsWithChildren } from "react"
 
-import { ArrowLeft, Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 
 import { useMountAnimation } from "hooks/use-mount-animation"
 import { createAtom, useAtomValue } from "lib/yaasl"
 import { ClassNameProp, IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
+import { toArray } from "utils/to-array"
 
 import { IconButton } from "../ui/icon-button"
 
 const Main = ({ children, className }: PropsWithChildren & ClassNameProp) => (
-  <div className={cn(vstack({}), "h-full flex-1 overflow-auto", className)}>
+  <div
+    className={cn(vstack({}), "h-full flex-1 overflow-auto pt-5", className)}
+  >
     {children}
   </div>
 )
@@ -22,15 +25,13 @@ interface SideAction extends Required<IconProp> {
   onClick?: () => void
 }
 
+type NoAction = false | null | undefined
+
 interface LayoutSideProps extends PropsWithChildren, ClassNameProp {
-  back?: {
-    href: string
-    title: string
-  }
-  actions?: (SideAction | false | null | undefined)[]
+  actions?: SideAction | NoAction | (SideAction | NoAction)[]
 }
 const sideBarOpen = createAtom({ defaultValue: true })
-const Side = ({ children, back, actions = [], className }: LayoutSideProps) => {
+const Side = ({ children, actions = [], className }: LayoutSideProps) => {
   const isOpen = useAtomValue(sideBarOpen)
   const toggle = () => sideBarOpen.set(open => !open)
   const animate = useMountAnimation({ open: isOpen, duration: 300 })
@@ -41,8 +42,7 @@ const Side = ({ children, back, actions = [], className }: LayoutSideProps) => {
       onClick: toggle,
       icon: Menu,
     },
-    back && { icon: ArrowLeft, ...back },
-    ...actions,
+    ...toArray(actions),
   ].filter(action => !!action)
 
   return (
