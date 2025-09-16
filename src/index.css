@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+@config '../tailwind/tailwind.config.ts';
+
+@layer base {
+  :root {
+    @apply bg-background-page;
+    @apply text-text;
+    @apply font-medium;
+    @apply selection:bg-highlight;
+    @apply selection:text-text-invert;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  :root input, :root textarea {
+    @apply selection:bg-white/20;
+    @apply selection:text-text-priority;
+  }
+  html, body, #root {
+    @apply m-0;
+    @apply p-0;
+    @apply overflow-hidden;
+    height: 100dvh;
+    width: 100dvw;
+  }
+}
+
+@layer components {
+  * {
+    @apply border-stroke;
+    @apply outline-2;
+    @apply outline-offset-2;
+    @apply outline-stroke-focus;
+    @apply outline-none;
+    @apply focus-visible:outline-solid;
+  }
+  
+  @supports (scrollbar-color: auto) {
+    * {
+      scrollbar-color: oklch(var(--tw-theme-color-stroke-default)) transparent;
+    }
+    
+    *:focus-visible {
+      scrollbar-color: oklch(var(--tw-theme-color-accent)) transparent;
+    }
+  }
+
+  @supports selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-color: unset;
+    }
+    *::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+    *::-webkit-scrollbar {
+      background: #efefef;
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: #00000050;
+      border-radius: 50vh;
+      border: 0.25rem solid #efefef;
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: #00000075;
+      border-width: 0.2rem;
+    }
+    .dark *::-webkit-scrollbar {
+      background: #090909;
+    }
+    .dark *::-webkit-scrollbar-thumb {
+      background: #ffffff50;
+      border-color: #090909;
+    }
+    .dark *::-webkit-scrollbar-thumb:hover {
+      background: #ffffff75;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+# Raw design files
+*.afdesign
+
+# dependencies
+/node_modules
+
+# cache
+.eslintcache
+.vite
+
+# production
+/dist
+
+# local test files
+/.dump
+
+# editors
+.idea/*
+!.idea/tailwindcss.xml
