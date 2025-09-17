@@ -20,7 +20,13 @@ export const AppLayout = ({ children }: PropsWithChildren) => {
             ? { title: "Back", icon: ArrowLeft, to: "" }
             : { title: "Settings", icon: Settings, to: "settings" }
         }
-      ></Layout.Side>
+      >
+        <img
+          className="mx-auto size-40 rounded-lg opacity-50 shade-medium"
+          src="./clocktopus.png"
+          alt="logo"
+        />
+      </Layout.Side>
       <Layout.Main>
         <Suspense fallback={<Spinner size="xl" />}>
           <ErrorBoundary Fallback={MainErrorFallback}>{children}</ErrorBoundary>

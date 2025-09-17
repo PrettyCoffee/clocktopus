@@ -31,7 +31,7 @@ type NoAction = false | null | undefined
 interface LayoutSideProps extends PropsWithChildren, ClassNameProp {
   actions?: SideAction | NoAction | (SideAction | NoAction)[]
 }
-const sideBarOpen = createAtom({ defaultValue: true })
+const sideBarOpen = createAtom({ defaultValue: false })
 const Side = ({ children, actions = [], className }: LayoutSideProps) => {
   const isOpen = useAtomValue(sideBarOpen)
   const toggle = () => sideBarOpen.set(open => !open)
