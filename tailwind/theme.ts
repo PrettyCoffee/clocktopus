@@ -216,10 +216,10 @@ theme.addVariant("dark", {
       button: colors.neutral["50"],
     },
     alert: {
-      error: colors.alert.error["300"],
-      warn: colors.alert.warn["300"],
-      info: colors.alert.info["300"],
-      success: colors.alert.success["300"],
+      error: colors.alert.error["400"],
+      warn: colors.alert.warn["400"],
+      info: colors.alert.info["400"],
+      success: colors.alert.success["400"],
     },
     category: {
       pink: twColors.pink[300],

@@ -11,8 +11,12 @@ export const AppRouter = () => (
     <AppLayout>
       <Switch>
         <Route
-          path="settings"
+          path="/settings"
           component={lazy(() => import("./routes/settings/settings-route"))}
+        />
+        <Route
+          path="/"
+          component={lazy(() => import("./routes/main/main-route"))}
         />
         <Route component={NotFoundRoute} />
       </Switch>

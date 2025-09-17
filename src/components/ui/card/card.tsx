@@ -26,7 +26,9 @@ export const Card = ({
       )}
     >
       <Headline className="mb-1 font-bold text-text-priority">{title}</Headline>
-      <p className="mb-4 text-sm text-text-gentle">{description}</p>
+      {description && (
+        <p className="mb-4 text-sm text-text-gentle">{description}</p>
+      )}
       {children}
     </div>
   </div>
