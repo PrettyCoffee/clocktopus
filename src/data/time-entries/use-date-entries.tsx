@@ -8,7 +8,7 @@ type DateAtom = ReturnType<typeof getEntriesByDate>
 
 const atomCache: Record<string, DateAtom> = {}
 
-const getDateAtom = (date: string) => {
+export const getDateAtom = (date: string) => {
   if (!atomCache[date]) {
     atomCache[date] = getEntriesByDate(date)
   }

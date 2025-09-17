@@ -37,20 +37,26 @@ const sortEntries = (a: TimeEntry, b: TimeEntry) => {
   return b.end.localeCompare(a.end)
 }
 
+const defaultValue: TimeEntry[] = []
+
 export const getEntriesByDate = (date: string) => {
   const atom = createSlice({
     name: date,
-    defaultValue: [] as TimeEntry[],
+    defaultValue,
     effects: [indexedDb(), autoSort({ sortFn: sortEntries })],
     reducers: {
       add: (state, entry: Omit<TimeEntry, "id">) => [
         ...state,
         { ...entry, id: getNextId(state) },
       ],
+
       edit: (state, id: number, entry: Partial<TimeEntry>) =>
         state.map(item => (item.id !== id ? item : { ...item, ...entry })),
-      remove: (state, entry: TimeEntry) =>
-        state.filter(item => item.id !== entry.id),
+
+      remove: (state, entry: TimeEntry) => {
+        const newState = state.filter(item => item.id !== entry.id)
+        return newState.length === 0 ? defaultValue : newState
+      },
     },
   })
 

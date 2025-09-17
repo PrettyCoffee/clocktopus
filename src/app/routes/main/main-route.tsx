@@ -6,6 +6,7 @@ import { Card } from "components/ui/card"
 import { IconButton } from "components/ui/icon-button"
 import { Input } from "components/ui/input"
 import {
+  getDateAtom,
   useDateEntries,
   useTrackedDates,
   type TimeEntry,
@@ -117,7 +118,22 @@ const DateTimeTable = ({ date }: { date: string }) => {
           >
             <TimeEntryInputs
               entry={entry}
-              onChange={data => atom.actions.edit(entry.id, data)}
+              onChange={data => {
+                const newEntry = { ...entry, ...data }
+                if (newEntry.date === date) {
+                  atom.actions.edit(entry.id, data)
+                  return
+                }
+                // Move entry to new date
+                atom.actions.remove(newEntry)
+                const newAtom = getDateAtom(newEntry.date)
+                const add = () => newAtom.actions.add(newEntry)
+                if (newAtom.didInit instanceof Promise) {
+                  void newAtom.didInit.then(add)
+                } else {
+                  add()
+                }
+              }}
             />
             <IconButton
               title="Delete"
