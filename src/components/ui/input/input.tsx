@@ -21,6 +21,8 @@ interface TimeInputProps {
 }
 interface DateInputProps {
   type: "date"
+  min?: string
+  max?: string
 }
 
 type PropsByType = TextInputProps | TimeInputProps | DateInputProps

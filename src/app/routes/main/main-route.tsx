@@ -15,6 +15,8 @@ import {
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
+const today = () => new Date().toISOString().split("T")[0]!
+
 const timeDiff = (startTime: string, endTime: string) => {
   const start = startTime.split(":").map(Number) as [number, number]
   const end = endTime.split(":").map(Number) as [number, number]
@@ -52,6 +54,7 @@ const TimeEntryInputs = ({
       <Input
         type="date"
         value={entry.date}
+        max={today()}
         onChange={date => onChange({ date })}
       />
       <div className={hstack({ align: "center" })}>
@@ -94,8 +97,6 @@ const currentTime = () => {
 
   return segments.map(formatTime).join(":")
 }
-
-const today = () => new Date().toISOString().split("T")[0]!
 
 const getInitialState = (start?: string): TimeEntry => ({
   id: 0,
