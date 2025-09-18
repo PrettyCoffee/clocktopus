@@ -15,30 +15,67 @@ import {
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
+const timeDiff = (startTime: string, endTime: string) => {
+  const start = startTime.split(":").map(Number) as [number, number]
+  const end = endTime.split(":").map(Number) as [number, number]
+
+  const startMinutes = start[0] * 60 + start[1]
+  const endMinutes = end[0] * 60 + end[1]
+  const minutesDiff =
+    startMinutes > endMinutes
+      ? endMinutes + 24 * 60 - startMinutes
+      : endMinutes - startMinutes
+
+  const minutes = minutesDiff % 60
+  const hours = (minutesDiff - minutes) / 60
+
+  return [hours.toString(), minutes.toString().padStart(2, "0")]
+}
+
 const TimeEntryInputs = ({
   entry,
   onChange,
 }: {
   entry: TimeEntry
   onChange: Dispatch<Partial<TimeEntry>>
-}) => (
-  <>
-    <Input
-      type="text"
-      placeholder="Description"
-      className="flex-1"
-      value={entry.description}
-      onChange={description => onChange({ description })}
-    />
-    <Input
-      type="date"
-      value={entry.date}
-      onChange={date => onChange({ date })}
-    />
-    <TimeInput value={entry.start} onChange={start => onChange({ start })} />
-    <TimeInput value={entry.end} onChange={end => onChange({ end })} />
-  </>
-)
+}) => {
+  const [hours, minutes] = timeDiff(entry.start, entry.end)
+  return (
+    <>
+      <Input
+        type="text"
+        placeholder="Description"
+        className="flex-1"
+        value={entry.description}
+        onChange={description => onChange({ description })}
+      />
+      <Input
+        type="date"
+        value={entry.date}
+        onChange={date => onChange({ date })}
+      />
+      <div className={hstack({ align: "center" })}>
+        <TimeInput
+          value={entry.start}
+          onChange={start => onChange({ start })}
+        />
+        <span className="mx-1 text-text-gentle">–⁠</span>
+        <TimeInput value={entry.end} onChange={end => onChange({ end })} />
+      </div>
+      <div
+        className={cn(
+          hstack({ justify: "center", align: "center" }),
+          "h-10 w-15 text-center text-base"
+        )}
+      >
+        {hours}
+        <span className="mx-0.5 text-text-gentle">:</span>
+        {minutes}
+        <span className="mx-0.5 text-text-gentle">h</span>
+      </div>
+    </>
+  )
+}
 
 const reducer = (state: TimeEntry, data: Partial<TimeEntry>) => ({
   ...state,
@@ -97,7 +134,7 @@ const DateTimeTable = ({ date }: { date: string }) => {
           <li
             key={entry.id}
             className={cn(
-              "col-[1_/_-1] grid h-10 grid-cols-subgrid items-center rounded-md *:border-transparent *:bg-transparent focus-within:bg-background-page/50 hover:bg-background-page/50"
+              "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1 focus-within:bg-background-page/50 hover:bg-background-page/50 [&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
             )}
           >
             <TimeEntryInputs
