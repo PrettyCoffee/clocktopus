@@ -13,8 +13,8 @@
     -moz-osx-font-smoothing: grayscale;
   }
   :root input, :root textarea {
-    @apply selection:bg-white/20;
-    @apply selection:text-text-priority;
+    @apply selection:bg-highlight/75;
+    @apply selection:text-text-invert;
   }
   html, body, #root {
     @apply m-0;

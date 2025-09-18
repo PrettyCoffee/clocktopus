@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { ChangeEvent, Dispatch, KeyboardEvent, FocusEventHandler } from "react"
 
 import {
   AlertKind,
@@ -32,28 +32,26 @@ export type InputProps = RefProp<HTMLInputElement> &
     value?: string
     alert?: AlertKind
 
-    onChange?: Dispatch<string>
-    onKeyDown?: Dispatch<string>
-    onFocus?: () => void
-    onBlur?: () => void
+    onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void
+    onKeyDown?: Dispatch<KeyboardEvent<HTMLInputElement>>
+    onFocus?: FocusEventHandler<HTMLInputElement>
+    onBlur?: FocusEventHandler<HTMLInputElement>
   }
 
 export const Input = ({
   ref,
   alert,
   onChange,
-  onKeyDown,
   className,
   ...props
 }: InputProps) => (
   <input
     ref={ref}
     {...props}
-    onChange={({ currentTarget }) => onChange?.(currentTarget.value)}
-    onKeyDown={({ key }) => onKeyDown?.(key)}
+    onChange={event => onChange?.(event.currentTarget.value, event)}
     className={cn(
       alert && alertStyles[alert].border,
-      "h-10 rounded-md border border-stroke-gentle bg-background-page px-3 text-sm text-text outline-none placeholder:text-text-gentle invalid:border-alert-error focus-visible:border-stroke-focus",
+      "h-10 rounded-md border border-stroke-gentle px-3 text-sm text-text outline-none placeholder:text-text-gentle invalid:border-alert-error focus-visible:border-stroke-focus",
       className
     )}
   />

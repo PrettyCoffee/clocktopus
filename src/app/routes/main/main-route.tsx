@@ -5,6 +5,7 @@ import { Plus, Trash } from "lucide-react"
 import { Card } from "components/ui/card"
 import { IconButton } from "components/ui/icon-button"
 import { Input } from "components/ui/input"
+import { TimeInput } from "components/ui/time-input"
 import {
   getDateAtom,
   useDateEntries,
@@ -13,23 +14,6 @@ import {
 } from "data/time-entries"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
-
-const quarterHour = 60 * 15
-
-interface TimeInputProps {
-  value: string
-  onChange?: Dispatch<string>
-}
-const TimeInput = ({ value, onChange }: TimeInputProps) => (
-  <Input
-    type="time"
-    step={quarterHour}
-    min="00:00"
-    max="24:00"
-    value={value}
-    onChange={onChange}
-  />
-)
 
 const TimeEntryInputs = ({
   entry,
