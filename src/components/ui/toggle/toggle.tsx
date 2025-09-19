@@ -6,7 +6,7 @@ import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, interactive } from "utils/styles"
 
-export interface ToggleProps extends ClassNameProp {
+interface ToggleProps extends ClassNameProp {
   label: string
   checked: boolean
   onChange: Dispatch<boolean>

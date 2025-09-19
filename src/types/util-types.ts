@@ -1,5 +1,3 @@
-import { Indexable } from "../utils/is-indexable"
-
 export type Resolve<T> = {
   [K in keyof T]: T[K]
 } & {}
@@ -14,6 +12,8 @@ export type ObjDeepPath<TObj> =
           | `.${ObjDeepPath<Loose<TObj>[K]>}`}`
       }[keyof Loose<TObj>]
     : never
+
+type Indexable = Record<string | number | symbol, unknown>
 
 export type ObjDeepValue<TObj, TPath> = TObj extends Indexable
   ? TPath extends `${infer Current}.${infer Next}`
