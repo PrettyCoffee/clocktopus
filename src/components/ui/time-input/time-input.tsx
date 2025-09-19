@@ -2,6 +2,7 @@ import { ChangeEvent, Dispatch, KeyboardEvent, useState } from "react"
 
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
+import { ParsedTime, timeHelpers } from "utils/time-helpers"
 
 import { Input, InputProps } from "../input"
 
@@ -23,32 +24,31 @@ const padTime = (value: string) => {
   }
 }
 
-const getTime = (value: string): [number, number] => {
-  const numbers = getNumbers(value)
-  return [Number(numbers.slice(0, 2)), Number(numbers.slice(2, 4))]
+const clampTime = ({ hours, minutes }: ParsedTime): ParsedTime => {
+  if (hours > 23) return { hours: 23, minutes: 59 }
+  if (minutes > 59) return { hours, minutes: 59 }
+  return { hours, minutes }
 }
-
-const clampTime = (hours: number, minutes: number): [number, number] => {
-  if (hours > 23) return [23, 59]
-  if (minutes > 59) return [hours, 59]
-  return [hours, minutes]
-}
-
-const twoDigit = (number: number) => number.toString().padStart(2, "0")
 
 const forceTime = (value: string) => {
   const padded = padTime(value)
-  const [hours, minutes] = clampTime(...getTime(padded))
-  return `${twoDigit(hours)}:${twoDigit(minutes)}`
+  const parsed = timeHelpers.toParsed(padded)
+  const time = clampTime(parsed)
+  return timeHelpers.fromParsed(time)
 }
 
-const addMinutes = (time: string, diff: number) => {
-  const [hours, minutes] = getTime(time)
-  const newTime = Math.max(hours * 60 + minutes + diff, 0)
+const nextQuarter = (timeString: string) => {
+  const { hours, minutes } = timeHelpers.toParsed(timeString)
+  const snapped = minutes - (minutes % 15) + 15
+  const fullMinutes = hours * 60 + snapped
+  return forceTime(timeHelpers.fromMinutes(fullMinutes))
+}
 
-  const newMinutes = newTime % 60
-  const newHours = (newTime - newMinutes) / 60
-  return forceTime(`${twoDigit(newHours)}${twoDigit(newMinutes)}`)
+const prevQuarter = (timeString: string) => {
+  const { hours, minutes } = timeHelpers.toParsed(timeString)
+  const snapped = minutes - (minutes % 15 || 15)
+  const fullMinutes = Math.max(hours * 60 + snapped, 0)
+  return forceTime(timeHelpers.fromMinutes(fullMinutes))
 }
 
 interface TimeInputProps extends Omit<InputProps, "type" | "onChange"> {
@@ -91,14 +91,14 @@ export const TimeInput = ({
       return
     }
     if (key === "ArrowUp") {
-      const time = addMinutes(value ?? "", 15)
+      const time = nextQuarter(value ?? "")
       onChange?.(time)
       setText(getNumbers(time))
       event.preventDefault()
       return
     }
     if (key === "ArrowDown") {
-      const time = addMinutes(value ?? "", -15)
+      const time = prevQuarter(value ?? "")
       onChange?.(time)
       setText(getNumbers(time))
       event.preventDefault()

@@ -9,30 +9,20 @@ import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
 import { hstack, surface } from "utils/styles"
+import { timeHelpers } from "utils/time-helpers"
 
 const today = () => new Date().toISOString().split("T")[0]!
 
-const getTimeDiff = (startTime: string, endTime: string) => {
-  const start = startTime.split(":").map(Number) as [number, number]
-  const end = endTime.split(":").map(Number) as [number, number]
-
-  const startMinutes = start[0] * 60 + start[1]
-  const endMinutes = end[0] * 60 + end[1]
-  const minutesDiff =
-    startMinutes > endMinutes
-      ? endMinutes + 24 * 60 - startMinutes
-      : endMinutes - startMinutes
-
-  return minutesDiff
-}
-
-const minutesToTime = (minutesDiff: number) => {
-  const minutes = minutesDiff % 60
-  const hours = (minutesDiff - minutes) / 60
-  return {
-    hours: hours.toString(),
-    minutes: minutes.toString().padStart(2, "0"),
-  }
+const Duration = ({ minutes }: { minutes: number }) => {
+  const duration = timeHelpers.toParsed(timeHelpers.fromMinutes(minutes))
+  return (
+    <>
+      {duration.hours}
+      <span className="mx-0.5 text-text-gentle">:</span>
+      {duration.minutes.toString().padStart(2, "0")}
+      <span className="mx-0.5 text-text-gentle">h</span>
+    </>
+  )
 }
 
 const TimeEntryInputs = ({
@@ -41,53 +31,42 @@ const TimeEntryInputs = ({
 }: {
   entry: TimeEntry
   onChange: Dispatch<Partial<TimeEntry>>
-}) => {
-  const duration = minutesToTime(getTimeDiff(entry.start, entry.end))
-  return (
-    <>
-      <Input
-        type="text"
-        placeholder="Description"
-        className="flex-1"
-        value={entry.description}
-        onChange={description => onChange({ description })}
-      />
-      <Input
-        type="date"
-        value={entry.date}
-        max={today()}
-        onChange={date => onChange({ date })}
-      />
-      <div className={hstack({ align: "center" })}>
-        <TimeInput
-          value={entry.start}
-          onChange={start => onChange({ start })}
-        />
-        <span className="mx-1 text-text-gentle">–⁠</span>
-        <TimeInput value={entry.end} onChange={end => onChange({ end })} />
-      </div>
-      <div
-        className={cn(
-          hstack({ justify: "center", align: "center" }),
-          "h-10 w-15 text-center text-base"
-        )}
-      >
-        {duration.hours}
-        <span className="mx-0.5 text-text-gentle">:</span>
-        {duration.minutes}
-        <span className="mx-0.5 text-text-gentle">h</span>
-      </div>
-    </>
-  )
-}
+}) => (
+  <>
+    <Input
+      type="text"
+      placeholder="Description"
+      className="flex-1"
+      value={entry.description}
+      onChange={description => onChange({ description })}
+    />
+    <Input
+      type="date"
+      value={entry.date}
+      max={today()}
+      onChange={date => onChange({ date })}
+    />
+    <div className={hstack({ align: "center" })}>
+      <TimeInput value={entry.start} onChange={start => onChange({ start })} />
+      <span className="mx-1 text-text-gentle">–⁠</span>
+      <TimeInput value={entry.end} onChange={end => onChange({ end })} />
+    </div>
+    <div
+      className={cn(
+        hstack({ justify: "center", align: "center" }),
+        "h-10 w-15 text-center text-base"
+      )}
+    >
+      <Duration minutes={timeHelpers.getDiff(entry.start, entry.end)} />
+    </div>
+  </>
+)
 
-const totalDuration = (entries: TimeEntry[]) => {
-  const minutes = entries.reduce(
-    (total, entry) => total + getTimeDiff(entry.start, entry.end),
+const totalDuration = (entries: TimeEntry[]) =>
+  entries.reduce(
+    (total, entry) => total + timeHelpers.getDiff(entry.start, entry.end),
     0
   )
-  return minutesToTime(minutes)
-}
 
 const formatDate = (date: string) =>
   new Date(date).toLocaleDateString(getLocale(), {
@@ -102,28 +81,22 @@ const TimeTableHeader = ({
 }: {
   date: string
   entries: TimeEntry[]
-}) => {
-  const total = totalDuration(entries)
-
-  return (
-    <div
-      className={cn(
-        surface({ look: "card", size: "lg" }),
-        hstack({ align: "center" }),
-        "h-10 rounded-b-none border-b-0 bg-background-page"
-      )}
-    >
-      <h2 className="text-base">{formatDate(date)}</h2>
-      <div className="flex-1" />
-      <div>
-        <span className="text-text-gentle">Total: </span>
-        {total.hours}
-        <span className="text-text-gentle">:</span>
-        {total.minutes}
-      </div>
+}) => (
+  <div
+    className={cn(
+      surface({ look: "card", size: "lg" }),
+      hstack({ align: "center" }),
+      "h-10 rounded-b-none border-b-0 bg-background-page"
+    )}
+  >
+    <h2 className="text-base">{formatDate(date)}</h2>
+    <div className="flex-1" />
+    <div className="text-base">
+      <span className="text-text-gentle">Total: </span>
+      <Duration minutes={totalDuration(entries)} />
     </div>
-  )
-}
+  </div>
+)
 
 interface TimeTableRowProps {
   entry: TimeEntry
