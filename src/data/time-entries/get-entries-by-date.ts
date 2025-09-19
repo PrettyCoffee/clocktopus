@@ -17,10 +17,12 @@ export interface TimeEntry {
 const getNextId = (entries: TimeEntry[]) =>
   entries.reduce((current, { id }) => Math.max(current, id), 0) + 1
 
+const sortDates = (a: string, b: string) => b.localeCompare(a)
+
 const trackedDates = createSlice({
   name: "tracked-dates",
   defaultValue: [] as string[],
-  effects: [localStorage()],
+  effects: [localStorage(), autoSort({ sortFn: sortDates })],
   reducers: {
     add: (state, date: string) =>
       state.includes(date) ? state : [...state, date],
