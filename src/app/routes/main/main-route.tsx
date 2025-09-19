@@ -135,7 +135,9 @@ const DateTimeTable = ({ date }: { date: string }) => {
           <li
             key={entry.id}
             className={cn(
-              "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1 focus-within:bg-background-page/50 hover:bg-background-page/50 [&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
+              "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1",
+              "focus-within:bg-background-page/50 hover:bg-background-page/50",
+              "[&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
             )}
           >
             <TimeEntryInputs

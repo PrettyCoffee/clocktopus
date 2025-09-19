@@ -52,8 +52,9 @@ export const Input = ({
     {...props}
     onChange={event => onChange?.(event.currentTarget.value, event)}
     className={cn(
+      "h-10 rounded-md px-3 text-sm text-text outline-none placeholder:text-text-gentle",
+      "border border-stroke-gentle invalid:border-alert-error hover:border-stroke focus-visible:border-stroke-focus",
       alert && alertStyles[alert].border,
-      "h-10 rounded-md border border-stroke-gentle px-3 text-sm text-text outline-none placeholder:text-text-gentle invalid:border-alert-error focus-visible:border-stroke-focus",
       className
     )}
   />
