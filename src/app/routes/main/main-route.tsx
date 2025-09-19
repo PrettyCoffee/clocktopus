@@ -1,19 +1,18 @@
 import { Dispatch, Fragment, useReducer } from "react"
 
-import { Plus, Trash } from "lucide-react"
+import { Plus } from "lucide-react"
 
 import { IconButton } from "components/ui/icon-button"
 import { Input } from "components/ui/input"
 import { TimeInput } from "components/ui/time-input"
 import {
-  getDateAtom,
   useDateEntries,
   useTrackedDates,
   type TimeEntry,
 } from "data/time-entries"
+import { TimeTable } from "features/time-table"
 import { cn } from "utils/cn"
-import { getLocale } from "utils/get-locale"
-import { hstack, surface } from "utils/styles"
+import { hstack } from "utils/styles"
 
 const today = () => new Date().toISOString().split("T")[0]!
 
@@ -132,93 +131,6 @@ const AddNewItem = () => {
   )
 }
 
-const totalDuration = (entries: TimeEntry[]) => {
-  const minutes = entries.reduce(
-    (total, entry) => total + getTimeDiff(entry.start, entry.end),
-    0
-  )
-  return minutesToTime(minutes)
-}
-
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString(getLocale(), {
-    day: "2-digit",
-    month: "short",
-    weekday: "short",
-  })
-
-const DateTimeTable = ({ date }: { date: string }) => {
-  const { entries, atom } = useDateEntries(date)
-  const total = totalDuration(entries)
-
-  return (
-    <>
-      <div
-        className={cn(
-          surface({ look: "card", size: "lg" }),
-          hstack({ align: "center" }),
-          "h-10 rounded-b-none border-b-0 bg-background-page"
-        )}
-      >
-        <h2 className="text-base">{formatDate(date)}</h2>
-        <div className="flex-1" />
-        <div>
-          <span className="text-text-gentle">Total: </span>
-          {total.hours}
-          <span className="text-text-gentle">:</span>
-          {total.minutes}
-        </div>
-      </div>
-
-      <ul
-        className={cn(
-          surface({ look: "card", size: "lg" }),
-          "grid grid-cols-[1fr_auto_auto_auto_auto] gap-x-2",
-          "rounded-t-none p-0"
-        )}
-      >
-        {entries.map(entry => (
-          <li
-            key={entry.id}
-            className={cn(
-              "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1",
-              "focus-within:bg-background-page/50 hover:bg-background-page/50",
-              "[&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
-            )}
-          >
-            <TimeEntryInputs
-              entry={entry}
-              onChange={data => {
-                const newEntry = { ...entry, ...data }
-                if (newEntry.date === date) {
-                  atom.actions.edit(entry.id, data)
-                  return
-                }
-                // Move entry to new date
-                atom.actions.remove(newEntry)
-                const newAtom = getDateAtom(newEntry.date)
-                const add = () => newAtom.actions.add(newEntry)
-                if (newAtom.didInit instanceof Promise) {
-                  void newAtom.didInit.then(add)
-                } else {
-                  add()
-                }
-              }}
-            />
-            <IconButton
-              title="Delete"
-              hideTitle
-              icon={Trash}
-              onClick={() => atom.actions.remove(entry)}
-              className="[li:not(:hover,:focus-within)_&]:opacity-0"
-            />
-          </li>
-        ))}
-      </ul>
-    </>
-  )
-}
-
 const MainRoute = () => {
   const trackedDates = useTrackedDates()
   return (
@@ -228,7 +140,7 @@ const MainRoute = () => {
       {trackedDates.map(date => (
         <Fragment key={date}>
           <div className="mt-4" />
-          <DateTimeTable date={date} />
+          <TimeTable date={date} />
         </Fragment>
       ))}
     </div>
