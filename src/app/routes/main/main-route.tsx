@@ -122,6 +122,7 @@ const AddNewItem = () => {
       <IconButton
         icon={Plus}
         title="Add item"
+        hideTitle
         onClick={() => {
           atom.actions.add(data)
           updateData(getInitialState(data.end))
@@ -206,8 +207,10 @@ const DateTimeTable = ({ date }: { date: string }) => {
             />
             <IconButton
               title="Delete"
+              hideTitle
               icon={Trash}
               onClick={() => atom.actions.remove(entry)}
+              className="[li:not(:hover,:focus-within)_&]:opacity-0"
             />
           </li>
         ))}
