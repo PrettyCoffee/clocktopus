@@ -79,7 +79,7 @@ const AddNewItem = () => {
   const { atom } = useDateEntries(data.date)
 
   return (
-    <div className={cn(hstack({ gap: 2 }))}>
+    <div className={cn(hstack({ gap: 2, align: "center" }))}>
       <TimeEntryInputs entry={data} onChange={updateData} />
       <IconButton
         icon={Plus}
