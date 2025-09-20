@@ -15,7 +15,7 @@ const Main = ({ children, className }: PropsWithChildren & ClassNameProp) => (
   <div
     className={cn(vstack({}), "h-full flex-1 overflow-auto pt-5", className)}
   >
-    {children}
+    <div className="mx-auto size-full max-w-7xl">{children}</div>
   </div>
 )
 
