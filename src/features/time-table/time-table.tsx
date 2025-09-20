@@ -2,6 +2,7 @@ import { Dispatch } from "react"
 
 import { Trash } from "lucide-react"
 
+import { showDialog } from "components/ui/dialog"
 import { IconButton } from "components/ui/icon-button"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
 import { cn } from "utils/cn"
@@ -48,6 +49,18 @@ const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => {
   const updateData = (data: Partial<TimeEntry>) =>
     onChange({ ...entry, ...data })
 
+  const handleRemove = () =>
+    showDialog({
+      title: "Delete time entry?",
+      description:
+        "Do you really want to delete this time entry? This action cannot be reverted.",
+      confirm: {
+        caption: "Delete",
+        look: "destructive",
+        onClick: () => onRemove(entry),
+      },
+    })
+
   return (
     <div
       role="row"
@@ -74,7 +87,7 @@ const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => {
           title="Delete"
           hideTitle
           icon={Trash}
-          onClick={() => onRemove(entry)}
+          onClick={handleRemove}
           className="[li:not(:hover,:focus-within)_&]:opacity-0"
         />
       </div>
