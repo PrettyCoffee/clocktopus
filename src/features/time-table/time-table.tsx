@@ -18,13 +18,11 @@ const formatDate = (date: string) =>
     weekday: "short",
   })
 
-const TimeTableHeader = ({
-  date,
-  entries,
-}: {
+interface TimeTableHeaderProps {
   date: string
   entries: TimeEntry[]
-}) => (
+}
+const TimeTableHeader = ({ date, entries }: TimeTableHeaderProps) => (
   <div
     className={cn(
       surface({ look: "card", size: "lg" }),
@@ -51,37 +49,67 @@ const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => {
     onChange({ ...entry, ...data })
 
   return (
-    <li
+    <div
+      role="row"
       className={cn(
         "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1",
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
         "[&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
       )}
     >
-      <inputs.Description entry={entry} onChange={updateData} />
-      <inputs.Date entry={entry} onChange={updateData} />
-      <inputs.TimeRange entry={entry} onChange={updateData} />
-      <Duration entries={[entry]} className="inline-block w-15 text-center" />
-      <IconButton
-        title="Delete"
-        hideTitle
-        icon={Trash}
-        onClick={() => onRemove(entry)}
-        className="[li:not(:hover,:focus-within)_&]:opacity-0"
-      />
-    </li>
+      <div role="gridcell" className="flex">
+        <inputs.Description entry={entry} onChange={updateData} />
+      </div>
+      <div role="gridcell">
+        <inputs.Date entry={entry} onChange={updateData} />
+      </div>
+      <div role="gridcell">
+        <inputs.TimeRange entry={entry} onChange={updateData} />
+      </div>
+      <div role="gridcell">
+        <Duration entries={[entry]} className="inline-block w-15 text-center" />
+      </div>
+      <div role="gridcell">
+        <IconButton
+          title="Delete"
+          hideTitle
+          icon={Trash}
+          onClick={() => onRemove(entry)}
+          className="[li:not(:hover,:focus-within)_&]:opacity-0"
+        />
+      </div>
+    </div>
   )
 }
 
-const TimeTableBody = ({
-  atom,
-  date,
-  entries,
-}: {
-  date: string
+interface TimeTableBodyProps {
   entries: TimeEntry[]
-  atom: ReturnType<typeof getDateAtom>
-}) => {
+  onChange: Dispatch<TimeEntry>
+  onRemove: Dispatch<TimeEntry>
+}
+const TimeTableBody = ({ entries, onChange, onRemove }: TimeTableBodyProps) => (
+  <div
+    role="rowgroup"
+    className={cn(
+      surface({ look: "card", size: "lg" }),
+      "grid grid-cols-[1fr_auto_auto_auto_auto] gap-x-2",
+      "rounded-t-none p-0"
+    )}
+  >
+    {entries.map(entry => (
+      <TimeTableRow
+        entry={entry}
+        key={entry.id}
+        onRemove={onRemove}
+        onChange={onChange}
+      />
+    ))}
+  </div>
+)
+
+export const TimeTable = ({ date }: { date: string }) => {
+  const { entries, atom } = useDateEntries(date)
+
   const handleChange = (data: TimeEntry) => {
     if (data.date === date) {
       atom.actions.edit(data.id, data)
@@ -99,32 +127,22 @@ const TimeTableBody = ({
   }
 
   return (
-    <ul
-      className={cn(
-        surface({ look: "card", size: "lg" }),
-        "grid grid-cols-[1fr_auto_auto_auto_auto] gap-x-2",
-        "rounded-t-none p-0"
-      )}
-    >
-      {entries.map(entry => (
-        <TimeTableRow
-          entry={entry}
-          key={entry.id}
-          onRemove={atom.actions.remove}
-          onChange={handleChange}
-        />
-      ))}
-    </ul>
-  )
-}
-
-export const TimeTable = ({ date }: { date: string }) => {
-  const { entries, atom } = useDateEntries(date)
-
-  return (
     <>
       <TimeTableHeader date={date} entries={entries} />
-      <TimeTableBody atom={atom} date={date} entries={entries} />
+      <div role="grid">
+        <div role="row" className="sr-only">
+          <div role="columnheader">Description</div>
+          <div role="columnheader">Date</div>
+          <div role="columnheader">Time Range</div>
+          <div role="columnheader">Duration</div>
+          <div role="columnheader">Actions</div>
+        </div>
+        <TimeTableBody
+          entries={entries}
+          onChange={handleChange}
+          onRemove={atom.actions.remove}
+        />
+      </div>
     </>
   )
 }

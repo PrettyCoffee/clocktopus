@@ -109,6 +109,7 @@ export const TimeInput = ({
   return (
     <div className={cn("relative w-15 rounded-md", className)}>
       <div
+        aria-hidden
         className={cn(
           hstack({ align: "center", justify: "center" }),
           "pointer-events-none absolute inset-0 m-auto size-full text-sm [&:has(+input:focus-visible)]:text-transparent"
