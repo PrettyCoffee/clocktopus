@@ -1,10 +1,11 @@
-import { Dispatch } from "react"
+import { Dispatch, useState } from "react"
 
 import { Trash } from "lucide-react"
 
 import { showDialog } from "components/ui/dialog"
 import { IconButton } from "components/ui/icon-button"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
+import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
 import { hstack, surface } from "utils/styles"
@@ -23,22 +24,38 @@ interface TimeTableHeaderProps {
   date: string
   entries: TimeEntry[]
 }
-const TimeTableHeader = ({ date, entries }: TimeTableHeaderProps) => (
-  <div
-    className={cn(
-      surface({ look: "card", size: "lg" }),
-      hstack({ align: "center" }),
-      "h-10 rounded-b-none border-b-0 bg-background-page"
-    )}
-  >
-    <h2 className="text-base">{formatDate(date)}</h2>
-    <div className="flex-1" />
-    <div className="text-base">
-      <span className="text-text-gentle">Total: </span>
-      <Duration entries={entries} />
-    </div>
-  </div>
-)
+const TimeTableHeader = ({ date, entries }: TimeTableHeaderProps) => {
+  const [topOffset, setTopOffset] = useState("0px")
+  const { ref, isIntersecting } = useIntersectionObserver({
+    rootMargin: `-${topOffset} 0px 0px 0px`, // trigger offset to the top of the scroll area (window)
+  })
+
+  return (
+    <>
+      <div ref={ref} />
+      <div
+        ref={element => {
+          if (!element) return
+          const styles = getComputedStyle(element)
+          setTopOffset(styles.top)
+        }}
+        className={cn(
+          hstack({ align: "center" }),
+          "h-10 rounded-t-lg border-b border-stroke-gentle bg-background-page p-4",
+          "sticky top-18 z-20",
+          !isIntersecting && "rounded-lg"
+        )}
+      >
+        <h2 className="text-base">{formatDate(date)}</h2>
+        <div className="flex-1" />
+        <div className="text-base">
+          <span className="text-text-gentle">Total: </span>
+          <Duration entries={entries} />
+        </div>
+      </div>
+    </>
+  )
+}
 
 interface TimeTableRowProps {
   entry: TimeEntry
@@ -103,11 +120,7 @@ interface TimeTableBodyProps {
 const TimeTableBody = ({ entries, onChange, onRemove }: TimeTableBodyProps) => (
   <div
     role="rowgroup"
-    className={cn(
-      surface({ look: "card", size: "lg" }),
-      "grid grid-cols-[1fr_auto_auto_auto_auto] gap-x-2",
-      "rounded-t-none p-0"
-    )}
+    className={cn("grid grid-cols-[1fr_auto_auto_auto_auto] gap-x-2")}
   >
     {entries.map(entry => (
       <TimeTableRow
@@ -140,7 +153,7 @@ export const TimeTable = ({ date }: { date: string }) => {
   }
 
   return (
-    <>
+    <div className={cn(surface({ look: "card", size: "lg" }), "isolate p-0")}>
       <TimeTableHeader date={date} entries={entries} />
       <div role="grid">
         <div role="row" className="sr-only">
@@ -156,6 +169,6 @@ export const TimeTable = ({ date }: { date: string }) => {
           onRemove={atom.actions.remove}
         />
       </div>
-    </>
+    </div>
   )
 }
