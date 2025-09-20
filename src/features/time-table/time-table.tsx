@@ -3,70 +3,13 @@ import { Dispatch } from "react"
 import { Trash } from "lucide-react"
 
 import { IconButton } from "components/ui/icon-button"
-import { Input } from "components/ui/input"
-import { TimeInput } from "components/ui/time-input"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
 import { hstack, surface } from "utils/styles"
-import { timeHelpers } from "utils/time-helpers"
 
-const today = () => new Date().toISOString().split("T")[0]!
-
-const Duration = ({ minutes }: { minutes: number }) => {
-  const duration = timeHelpers.toParsed(timeHelpers.fromMinutes(minutes))
-  return (
-    <>
-      {duration.hours}
-      <span className="mx-0.5 text-text-gentle">:</span>
-      {duration.minutes.toString().padStart(2, "0")}
-      <span className="mx-0.5 text-text-gentle">h</span>
-    </>
-  )
-}
-
-const TimeEntryInputs = ({
-  entry,
-  onChange,
-}: {
-  entry: TimeEntry
-  onChange: Dispatch<Partial<TimeEntry>>
-}) => (
-  <>
-    <Input
-      type="text"
-      placeholder="Description"
-      className="flex-1"
-      value={entry.description}
-      onChange={description => onChange({ description })}
-    />
-    <Input
-      type="date"
-      value={entry.date}
-      max={today()}
-      onChange={date => onChange({ date })}
-    />
-    <div className={hstack({ align: "center" })}>
-      <TimeInput value={entry.start} onChange={start => onChange({ start })} />
-      <span className="mx-1 text-text-gentle">–⁠</span>
-      <TimeInput value={entry.end} onChange={end => onChange({ end })} />
-    </div>
-    <div
-      className={cn(
-        hstack({ justify: "center", align: "center" }),
-        "h-10 w-15 text-center text-base"
-      )}
-    >
-      <Duration minutes={timeHelpers.getDiff(entry.start, entry.end)} />
-    </div>
-  </>
-)
-
-const totalDuration = (entries: TimeEntry[]) =>
-  entries.reduce(
-    (total, entry) => total + timeHelpers.getDiff(entry.start, entry.end),
-    0
-  )
+import { Duration } from "./duration"
+import { inputs } from "./inputs"
 
 const formatDate = (date: string) =>
   new Date(date).toLocaleDateString(getLocale(), {
@@ -93,7 +36,7 @@ const TimeTableHeader = ({
     <div className="flex-1" />
     <div className="text-base">
       <span className="text-text-gentle">Total: </span>
-      <Duration minutes={totalDuration(entries)} />
+      <Duration entries={entries} />
     </div>
   </div>
 )
@@ -103,27 +46,32 @@ interface TimeTableRowProps {
   onChange: Dispatch<TimeEntry>
   onRemove: Dispatch<TimeEntry>
 }
-const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => (
-  <li
-    className={cn(
-      "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1",
-      "focus-within:bg-background-page/50 hover:bg-background-page/50",
-      "[&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
-    )}
-  >
-    <TimeEntryInputs
-      entry={entry}
-      onChange={data => onChange({ ...entry, ...data })}
-    />
-    <IconButton
-      title="Delete"
-      hideTitle
-      icon={Trash}
-      onClick={() => onRemove(entry)}
-      className="[li:not(:hover,:focus-within)_&]:opacity-0"
-    />
-  </li>
-)
+const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => {
+  const updateData = (data: Partial<TimeEntry>) =>
+    onChange({ ...entry, ...data })
+
+  return (
+    <li
+      className={cn(
+        "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1",
+        "focus-within:bg-background-page/50 hover:bg-background-page/50",
+        "[&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
+      )}
+    >
+      <inputs.Description entry={entry} onChange={updateData} />
+      <inputs.Date entry={entry} onChange={updateData} />
+      <inputs.TimeRange entry={entry} onChange={updateData} />
+      <Duration entries={[entry]} className="inline-block w-15 text-center" />
+      <IconButton
+        title="Delete"
+        hideTitle
+        icon={Trash}
+        onClick={() => onRemove(entry)}
+        className="[li:not(:hover,:focus-within)_&]:opacity-0"
+      />
+    </li>
+  )
+}
 
 const TimeTableBody = ({
   atom,

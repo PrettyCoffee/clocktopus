@@ -1,0 +1,26 @@
+import { type TimeEntry } from "data/time-entries"
+import { ClassNameProp } from "types/base-props"
+import { cn } from "utils/cn"
+import { timeHelpers } from "utils/time-helpers"
+
+const totalDuration = (entries: TimeEntry[]) =>
+  entries.reduce(
+    (total, entry) => total + timeHelpers.getDiff(entry.start, entry.end),
+    0
+  )
+
+export const Duration = ({
+  entries,
+  className,
+}: ClassNameProp & { entries: TimeEntry[] }) => {
+  const minutes = totalDuration(entries)
+  const duration = timeHelpers.toParsed(timeHelpers.fromMinutes(minutes))
+  return (
+    <span className={cn("text-base whitespace-nowrap", className)}>
+      {duration.hours}
+      <span className="mx-0.5 text-text-gentle">:</span>
+      {duration.minutes.toString().padStart(2, "0")}
+      <span className="mx-0.5 text-text-gentle">h</span>
+    </span>
+  )
+}
