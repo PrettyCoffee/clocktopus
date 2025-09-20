@@ -12,9 +12,7 @@ import { toArray } from "utils/to-array"
 import { IconButton } from "../ui/icon-button"
 
 const Main = ({ children, className }: PropsWithChildren & ClassNameProp) => (
-  <div
-    className={cn(vstack({}), "h-full flex-1 overflow-auto pt-5", className)}
-  >
+  <div className={cn(vstack({}), "h-full flex-1 overflow-auto", className)}>
     <div className="mx-auto size-full max-w-7xl">{children}</div>
   </div>
 )
