@@ -10,7 +10,7 @@ import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { createSlice, useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
-import { hstack } from "utils/styles"
+import { hstack, vstack } from "utils/styles"
 
 type CheckedState = Record<string, Record<string, true>>
 const checkedRows = createSlice({
@@ -61,6 +61,33 @@ const bulkDelete = (checked: CheckedState) =>
     },
   })
 
+const FirstEntry = () => (
+  <div
+    className={cn(
+      vstack({ align: "center" }),
+      "size-full px-10 pt-[20vh] mobile:pt-8"
+    )}
+  >
+    <img
+      className="size-40 rounded-lg opacity-50 shade-medium"
+      src="./clocktopus.png"
+      alt="logo"
+    />
+
+    <div className="pt-8" />
+
+    <h1 className="mb-2 text-3xl">Welcome to Clocktopus! 🐙</h1>
+    <p className="text-text-gentle">
+      Seems like you didn't clock your time yet. Time to change that!
+    </p>
+
+    <div className="pt-8" />
+    <div className="mx-auto w-full max-w-2xl">
+      <CreateTimeEntry />
+    </div>
+  </div>
+)
+
 const MainRoute = () => {
   const trackedDates = useTrackedDates()
   const { ref, isIntersecting } = useIntersectionObserver()
@@ -68,6 +95,8 @@ const MainRoute = () => {
 
   const selectedAmount = getSelectedAmount(checked)
   const hasChecked = selectedAmount > 0
+
+  if (trackedDates.length === 0) return <FirstEntry />
 
   return (
     <div className="px-10">
