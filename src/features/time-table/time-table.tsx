@@ -2,6 +2,7 @@ import { Dispatch, useState } from "react"
 
 import { Trash } from "lucide-react"
 
+import { Checkbox } from "components/ui/checkbox"
 import { showDialog } from "components/ui/dialog"
 import { IconButton } from "components/ui/icon-button"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
@@ -57,12 +58,24 @@ const TimeTableHeader = ({ date, entries }: TimeTableHeaderProps) => {
   )
 }
 
-interface TimeTableRowProps {
+interface CheckedProps {
+  checked: Record<string, boolean>
+  onCheckedChange: Dispatch<TimeEntry>
+}
+
+interface TimeTableRowProps extends Omit<CheckedProps, "checked"> {
+  checked: boolean
   entry: TimeEntry
   onChange: Dispatch<TimeEntry>
   onRemove: Dispatch<TimeEntry>
 }
-const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => {
+const TimeTableRow = ({
+  checked,
+  onCheckedChange,
+  entry,
+  onChange,
+  onRemove,
+}: TimeTableRowProps) => {
   const updateData = (data: Partial<TimeEntry>) =>
     onChange({ ...entry, ...data })
 
@@ -88,6 +101,12 @@ const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => {
       )}
     >
       <div role="gridcell" className="flex">
+        <Checkbox
+          checked={checked}
+          onCheckedChange={() => onCheckedChange(entry)}
+        />
+      </div>
+      <div role="gridcell" className="flex">
         <inputs.Description entry={entry} onChange={updateData} />
       </div>
       <div role="gridcell">
@@ -112,28 +131,31 @@ const TimeTableRow = ({ entry, onChange, onRemove }: TimeTableRowProps) => {
   )
 }
 
-interface TimeTableBodyProps {
+interface TimeTableBodyProps extends CheckedProps {
   entries: TimeEntry[]
   onChange: Dispatch<TimeEntry>
   onRemove: Dispatch<TimeEntry>
 }
-const TimeTableBody = ({ entries, onChange, onRemove }: TimeTableBodyProps) => (
+const TimeTableBody = ({ entries, checked, ...rest }: TimeTableBodyProps) => (
   <div
     role="rowgroup"
-    className={cn("grid grid-cols-[1fr_auto_auto_auto_auto] gap-x-2")}
+    className={cn("grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-x-2")}
   >
     {entries.map(entry => (
       <TimeTableRow
-        entry={entry}
         key={entry.id}
-        onRemove={onRemove}
-        onChange={onChange}
+        checked={!!checked[entry.id]}
+        entry={entry}
+        {...rest}
       />
     ))}
   </div>
 )
 
-export const TimeTable = ({ date }: { date: string }) => {
+interface TimeTableProps extends CheckedProps {
+  date: string
+}
+export const TimeTable = ({ date, ...rest }: TimeTableProps) => {
   const { entries, atom } = useDateEntries(date)
 
   const handleChange = (data: TimeEntry) => {
@@ -164,6 +186,7 @@ export const TimeTable = ({ date }: { date: string }) => {
           <div role="columnheader">Actions</div>
         </div>
         <TimeTableBody
+          {...rest}
           entries={entries}
           onChange={handleChange}
           onRemove={entry => atom.actions.delete(entry.id)}
