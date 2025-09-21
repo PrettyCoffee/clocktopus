@@ -3,6 +3,7 @@ import { Trash } from "lucide-react"
 import { Button } from "components/ui/button"
 import { showDialog } from "components/ui/dialog"
 import { showToast } from "components/ui/toaster"
+import { AutoAnimateHeight } from "components/utility/auto-animate-height"
 import { getDateAtom, TimeEntry, useTrackedDates } from "data/time-entries"
 import { TimeTable } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
@@ -80,13 +81,17 @@ const MainRoute = () => {
         <CreateTimeEntry />
       </div>
 
-      <div className={cn(hstack({ align: "center" }), "h-12")}>
-        {hasChecked && (
-          <Button icon={Trash} onClick={() => bulkDelete(checked)}>
-            Delete selected
-          </Button>
-        )}
-      </div>
+      <AutoAnimateHeight duration={150}>
+        <div
+          className={cn(hstack({ align: "center" }), "pt-4 [&:has(*)]:pb-1")}
+        >
+          {hasChecked && (
+            <Button icon={Trash} onClick={() => bulkDelete(checked)}>
+              Delete selected
+            </Button>
+          )}
+        </div>
+      </AutoAnimateHeight>
 
       <div className="space-y-4">
         {trackedDates.map(date => (
