@@ -18,7 +18,7 @@ import {
 import { cn } from "utils/cn"
 import { interactive, InteractiveProps } from "utils/styles"
 
-import { Icon } from "../icon"
+import { Icon, IconProps } from "../icon"
 import { Spinner } from "../spinner"
 
 const button = cva(
@@ -53,8 +53,10 @@ export interface ButtonProps
   href?: string
   target?: HTMLAttributeAnchorTarget
   to?: string
+  iconColor?: IconProps["color"]
 }
 
+// eslint-disable-next-line complexity
 export const Button = ({
   ref,
   className,
@@ -64,6 +66,7 @@ export const Button = ({
   children,
   isLoading,
   icon,
+  iconColor = "current",
   active,
   disabled,
   ...props
@@ -92,9 +95,10 @@ export const Button = ({
         <Spinner size="sm" color="current" className="mr-2" />
       ) : icon ? (
         <Icon
+          color={iconColor}
           icon={icon}
           size={size === "sm" ? "sm" : "md"}
-          className="mr-2 text-current"
+          className="mr-2"
         />
       ) : null}
       {children}
