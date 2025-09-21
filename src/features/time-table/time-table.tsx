@@ -124,7 +124,7 @@ const TimeTableRow = ({
           hideTitle
           icon={Trash}
           onClick={handleRemove}
-          className="[li:not(:hover,:focus-within)_&]:opacity-0"
+          className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
         />
       </div>
     </div>
