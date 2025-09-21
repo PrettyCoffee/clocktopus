@@ -5,7 +5,6 @@ import { Plus } from "lucide-react"
 import { IconButton } from "components/ui/icon-button"
 import { useDateEntries, type TimeEntry } from "data/time-entries"
 import { cn } from "utils/cn"
-import { hstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
 import { Duration } from "./duration"
@@ -31,20 +30,31 @@ export const CreateTimeEntry = () => {
   const { atom } = useDateEntries(data.date)
 
   return (
-    <div className={cn(hstack({ gap: 2, align: "center" }))}>
-      <inputs.Description entry={data} onChange={updateData} />
-      <inputs.Date entry={data} onChange={updateData} />
-      <inputs.TimeRange entry={data} onChange={updateData} />
-      <Duration entries={[data]} className="inline-block w-15 text-center" />
-      <IconButton
-        icon={Plus}
-        title="Add item"
-        hideTitle
-        onClick={() => {
-          atom.actions.add(data)
-          updateData(getInitialState(data.end))
-        }}
-      />
+    <div className="@container w-full flex-1">
+      <div
+        className={cn(
+          "grid items-center gap-2",
+          "grid-cols-[1fr_auto_auto_auto] @2xl:grid-cols-[1fr_auto_auto_auto_auto]"
+        )}
+      >
+        <inputs.Description
+          entry={data}
+          onChange={updateData}
+          className="col-[1_/_-1] @2xl:col-[span_1]"
+        />
+        <inputs.Date entry={data} onChange={updateData} />
+        <inputs.TimeRange entry={data} onChange={updateData} />
+        <Duration entries={[data]} className="inline-block w-15 text-center" />
+        <IconButton
+          icon={Plus}
+          title="Add item"
+          hideTitle
+          onClick={() => {
+            atom.actions.add(data)
+            updateData(getInitialState(data.end))
+          }}
+        />
+      </div>
     </div>
   )
 }

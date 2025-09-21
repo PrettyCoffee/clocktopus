@@ -1,4 +1,4 @@
-import { Dispatch, useState } from "react"
+import { Dispatch, Fragment, useState } from "react"
 
 import { Trash } from "lucide-react"
 
@@ -95,7 +95,7 @@ const TimeTableRow = ({
     <div
       role="row"
       className={cn(
-        "col-[1_/_-1] grid h-12 grid-cols-subgrid items-center rounded-md px-1",
+        "col-[1_/_-1] grid grid-cols-subgrid items-center rounded-md p-1",
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
         "[&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
       )}
@@ -106,11 +106,15 @@ const TimeTableRow = ({
           onCheckedChange={() => onCheckedChange(entry)}
         />
       </div>
-      <div role="gridcell" className="flex">
+      <div role="gridcell" className="col-[2_/_-1] flex @2xl:col-[span_1]">
         <inputs.Description entry={entry} onChange={updateData} />
       </div>
+      <div
+        /* placeholder for checkbox alignment in mobile view */
+        className="@2xl:hidden"
+      />
       <div role="gridcell">
-        <inputs.Date entry={entry} onChange={updateData} />
+        <inputs.Date entry={entry} onChange={updateData} className="w-full" />
       </div>
       <div role="gridcell">
         <inputs.TimeRange entry={entry} onChange={updateData} />
@@ -139,15 +143,18 @@ interface TimeTableBodyProps extends CheckedProps {
 const TimeTableBody = ({ entries, checked, ...rest }: TimeTableBodyProps) => (
   <div
     role="rowgroup"
-    className={cn("grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-x-2")}
+    className={cn(
+      "grid gap-x-2",
+      "grid-cols-[auto_1fr_auto_auto_auto] @2xl:grid-cols-[auto_1fr_auto_auto_auto_auto]"
+    )}
   >
-    {entries.map(entry => (
-      <TimeTableRow
-        key={entry.id}
-        checked={!!checked[entry.id]}
-        entry={entry}
-        {...rest}
-      />
+    {entries.map((entry, index) => (
+      <Fragment key={entry.id}>
+        {index !== 0 && (
+          <div className="col-[1_/_-1] mx-2 border-b border-stroke-gentle" />
+        )}
+        <TimeTableRow checked={!!checked[entry.id]} entry={entry} {...rest} />
+      </Fragment>
     ))}
   </div>
 )
@@ -175,7 +182,12 @@ export const TimeTable = ({ date, ...rest }: TimeTableProps) => {
   }
 
   return (
-    <div className={cn(surface({ look: "card", size: "lg" }), "isolate p-0")}>
+    <div
+      className={cn(
+        surface({ look: "card", size: "lg" }),
+        "@container isolate p-0"
+      )}
+    >
       <TimeTableHeader date={date} entries={entries} />
       <div role="grid">
         <div role="row" className="sr-only">

@@ -3,20 +3,22 @@ import { Dispatch } from "react"
 import { Input } from "components/ui/input"
 import { TimeInput } from "components/ui/time-input"
 import { type TimeEntry } from "data/time-entries"
+import { ClassNameProp } from "types/base-props"
+import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
 const today = () => new Date().toISOString().split("T")[0]!
 
-interface InputProps {
+interface InputProps extends ClassNameProp {
   entry: TimeEntry
   onChange: Dispatch<Partial<TimeEntry>>
 }
 
-const Description = ({ entry, onChange }: InputProps) => (
+const Description = ({ entry, className, onChange }: InputProps) => (
   <Input
     type="text"
     placeholder="Description"
-    className="flex-1"
+    className={cn("flex-1", className)}
     value={entry.description}
     onChange={description => onChange({ description })}
   />
