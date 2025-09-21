@@ -6,11 +6,10 @@ import { IconButton } from "components/ui/icon-button"
 import { useDateEntries, type TimeEntry } from "data/time-entries"
 import { cn } from "utils/cn"
 import { timeHelpers } from "utils/time-helpers"
+import { today } from "utils/today"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
-
-const today = () => new Date().toISOString().split("T")[0]!
 
 const reducer = (state: TimeEntry, data: Partial<TimeEntry>) => ({
   ...state,

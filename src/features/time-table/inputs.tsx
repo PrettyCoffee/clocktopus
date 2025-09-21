@@ -6,8 +6,7 @@ import { type TimeEntry } from "data/time-entries"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
-
-const today = () => new Date().toISOString().split("T")[0]!
+import { today } from "utils/today"
 
 interface InputProps extends ClassNameProp {
   entry: TimeEntry
