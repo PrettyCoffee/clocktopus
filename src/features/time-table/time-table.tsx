@@ -97,7 +97,7 @@ const TimeTableRow = ({
       className={cn(
         "col-[1_/_-1] grid grid-cols-subgrid items-center rounded-md p-1",
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
-        "[&_input]:bg-transparent [&:not(:hover,:focus-within)_input]:border-transparent"
+        "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent"
       )}
     >
       <div role="gridcell" className="flex">

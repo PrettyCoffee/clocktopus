@@ -1,5 +1,6 @@
 import { Dispatch } from "react"
 
+import { DateInput } from "components/ui/date-input"
 import { Input } from "components/ui/input"
 import { TimeInput } from "components/ui/time-input"
 import { type TimeEntry } from "data/time-entries"
@@ -24,8 +25,7 @@ const Description = ({ entry, className, onChange }: InputProps) => (
 )
 
 const DateComp = ({ entry, onChange }: InputProps) => (
-  <Input
-    type="date"
+  <DateInput
     value={entry.date}
     max={today()}
     onChange={date => onChange({ date })}
