@@ -8,5 +8,7 @@
   "project": ["./**/*.{ts,tsx,js,mjs}"],
   "paths": {
     "*": ["src/*"]
-  }
+  },
+  "ignoreBinaries": ["eslint"],
+  "ignoreDependencies": [".*eslint.*"]
 }

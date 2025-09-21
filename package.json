@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "knip": "knip",
     "knip:fix": "knip --fix-type exports,types",
-    "knip:ci": "knip --include exports,types",
+    "knip:ci": "knip",
     "lint": "eslint .",
     "lint:fix": "bun run lint -- --fix",
     "lint:time": "TIMING=15 bun run lint",
