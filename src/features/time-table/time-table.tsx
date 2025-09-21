@@ -142,7 +142,7 @@ export const TimeTable = ({ date }: { date: string }) => {
       return
     }
     // If date changed, move entry to new table
-    atom.actions.remove(data)
+    atom.actions.delete(data.id)
     const newAtom = getDateAtom(data.date)
     const add = () => newAtom.actions.add(data)
     if (newAtom.didInit instanceof Promise) {
@@ -166,7 +166,7 @@ export const TimeTable = ({ date }: { date: string }) => {
         <TimeTableBody
           entries={entries}
           onChange={handleChange}
-          onRemove={atom.actions.remove}
+          onRemove={entry => atom.actions.delete(entry.id)}
         />
       </div>
     </div>

@@ -41,7 +41,7 @@ const sortEntries = (a: TimeEntry, b: TimeEntry) => {
 
 const defaultValue: TimeEntry[] = []
 
-export const getEntriesByDate = (date: string) => {
+const createEntriesByDate = (date: string) => {
   const atom = createSlice({
     name: date,
     defaultValue,
@@ -55,8 +55,8 @@ export const getEntriesByDate = (date: string) => {
       edit: (state, id: number, entry: Partial<TimeEntry>) =>
         state.map(item => (item.id !== id ? item : { ...item, ...entry })),
 
-      remove: (state, entry: TimeEntry) => {
-        const newState = state.filter(item => item.id !== entry.id)
+      delete: (state, id: number) => {
+        const newState = state.filter(item => item.id != id)
         return newState.length === 0 ? defaultValue : newState
       },
     },
@@ -71,4 +71,13 @@ export const getEntriesByDate = (date: string) => {
   })
 
   return atom
+}
+
+const atomsCache: Record<string, ReturnType<typeof createEntriesByDate>> = {}
+
+export const getDateAtom = (date: string) => {
+  if (!atomsCache[date]) {
+    atomsCache[date] = createEntriesByDate(date)
+  }
+  return atomsCache[date]
 }

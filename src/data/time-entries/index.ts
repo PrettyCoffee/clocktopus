@@ -1,2 +1,2 @@
-export * from "./get-entries-by-date"
+export * from "./get-date-atom"
 export * from "./use-date-entries"
