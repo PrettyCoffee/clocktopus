@@ -1,6 +1,6 @@
 import { createSlice } from "lib/yaasl"
 import { AlertKind } from "types/base-props"
-import { createUuid } from "utils/create-uuid"
+import { createId } from "utils/create-id"
 
 const defaultDurations: Record<AlertKind, number> = {
   info: 5000,
@@ -22,7 +22,7 @@ export const toastList = createSlice({
   defaultValue: [] as ToastProps[],
   reducers: {
     add: (state, toast: Omit<ToastProps, "id">) => [
-      { ...toast, id: createUuid() },
+      { ...toast, id: createId("uuid") },
       ...state,
     ],
     close: (state, id: string) => state.filter(toast => toast.id !== id),
