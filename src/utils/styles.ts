@@ -149,3 +149,81 @@ export const surface = cva("border", {
     },
   },
 })
+
+export const colored = cva("", {
+  variants: {
+    type: {
+      bg: true,
+      text: true,
+    },
+    color: {
+      neutral: true,
+      //red: true,
+      pink: true,
+      rose: true,
+      orange: true,
+      yellow: true,
+      lime: true,
+      green: true,
+      teal: true,
+      cyan: true,
+      blue: true,
+      indigo: true,
+      violet: true,
+      fuchsia: true,
+    },
+  },
+
+  compoundVariants: [
+    { color: "neutral", type: "text", className: "text-text-priority" },
+    //{ color: "red", type: "text", className: "text-category-red" },
+    { color: "pink", type: "text", className: "text-category-pink" },
+    { color: "rose", type: "text", className: "text-category-rose" },
+    { color: "orange", type: "text", className: "text-category-orange" },
+    { color: "yellow", type: "text", className: "text-category-yellow" },
+    { color: "lime", type: "text", className: "text-category-lime" },
+    { color: "green", type: "text", className: "text-category-green" },
+    { color: "teal", type: "text", className: "text-category-teal" },
+    { color: "cyan", type: "text", className: "text-category-cyan" },
+    { color: "blue", type: "text", className: "text-category-blue" },
+    { color: "indigo", type: "text", className: "text-category-indigo" },
+    { color: "violet", type: "text", className: "text-category-violet" },
+    { color: "fuchsia", type: "text", className: "text-category-fuchsia" },
+
+    { color: "neutral", type: "bg", className: "bg-text-priority" },
+    //{ color: "red", type: "bg", className: "bg-category-red" },
+    { color: "pink", type: "bg", className: "bg-category-pink" },
+    { color: "rose", type: "bg", className: "bg-category-rose" },
+    { color: "orange", type: "bg", className: "bg-category-orange" },
+    { color: "yellow", type: "bg", className: "bg-category-yellow" },
+    { color: "lime", type: "bg", className: "bg-category-lime" },
+    { color: "green", type: "bg", className: "bg-category-green" },
+    { color: "teal", type: "bg", className: "bg-category-teal" },
+    { color: "cyan", type: "bg", className: "bg-category-cyan" },
+    { color: "blue", type: "bg", className: "bg-category-blue" },
+    { color: "indigo", type: "bg", className: "bg-category-indigo" },
+    { color: "violet", type: "bg", className: "bg-category-violet" },
+    { color: "fuchsia", type: "bg", className: "bg-category-fuchsia" },
+  ],
+})
+export type ThemeColor = NonNullable<VariantProps<typeof colored>["color"]>
+export const allColors = [
+  //"red",
+  "pink",
+  "rose",
+  "orange",
+  "yellow",
+  "lime",
+  "green",
+  "teal",
+  "cyan",
+  "blue",
+  "indigo",
+  "violet",
+  "fuchsia",
+  "neutral",
+] satisfies ThemeColor[]
+export const getThemeColorPath = (color: ThemeColor) =>
+  color === "neutral"
+    ? ("color.text.priority" as const)
+    : (`color.category.${color}` as const)

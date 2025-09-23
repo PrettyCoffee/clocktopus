@@ -6,10 +6,10 @@ import { Icon } from "components/ui/icon"
 import { Toggle } from "components/ui/toggle"
 import { TitleTooltip } from "components/ui/tooltip"
 import { VisuallyHidden } from "components/utility/visually-hidden"
-import { themeAccentColors, themeData } from "data/theme"
+import { themeData } from "data/theme"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
-import { hstack, vstack } from "utils/styles"
+import { allColors, colored, hstack, ThemeColor, vstack } from "utils/styles"
 
 import { theme } from "../../../../tailwind/theme"
 
@@ -109,13 +109,12 @@ const BorderRadiusSlider = () => {
 }
 
 interface ColorButtonProps {
-  color: (typeof themeAccentColors)[number]
+  color: ThemeColor
   current: string
 }
 const ColorButton = ({ color, current }: ColorButtonProps) => {
   const colorName = ((): string => {
-    const name = color.split(".").at(-1)!
-    const [first, ...rest] = name === "priority" ? "neutral" : name
+    const [first, ...rest] = color
     return first!.toUpperCase() + rest.join("")
   })()
 
@@ -123,10 +122,10 @@ const ColorButton = ({ color, current }: ColorButtonProps) => {
     <TitleTooltip asChild title={colorName} side="bottom">
       <button
         onClick={() => themeData.actions.setAccent(color)}
-        style={{ color: theme.read(color) }}
         className={cn(
           hstack({ align: "center", justify: "center", inline: true }),
-          "size-8 cursor-pointer rounded-md bgl-base-current hover:bgl-layer-b/10 active:bgl-layer-b/20"
+          colored({ type: "text", color }),
+          "size-8 cursor-pointer rounded-md bgl-base-current hover:bgl-layer-b/20 active:bgl-layer-b/20"
         )}
       >
         <VisuallyHidden>{colorName}</VisuallyHidden>
@@ -144,7 +143,7 @@ const AccentColor = () => {
       description="Change the accent color which highlights focused and active elements."
     >
       <div className={hstack({ gap: 2, wrap: true })}>
-        {themeAccentColors.map(color => (
+        {allColors.map(color => (
           <ColorButton key={color} color={color} current={accent} />
         ))}
       </div>
