@@ -4,7 +4,7 @@ import { createId } from "utils/create-id"
 export interface Project {
   id: string
   name: string
-  categoryId?: string
+  categoryId: string
 }
 
 const defaultValue: Project[] = [
