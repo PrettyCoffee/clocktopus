@@ -1,15 +1,12 @@
 import { css } from "goober"
-import { Check } from "lucide-react"
 
 import { Card } from "components/ui/card"
-import { Icon } from "components/ui/icon"
+import { ColorInput } from "components/ui/color-input"
 import { Toggle } from "components/ui/toggle"
-import { TitleTooltip } from "components/ui/tooltip"
-import { VisuallyHidden } from "components/utility/visually-hidden"
 import { themeData } from "data/theme"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
-import { allColors, colored, hstack, ThemeColor, vstack } from "utils/styles"
+import { hstack, vstack } from "utils/styles"
 
 import { theme } from "../../../../tailwind/theme"
 
@@ -66,7 +63,7 @@ const BaseColors = () => {
       title="Base Colors"
       description="Choose between dark and light mode, and decide if neutral colors should have a hue."
     >
-      <div className={hstack({ justify: "start", gap: 4, wrap: true })}>
+      <div className={hstack({ justify: "evenly", gap: 4, wrap: true })}>
         <Toggle
           label="Dark base colors"
           checked={mode === "dark"}
@@ -108,33 +105,6 @@ const BorderRadiusSlider = () => {
   )
 }
 
-interface ColorButtonProps {
-  color: ThemeColor
-  current: string
-}
-const ColorButton = ({ color, current }: ColorButtonProps) => {
-  const colorName = ((): string => {
-    const [first, ...rest] = color
-    return first!.toUpperCase() + rest.join("")
-  })()
-
-  return (
-    <TitleTooltip asChild title={colorName} side="bottom">
-      <button
-        onClick={() => themeData.actions.setAccent(color)}
-        className={cn(
-          hstack({ align: "center", justify: "center", inline: true }),
-          colored({ type: "text", color }),
-          "size-8 cursor-pointer rounded-md bgl-base-current hover:bgl-layer-b/20 active:bgl-layer-b/20"
-        )}
-      >
-        <VisuallyHidden>{colorName}</VisuallyHidden>
-        {current === color && <Icon icon={Check} color="invert" size="sm" />}
-      </button>
-    </TitleTooltip>
-  )
-}
-
 const AccentColor = () => {
   const accent = useAtomValue(themeData.selectors.getAccent)
   return (
@@ -142,10 +112,12 @@ const AccentColor = () => {
       title="Accent color"
       description="Change the accent color which highlights focused and active elements."
     >
-      <div className={hstack({ gap: 2, wrap: true })}>
-        {allColors.map(color => (
-          <ColorButton key={color} color={color} current={accent} />
-        ))}
+      <div className="mx-auto max-w-80">
+        <ColorInput
+          mode="list"
+          value={accent}
+          onChange={themeData.actions.setAccent}
+        />
       </div>
     </Card>
   )
