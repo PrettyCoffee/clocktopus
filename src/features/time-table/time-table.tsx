@@ -1,10 +1,11 @@
-import { Dispatch, Fragment, useState } from "react"
+import { Dispatch, useState } from "react"
 
 import { Trash } from "lucide-react"
 
 import { Checkbox } from "components/ui/checkbox"
 import { showDialog } from "components/ui/dialog"
 import { IconButton } from "components/ui/icon-button"
+import { createColumnHelper, Table } from "components/ui/table"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { cn } from "utils/cn"
@@ -63,115 +64,95 @@ interface CheckedProps {
   onCheckedChange: Dispatch<TimeEntry>
 }
 
-interface TimeTableRowProps extends Omit<CheckedProps, "checked"> {
-  checked: boolean
-  entry: TimeEntry
-  onChange: Dispatch<TimeEntry>
-  onRemove: Dispatch<TimeEntry>
-}
-const TimeTableRow = ({
-  checked,
-  onCheckedChange,
-  entry,
-  onChange,
-  onRemove,
-}: TimeTableRowProps) => {
-  const updateData = (data: Partial<TimeEntry>) =>
-    onChange({ ...entry, ...data })
-
-  const handleRemove = () =>
-    showDialog({
-      title: "Delete time entry?",
-      description:
-        "Do you really want to delete this time entry? This action cannot be reverted.",
-      confirm: {
-        caption: "Delete",
-        look: "destructive",
-        onClick: () => onRemove(entry),
-      },
-    })
-
-  return (
-    <div
-      role="row"
-      className={cn(
-        "col-[1_/_-1] grid grid-cols-subgrid items-center gap-1 rounded-md p-1",
-        "focus-within:bg-background-page/50 hover:bg-background-page/50",
-        "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent"
-      )}
-    >
-      <div role="gridcell" className="flex">
-        <Checkbox
-          checked={checked}
-          onCheckedChange={() => onCheckedChange(entry)}
-        />
-      </div>
-      <div role="gridcell" className="col-[2_/_-1] flex @4xl:col-[span_1]">
-        <inputs.Description entry={entry} onChange={updateData} />
-      </div>
-      <div
-        /* placeholder for checkbox alignment in mobile view */
-        className="@4xl:hidden"
-      />
-      <div role="gridcell">
-        <inputs.Project
-          entry={entry}
-          onChange={updateData}
-          className="@4xl:w-full"
-        />
-      </div>
-      <div role="gridcell">
-        <inputs.Date entry={entry} onChange={updateData} />
-      </div>
-      <div role="gridcell">
-        <inputs.TimeRange entry={entry} onChange={updateData} />
-      </div>
-      <div role="gridcell">
-        <Duration entries={[entry]} className="inline-block w-15 text-center" />
-      </div>
-      <div role="gridcell">
-        <IconButton
-          title="Delete"
-          hideTitle
-          icon={Trash}
-          onClick={handleRemove}
-          className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
-        />
-      </div>
-    </div>
-  )
-}
-
-interface TimeTableBodyProps extends CheckedProps {
-  entries: TimeEntry[]
-  onChange: Dispatch<TimeEntry>
-  onRemove: Dispatch<TimeEntry>
-}
-const TimeTableBody = ({ entries, checked, ...rest }: TimeTableBodyProps) => (
-  <div
-    role="rowgroup"
-    className={cn(
-      "grid gap-x-2",
-      "grid-cols-[auto_1fr_auto_auto_auto_auto] @4xl:grid-cols-[auto_1fr_auto_auto_auto_auto_auto]"
-    )}
-  >
-    {entries.map((entry, index) => (
-      <Fragment key={entry.id}>
-        {index !== 0 && (
-          <div className="col-[1_/_-1] mx-2 border-b border-stroke-gentle" />
-        )}
-        <TimeTableRow checked={!!checked[entry.id]} entry={entry} {...rest} />
-      </Fragment>
-    ))}
-  </div>
-)
-
-interface TimeTableProps extends CheckedProps {
+interface TimeTableRowsProps
+  extends CheckedProps,
+    ReturnType<typeof useDateEntries> {
   date: string
 }
-export const TimeTable = ({ date, ...rest }: TimeTableProps) => {
-  const { entries, atom } = useDateEntries(date)
 
+interface TableConfig {
+  rowData: TimeEntry
+  rowMeta: CheckedProps & {
+    onChange: Dispatch<TimeEntry>
+    onRemove: Dispatch<number>
+  }
+}
+
+const helper = createColumnHelper<TableConfig>()
+const checkedColumn = helper.column({
+  name: "Selected",
+  render: ({ rowData, checked, onCheckedChange }) => (
+    <Checkbox
+      checked={checked[rowData.id] ?? false}
+      onCheckedChange={() => onCheckedChange(rowData)}
+    />
+  ),
+})
+const descriptionColumn = helper.column({
+  name: "Description",
+  colSize: "col-[2_/_-1] @4xl:col-[span_1]",
+  className: "flex",
+  render: ({ rowData, onChange }) => (
+    <inputs.Description
+      entry={rowData}
+      onChange={data => onChange({ ...rowData, ...data })}
+    />
+  ),
+})
+const projectColumn = helper.column({
+  name: "Project",
+  colSize: "col-[2] @4xl:col-[span_1]",
+  render: ({ rowData, onChange }) => (
+    <inputs.Project
+      entry={rowData}
+      onChange={data => onChange({ ...rowData, ...data })}
+    />
+  ),
+})
+const dateColumn = helper.column({
+  name: "Date",
+  render: ({ rowData, onChange }) => (
+    <inputs.Date
+      entry={rowData}
+      onChange={data => onChange({ ...rowData, ...data })}
+    />
+  ),
+})
+const timeColumn = helper.column({
+  name: "Time Range",
+  render: ({ rowData, onChange }) => (
+    <inputs.TimeRange
+      entry={rowData}
+      onChange={data => onChange({ ...rowData, ...data })}
+    />
+  ),
+})
+const durationColumn = helper.column({
+  name: "Duration",
+  render: ({ rowData }) => (
+    <Duration entries={[rowData]} className="inline-block w-15 text-center" />
+  ),
+})
+const actionColumn = helper.column({
+  name: "Actions",
+  render: ({ rowData, onRemove }) => (
+    <IconButton
+      title="Delete"
+      hideTitle
+      icon={Trash}
+      onClick={() => onRemove(rowData.id)}
+      className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
+    />
+  ),
+})
+
+const TimeTableRows = ({
+  date,
+  atom,
+  entries,
+  checked,
+  onCheckedChange,
+}: TimeTableRowsProps) => {
   const handleChange = (data: TimeEntry) => {
     if (data.date === date) {
       atom.actions.edit(data.id, data)
@@ -188,29 +169,52 @@ export const TimeTable = ({ date, ...rest }: TimeTableProps) => {
     }
   }
 
+  const handleRemove = (id: number) =>
+    showDialog({
+      title: "Delete time entry?",
+      description:
+        "Do you really want to delete this time entry? This action cannot be reverted.",
+      confirm: {
+        caption: "Delete",
+        look: "destructive",
+        onClick: () => atom.actions.delete(id),
+      },
+    })
+
   return (
-    <div
-      className={cn(
-        surface({ look: "card", size: "lg" }),
-        "@container isolate p-0"
-      )}
-    >
+    <Table<TableConfig>
+      gridCols="grid-cols-[auto_1fr_auto_auto_auto_auto] @4xl:grid-cols-[auto_1fr_auto_auto_auto_auto_auto]"
+      rowData={entries}
+      columns={[
+        checkedColumn,
+        descriptionColumn,
+        projectColumn,
+        dateColumn,
+        timeColumn,
+        durationColumn,
+        actionColumn,
+      ]}
+      rowMeta={{
+        checked,
+        onCheckedChange,
+        onChange: handleChange,
+        onRemove: handleRemove,
+      }}
+    />
+  )
+}
+
+interface TimeTableProps extends CheckedProps {
+  date: string
+}
+
+export const TimeTable = ({ date, ...rest }: TimeTableProps) => {
+  const { entries, atom } = useDateEntries(date)
+
+  return (
+    <div className={cn(surface({ look: "card", size: "lg" }), "isolate p-0")}>
       <TimeTableHeader date={date} entries={entries} />
-      <div role="grid">
-        <div role="row" className="sr-only">
-          <div role="columnheader">Description</div>
-          <div role="columnheader">Date</div>
-          <div role="columnheader">Time Range</div>
-          <div role="columnheader">Duration</div>
-          <div role="columnheader">Actions</div>
-        </div>
-        <TimeTableBody
-          {...rest}
-          entries={entries}
-          onChange={handleChange}
-          onRemove={entry => atom.actions.delete(entry.id)}
-        />
-      </div>
+      <TimeTableRows date={date} entries={entries} atom={atom} {...rest} />
     </div>
   )
 }
