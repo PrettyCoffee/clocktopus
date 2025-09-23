@@ -33,14 +33,19 @@ export const CreateTimeEntry = () => {
       <div
         className={cn(
           "grid items-center gap-2",
-          "grid-cols-[1fr_auto_auto_auto] @2xl:grid-cols-[1fr_auto_auto_auto_auto]"
+          "grid-cols-[1fr_auto_auto_auto_auto] @4xl:grid-cols-[1fr_auto_auto_auto_auto_auto]"
         )}
       >
         <inputs.Description
           entry={data}
           onChange={updateData}
-          className="col-[1_/_-1] @2xl:col-[span_1]"
+          className="col-[1_/_-1] @4xl:col-[span_1]"
         />
+
+        <div>
+          <inputs.Project entry={data} onChange={updateData} />
+        </div>
+
         <inputs.Date entry={data} onChange={updateData} />
         <inputs.TimeRange entry={data} onChange={updateData} />
         <Duration entries={[data]} className="inline-block w-15 text-center" />

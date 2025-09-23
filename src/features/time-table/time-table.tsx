@@ -95,7 +95,7 @@ const TimeTableRow = ({
     <div
       role="row"
       className={cn(
-        "col-[1_/_-1] grid grid-cols-subgrid items-center rounded-md p-1",
+        "col-[1_/_-1] grid grid-cols-subgrid items-center gap-1 rounded-md p-1",
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
         "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent"
       )}
@@ -106,15 +106,22 @@ const TimeTableRow = ({
           onCheckedChange={() => onCheckedChange(entry)}
         />
       </div>
-      <div role="gridcell" className="col-[2_/_-1] flex @2xl:col-[span_1]">
+      <div role="gridcell" className="col-[2_/_-1] flex @4xl:col-[span_1]">
         <inputs.Description entry={entry} onChange={updateData} />
       </div>
       <div
         /* placeholder for checkbox alignment in mobile view */
-        className="@2xl:hidden"
+        className="@4xl:hidden"
       />
       <div role="gridcell">
-        <inputs.Date entry={entry} onChange={updateData} className="w-full" />
+        <inputs.Project
+          entry={entry}
+          onChange={updateData}
+          className="@4xl:w-full"
+        />
+      </div>
+      <div role="gridcell">
+        <inputs.Date entry={entry} onChange={updateData} />
       </div>
       <div role="gridcell">
         <inputs.TimeRange entry={entry} onChange={updateData} />
@@ -145,7 +152,7 @@ const TimeTableBody = ({ entries, checked, ...rest }: TimeTableBodyProps) => (
     role="rowgroup"
     className={cn(
       "grid gap-x-2",
-      "grid-cols-[auto_1fr_auto_auto_auto] @2xl:grid-cols-[auto_1fr_auto_auto_auto_auto]"
+      "grid-cols-[auto_1fr_auto_auto_auto_auto] @4xl:grid-cols-[auto_1fr_auto_auto_auto_auto_auto]"
     )}
   >
     {entries.map((entry, index) => (

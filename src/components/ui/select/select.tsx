@@ -20,7 +20,7 @@ const Trigger = ({ placeholder, className }: TriggerProps) => (
   <Primitive.Trigger asChild>
     <Button
       className={cn(
-        "gap-2 border border-stroke-gentle data-[placeholder]:text-text-muted",
+        "justify-between gap-2 border border-stroke-gentle data-[placeholder]:text-text-muted",
         "[&_svg]:transition [&_svg]:duration-400 [&_svg]:ease-bounce data-[state='open']:[&_svg]:rotate-180",
         className
       )}
@@ -81,7 +81,13 @@ interface OptionProps extends DisableProp, ClassNameProp {
   value: string
   label?: string
 }
-const Option = ({ value, label = value, disabled, className }: OptionProps) => (
+const Option = ({
+  value,
+  label = value,
+  children,
+  disabled,
+  className,
+}: PropsWithChildren<OptionProps>) => (
   <Primitive.Item
     value={value}
     textValue={label}
@@ -94,13 +100,19 @@ const Option = ({ value, label = value, disabled, className }: OptionProps) => (
       className
     )}
   >
-    <Primitive.ItemText>{label}</Primitive.ItemText>
+    <Primitive.ItemText>{children || label}</Primitive.ItemText>
     <span className="absolute right-2 flex size-3.5 items-center justify-center">
       <Primitive.ItemIndicator>
         <Icon icon={Check} size="sm" />
       </Primitive.ItemIndicator>
     </span>
   </Primitive.Item>
+)
+
+const Separator = ({ className }: ClassNameProp) => (
+  <Primitive.Separator
+    className={cn("pointer-events-none m-1 h-px bg-stroke-gentle", className)}
+  />
 )
 
 interface GroupProps {
@@ -121,12 +133,7 @@ const Group = ({
 
     {children}
 
-    <Primitive.Separator
-      className={cn(
-        "pointer-events-none m-1 h-px bg-stroke-gentle",
-        "[:last-child>&]:hidden"
-      )}
-    />
+    <Separator className="[:last-child>&]:hidden" />
   </Primitive.Group>
 )
 
@@ -152,4 +159,5 @@ export const Select = {
   Root,
   Group,
   Option,
+  Separator,
 }
