@@ -11,7 +11,7 @@ export interface ProjectCategory {
 const defaultValue: Record<string, ProjectCategory> = {
   1: { id: "1", name: "Dev", color: "rose" },
   2: { id: "2", name: "Scrum", color: "blue" },
-  3: { id: "3", name: "Misc", color: "yellow" },
+  3: { id: "3", name: "Misc", color: "amber" },
   4: { id: "4", name: "Break", color: "green" },
 }
 
