@@ -12,6 +12,7 @@ export interface TimeEntry {
   start: string
   end: string
   date: string
+  project?: string
 }
 
 const getNextId = (entries: TimeEntry[]) =>
