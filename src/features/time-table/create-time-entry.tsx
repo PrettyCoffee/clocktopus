@@ -1,20 +1,14 @@
-import { useReducer } from "react"
-
 import { Plus } from "lucide-react"
 
 import { IconButton } from "components/ui/icon-button"
 import { useDateEntries, type TimeEntry } from "data/time-entries"
+import { useObjectState } from "hooks/use-object-state"
 import { cn } from "utils/cn"
 import { timeHelpers } from "utils/time-helpers"
 import { today } from "utils/today"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
-
-const reducer = (state: TimeEntry, data: Partial<TimeEntry>) => ({
-  ...state,
-  ...data,
-})
 
 const getInitialState = (start?: string): TimeEntry => ({
   id: 0,
@@ -25,7 +19,7 @@ const getInitialState = (start?: string): TimeEntry => ({
 })
 
 export const CreateTimeEntry = () => {
-  const [data, updateData] = useReducer(reducer, getInitialState())
+  const [data, updateData] = useObjectState(getInitialState())
   const { atom } = useDateEntries(data.date)
 
   return (
