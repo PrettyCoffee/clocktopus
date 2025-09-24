@@ -102,6 +102,7 @@ const descriptionColumn = helper.column({
 const projectColumn = helper.column({
   name: "Project",
   colSize: "col-[2] @4xl:col-[span_1]",
+  className: "@4xl:*:w-full",
   render: ({ rowData, onChange }) => (
     <inputs.Project
       entry={rowData}

@@ -5,6 +5,7 @@ import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
 import { SettingsData } from "./settings-data"
+import { SettingsProjects } from "./settings-projects"
 import { SettingsTheming } from "./settings-theming"
 
 const SectionHeader = ({ paths }: { paths: string[] }) => (
@@ -33,6 +34,9 @@ const SettingsRoute = () => (
     <div className="mx-auto w-full max-w-2xl pb-4">
       <SectionHeader paths={["Settings", "Theming"]} />
       <SettingsTheming />
+
+      <SectionHeader paths={["Settings", "Projects"]} />
+      <SettingsProjects />
 
       <SectionHeader paths={["Settings", "Data"]} />
       <SettingsData />

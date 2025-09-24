@@ -8,9 +8,8 @@ import { FileInput } from "components/ui/file-input/file-input"
 import { showToast } from "components/ui/toaster"
 import { allData, AllData } from "data/all-data"
 import { cn } from "utils/cn"
+import { download } from "utils/download"
 import { hstack, vstack } from "utils/styles"
-
-import { download } from "../../../utils/download"
 
 const exportData = () => {
   const date = new Date().toISOString().slice(0, 10)
