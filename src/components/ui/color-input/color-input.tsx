@@ -27,8 +27,9 @@ const ColorButton = ({ value, onChange, isActive }: ColorButtonProps) => (
     onClick={() => onChange(value)}
     className={cn(
       hstack({ align: "center", justify: "center", inline: true }),
-      colored({ type: "text", color: value }),
-      "size-8 cursor-pointer rounded-md bgl-base-current hover:bgl-layer-b/20 active:bgl-layer-b/20"
+      "size-8 cursor-pointer rounded-md",
+      colored({ type: "bg", color: value }),
+      "opacity-75 hover:opacity-100 active:scale-95"
     )}
   >
     <VisuallyHidden>{getColorName(value)}</VisuallyHidden>
