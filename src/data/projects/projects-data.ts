@@ -1,4 +1,4 @@
-import { createSlice, indexedDb } from "lib/yaasl"
+import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { createId } from "utils/create-id"
 
 export interface Project {
@@ -21,7 +21,7 @@ const defaultValue: Project[] = [
 export const projectsData = createSlice({
   name: "projects",
   defaultValue,
-  effects: [indexedDb()],
+  effects: [indexedDb(), sync()],
   reducers: {
     add: (state, project: Omit<Project, "id">) => [
       ...state,

@@ -3,6 +3,7 @@ import {
   createSlice,
   indexedDb,
   localStorage,
+  sync,
   useAtomValue,
 } from "lib/yaasl"
 
@@ -46,7 +47,7 @@ const createEntriesByDate = (date: string) => {
   const atom = createSlice({
     name: date,
     defaultValue,
-    effects: [indexedDb(), autoSort({ sortFn: sortEntries })],
+    effects: [indexedDb(), autoSort({ sortFn: sortEntries }), sync()],
     reducers: {
       add: (state, entry: Omit<TimeEntry, "id">) => [
         ...state,

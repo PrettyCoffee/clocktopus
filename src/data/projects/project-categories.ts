@@ -1,4 +1,4 @@
-import { createSlice, indexedDb } from "lib/yaasl"
+import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { createId } from "utils/create-id"
 import { ThemeColor } from "utils/styles"
 
@@ -18,7 +18,7 @@ const defaultValue: Record<string, ProjectCategory> = {
 export const projectCategories = createSlice({
   name: "project-categories",
   defaultValue,
-  effects: [indexedDb()],
+  effects: [indexedDb(), sync()],
   reducers: {
     add: (state, category: Omit<ProjectCategory, "id">) => {
       const id = createId("mini")
