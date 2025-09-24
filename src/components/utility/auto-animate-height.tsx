@@ -23,11 +23,16 @@ export const AutoAnimateHeight = ({
     if (!contentRef.current) return
 
     const resizeObserver = new ResizeObserver(entries => {
+      if (!contentRef.current) {
+        setHeight(0)
+        return
+      }
+
       // @ts-expect-error -- keep observedHeight for now
       // eslint-disable-next-line unused-imports/no-unused-vars -- keep observedHeight for now
       const observedHeight = entries[0]?.contentRect.height ?? 0
 
-      const styles = window.getComputedStyle(contentRef.current!)
+      const styles = window.getComputedStyle(contentRef.current)
       setHeight(Number.parseInt(styles.height))
     })
 
