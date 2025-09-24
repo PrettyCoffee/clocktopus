@@ -4,16 +4,16 @@ import { projectCategories, ProjectCategory } from "./project-categories"
 import { Project, projectsData } from "./projects-data"
 
 const getCategoryOrder = (projects: Project[]) => {
-  const categoryOrder: string[] = []
+  const categoryOrder: (string | undefined)[] = []
   projects.forEach(({ categoryId }) => {
     if (categoryOrder.includes(categoryId)) return
     categoryOrder.push(categoryId)
   })
-  return categoryOrder
+  return categoryOrder.sort(a => (!a ? 1 : -1))
 }
 
-export interface CategoryWithProjects extends ProjectCategory {
-  projects: Omit<Project, "categoryId">[]
+export interface CategoryWithProjects extends Partial<ProjectCategory> {
+  projects: Project[]
 }
 
 export const categoriesWithProjects = createSelector(
@@ -22,12 +22,9 @@ export const categoriesWithProjects = createSelector(
     const categoryOrder = getCategoryOrder(allProjects)
 
     return categoryOrder.map<CategoryWithProjects>(id => {
-      const projects = allProjects
-        .filter(project => project.categoryId === id)
-        // eslint-disable-next-line unused-imports/no-unused-vars
-        .map(({ categoryId, ...project }) => project)
-
-      return { ...categories[id]!, projects }
+      const projects = allProjects.filter(project => project.categoryId === id)
+      const category = !id ? undefined : categories[id]
+      return { ...category, projects }
     })
   }
 )

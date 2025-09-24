@@ -1,4 +1,4 @@
-import { Dispatch, Fragment } from "react"
+import { Dispatch, Fragment, PropsWithChildren } from "react"
 
 import { Link } from "wouter"
 
@@ -56,20 +56,32 @@ const ProjectOption = ({
 }: {
   project: Project
   category: Partial<ProjectCategory>
-}) => (
-  <Select.Option key={project.id} label={project.name} value={project.id}>
+}) => {
+  const categoryPrefix = !category.id ? null : (
     <span className="hidden [[role='combobox']_&]:inline">
       <span className={colored({ type: "text", color: category.color })}>
         {category.name}
       </span>
       {" - "}
     </span>
-    {project.name}
-  </Select.Option>
+  )
+
+  return (
+    <Select.Option key={project.id} label={project.name} value={project.id}>
+      {categoryPrefix}
+      {project.name}
+    </Select.Option>
+  )
+}
+const NoGroup = ({ children }: PropsWithChildren) => (
+  <>
+    {children}
+    <Select.Separator />
+  </>
 )
 const ProjectGroup = ({ projects, ...category }: CategoryWithProjects) => {
   if (projects.length === 0) return null
-  const Group = !category.name ? Fragment : Select.Group
+  const Group = !category.name ? NoGroup : Select.Group
 
   return (
     <Group
