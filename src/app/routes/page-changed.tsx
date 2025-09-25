@@ -11,11 +11,7 @@ export const PageChangedRoute = () => (
         tab. Please reload the page to apply the changes.
       </p>
       <div className="mx-auto mt-4">
-        <Button
-          look="key"
-          icon={RotateCcw}
-          onClick={() => window.open(window.location.href)}
-        >
+        <Button look="key" icon={RotateCcw} href="#">
           Reload
         </Button>
       </div>

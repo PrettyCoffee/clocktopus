@@ -66,12 +66,12 @@ const floatIcon = css`
 const rotateIcon = css`
   animation: ${animationOptions} ${keyframes`
     0%, 100% {
-      rotate: -10deg;
-    }
-    25%, 75% {
+      rotate: 10deg;
+      translate: 0.25rem 0;
     }
     50% {
-      rotate: 10deg;
+      rotate: -10deg;
+      translate: -0.25rem 0;
     }
   `};
 `
