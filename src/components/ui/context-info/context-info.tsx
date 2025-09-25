@@ -9,6 +9,8 @@ import { cn } from "utils/cn"
 
 import { hstack, vstack } from "../../../utils/styles"
 
+const animationOptions = "2.5s infinite ease-in-out"
+
 const rotate = keyframes`
   0%, 100% {
     translate: 1rem;
@@ -45,21 +47,21 @@ const shadowSlide = keyframes`
 `
 
 const shadow = css`
-  animation: ${shadowSlide} 2.5s infinite ease-in-out;
+  animation: ${animationOptions} ${shadowSlide};
 `
 
 const animate = css`
-  animation: ${rotate} 2.5s infinite ease-in-out;
+  animation: ${animationOptions} ${rotate};
 `
 
-interface NoDataProps extends IconProp {
+interface ContextInfoProps extends IconProp {
   label: string | ReactNode
 }
-export const NoData = ({
+export const ContextInfo = ({
   icon = Ghost,
   label,
   children,
-}: PropsWithChildren<NoDataProps>) => (
+}: PropsWithChildren<ContextInfoProps>) => (
   <div className={cn(vstack({ align: "center", gap: 4 }), "py-4")}>
     <div
       className={cn(
@@ -79,6 +81,6 @@ export const NoData = ({
     <span className="block max-w-80 text-center font-bold text-text">
       {label}
     </span>
-    {children && <div className={hstack({ gap: 2 })}>{children}</div>}
+    {children && <div className={cn(vstack({ gap: 2 }))}>{children}</div>}
   </div>
 )
