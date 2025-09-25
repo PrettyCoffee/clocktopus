@@ -144,8 +144,36 @@ const DeleteData = () => (
   </Card>
 )
 
+const Privacy = () => (
+  <Card
+    title="Data Privacy"
+    description={
+      <p>
+        This website is hosted on GitHub Pages. GitHub may collect personal data
+        from visitors to this website. For further information, please consult
+        the{" "}
+        <a
+          href="https://help.github.com/en/github/site-policy/github-privacy-statement"
+          className="text-highlight opacity-90 hover:underline hover:opacity-100"
+        >
+          GitHub Privacy Statement
+        </a>
+        .
+        <div className="mb-4" />
+        Apart the processing described in GitHub's Privacy Statement, this
+        website does not collect or track any personal data. Any data you enter
+        is stored solely within your browser and is not transmitted to any
+        server. Please note that clearing your browser's data may reset this
+        website to its initial state and result in the loss of any data you have
+        entered.
+      </p>
+    }
+  ></Card>
+)
+
 export const SettingsData = () => (
   <div className={cn(vstack({ gap: 2 }))}>
+    <Privacy />
     <BackupData />
     <DeleteData />
   </div>
