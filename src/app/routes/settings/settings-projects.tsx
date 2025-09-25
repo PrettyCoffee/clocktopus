@@ -9,6 +9,7 @@ import { IconButton } from "components/ui/icon-button"
 import { Input } from "components/ui/input"
 import { Select } from "components/ui/select"
 import { createColumnHelper, Table } from "components/ui/table"
+import { ScrollArea } from "components/utility/scroll-area"
 import {
   Project,
   projectCategories,
@@ -124,12 +125,18 @@ const categoryDeleteColumn = categoryHelper.column({
 const CategoryRows = () => {
   const categories = useAtomValue(projectCategories)
   return (
-    <Table
-      columns={[categoryNameColumn, categoryColorColumn, categoryDeleteColumn]}
-      gridCols="grid-cols-[1fr_auto_auto]"
-      rowData={Object.values(categories)}
-      rowMeta={{}}
-    />
+    <ScrollArea className="max-h-60">
+      <Table
+        columns={[
+          categoryNameColumn,
+          categoryColorColumn,
+          categoryDeleteColumn,
+        ]}
+        gridCols="grid-cols-[1fr_auto_auto]"
+        rowData={Object.values(categories)}
+        rowMeta={{}}
+      />
+    </ScrollArea>
   )
 }
 
@@ -254,12 +261,18 @@ const ProjectRows = () => {
   const projects = useAtomValue(projectsData)
   const categories = useAtomValue(projectCategories)
   return (
-    <Table
-      columns={[projectNameColumn, projectCategoryColumn, projectDeleteColumn]}
-      gridCols="grid-cols-[1fr_auto_auto]"
-      rowData={projects}
-      rowMeta={{ categories }}
-    />
+    <ScrollArea className="max-h-60">
+      <Table
+        columns={[
+          projectNameColumn,
+          projectCategoryColumn,
+          projectDeleteColumn,
+        ]}
+        gridCols="grid-cols-[1fr_auto_auto]"
+        rowData={projects}
+        rowMeta={{ categories }}
+      />
+    </ScrollArea>
   )
 }
 
