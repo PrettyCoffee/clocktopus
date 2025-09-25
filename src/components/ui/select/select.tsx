@@ -52,7 +52,7 @@ const ScrollDownButton = () => (
 const Content = ({ children }: PropsWithChildren) => (
   <Primitive.Portal>
     <Primitive.Content
-      position="popper"
+      position="item-aligned"
       side="bottom"
       sideOffset={4}
       align="start"
