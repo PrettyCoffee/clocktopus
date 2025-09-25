@@ -11,23 +11,8 @@ import { hstack, vstack } from "../../../utils/styles"
 
 const animationOptions = "2.5s infinite ease-in-out"
 
-const rotate = keyframes`
-  0%, 100% {
-    translate: 1rem;
-    rotate: -10deg;
-    top: 0;
-  }
-  25%, 75% {
-    top: -1rem;
-  }
-  50% {
-    translate: -1rem;
-    rotate: 10deg;
-    top: 0;
-  }
-`
-
-const shadowSlide = keyframes`
+const floatShadow = css`
+  animation: ${animationOptions} ${keyframes`
   0%, 100% {
     transform: translateX(1.5rem);
     width: 3.25rem;
@@ -44,22 +29,61 @@ const shadowSlide = keyframes`
     height: 0.5rem;
     opacity: 0.5;
   }
+`};
+`
+const rotateShadow = css`
+  animation: ${animationOptions} ${keyframes`
+     0%, 100% {
+      transform: translateX(0.25rem);
+      width: 4.5rem;
+      height: 0.5rem;
+    }
+    50% {
+      transform: translateX(-0.25rem);
+      width: 4.5rem;
+      height: 0.5rem;
+    }
+  `};
 `
 
-const shadow = css`
-  animation: ${animationOptions} ${shadowSlide};
+const floatIcon = css`
+  animation: ${animationOptions} ${keyframes`
+    0%, 100% {
+      translate: 1rem;
+      rotate: -10deg;
+      top: 0;
+    }
+    25%, 75% {
+      top: -1rem;
+    }
+    50% {
+      translate: -1rem;
+      rotate: 10deg;
+      top: 0;
+    }
+  `};
 `
-
-const animate = css`
-  animation: ${animationOptions} ${rotate};
+const rotateIcon = css`
+  animation: ${animationOptions} ${keyframes`
+    0%, 100% {
+      rotate: -10deg;
+    }
+    25%, 75% {
+    }
+    50% {
+      rotate: 10deg;
+    }
+  `};
 `
 
 interface ContextInfoProps extends IconProp {
   label: string | ReactNode
+  animateIcon?: "float" | "rotate"
 }
 export const ContextInfo = ({
   icon = Ghost,
   label,
+  animateIcon = "float",
   children,
 }: PropsWithChildren<ContextInfoProps>) => (
   <div className={cn(vstack({ align: "center", gap: 4 }), "py-4")}>
@@ -72,15 +96,27 @@ export const ContextInfo = ({
       <Icon
         icon={icon}
         color="gentle"
-        className={cn("absolute size-18", animate)}
+        className={cn(
+          "absolute size-18",
+          animateIcon === "float" && floatIcon,
+          animateIcon === "rotate" && rotateIcon
+        )}
       />
       <div
-        className={cn("absolute -bottom-4 rounded-[50%] bg-black", shadow)}
+        className={cn(
+          "absolute -bottom-4 rounded-[50%] bg-black",
+          animateIcon === "float" && floatShadow,
+          animateIcon === "rotate" && rotateShadow
+        )}
       />
     </div>
     <span className="block max-w-80 text-center font-bold text-text">
       {label}
     </span>
-    {children && <div className={cn(vstack({ gap: 2 }))}>{children}</div>}
+    {children && (
+      <div className={cn(vstack({ gap: 2 }), "text-text-gentle")}>
+        {children}
+      </div>
+    )}
   </div>
 )
