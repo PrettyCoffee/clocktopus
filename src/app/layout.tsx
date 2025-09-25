@@ -12,6 +12,12 @@ import { ErrorBoundary } from "components/utility/error-boundary"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
+const PageLoading = () => (
+  <div className="grid size-full place-items-center">
+    <Spinner size="xl" />
+  </div>
+)
+
 export const AppLayout = ({ children }: PropsWithChildren) => {
   const [path] = useHashLocation()
   const isSettingsRoute = path.endsWith("settings")
@@ -42,7 +48,7 @@ export const AppLayout = ({ children }: PropsWithChildren) => {
         </div>
       </Layout.Side>
       <Layout.Main>
-        <Suspense fallback={<Spinner size="xl" />}>
+        <Suspense fallback={<PageLoading />}>
           <ErrorBoundary Fallback={MainErrorFallback}>{children}</ErrorBoundary>
         </Suspense>
       </Layout.Main>
