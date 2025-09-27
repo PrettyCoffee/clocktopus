@@ -4,6 +4,8 @@ import { cn } from "utils/cn"
 import { createContext } from "utils/create-context"
 import { createId } from "utils/create-id"
 
+import { gridNavigationFocus } from "./grid-navigation-focus"
+
 type Repeat<T extends string> = T | `${T} ${T}` | `${T} ${T} ${T}`
 
 interface TableData {
@@ -55,6 +57,8 @@ const TableRow = ({ data }: TableRowProps) => {
           key={`${data.id}${column.id}`}
           role="gridcell"
           className={cn(column.colSize, column.className)}
+          tabIndex={-1}
+          onKeyDown={gridNavigationFocus}
         >
           {column.render({ rowData: data, ...rowMeta })}
         </div>
