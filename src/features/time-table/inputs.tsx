@@ -16,6 +16,7 @@ import { type TimeEntry } from "data/time-entries"
 import { useAtomValue } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
+import { getLocale } from "utils/get-locale"
 import { colored, hstack } from "utils/styles"
 import { today } from "utils/today"
 
@@ -36,6 +37,7 @@ const Description = ({ entry, className, onChange }: InputProps) => (
 
 const DateComp = ({ entry, onChange }: InputProps) => (
   <DateInput
+    locale={getLocale()}
     value={entry.date}
     max={today()}
     onChange={date => onChange({ date })}

@@ -116,14 +116,14 @@ const ViewSwitch = ({
   </div>
 )
 
-const getMonth = (date: string) => {
+const getMonth = (locale: string, date: string) => {
   const [year, month] = date.split("-").map(Number)
   if (!year || !month) {
     throw new Error(
       `Date "${date}" is not valid and cannot be used to create a month.`
     )
   }
-  return new Month(year, month)
+  return new Month(locale, year, month)
 }
 
 const getDateValue = (date: string) => Number(date.replaceAll("-", ""))
@@ -132,7 +132,7 @@ export interface CalendarProps extends Partial<SizeProp> {
   initialView?: string
   selected?: string
   onSelectionChange?: Dispatch<string>
-
+  locale: string
   min?: string
   max?: string
 }
@@ -142,10 +142,11 @@ export const Calendar = ({
   initialView = today(),
   selected,
   onSelectionChange,
+  locale,
   max = "2069-12-31",
   min = "1970-01-01",
 }: CalendarProps) => {
-  const [month, setMonth] = useState(() => getMonth(initialView))
+  const [month, setMonth] = useState(() => getMonth(locale, initialView))
 
   const nextMonth = month.getRelative(1)
   const prevMonth = month.getRelative(-1)

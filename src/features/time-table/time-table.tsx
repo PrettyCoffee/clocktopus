@@ -15,12 +15,20 @@ import { hstack, surface } from "utils/styles"
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
 
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString(getLocale(), {
+const formatDate = (date: string) => {
+  const locale = getLocale()
+  if (locale === "iso") {
+    const weekday = new Date(date).toLocaleDateString("en", {
+      weekday: "short",
+    })
+    return `${weekday}, ${date}`
+  }
+  return new Date(date).toLocaleDateString(locale, {
     day: "2-digit",
     month: "short",
     weekday: "short",
   })
+}
 
 interface TimeTableHeaderProps {
   date: string

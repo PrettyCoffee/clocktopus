@@ -39,6 +39,7 @@ export class Month {
   public readonly lastDay: Day
 
   constructor(
+    public readonly locale: string,
     public readonly year: number,
     public readonly month: number
   ) {
@@ -47,10 +48,16 @@ export class Month {
     this.firstDay = new Day(year, month, 1)
     this.lastDay = new Day(year, month + 1, 0)
 
-    this.name = this.firstDay.date.toLocaleDateString("en", { month: "long" })
-    this.nameShort = this.firstDay.date.toLocaleDateString("en", {
-      month: "short",
-    })
+    this.name = this.firstDay.date.toLocaleDateString(
+      locale === "iso" ? "en" : locale,
+      { month: "long" }
+    )
+    this.nameShort = this.firstDay.date.toLocaleDateString(
+      locale === "iso" ? "en" : locale,
+      {
+        month: "short",
+      }
+    )
   }
 
   public getRelative(offset: number) {
@@ -64,6 +71,6 @@ export class Month {
       year++
       month -= 12
     }
-    return new Month(year, month)
+    return new Month(this.locale, year, month)
   }
 }

@@ -8,9 +8,10 @@ import { Button } from "../button"
 import { Calendar, CalendarProps } from "../calendar"
 import { Popover } from "../popover"
 
-const printDate = (date: string) => {
+const printDate = (date: string, locale: string) => {
   if (date === today()) return "Today"
-  return new Date(date).toLocaleDateString(undefined, {
+  if (locale === "iso") return date
+  return new Date(date).toLocaleDateString(locale, {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
@@ -24,9 +25,15 @@ interface DateInputProps
   > {
   value: string
   onChange: Dispatch<string>
+  locale: string
 }
 
-export const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
+export const DateInput = ({
+  value,
+  onChange,
+  locale,
+  ...props
+}: DateInputProps) => {
   const [open, setOpen] = useState(false)
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -36,12 +43,13 @@ export const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
           iconColor="muted"
           className="border border-stroke-gentle"
         >
-          {printDate(value)}
+          {printDate(value, locale)}
         </Button>
       </Popover.Trigger>
 
       <Popover.Content align="center">
         <Calendar
+          locale={locale}
           selected={value}
           initialView={value}
           onSelectionChange={value => {
