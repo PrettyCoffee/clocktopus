@@ -4,7 +4,7 @@ import { cn } from "utils/cn"
 import { createContext } from "utils/create-context"
 import { createId } from "utils/create-id"
 
-import { gridNavigationFocus } from "./grid-navigation-focus"
+import { focusManager } from "./focus-manager"
 
 type Repeat<T extends string> = T | `${T} ${T}` | `${T} ${T} ${T}`
 
@@ -49,7 +49,7 @@ const TableRow = ({ data }: TableRowProps) => {
     data: {
       role: "gridcell",
       tabIndex: -1,
-      onKeyDown: gridNavigationFocus,
+      onKeyDown: focusManager.listen,
     },
   }
 

@@ -1,6 +1,7 @@
 import {
   ButtonHTMLAttributes,
   HTMLAttributeAnchorTarget,
+  KeyboardEventHandler,
   PropsWithChildren,
 } from "react"
 
@@ -54,6 +55,7 @@ export interface ButtonProps
   target?: HTMLAttributeAnchorTarget
   to?: string
   iconColor?: IconProps["color"]
+  onKeyDown?: KeyboardEventHandler<HTMLButtonElement>
 }
 
 // eslint-disable-next-line complexity

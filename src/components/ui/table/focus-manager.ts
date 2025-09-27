@@ -43,9 +43,14 @@ const eventByKey: Record<string, (target: Element) => void> = {
   End: target => shiftGridFocus(target, 0, Infinity),
 }
 
-export const gridNavigationFocus = (event: KeyboardEvent) => {
+const handleKeyDown = (event: KeyboardEvent) => {
   if (!Object.keys(eventByKey).includes(event.key)) {
     return
   }
   eventByKey[event.key]?.(event.currentTarget as Element)
+}
+
+export const focusManager = {
+  listen: handleKeyDown,
+  eventKeys: Object.keys(eventByKey),
 }
