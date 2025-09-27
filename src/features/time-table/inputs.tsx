@@ -17,7 +17,7 @@ import { useAtomValue } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
-import { colored, hstack } from "utils/styles"
+import { colored } from "utils/styles"
 import { today } from "utils/today"
 
 interface InputProps extends ClassNameProp {
@@ -44,13 +44,13 @@ const DateComp = ({ entry, onChange }: InputProps) => (
   />
 )
 
-const TimeRange = ({ entry, onChange }: InputProps) => (
-  <div className={hstack({ align: "center" })}>
-    <TimeInput value={entry.start} onChange={start => onChange({ start })} />
-    <span className="mx-1 text-text-gentle">–⁠</span>
-    <TimeInput value={entry.end} onChange={end => onChange({ end })} />
-  </div>
+const TimeStart = ({ entry, onChange }: InputProps) => (
+  <TimeInput value={entry.start} onChange={start => onChange({ start })} />
 )
+const TimeEnd = ({ entry, onChange }: InputProps) => (
+  <TimeInput value={entry.end} onChange={end => onChange({ end })} />
+)
+const TimeSeparator = () => <span className="mx-2 text-text-gentle">–⁠</span>
 
 const ProjectOption = ({
   project,
@@ -131,6 +131,8 @@ const ProjectSelect = ({ entry, onChange, className }: InputProps) => {
 export const inputs = {
   Description,
   Date: DateComp,
-  TimeRange,
+  TimeStart,
+  TimeEnd,
+  TimeSeparator,
   Project: ProjectSelect,
 }

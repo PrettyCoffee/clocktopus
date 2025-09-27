@@ -127,10 +127,23 @@ const dateColumn = helper.column({
     />
   ),
 })
-const timeColumn = helper.column({
-  name: "Time Range",
+const timeStartColumn = helper.column({
+  name: "Time Start",
   render: ({ rowData, onChange }) => (
-    <inputs.TimeRange
+    <inputs.TimeStart
+      entry={rowData}
+      onChange={data => onChange({ ...rowData, ...data })}
+    />
+  ),
+})
+const timeSeparatorColumn = helper.decorator({
+  name: "",
+  render: inputs.TimeSeparator,
+})
+const timeEndColumn = helper.column({
+  name: "Time End",
+  render: ({ rowData, onChange }) => (
+    <inputs.TimeEnd
       entry={rowData}
       onChange={data => onChange({ ...rowData, ...data })}
     />
@@ -192,14 +205,16 @@ const TimeTableRows = ({
 
   return (
     <Table<TableConfig>
-      gridCols="grid-cols-[auto_1fr_auto_auto_auto_auto] @4xl:grid-cols-[auto_1fr_auto_auto_auto_auto_auto]"
+      gridCols="grid-cols-[auto_1fr_auto_auto_auto_auto_auto_auto] @4xl:grid-cols-[auto_1fr_auto_auto_auto_auto_auto_auto_auto]"
       rowData={entries}
       columns={[
         checkedColumn,
         descriptionColumn,
         projectColumn,
         dateColumn,
-        timeColumn,
+        timeStartColumn,
+        timeSeparatorColumn,
+        timeEndColumn,
         durationColumn,
         actionColumn,
       ]}

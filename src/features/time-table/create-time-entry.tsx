@@ -4,6 +4,7 @@ import { IconButton } from "components/ui/icon-button"
 import { useDateEntries, type TimeEntry } from "data/time-entries"
 import { useObjectState } from "hooks/use-object-state"
 import { cn } from "utils/cn"
+import { hstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 import { today } from "utils/today"
 
@@ -41,7 +42,11 @@ export const CreateTimeEntry = () => {
         </div>
 
         <inputs.Date entry={data} onChange={updateData} />
-        <inputs.TimeRange entry={data} onChange={updateData} />
+        <div className={hstack({ align: "center" })}>
+          <inputs.TimeStart entry={data} onChange={updateData} />
+          <inputs.TimeSeparator />
+          <inputs.TimeEnd entry={data} onChange={updateData} />
+        </div>
         <Duration entries={[data]} className="inline-block w-15 text-center" />
         <IconButton
           icon={Plus}

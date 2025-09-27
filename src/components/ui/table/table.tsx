@@ -20,6 +20,7 @@ interface TableConfig {
 type TwColSize = `col-[${string}]` | `@${string}:col-[${string}]`
 interface ColumnDef<TConfig extends TableConfig> {
   id: string | number
+  type: "data" | "decorator"
   name: string
   colSize?: Repeat<TwColSize>
   className?: string
@@ -43,6 +44,15 @@ interface TableRowProps {
 const TableRow = ({ data }: TableRowProps) => {
   const { columns, rowMeta } = Context.useRequiredValue()
 
+  const cellPropsByType = {
+    decorator: {},
+    data: {
+      role: "gridcell",
+      tabIndex: -1,
+      onKeyDown: gridNavigationFocus,
+    },
+  }
+
   return (
     <div
       role="row"
@@ -55,10 +65,8 @@ const TableRow = ({ data }: TableRowProps) => {
       {columns.map(column => (
         <div
           key={`${data.id}${column.id}`}
-          role="gridcell"
           className={cn(column.colSize, column.className)}
-          tabIndex={-1}
-          onKeyDown={gridNavigationFocus}
+          {...cellPropsByType[column.type]}
         >
           {column.render({ rowData: data, ...rowMeta })}
         </div>
@@ -112,8 +120,20 @@ export const Table = <TConfig extends TableConfig>(
 
 export const createColumnHelper = <TConfig extends TableConfig>() => {
   const column = (
-    colDef: Omit<ColumnDef<TConfig>, "id">
-  ): ColumnDef<TConfig> => ({ ...colDef, id: createId("mini") })
+    colDef: Omit<ColumnDef<TConfig>, "id" | "type">
+  ): ColumnDef<TConfig> => ({
+    ...colDef,
+    type: "data",
+    id: createId("mini"),
+  })
 
-  return { column }
+  const decorator = (
+    colDef: Omit<ColumnDef<TConfig>, "id" | "type">
+  ): ColumnDef<TConfig> => ({
+    ...colDef,
+    type: "decorator",
+    id: createId("mini"),
+  })
+
+  return { column, decorator }
 }
