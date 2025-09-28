@@ -13,6 +13,9 @@ export const preferencesData = createSlice({
   defaultValue,
   effects: [sessionStorage()],
   reducers: {
-    setLocale: (state, locale: string) => ({ ...state, locale }),
+    setLocale: (state, locale: string) => ({
+      ...state,
+      locale: locale || "iso",
+    }),
   },
 })
