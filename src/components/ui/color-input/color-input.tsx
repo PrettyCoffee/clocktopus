@@ -9,6 +9,8 @@ import { VisuallyHidden } from "components/utility/visually-hidden"
 import { cn } from "utils/cn"
 import { allColors, colored, hstack, ThemeColor } from "utils/styles"
 
+import { focusManager } from "./focus-manager"
+
 interface ColorInputValueProps {
   value: ThemeColor
   onChange: Dispatch<ThemeColor>
@@ -39,10 +41,7 @@ const ColorButton = ({ value, onChange, isActive }: ColorButtonProps) => (
 
 const ColorList = ({ value, onChange }: ColorInputValueProps) => (
   // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- event bubbles up to this element
-  <div
-    className={hstack({ gap: 2, wrap: true })}
-    onKeyDown={event => (event.skipGridNavigation = true)}
-  >
+  <div className={hstack({ gap: 2, wrap: true })} onKeyDown={focusManager}>
     {allColors.map(color => (
       <ColorButton
         key={color}
