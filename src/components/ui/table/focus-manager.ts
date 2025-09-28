@@ -89,6 +89,8 @@ const handleKeyDown = (props: KeyDownProps) => {
   if (props.event.skipGridNavigation) return
 
   const key = props.event.key
+  if (!(key in eventByKey)) return
+  props.event.preventDefault()
   eventByKey[key]?.(props)
 }
 
