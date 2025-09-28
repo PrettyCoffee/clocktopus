@@ -55,7 +55,7 @@ const shiftGridFocus = (
   const maxRowIndex = rows.length - 1
   const newRowIndex = clamp(currentRow + y, 0, maxRowIndex)
 
-  const switchPrevGrid = currentRow + y < 0
+  const switchPrevGrid = currentRow + y < 0 && y !== -Infinity
   const switchNextGrid = currentRow + y > maxRowIndex && y !== Infinity
   if (name && (switchPrevGrid || switchNextGrid)) {
     const grids = [...document.querySelectorAll(`[data-grid-name="${name}"]`)]
@@ -83,6 +83,8 @@ const eventByKey: Record<string, (props: KeyDownProps) => void> = {
   ArrowRight: props => shiftGridFocus(props, { x: 1, y: 0 }),
   Home: props => shiftGridFocus(props, { x: 0, y: -Infinity }),
   End: props => shiftGridFocus(props, { x: 0, y: Infinity }),
+  PageUp: props => shiftGridFocus(props, { x: 0, y: -Infinity }),
+  PageDown: props => shiftGridFocus(props, { x: 0, y: Infinity }),
 }
 
 const handleKeyDown = (props: KeyDownProps) => {
