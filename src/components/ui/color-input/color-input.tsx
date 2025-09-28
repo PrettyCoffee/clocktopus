@@ -38,7 +38,11 @@ const ColorButton = ({ value, onChange, isActive }: ColorButtonProps) => (
 )
 
 const ColorList = ({ value, onChange }: ColorInputValueProps) => (
-  <div className={hstack({ gap: 2, wrap: true })}>
+  // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- event bubbles up to this element
+  <div
+    className={hstack({ gap: 2, wrap: true })}
+    onKeyDown={event => (event.skipGridNavigation = true)}
+  >
     {allColors.map(color => (
       <ColorButton
         key={color}

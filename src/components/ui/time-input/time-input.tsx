@@ -95,6 +95,7 @@ export const TimeInput = ({
       onChange?.(time)
       setText(getNumbers(time))
       event.preventDefault()
+      event.skipGridNavigation = true
       return
     }
     if (key === "ArrowDown") {
@@ -102,6 +103,7 @@ export const TimeInput = ({
       onChange?.(time)
       setText(getNumbers(time))
       event.preventDefault()
+      event.skipGridNavigation = true
       return
     }
   }

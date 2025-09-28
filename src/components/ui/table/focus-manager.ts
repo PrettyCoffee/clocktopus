@@ -86,10 +86,9 @@ const eventByKey: Record<string, (props: KeyDownProps) => void> = {
 }
 
 const handleKeyDown = (props: KeyDownProps) => {
+  if (props.event.skipGridNavigation) return
+
   const key = props.event.key
-  if (!Object.keys(eventByKey).includes(key)) {
-    return
-  }
   eventByKey[key]?.(props)
 }
 

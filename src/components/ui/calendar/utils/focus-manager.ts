@@ -43,6 +43,5 @@ export const focusManager = (event: KeyboardEvent) => {
   if (!Object.keys(eventByKey).includes(event.key)) {
     return
   }
-  event.stopPropagation()
   eventByKey[event.key]?.(event)
 }

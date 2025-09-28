@@ -11,7 +11,6 @@ import { IconButton } from "../icon-button"
 import { Day } from "./utils/day"
 import { focusManager } from "./utils/focus-manager"
 import { Month } from "./utils/month"
-import { focusManager as tableFocusManager } from "../table/focus-manager"
 
 interface SizeProp {
   size: "sm" | "md"
@@ -171,10 +170,7 @@ export const Calendar = ({
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- event bubbles up to this element
     <div
       className={cn(vstack({ inline: true }))}
-      onKeyDown={event =>
-        tableFocusManager.eventKeys.includes(event.key) &&
-        event.stopPropagation()
-      }
+      onKeyDown={event => (event.skipGridNavigation = true)}
     >
       <ViewSwitch
         size={size}
