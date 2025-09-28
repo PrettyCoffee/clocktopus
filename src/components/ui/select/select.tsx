@@ -95,7 +95,7 @@ const Option = ({
     className={cn(
       interactive({ disabled }),
       hstack({ align: "center", gap: 2 }),
-      "outline-none focus-visible:text-highlight",
+      "underline-offset-2 outline-none focus-visible:text-highlight focus-visible:underline",
       "relative h-8 w-full rounded-md pr-8 pl-2 text-sm select-none",
       className
     )}
