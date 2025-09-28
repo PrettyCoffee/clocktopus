@@ -4,50 +4,93 @@ import { clamp } from "utils/clamp"
 import { focusElement } from "utils/focus-element"
 import { focusInto, hasFocusableChild } from "utils/focus-into"
 
-const cellFilter = ({ role }: Element) => role === "gridcell"
-const rowFilter = ({ role }: Element) => role === "row"
+const getGridCells = (grid: Element) => {
+  const rowGroups = [...grid.querySelectorAll("[role='rowgroup']")]
+  const rows = rowGroups.flatMap(rowGroup => [
+    ...rowGroup.querySelectorAll("[role='row']"),
+  ])
+  return rows.map(row => [...row.querySelectorAll("[role='gridcell']")])
+}
 
-const getNodeIndex = (
-  element: Element,
-  filter: (element: Element) => boolean
-) => [...element.parentNode!.children].filter(filter).indexOf(element)
+const focusGrid = (grid: Element, x: number, y: number) => {
+  const cells = getGridCells(grid)
+  const row = cells[clamp(y, 0, cells.length - 1)]
+  const cell = row?.[clamp(x, 0, row.length - 1)]
 
-const shiftGridFocus = (current: Element, x: number, y: number) => {
-  const row = current.parentNode as Element
-  const rowGroup = row.parentNode as Element
+  if (!cell) return
 
-  const currentRow = getNodeIndex(row, rowFilter)
-  const currentCell = getNodeIndex(current, cellFilter)
+  if (hasFocusableChild(cell)) focusInto(cell)
+  else focusElement(cell)
+}
 
-  const rows = [...rowGroup.children].filter(rowFilter)
+interface KeyDownProps {
+  event: KeyboardEvent
+  name?: string
+}
+
+interface ShiftProps {
+  x: number
+  y: number
+}
+
+const shiftGridFocus = (
+  { event, name }: KeyDownProps,
+  { x, y }: ShiftProps
+) => {
+  const grid = event.currentTarget as Element
+  const rows = getGridCells(grid)
+
+  let currentRow = 0
+  let currentCell = 0
+  rows.some((row, rowIndex) => {
+    const cellIndex = row.findIndex(
+      cell => cell === event.target || cell.contains(event.target as Node)
+    )
+    if (cellIndex === -1) return false
+    currentCell = cellIndex
+    currentRow = rowIndex
+    return true
+  })
+
   const maxRowIndex = rows.length - 1
-  const rowIndex = clamp(currentRow + y, 0, maxRowIndex)
-  const newRow = rows[rowIndex]
+  const newRowIndex = clamp(currentRow + y, 0, maxRowIndex)
 
-  const cells = [...(newRow?.children ?? [])].filter(cellFilter)
-  const maxCellIndex = cells.length - 1
-  const cellIndex = clamp(currentCell + x, 0, maxCellIndex)
-  const newCell = cells[cellIndex]
+  const switchPrevGrid = currentRow + y < 0
+  const switchNextGrid = currentRow + y > maxRowIndex && y !== Infinity
+  if (name && (switchPrevGrid || switchNextGrid)) {
+    const grids = [...document.querySelectorAll(`[data-grid-name="${name}"]`)]
+    const currentGrid = grids.indexOf(grid)
 
-  if (!newCell) return
-  if (hasFocusableChild(newCell)) focusInto(newCell)
-  else focusElement(newCell)
-}
-
-const eventByKey: Record<string, (target: Element) => void> = {
-  ArrowUp: target => shiftGridFocus(target, 0, -1),
-  ArrowDown: target => shiftGridFocus(target, 0, 1),
-  ArrowLeft: target => shiftGridFocus(target, -1, 0),
-  ArrowRight: target => shiftGridFocus(target, 1, 0),
-  Home: target => shiftGridFocus(target, 0, -Infinity),
-  End: target => shiftGridFocus(target, 0, Infinity),
-}
-
-const handleKeyDown = (event: KeyboardEvent) => {
-  if (!Object.keys(eventByKey).includes(event.key)) {
+    if (switchPrevGrid) {
+      const newGrid = grids[currentGrid - 1]
+      if (newGrid) focusGrid(newGrid, currentCell, Infinity)
+    } else {
+      const newGrid = grids[currentGrid + 1]
+      if (newGrid) focusGrid(newGrid, currentCell, 0)
+    }
     return
   }
-  eventByKey[event.key]?.(event.currentTarget as Element)
+
+  const maxCellIndex = rows[newRowIndex]!.length - 1
+  const newCellIndex = clamp(currentCell + x, 0, maxCellIndex)
+  focusGrid(grid, newCellIndex, newRowIndex)
+}
+
+const eventByKey: Record<string, (props: KeyDownProps) => void> = {
+  ArrowUp: props => shiftGridFocus(props, { x: 0, y: -1 }),
+  ArrowDown: props => shiftGridFocus(props, { x: 0, y: 1 }),
+  ArrowLeft: props => shiftGridFocus(props, { x: -1, y: 0 }),
+  ArrowRight: props => shiftGridFocus(props, { x: 1, y: 0 }),
+  Home: props => shiftGridFocus(props, { x: 0, y: -Infinity }),
+  End: props => shiftGridFocus(props, { x: 0, y: Infinity }),
+}
+
+const handleKeyDown = (props: KeyDownProps) => {
+  const key = props.event.key
+  if (!Object.keys(eventByKey).includes(key)) {
+    return
+  }
+  eventByKey[key]?.(props)
 }
 
 export const focusManager = {

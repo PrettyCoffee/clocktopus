@@ -31,6 +31,7 @@ interface ColumnDef<TConfig extends TableConfig> {
 
 type TwGridCols = `grid-cols-[${string}]` | `@${string}:grid-cols-[${string}]`
 type TableProps<TConfig extends TableConfig> = Pick<TConfig, "rowMeta"> & {
+  name?: string
   rowData: TConfig["rowData"][]
   columns: ColumnDef<TConfig>[]
   gridCols: Repeat<TwGridCols>
@@ -49,7 +50,6 @@ const TableRow = ({ data }: TableRowProps) => {
     data: {
       role: "gridcell",
       tabIndex: -1,
-      onKeyDown: focusManager.listen,
     },
   }
 
@@ -109,14 +109,23 @@ const TableHeader = () => {
 
 export const Table = <TConfig extends TableConfig>(
   props: TableProps<TConfig>
-) => (
-  <Context value={props as unknown as TableProps<TableConfig>}>
-    <div role="grid" className="@container">
-      <TableHeader />
-      <TableBody />
-    </div>
-  </Context>
-)
+) => {
+  const { name } = props
+  return (
+    <Context value={props as unknown as TableProps<TableConfig>}>
+      {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
+      <div
+        role="grid"
+        data-grid-name={name}
+        className="@container"
+        onKeyDown={event => focusManager.listen({ event, name })}
+      >
+        <TableHeader />
+        <TableBody />
+      </div>
+    </Context>
+  )
+}
 
 export const createColumnHelper = <TConfig extends TableConfig>() => {
   const column = (
