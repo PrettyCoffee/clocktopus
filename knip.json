@@ -5,6 +5,7 @@
     "eslint.config.mjs",
     "tailwind/tailwind.config.ts"
   ],
+  "ignore": ["**/*.d.ts"],
   "project": ["./**/*.{ts,tsx,js,mjs}"],
   "paths": {
     "*": ["src/*"]

@@ -35,7 +35,7 @@ const getPreferredRadioButton = (
   return checkedRadio ?? currentRadio
 }
 
-export const getFocusableElements = (container: Element | null) => {
+const getFocusableElements = (container: Element | null) => {
   if (container === null) return []
   return [...container.querySelectorAll(focusableSelector)]
 }
