@@ -18,36 +18,7 @@ import { cn } from "utils/cn"
 import { surface } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
-const normalize = (text: string) => text.toLowerCase().replaceAll(/\s/g, "")
-
-interface FilterProps<TData>
-  extends Pick<
-    AutoCompleteProps<TData>,
-    "items" | "filter" | "getFilterValue"
-  > {
-  maxItems: number
-}
-const filterItems = <TData,>({
-  items,
-  filter,
-  getFilterValue,
-  maxItems,
-}: FilterProps<TData>) => {
-  if (!filter) return []
-
-  const result: TData[] = []
-  let index = -1
-  while (items[++index] && result.length < maxItems) {
-    const item = items[index]!
-    if (
-      normalize(getFilterValue(item)) !== normalize(filter) &&
-      normalize(getFilterValue(item)).includes(normalize(filter))
-    ) {
-      result.push(item)
-    }
-  }
-  return result
-}
+import { fuzzyFilter } from "./fuzzy-filter"
 
 const useFocus = (refs: RefObject<Element | null>[]) => {
   const [focus, setFocus] = useState(false)
@@ -152,7 +123,7 @@ export const AutoComplete = <TData,>({
   const inputRect = useBoundingRect()
 
   const items = useMemo(
-    () => filterItems({ filter, items: allItems, getFilterValue, maxItems: 5 }),
+    () => fuzzyFilter({ filter, items: allItems, getFilterValue, maxItems: 5 }),
     [filter, getFilterValue, allItems]
   )
 
