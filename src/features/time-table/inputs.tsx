@@ -25,8 +25,9 @@ interface InputProps extends ClassNameProp {
   onChange: Dispatch<Partial<TimeEntry>>
 }
 
-const Description = ({ entry, className, onChange }: InputProps) => (
+const Description = ({ entry, className, onChange, ...rest }: InputProps) => (
   <Input
+    {...rest}
     type="text"
     placeholder="Description"
     className={cn("flex-1", className)}
@@ -35,8 +36,9 @@ const Description = ({ entry, className, onChange }: InputProps) => (
   />
 )
 
-const DateComp = ({ entry, onChange }: InputProps) => (
+const DateComp = ({ entry, onChange, ...rest }: InputProps) => (
   <DateInput
+    {...rest}
     locale={getLocale()}
     value={entry.date}
     max={today()}
@@ -44,11 +46,15 @@ const DateComp = ({ entry, onChange }: InputProps) => (
   />
 )
 
-const TimeStart = ({ entry, onChange }: InputProps) => (
-  <TimeInput value={entry.start} onChange={start => onChange({ start })} />
+const TimeStart = ({ entry, onChange, ...rest }: InputProps) => (
+  <TimeInput
+    {...rest}
+    value={entry.start}
+    onChange={start => onChange({ start })}
+  />
 )
-const TimeEnd = ({ entry, onChange }: InputProps) => (
-  <TimeInput value={entry.end} onChange={end => onChange({ end })} />
+const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => (
+  <TimeInput {...rest} value={entry.end} onChange={end => onChange({ end })} />
 )
 const TimeSeparator = () => <span className="mx-2 text-text-gentle">–⁠</span>
 
@@ -97,17 +103,17 @@ const ProjectGroup = ({ projects, ...category }: CategoryWithProjects) => {
     </Group>
   )
 }
-const ProjectSelect = ({ entry, onChange, className }: InputProps) => {
+const ProjectSelect = ({ entry, onChange, ...rest }: InputProps) => {
   const categories = useAtomValue(categoriesWithProjects)
 
   return (
     <Select.Root
+      {...rest}
+      placeholder="Project"
       value={entry.project ?? ""}
       onChange={project =>
         onChange({ project: project === "none" ? undefined : project })
       }
-      placeholder="Project"
-      className={className}
     >
       <Select.Option value="none" className="text-text-muted">
         No project

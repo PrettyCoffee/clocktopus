@@ -1,17 +1,9 @@
-import {
-  Dispatch,
-  PropsWithChildren,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import { Dispatch, PropsWithChildren, useMemo } from "react"
 
 import { Plus } from "lucide-react"
 
-import { Button } from "components/ui/button"
+import { AutoComplete } from "components/ui/auto-complete"
 import { IconButton } from "components/ui/icon-button"
-import { Portal } from "components/utility/portal"
 import { projectCategories, projectsData } from "data/projects"
 import {
   getDateAtom,
@@ -22,20 +14,17 @@ import {
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
-import { colored, hstack, surface } from "utils/styles"
+import { colored, hstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 import { today } from "utils/today"
-import { zIndex } from "utils/z-index"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
 
-const normalize = (text: string) => text.toLowerCase().replaceAll(/\s/g, "")
-
-const useFilteredEntries = (filter: string) => {
+const useAllTimeEntries = () => {
   const dates = useTrackedDates()
 
-  const allItems = useMemo(() => {
+  return useMemo(() => {
     const allItems = dates
       .flatMap(date =>
         getDateAtom(date)
@@ -56,18 +45,6 @@ const useFilteredEntries = (filter: string) => {
 
     return withoutDuplicates.items
   }, [dates])
-
-  return useMemo(
-    () =>
-      !filter
-        ? []
-        : allItems.filter(
-            ({ description }) =>
-              normalize(description) !== normalize(filter) &&
-              normalize(description).includes(normalize(filter))
-          ),
-    [filter, allItems]
-  )
 }
 
 const useProjects = () => {
@@ -93,126 +70,61 @@ const useProjects = () => {
   )
 }
 
-interface AutoCompleteProps {
+interface LabelProps {
+  description: string
+  project?: ReturnType<typeof useProjects>[number]
+}
+const OptionLabel = ({ description, project }: LabelProps) => (
+  <>
+    {description}
+
+    <span>
+      {project?.categoryName && (
+        <>
+          <span
+            className={colored({
+              type: "text",
+              color: project.categoryColor,
+            })}
+          >
+            {project.categoryName}
+          </span>
+          <span className="mx-2">-</span>
+        </>
+      )}
+
+      {project?.name || <span className="text-text-muted">No project</span>}
+    </span>
+  </>
+)
+
+interface DescriptionAutoCompleteProps {
   filter: string
   onSelect: Dispatch<{ description: string; project?: string }>
 }
-const AutoComplete = ({
+const DescriptionAutoComplete = ({
   filter,
   onSelect,
   children,
-}: PropsWithChildren<AutoCompleteProps>) => {
-  const [focus, setFocus] = useState(false)
-  const [inputRect, setInputRect] =
-    useState<ReturnType<Element["getBoundingClientRect"]>>()
-  const entries = useFilteredEntries(filter).slice(0, 8)
+}: PropsWithChildren<DescriptionAutoCompleteProps>) => {
+  const entries = useAllTimeEntries()
   const projects = useProjects()
 
-  const open = focus && !!filter && entries.length > 0
-
-  const inputRef = useRef<HTMLDivElement>(null)
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const handler = () => {
-      const input = inputRef.current
-      const dropdown = dropdownRef.current
-      const target = document.activeElement
-
-      const focus =
-        input === target ||
-        input?.contains(target) ||
-        dropdown === target ||
-        dropdown?.contains(target)
-
-      setFocus(!!focus)
-    }
-
-    window.addEventListener("focusin", handler)
-    window.addEventListener("click", handler)
-
-    return () => {
-      window.removeEventListener("focusin", handler)
-      window.removeEventListener("click", handler)
-    }
-  }, [])
-
-  const updateBox = (element: Element | null) => {
-    if (!element) return
-    const box = element.getBoundingClientRect()
-    if (
-      inputRect &&
-      box.left === inputRect.left &&
-      box.bottom === inputRect.bottom &&
-      box.width === inputRect.width
-    ) {
-      return
-    }
-    setInputRect(box)
-  }
-
   return (
-    <div
-      className="relative w-full *:w-full"
-      ref={element => {
-        inputRef.current = element
-        updateBox(element)
-      }}
+    <AutoComplete<(typeof entries)[number]>
+      filter={filter}
+      getFilterValue={({ description }) => description}
+      items={entries}
+      onSelect={onSelect}
+      renderOptionLabel={item => (
+        <OptionLabel
+          description={item.description}
+          project={!item.project ? undefined : projects[item.project]}
+        />
+      )}
     >
       {children}
-      {open && (
-        <Portal>
-          <div>
-            <div
-              ref={dropdownRef}
-              className={cn(
-                zIndex.popover,
-                surface({ look: "overlay", size: "md" }),
-                "fixed p-1"
-              )}
-              style={{
-                position: "fixed",
-                top: (inputRect?.bottom ?? 0) + 4,
-                left: inputRect?.left,
-                width: inputRect?.width,
-              }}
-            >
-              {entries.map(item => {
-                const project = !item.project
-                  ? undefined
-                  : projects[item.project]
-                return (
-                  <Button
-                    key={item.description}
-                    onClick={() => onSelect(item)}
-                    className="w-full justify-between"
-                  >
-                    {item.description}
-                    <span>
-                      {project?.categoryName && (
-                        <>
-                          <span
-                            className={colored({
-                              type: "text",
-                              color: project.categoryColor,
-                            })}
-                          >
-                            {project.categoryName}
-                          </span>
-                          <span className="mx-2">-</span>
-                        </>
-                      )}
-                      {project?.name || (
-                        <span className="text-text-muted">No project</span>
-                      )}
-                    </span>
-                  </Button>
-                )
-              })}
-            </div>
-          </div>
-        </Portal>
-      )}
-    </div>
+    </AutoComplete>
   )
 }
 
@@ -236,7 +148,7 @@ export const CreateTimeEntry = () => {
           "grid-cols-[1fr_auto_auto_auto_auto] @4xl:grid-cols-[1fr_auto_auto_auto_auto_auto]"
         )}
       >
-        <AutoComplete
+        <DescriptionAutoComplete
           filter={data.description}
           onSelect={item => updateData(item)}
         >
@@ -245,7 +157,7 @@ export const CreateTimeEntry = () => {
             onChange={updateData}
             className="col-[1_/_-1] @4xl:col-[span_1]"
           />
-        </AutoComplete>
+        </DescriptionAutoComplete>
 
         <div>
           <inputs.Project entry={data} onChange={updateData} />
