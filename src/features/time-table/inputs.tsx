@@ -10,7 +10,6 @@ import {
   categoriesWithProjects,
   CategoryWithProjects,
   Project,
-  ProjectCategory,
 } from "data/projects"
 import { type TimeEntry } from "data/time-entries"
 import { useAtomValue } from "lib/yaasl"
@@ -19,6 +18,8 @@ import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
 import { colored } from "utils/styles"
 import { today } from "utils/today"
+
+import { ProjectName } from "./project-name"
 
 interface InputProps extends ClassNameProp {
   entry: TimeEntry
@@ -58,29 +59,14 @@ const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => (
 )
 const TimeSeparator = () => <span className="mx-2 text-text-gentle">–⁠</span>
 
-const ProjectOption = ({
-  project,
-  category,
-}: {
-  project: Project
-  category: Partial<ProjectCategory>
-}) => {
-  const categoryPrefix = !category.id ? null : (
-    <span className="hidden [[role='combobox']_&]:inline">
-      <span className={colored({ type: "text", color: category.color })}>
-        {category.name}
-      </span>
-      {" - "}
-    </span>
-  )
-
-  return (
-    <Select.Option key={project.id} label={project.name} value={project.id}>
-      {categoryPrefix}
-      {project.name}
-    </Select.Option>
-  )
-}
+const ProjectOption = ({ project }: { project: Project }) => (
+  <Select.Option key={project.id} label={project.name} value={project.id}>
+    <ProjectName
+      projectId={project.id}
+      className="*:hidden [[role='combobox']_&_*]:inline"
+    />
+  </Select.Option>
+)
 const NoGroup = ({ children }: PropsWithChildren) => (
   <>
     {children}
@@ -98,7 +84,7 @@ const ProjectGroup = ({ projects, ...category }: CategoryWithProjects) => {
       labelClassName={colored({ type: "text", color: category.color })}
     >
       {projects.map(project => (
-        <ProjectOption key={project.id} project={project} category={category} />
+        <ProjectOption key={project.id} project={project} />
       ))}
     </Group>
   )

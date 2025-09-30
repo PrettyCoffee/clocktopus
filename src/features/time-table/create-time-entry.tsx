@@ -14,12 +14,13 @@ import {
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
-import { colored, hstack } from "utils/styles"
+import { hstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 import { today } from "utils/today"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
+import { ProjectName } from "./project-name"
 
 const useAllTimeEntries = () => {
   const dates = useTrackedDates()
@@ -54,12 +55,12 @@ const useProjects = () => {
   return useMemo(
     () =>
       Object.fromEntries(
-        projects.map(({ id, name, categoryId }) => {
+        projects.map(({ categoryId, ...project }) => {
           const category = !categoryId ? undefined : categories[categoryId]
           return [
-            id,
+            project.id,
             {
-              name,
+              ...project,
               categoryName: category?.name,
               categoryColor: category?.color,
             },
@@ -77,24 +78,7 @@ interface LabelProps {
 const OptionLabel = ({ description, project }: LabelProps) => (
   <>
     {description}
-
-    <span>
-      {project?.categoryName && (
-        <>
-          <span
-            className={colored({
-              type: "text",
-              color: project.categoryColor,
-            })}
-          >
-            {project.categoryName}
-          </span>
-          <span className="mx-2">-</span>
-        </>
-      )}
-
-      {project?.name || <span className="text-text-muted">No project</span>}
-    </span>
+    {project && <ProjectName projectId={project.id} />}
   </>
 )
 
