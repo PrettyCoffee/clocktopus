@@ -6,14 +6,19 @@ import { Checkbox } from "components/ui/checkbox"
 import { showDialog } from "components/ui/dialog"
 import { IconButton } from "components/ui/icon-button"
 import { createColumnHelper, Table } from "components/ui/table"
+import { Tooltip } from "components/ui/tooltip"
+import { projectsData } from "data/projects"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
+import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
-import { hstack, surface } from "utils/styles"
+import { hstack, surface, vstack } from "utils/styles"
+import { timeHelpers } from "utils/time-helpers"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
+import { ProjectName } from "./project-name"
 
 const formatDate = (date: string) => {
   const locale = getLocale()
@@ -28,6 +33,60 @@ const formatDate = (date: string) => {
     month: "short",
     weekday: "short",
   })
+}
+
+const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
+  const projects = useAtomValue(projectsData)
+
+  const totalTimeByProject = projects
+    .map(project => {
+      const items = entries.filter(entry => entry.project === project.id)
+      const minutes = items.reduce(
+        (result, { start, end }) => result + timeHelpers.getDiff(start, end),
+        0
+      )
+      return {
+        projectId: project.id,
+        minutes,
+        duration: timeHelpers.fromMinutes(minutes),
+      }
+    })
+    .filter(({ minutes }) => minutes > 0)
+    .sort((a, b) => b.minutes - a.minutes)
+
+  const total = totalTimeByProject.reduce(
+    (result, { minutes }) => result + minutes,
+    0
+  )
+  const totalDuration = (
+    <span className="px-4 text-base">
+      <span className="text-text-gentle">Total: </span>
+      <Duration minutes={total} />
+    </span>
+  )
+
+  return total === 0 ? (
+    totalDuration
+  ) : (
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <button className="rounded-md">{totalDuration}</button>
+      </Tooltip.Trigger>
+      <Tooltip.Content align="end" asChild>
+        <div className={cn(vstack({ justify: "end" }), "text-sm")}>
+          {totalTimeByProject.map(({ duration, projectId }) => (
+            <span
+              key={projectId}
+              className={hstack({ justify: "between", gap: 2 })}
+            >
+              <ProjectName projectId={projectId} />
+              <span className="font-mono">{duration}</span>
+            </span>
+          ))}
+        </div>
+      </Tooltip.Content>
+    </Tooltip.Root>
+  )
 }
 
 interface TimeTableHeaderProps {
@@ -51,17 +110,14 @@ const TimeTableHeader = ({ date, entries }: TimeTableHeaderProps) => {
         }}
         className={cn(
           hstack({ align: "center" }),
-          "h-10 rounded-t-lg border-b border-stroke-gentle bg-background-page p-4",
+          "h-10 rounded-t-lg border-b border-stroke-gentle bg-background-page",
           "sticky top-18 z-20",
           !isIntersecting && "rounded-lg"
         )}
       >
-        <h2 className="text-base">{formatDate(date)}</h2>
+        <h2 className="px-4 text-base">{formatDate(date)}</h2>
         <div className="flex-1" />
-        <div className="text-base">
-          <span className="text-text-gentle">Total: </span>
-          <Duration entries={entries} />
-        </div>
+        <DateDurations entries={entries} />
       </div>
     </>
   )

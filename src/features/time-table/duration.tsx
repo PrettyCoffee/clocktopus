@@ -10,10 +10,10 @@ const totalDuration = (entries: TimeEntry[]) =>
   )
 
 export const Duration = ({
-  entries,
+  entries = [],
+  minutes = totalDuration(entries),
   className,
-}: ClassNameProp & { entries: TimeEntry[] }) => {
-  const minutes = totalDuration(entries)
+}: ClassNameProp & { minutes?: number; entries?: TimeEntry[] }) => {
   const duration = timeHelpers.toParsed(timeHelpers.fromMinutes(minutes))
   return (
     <span className={cn("text-base whitespace-nowrap", className)}>
