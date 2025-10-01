@@ -1,3 +1,5 @@
+import { useMemo } from "react"
+
 import { Trash } from "lucide-react"
 
 import { Button } from "components/ui/button"
@@ -5,6 +7,7 @@ import { showDialog } from "components/ui/dialog"
 import { showToast } from "components/ui/toaster"
 import { AutoAnimateHeight } from "components/utility/auto-animate-height"
 import { getDateAtom, TimeEntry, useTrackedDates } from "data/time-entries"
+import { selectedWeek } from "features/date-selection"
 import { TimeTable } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
@@ -89,7 +92,18 @@ const FirstEntry = () => (
 )
 
 const MainRoute = () => {
+  const selected = useAtomValue(selectedWeek)
   const trackedDates = useTrackedDates()
+
+  const visibleDates = useMemo(
+    () =>
+      selected.days
+        .map(date => date.toISOString().split("T")[0]!)
+        .filter(date => trackedDates.includes(date))
+        .reverse(),
+    [selected, trackedDates]
+  )
+
   const { ref, isIntersecting } = useIntersectionObserver()
   const checked = useAtomValue(checkedRows)
 
@@ -123,7 +137,7 @@ const MainRoute = () => {
       </AutoAnimateHeight>
 
       <div className="space-y-4">
-        {trackedDates.map(date => (
+        {visibleDates.map(date => (
           <TimeTable
             key={date}
             date={date}

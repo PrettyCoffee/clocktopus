@@ -9,6 +9,7 @@ import { Github } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
 import { Spinner } from "components/ui/spinner"
 import { ErrorBoundary } from "components/utility/error-boundary"
+import { DateSelection } from "features/date-selection"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
@@ -31,12 +32,9 @@ export const AppLayout = ({ children }: PropsWithChildren) => {
             : { title: "Settings", icon: Settings, to: "settings" }
         }
       >
-        <img
-          className="mx-auto size-40 rounded-lg opacity-50 shade-medium"
-          src="./clocktopus.png"
-          alt="logo"
-        />
-        <div className="flex-1" />
+        <div className="flex-1 overflow-y-auto">
+          <DateSelection years={[2025, 2024]} />
+        </div>
         <div className={cn(hstack({ gap: 1 }), "ml-4 *:flex-1")}>
           <IconButton
             icon={Github}
