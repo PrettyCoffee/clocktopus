@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react"
 
-import { Trash } from "lucide-react"
+import { Ghost, Trash } from "lucide-react"
 
 import { Button } from "components/ui/button"
+import { ContextInfo } from "components/ui/context-info"
 import { showDialog } from "components/ui/dialog"
 import { showToast } from "components/ui/toaster"
 import { AutoAnimateHeight } from "components/utility/auto-animate-height"
@@ -145,7 +146,7 @@ const MainRoute = () => {
   if (trackedDates.length === 0) return <FirstEntry />
 
   return (
-    <div className="px-10">
+    <div className="flex h-full flex-col px-10">
       <div ref={ref} />
       <div
         className={cn(
@@ -156,10 +157,21 @@ const MainRoute = () => {
         <CreateTimeEntry />
       </div>
 
-      <TimeTables
-        key={`${selected.year}-${selected.week}`}
-        dates={visibleDates}
-      />
+      {visibleDates.length === 0 ? (
+        <div className="grid w-full flex-1 place-items-center">
+          <ContextInfo
+            icon={Ghost}
+            label="There are no entries in the selected date range yet. Time to add some!"
+          />
+        </div>
+      ) : (
+        <div className="flex-1">
+          <TimeTables
+            key={`${selected.year}-${selected.week}`}
+            dates={visibleDates}
+          />
+        </div>
+      )}
 
       <div className="pb-10" />
     </div>
