@@ -30,9 +30,9 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
         size="sm"
         onClick={() => selectedWeek.set({ year, week: calendarWeek, days })}
         className={cn(
-          "relative w-full justify-start px-1",
+          "relative w-full justify-start border border-transparent px-1",
           isFirstOfYear && "justify-end",
-          selected && "border border-stroke",
+          selected && "border-stroke",
           !hasTimeEntry && "*:opacity-50"
         )}
       >

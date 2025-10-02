@@ -1,8 +1,6 @@
 import { useMemo } from "react"
 
 import { useAtomValue } from "lib/yaasl"
-import { cn } from "utils/cn"
-import { hstack } from "utils/styles"
 
 import { selectedWeek } from "./selected-week"
 import { Week, WeekProps } from "./week"
@@ -46,26 +44,16 @@ export const Year = ({ year }: YearProps) => {
   )
 
   return (
-    <>
-      <div
-        className={cn(
-          "h-8 pl-6 text-sm text-text",
-          hstack({ align: "center" })
-        )}
-      >
-        {year}
-      </div>
-      <div className="grid grid-cols-1">
-        {weeks.map(week => (
-          <Week
-            key={week.calendarWeek}
-            {...week}
-            selected={
-              selected.year === year && selected.week === week.calendarWeek
-            }
-          />
-        ))}
-      </div>
-    </>
+    <div className="grid grid-cols-1">
+      {weeks.map(week => (
+        <Week
+          key={week.calendarWeek}
+          {...week}
+          selected={
+            selected.year === year && selected.week === week.calendarWeek
+          }
+        />
+      ))}
+    </div>
   )
 }
