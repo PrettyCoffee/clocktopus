@@ -1,4 +1,5 @@
 import { Button } from "components/ui/button"
+import { useTrackedDates } from "data/time-entries"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
 
@@ -11,8 +12,12 @@ export interface WeekProps {
   selected?: boolean
 }
 export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
+  const trackedDates = useTrackedDates()
   const first = days.find(day => day.getDate() === 1)
   const isFirstOfYear = days[0]!.getMonth() === 0 && days[0]!.getDate() === 1
+  const hasTimeEntry = days.some(day =>
+    trackedDates.includes(day.toISOString().split("T")[0]!)
+  )
   return (
     <div className="relative pl-4">
       <span className="absolute -bottom-0.25 left-1 inline-block origin-left -rotate-90 text-sm text-text-muted">
@@ -27,7 +32,8 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
         className={cn(
           "relative w-full justify-start px-1",
           isFirstOfYear && "justify-end",
-          selected && "border border-stroke"
+          selected && "border border-stroke",
+          !hasTimeEntry && "opacity-50"
         )}
       >
         {days.map(day => {
@@ -41,8 +47,8 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
                 date === 1
                   ? "text-text/75 border-stroke"
                   : weekday === 0 || weekday === 6
-                    ? "text-highlight/50"
-                    : "text-text-priority/50"
+                    ? "text-highlight/75"
+                    : "text-text/75"
               )}
             >
               {String(date).padStart(2, "0")}
