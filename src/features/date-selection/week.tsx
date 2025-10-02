@@ -20,11 +20,11 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
   )
   return (
     <div className="relative pl-4">
-      <span className="absolute -bottom-0.25 left-1 inline-block origin-left -rotate-90 text-sm text-text-muted">
-        {first && (
-          <>{first.toLocaleDateString(getLocale(), { month: "short" })}</>
-        )}
-      </span>
+      {first && (
+        <span className="absolute bottom-1 left-1 inline-block origin-left -rotate-90 text-sm text-text-muted">
+          {first.toLocaleDateString(getLocale(), { month: "short" })}
+        </span>
+      )}
 
       <Button
         size="sm"
@@ -33,22 +33,26 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
           "relative w-full justify-start px-1",
           isFirstOfYear && "justify-end",
           selected && "border border-stroke",
-          !hasTimeEntry && "opacity-50"
+          !hasTimeEntry && "*:opacity-50"
         )}
       >
         {days.map(day => {
           const date = day.getDate()
           const weekday = day.getDay()
+          const isFirstOfMonth = date === 1
+          const isNextMonth = first && date < 10
+          const isLastMonth = first && date > 20
           return (
             <span
               key={date}
               className={cn(
-                "w-[calc(100%_/_7)] border-l-2 border-transparent font-mono",
-                date === 1
-                  ? "text-text/75 border-stroke"
-                  : weekday === 0 || weekday === 6
-                    ? "text-highlight/75"
-                    : "text-text/75"
+                "w-[calc(100%_/_7)] border-current font-mono",
+                isFirstOfMonth && "border-b-2 border-l-2 rounded-bl-sm",
+                isLastMonth && "border-t-2",
+                isNextMonth && "border-b-2",
+                weekday === 0 || weekday === 6
+                  ? "text-highlight/75"
+                  : "text-text/75"
               )}
             >
               {String(date).padStart(2, "0")}
