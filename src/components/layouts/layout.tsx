@@ -60,6 +60,7 @@ const Side = ({ children, actions = [], className }: LayoutSideProps) => {
           <IconButton
             icon={Menu}
             title={isOpen ? "Collapse side menu" : "Expand side menu"}
+            titleSide="right"
             onClick={toggle}
           />
           {actions}

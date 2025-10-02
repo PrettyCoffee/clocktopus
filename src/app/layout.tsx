@@ -28,11 +28,11 @@ export const AppLayout = ({ children }: PropsWithChildren) => {
       <Layout.Side
         actions={
           isSettingsRoute ? (
-            <IconButton key="back" title="Back" icon={ArrowLeft} to="" />
+            <IconButton title="Back" titleSide="right" icon={ArrowLeft} to="" />
           ) : (
             <IconButton
-              key="settings"
               title="Settings"
+              titleSide="right"
               icon={Settings}
               to="settings"
             />
