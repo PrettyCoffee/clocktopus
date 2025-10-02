@@ -27,9 +27,16 @@ export const AppLayout = ({ children }: PropsWithChildren) => {
     <Layout.Root>
       <Layout.Side
         actions={
-          isSettingsRoute
-            ? { title: "Back", icon: ArrowLeft, to: "" }
-            : { title: "Settings", icon: Settings, to: "settings" }
+          isSettingsRoute ? (
+            <IconButton key="back" title="Back" icon={ArrowLeft} to="" />
+          ) : (
+            <IconButton
+              key="settings"
+              title="Settings"
+              icon={Settings}
+              to="settings"
+            />
+          )
         }
       >
         <div className="flex-1 overflow-y-auto">

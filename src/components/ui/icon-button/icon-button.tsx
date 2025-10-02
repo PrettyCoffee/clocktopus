@@ -20,7 +20,7 @@ const iconButton = cva("shrink-0", {
   },
 })
 
-interface IconButtonProps
+export interface IconButtonProps
   extends VariantProps<typeof iconButton>,
     Pick<IconProps, "icon" | "filled">,
     Omit<ButtonProps, "look" | "icon" | "asChild" | "isLoading">,

@@ -1,13 +1,12 @@
-import { PropsWithChildren } from "react"
+import { PropsWithChildren, ReactNode } from "react"
 
 import { Menu } from "lucide-react"
 
 import { useMountAnimation } from "hooks/use-mount-animation"
 import { createAtom, useAtomValue } from "lib/yaasl"
-import { ClassNameProp, IconProp } from "types/base-props"
+import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
-import { toArray } from "utils/to-array"
 
 import { IconButton } from "../ui/icon-button"
 
@@ -17,32 +16,14 @@ const Main = ({ children, className }: PropsWithChildren & ClassNameProp) => (
   </div>
 )
 
-interface SideAction extends Required<IconProp> {
-  title: string
-  href?: string
-  to?: string
-  onClick?: () => void
-}
-
-type NoAction = false | null | undefined
-
 interface LayoutSideProps extends PropsWithChildren, ClassNameProp {
-  actions?: SideAction | NoAction | (SideAction | NoAction)[]
+  actions?: ReactNode
 }
 const sideBarOpen = createAtom({ defaultValue: false })
 const Side = ({ children, actions = [], className }: LayoutSideProps) => {
   const isOpen = useAtomValue(sideBarOpen)
   const toggle = () => sideBarOpen.set(open => !open)
   const animate = useMountAnimation({ open: isOpen, duration: 300 })
-
-  const allActions: SideAction[] = [
-    {
-      title: isOpen ? "Collapse side menu" : "Expand side menu",
-      onClick: toggle,
-      icon: Menu,
-    },
-    ...toArray(actions),
-  ].filter(action => !!action)
 
   return (
     <div className="px-5 py-2">
@@ -73,12 +54,15 @@ const Side = ({ children, actions = [], className }: LayoutSideProps) => {
           className={cn(
             vstack({}),
             "absolute top-3 -right-5 rounded-2xl border border-stroke-gentle bg-background-page",
-            "*:rounded-2xl"
+            "[&_:where(button,a)]:size-10 [&_:where(button,a)]:rounded-2xl"
           )}
         >
-          {allActions.map(action => (
-            <IconButton key={action.title} titleSide="right" {...action} />
-          ))}
+          <IconButton
+            icon={Menu}
+            title={isOpen ? "Collapse side menu" : "Expand side menu"}
+            onClick={toggle}
+          />
+          {actions}
         </div>
       </div>
     </div>
