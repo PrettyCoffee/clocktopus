@@ -9,6 +9,7 @@ import { Github } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
 import { Spinner } from "components/ui/spinner"
 import { ErrorBoundary } from "components/utility/error-boundary"
+import { useTrackedDates } from "data/time-entries"
 import { DateSelection } from "features/date-selection"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
@@ -19,9 +20,21 @@ const PageLoading = () => (
   </div>
 )
 
+const getYears = (dates: string[]) => {
+  const years = [...new Set(dates.map(date => date.split("-")[0]!).map(Number))]
+  const currentYear = new Date().getFullYear()
+  const startYear = years.toSorted()[0] ?? currentYear
+  const range = Array.from(
+    { length: currentYear - startYear + 1 },
+    (_, index) => currentYear - index
+  )
+  return range
+}
+
 export const AppLayout = ({ children }: PropsWithChildren) => {
   const [path] = useHashLocation()
   const isSettingsRoute = path.endsWith("settings")
+  const trackedDates = useTrackedDates()
 
   return (
     <Layout.Root>
@@ -40,7 +53,7 @@ export const AppLayout = ({ children }: PropsWithChildren) => {
         }
       >
         <div className="flex-1 overflow-y-auto">
-          <DateSelection years={[2025, 2024]} />
+          <DateSelection years={getYears(trackedDates)} />
         </div>
         <div className={cn(hstack({ gap: 1 }), "ml-4 *:flex-1")}>
           <IconButton
