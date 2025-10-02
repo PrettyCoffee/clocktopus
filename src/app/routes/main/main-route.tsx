@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 
 import { Trash } from "lucide-react"
 
@@ -11,33 +11,11 @@ import { selectedWeek } from "features/date-selection"
 import { TimeTable } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
-import { createSlice, useAtomValue } from "lib/yaasl"
+import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 
 type CheckedState = Record<string, Record<string, true>>
-const checkedRows = createSlice({
-  defaultValue: {} as CheckedState,
-  reducers: {
-    toggle: (state, { date, id }: TimeEntry) => {
-      if (!state[date]?.[id]) {
-        return {
-          ...state,
-          [date]: { ...state[date], [id]: true },
-        }
-      }
-
-      const checked = { ...state }
-
-      delete checked[date]?.[id]
-      if (Object.keys(checked[date] ?? {}).length === 0) {
-        delete checked[date]
-      }
-
-      return checked
-    },
-  },
-})
 
 const getSelectedAmount = (checked: CheckedState) =>
   Object.values(checked).reduce(
@@ -45,7 +23,7 @@ const getSelectedAmount = (checked: CheckedState) =>
     0
   )
 
-const bulkDelete = (checked: CheckedState) =>
+const bulkDelete = (checked: CheckedState, onDelete: () => void) =>
   showDialog({
     title: "Delete time entries?",
     description:
@@ -58,11 +36,69 @@ const bulkDelete = (checked: CheckedState) =>
           const atom = getDateAtom(date)
           Object.keys(checked).forEach(id => atom.actions.delete(Number(id)))
         })
-        checkedRows.set({})
         showToast({ kind: "success", title: "Deleted selected entries" })
+        onDelete()
       },
     },
   })
+
+const toggleChecked = (state: CheckedState, { date, id }: TimeEntry) => {
+  if (!state[date]?.[id]) {
+    return {
+      ...state,
+      [date]: { ...state[date], [id]: true },
+    }
+  }
+
+  const checked = { ...state }
+
+  delete checked[date]?.[id]
+  if (Object.keys(checked[date] ?? {}).length === 0) {
+    delete checked[date]
+  }
+
+  return checked
+}
+
+const TimeTables = ({ dates }: { dates: string[] }) => {
+  const [checked, setChecked] = useState<CheckedState>({})
+
+  const toggle = (entry: TimeEntry) =>
+    setChecked(state => toggleChecked(state, entry))
+
+  const selectedAmount = getSelectedAmount(checked)
+  const hasChecked = selectedAmount > 0
+
+  return (
+    <>
+      <AutoAnimateHeight duration={150}>
+        <div
+          className={cn(hstack({ align: "center" }), "pt-4 [&:has(*)]:pb-1")}
+        >
+          {hasChecked && (
+            <Button
+              icon={Trash}
+              onClick={() => bulkDelete(checked, () => setChecked({}))}
+            >
+              Delete selected
+            </Button>
+          )}
+        </div>
+      </AutoAnimateHeight>
+
+      <div className="space-y-4">
+        {dates.map(date => (
+          <TimeTable
+            key={date}
+            date={date}
+            checked={checked[date] ?? {}}
+            onCheckedChange={toggle}
+          />
+        ))}
+      </div>
+    </>
+  )
+}
 
 const FirstEntry = () => (
   <div
@@ -105,10 +141,6 @@ const MainRoute = () => {
   )
 
   const { ref, isIntersecting } = useIntersectionObserver()
-  const checked = useAtomValue(checkedRows)
-
-  const selectedAmount = getSelectedAmount(checked)
-  const hasChecked = selectedAmount > 0
 
   if (trackedDates.length === 0) return <FirstEntry />
 
@@ -124,28 +156,10 @@ const MainRoute = () => {
         <CreateTimeEntry />
       </div>
 
-      <AutoAnimateHeight duration={150}>
-        <div
-          className={cn(hstack({ align: "center" }), "pt-4 [&:has(*)]:pb-1")}
-        >
-          {hasChecked && (
-            <Button icon={Trash} onClick={() => bulkDelete(checked)}>
-              Delete selected
-            </Button>
-          )}
-        </div>
-      </AutoAnimateHeight>
-
-      <div className="space-y-4">
-        {visibleDates.map(date => (
-          <TimeTable
-            key={date}
-            date={date}
-            checked={checked[date] ?? {}}
-            onCheckedChange={entry => checkedRows.actions.toggle(entry)}
-          />
-        ))}
-      </div>
+      <TimeTables
+        key={`${selected.year}-${selected.week}`}
+        dates={visibleDates}
+      />
 
       <div className="pb-10" />
     </div>
