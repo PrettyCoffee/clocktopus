@@ -61,6 +61,7 @@ export const fuzzyFilter = <TData>({
   return items
     .flatMap(item => {
       const itemValue = normalize(getFilterValue(item))
+      if (normalizedFilter === itemValue) return []
       const score = matchScore(itemValue, normalizedFilter)
       if (score > 2) return []
       return { item, score }
