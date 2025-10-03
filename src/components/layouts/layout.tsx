@@ -3,7 +3,7 @@ import { PropsWithChildren, ReactNode } from "react"
 import { Menu } from "lucide-react"
 
 import { useMountAnimation } from "hooks/use-mount-animation"
-import { createAtom, useAtomValue } from "lib/yaasl"
+import { createAtom, sessionStorage, useAtomValue } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
@@ -19,7 +19,12 @@ const Main = ({ children, className }: PropsWithChildren & ClassNameProp) => (
 interface LayoutSideProps extends PropsWithChildren, ClassNameProp {
   actions?: ReactNode
 }
-const sideBarOpen = createAtom({ defaultValue: false })
+const initialOpen = document.body.getBoundingClientRect().width > 1260
+const sideBarOpen = createAtom({
+  defaultValue: initialOpen,
+  effects: [sessionStorage()],
+})
+
 const Side = ({ children, actions = [], className }: LayoutSideProps) => {
   const isOpen = useAtomValue(sideBarOpen)
   const toggle = () => sideBarOpen.set(open => !open)
