@@ -111,7 +111,7 @@ const ProjectSelect = ({ entry, onChange, ...rest }: InputProps) => {
       ))}
 
       <Link
-        to="settings"
+        to="/settings/projects"
         className="m-2 h-8 text-sm text-text-gentle hover:text-text"
       >
         Go to project settings
