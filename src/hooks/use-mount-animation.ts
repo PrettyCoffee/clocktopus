@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 
+import { toArray } from "utils/to-array"
+
 import { useMediaQuery } from "./use-media-query"
 
 type MountAnimationState =
@@ -27,7 +29,7 @@ export const useMountAnimation = ({
     open ? "open" : "close"
   )
 
-  const durations = [duration].flat()
+  const durations = toArray(duration)
   const enterDuration = durations[0]
   const leaveDuration = durations[1] ?? durations[0]
 
