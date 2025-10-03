@@ -128,7 +128,7 @@ const FirstEntry = () => (
   </div>
 )
 
-const MainRoute = () => {
+export const MainRoute = () => {
   const selected = useAtomValue(selectedWeek)
   const trackedDates = useTrackedDates()
 
@@ -177,5 +177,3 @@ const MainRoute = () => {
     </div>
   )
 }
-
-export default MainRoute

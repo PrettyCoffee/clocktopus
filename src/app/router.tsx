@@ -1,36 +1,33 @@
-import { FC, lazy } from "react"
-
 import { Router, Route, Switch } from "wouter"
 import { useHashLocation } from "wouter/use-hash-location"
 
 import { AppLayout } from "./layout"
+import { MainRoute } from "./routes/main/main-route"
+import { MainSideRoute } from "./routes/main/main-side-route"
 import { NotFoundRoute } from "./routes/not-found"
-import { PageChangedRoute } from "./routes/page-changed"
+import { SettingsRoute } from "./routes/settings/settings-route"
+import { SettingsSideRoute } from "./routes/settings/settings-side-route"
 
-const fallback = { default: PageChangedRoute }
-const safeLazy = <T extends FC<unknown>>(load: () => Promise<{ default: T }>) =>
-  lazy<T>(async () => {
-    try {
-      return await load()
-    } catch {
-      return fallback as unknown as { default: T }
-    }
-  })
-
-export const AppRouter = () => (
+const AppRouter = () => (
+  // eslint-disable-next-line react-compiler/react-compiler
   <Router hook={useHashLocation}>
-    <AppLayout>
-      <Switch>
-        <Route
-          path="/settings"
-          component={safeLazy(() => import("./routes/settings/settings-route"))}
-        />
-        <Route
-          path="/"
-          component={safeLazy(() => import("./routes/main/main-route"))}
-        />
-        <Route component={NotFoundRoute} />
-      </Switch>
-    </AppLayout>
+    <AppLayout
+      sideContent={
+        <Switch>
+          <Route path="/settings/*" component={SettingsSideRoute} />
+          <Route path="/settings" component={SettingsSideRoute} />
+          <Route path="/" component={MainSideRoute} />
+        </Switch>
+      }
+      mainContent={
+        <Switch>
+          <Route path="/settings" nest component={SettingsRoute} />
+          <Route path="/" component={MainRoute} />
+          <Route component={NotFoundRoute} />
+        </Switch>
+      }
+    />
   </Router>
 )
+
+export default AppRouter

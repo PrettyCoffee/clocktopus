@@ -1,4 +1,4 @@
-import { PropsWithChildren, Suspense } from "react"
+import { ReactNode } from "react"
 
 import { Settings, ClockFading, ChartNoAxesColumn } from "lucide-react"
 import { useHashLocation } from "wouter/use-hash-location"
@@ -7,9 +7,7 @@ import { MainErrorFallback } from "components/errors/main"
 import { Layout } from "components/layouts/layout"
 import { Github } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
-import { Spinner } from "components/ui/spinner"
 import { ErrorBoundary } from "components/utility/error-boundary"
-import { DateSelection } from "features/date-selection"
 
 const routes = [
   { to: "/", title: "Time Tracker", icon: ClockFading },
@@ -26,6 +24,9 @@ const routes = [
 const SideActions = () => {
   const [path] = useHashLocation()
 
+  const isActive = (to?: string) =>
+    !to ? false : to.split("/").find(Boolean) === path.split("/").find(Boolean)
+
   return (
     <>
       {routes.map(props => (
@@ -33,41 +34,25 @@ const SideActions = () => {
           key={props.to ?? props.href}
           {...props}
           titleSide="right"
-          active={path === props.to}
+          active={isActive(props.to)}
         />
       ))}
     </>
   )
 }
 
-const SideContent = () => {
-  const [path] = useHashLocation()
-
-  if (path === "/") return <DateSelection />
-
-  if (path === "/settings") {
-    /* TODO: Add some sub navigation */
-  }
-
-  return null
+interface AppLayoutProps {
+  mainContent: ReactNode
+  sideContent: ReactNode
 }
-
-const PageLoading = () => (
-  <div className="grid size-full place-items-center">
-    <Spinner size="xl" />
-  </div>
-)
-
-export const AppLayout = ({ children }: PropsWithChildren) => (
+export const AppLayout = ({ mainContent, sideContent }: AppLayoutProps) => (
   <Layout.Root>
     <Layout.Side actions={<SideActions />}>
-      <SideContent />
+      <ErrorBoundary Fallback={MainErrorFallback}>{sideContent}</ErrorBoundary>
     </Layout.Side>
 
     <Layout.Main>
-      <Suspense fallback={<PageLoading />}>
-        <ErrorBoundary Fallback={MainErrorFallback}>{children}</ErrorBoundary>
-      </Suspense>
+      <ErrorBoundary Fallback={MainErrorFallback}>{mainContent}</ErrorBoundary>
     </Layout.Main>
   </Layout.Root>
 )
