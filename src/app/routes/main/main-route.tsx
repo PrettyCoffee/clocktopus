@@ -146,7 +146,10 @@ const MainRoute = () => {
   if (trackedDates.length === 0) return <FirstEntry />
 
   return (
-    <div className="flex h-full flex-col px-10">
+    <div
+      key={`${selected.year}-${selected.week}`}
+      className="flex h-full flex-col px-10"
+    >
       <div ref={ref} />
       <div
         className={cn(
@@ -166,10 +169,7 @@ const MainRoute = () => {
         </div>
       ) : (
         <div className="flex-1">
-          <TimeTables
-            key={`${selected.year}-${selected.week}`}
-            dates={visibleDates}
-          />
+          <TimeTables dates={visibleDates} />
         </div>
       )}
 

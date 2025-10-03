@@ -1,6 +1,6 @@
 import { PropsWithChildren, Suspense } from "react"
 
-import { ArrowLeft, History, Settings } from "lucide-react"
+import { Settings, ClockFading, ChartNoAxesColumn } from "lucide-react"
 import { useHashLocation } from "wouter/use-hash-location"
 
 import { MainErrorFallback } from "components/errors/main"
@@ -10,8 +10,35 @@ import { IconButton } from "components/ui/icon-button"
 import { Spinner } from "components/ui/spinner"
 import { ErrorBoundary } from "components/utility/error-boundary"
 import { DateSelection } from "features/date-selection"
-import { cn } from "utils/cn"
-import { hstack } from "utils/styles"
+
+const routes = [
+  { to: "/", title: "Time Tracker", icon: ClockFading },
+  { to: "/stats", title: "Stats", icon: ChartNoAxesColumn, disabled: true },
+  { to: "/settings", title: "Settings", icon: Settings },
+  {
+    href: "https://github.com/PrettyCoffee/clocktopus",
+    title: "Github",
+    icon: Github,
+    target: "_blank",
+  },
+]
+
+const SideActions = () => {
+  const [path] = useHashLocation()
+
+  return (
+    <>
+      {routes.map(props => (
+        <IconButton
+          key={props.to ?? props.href}
+          {...props}
+          titleSide="right"
+          active={path === props.to}
+        />
+      ))}
+    </>
+  )
+}
 
 const PageLoading = () => (
   <div className="grid size-full place-items-center">
@@ -19,42 +46,16 @@ const PageLoading = () => (
   </div>
 )
 
-export const AppLayout = ({ children }: PropsWithChildren) => {
-  const [path] = useHashLocation()
-  const isSettingsRoute = path.endsWith("settings")
+export const AppLayout = ({ children }: PropsWithChildren) => (
+  <Layout.Root>
+    <Layout.Side actions={<SideActions />}>
+      <DateSelection />
+    </Layout.Side>
 
-  return (
-    <Layout.Root>
-      <Layout.Side
-        actions={
-          isSettingsRoute ? (
-            <IconButton title="Back" titleSide="right" icon={ArrowLeft} to="" />
-          ) : (
-            <IconButton
-              title="Settings"
-              titleSide="right"
-              icon={Settings}
-              to="settings"
-            />
-          )
-        }
-      >
-        <DateSelection />
-        <div className={cn(hstack({ gap: 1 }), "ml-4 *:flex-1")}>
-          <IconButton
-            icon={Github}
-            title="Github Repository"
-            href="https://github.com/PrettyCoffee/clocktopus"
-            target="_blank"
-          />
-          <IconButton icon={History} title="Changelog" />
-        </div>
-      </Layout.Side>
-      <Layout.Main>
-        <Suspense fallback={<PageLoading />}>
-          <ErrorBoundary Fallback={MainErrorFallback}>{children}</ErrorBoundary>
-        </Suspense>
-      </Layout.Main>
-    </Layout.Root>
-  )
-}
+    <Layout.Main>
+      <Suspense fallback={<PageLoading />}>
+        <ErrorBoundary Fallback={MainErrorFallback}>{children}</ErrorBoundary>
+      </Suspense>
+    </Layout.Main>
+  </Layout.Root>
+)
