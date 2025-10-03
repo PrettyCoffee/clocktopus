@@ -40,6 +40,18 @@ const SideActions = () => {
   )
 }
 
+const SideContent = () => {
+  const [path] = useHashLocation()
+
+  if (path === "/") return <DateSelection />
+
+  if (path === "/settings") {
+    /* TODO: Add some sub navigation */
+  }
+
+  return null
+}
+
 const PageLoading = () => (
   <div className="grid size-full place-items-center">
     <Spinner size="xl" />
@@ -49,7 +61,7 @@ const PageLoading = () => (
 export const AppLayout = ({ children }: PropsWithChildren) => (
   <Layout.Root>
     <Layout.Side actions={<SideActions />}>
-      <DateSelection />
+      <SideContent />
     </Layout.Side>
 
     <Layout.Main>
