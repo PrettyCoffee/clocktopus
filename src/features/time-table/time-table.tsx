@@ -40,7 +40,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
 
   const totalTimeByProject = [{ id: undefined }, ...projects]
     .map(project => {
-      const items = entries.filter(entry => entry.project === project.id)
+      const items = entries.filter(entry => entry.projectId === project.id)
       const minutes = items.reduce(
         (result, { start, end }) => result + timeHelpers.getDiff(start, end),
         0

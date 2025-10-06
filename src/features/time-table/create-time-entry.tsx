@@ -27,7 +27,7 @@ const useSearchableTimeEntries = () => {
   return useMemo(() => {
     const allItems = allEntries
       .filter(({ description }) => !!description)
-      .map(({ description, project }) => ({ description, project }))
+      .map(({ description, projectId }) => ({ description, projectId }))
 
     const withoutDuplicates = allItems.reduce(
       (result, item) => {
@@ -98,7 +98,7 @@ const DescriptionAutoComplete = ({
       renderOptionLabel={item => (
         <OptionLabel
           description={item.description}
-          project={!item.project ? undefined : projects[item.project]}
+          project={!item.projectId ? undefined : projects[item.projectId]}
         />
       )}
     >

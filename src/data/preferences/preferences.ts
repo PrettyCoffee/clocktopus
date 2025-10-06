@@ -1,8 +1,12 @@
-import { createSlice, sessionStorage } from "lib/yaasl"
+import { z } from "zod"
 
-interface Preferences {
-  locale: string
-}
+import { createSlice, sessionStorage } from "lib/yaasl"
+import { Resolve } from "types/util-types"
+
+export const preferencesSchema = z.object({
+  locale: z.string(),
+})
+export type Preferences = Resolve<z.infer<typeof preferencesSchema>>
 
 const defaultValue: Preferences = {
   locale: "iso",

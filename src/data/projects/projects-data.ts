@@ -1,11 +1,15 @@
+import { z } from "zod"
+
 import { createSlice, indexedDb, sync } from "lib/yaasl"
+import { Resolve } from "types/util-types"
 import { createId } from "utils/create-id"
 
-export interface Project {
-  id: string
-  name: string
-  categoryId?: string
-}
+export const projectSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  categoryId: z.optional(z.string()),
+})
+export type Project = Resolve<z.infer<typeof projectSchema>>
 
 const defaultValue: Project[] = [
   { id: createId("mini"), name: "Strategic", categoryId: "1" },

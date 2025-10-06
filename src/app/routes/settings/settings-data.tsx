@@ -10,10 +10,10 @@ import { allData, AllData } from "data/all-data"
 import { cn } from "utils/cn"
 import { download } from "utils/download"
 import { hstack, vstack } from "utils/styles"
+import { today } from "utils/today"
 
 const exportData = () => {
-  const date = new Date().toISOString().slice(0, 10)
-  download(`clocktopus-export_${date}.json`, allData.get())
+  download(`clocktopus-export_${today()}.json`, allData.get())
 }
 
 class ImportError extends Error {}

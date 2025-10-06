@@ -1,15 +1,19 @@
+import { z } from "zod"
+
 import { autoSort, createSlice, indexedDb, sync } from "lib/yaasl"
+import { Resolve } from "types/util-types"
 
 import { trackedDates } from "./tracked-dates"
 
-export interface TimeEntry {
-  id: number
-  description: string
-  start: string
-  end: string
-  date: string
-  project?: string
-}
+export const timeEntrySchema = z.object({
+  id: z.number(),
+  description: z.string(),
+  start: z.string(),
+  end: z.string(),
+  date: z.string(),
+  projectId: z.optional(z.string()),
+})
+export type TimeEntry = Resolve<z.infer<typeof timeEntrySchema>>
 
 const getNextId = (entries: TimeEntry[]) =>
   entries.reduce((current, { id }) => Math.max(current, id), 0) + 1

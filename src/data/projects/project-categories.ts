@@ -1,12 +1,16 @@
-import { createSlice, indexedDb, sync } from "lib/yaasl"
-import { createId } from "utils/create-id"
-import { ThemeColor } from "utils/styles"
+import { z } from "zod"
 
-export interface ProjectCategory {
-  id: string
-  name: string
-  color: ThemeColor
-}
+import { createSlice, indexedDb, sync } from "lib/yaasl"
+import { Resolve } from "types/util-types"
+import { createId } from "utils/create-id"
+import { allColors } from "utils/styles"
+
+export const projectCategorySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  color: z.enum(allColors),
+})
+export type ProjectCategory = Resolve<z.infer<typeof projectCategorySchema>>
 
 const defaultValue: Record<string, ProjectCategory> = {
   1: { id: "1", name: "Dev", color: "rose" },

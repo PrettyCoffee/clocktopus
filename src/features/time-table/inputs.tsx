@@ -96,9 +96,9 @@ const ProjectSelect = ({ entry, onChange, ...rest }: InputProps) => {
     <Select.Root
       {...rest}
       placeholder="Project"
-      value={entry.project ?? ""}
+      value={entry.projectId ?? ""}
       onChange={project =>
-        onChange({ project: project === "none" ? undefined : project })
+        onChange({ projectId: project === "none" ? undefined : project })
       }
     >
       <Select.Option value="none" className="text-text-muted">
