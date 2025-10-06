@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react"
+import { PropsWithChildren, ReactNode, useState } from "react"
 
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
@@ -47,7 +47,7 @@ const DialogActions = ({
   if (!confirm && !cancel) return null
 
   return (
-    <div className={cn(hstack({ gap: 2, wrap: true }), "p-4")}>
+    <div className={cn(hstack({ gap: 2, wrap: true }), "px-4 pb-4")}>
       {confirm && (
         <Button
           look={confirm.look ?? "key"}
@@ -78,9 +78,10 @@ export const Dialog = ({
   title,
   description,
   onClose,
+  children,
   confirm,
   cancel,
-}: DialogProps) => {
+}: PropsWithChildren<DialogProps>) => {
   const [status, setStatus] = useState<"init" | "show" | "closing">("init")
 
   const transition = transitionStyles[status === "show" ? "show" : "hide"]
@@ -121,10 +122,12 @@ export const Dialog = ({
           </DialogPrimitive.Title>
 
           {description && (
-            <DialogPrimitive.Description className="px-4 text-sm text-text-gentle">
+            <DialogPrimitive.Description className="px-4 pb-4 text-sm text-text-gentle">
               {description}
             </DialogPrimitive.Description>
           )}
+
+          {children && <div className="px-4 pb-4">{children}</div>}
 
           <DialogActions confirm={confirm} cancel={cancel} onClose={close} />
 
