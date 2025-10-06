@@ -6,9 +6,8 @@ import { AutoComplete } from "components/ui/auto-complete"
 import { IconButton } from "components/ui/icon-button"
 import { projectCategories, projectsData } from "data/projects"
 import {
-  getDateAtom,
   useDateEntries,
-  useTrackedDates,
+  useAllTimeEntries,
   type TimeEntry,
 } from "data/time-entries"
 import { useObjectState } from "hooks/use-object-state"
@@ -22,16 +21,12 @@ import { Duration } from "./duration"
 import { inputs } from "./inputs"
 import { ProjectName } from "./project-name"
 
-const useAllTimeEntries = () => {
-  const dates = useTrackedDates()
+const useSearchableTimeEntries = () => {
+  const allEntries = useAllTimeEntries()
 
   return useMemo(() => {
-    const allItems = dates
-      .flatMap(date =>
-        getDateAtom(date)
-          .get()
-          .filter(({ description }) => !!description)
-      )
+    const allItems = allEntries
+      .filter(({ description }) => !!description)
       .map(({ description, project }) => ({ description, project }))
 
     const withoutDuplicates = allItems.reduce(
@@ -45,7 +40,7 @@ const useAllTimeEntries = () => {
     )
 
     return withoutDuplicates.items
-  }, [dates])
+  }, [allEntries])
 }
 
 const useProjects = () => {
@@ -91,7 +86,7 @@ const DescriptionAutoComplete = ({
   onSelect,
   children,
 }: PropsWithChildren<DescriptionAutoCompleteProps>) => {
-  const entries = useAllTimeEntries()
+  const entries = useSearchableTimeEntries()
   const projects = useProjects()
 
   return (
