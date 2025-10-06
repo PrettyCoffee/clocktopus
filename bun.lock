@@ -13,7 +13,7 @@
         "@radix-ui/react-tooltip": "^1.2.8",
         "@types/react": "^19.1.13",
         "@types/react-dom": "^19.1.9",
-        "@yaasl/core": "^0.14.0alpha.0",
+        "@yaasl/core": "^0.14.0-alpha.1",
         "@yaasl/devtools": "^0.13.1",
         "@yaasl/react": "^0.13.1",
         "class-variance-authority": "^0.7.1",
@@ -487,7 +487,7 @@
 
     "@vitest/eslint-plugin": ["@vitest/eslint-plugin@1.3.12", "", { "dependencies": { "@typescript-eslint/scope-manager": "^8.41.0", "@typescript-eslint/utils": "^8.24.1" }, "peerDependencies": { "eslint": ">= 8.57.0", "typescript": ">= 5.0.0", "vitest": "*" }, "optionalPeers": ["typescript", "vitest"] }, "sha512-cSEyUYGj8j8SLqKrzN7BlfsJ3wG67eRT25819PXuyoSBogLXiyagdKx4MHWHV1zv+EEuyMXsEKkBEKzXpxyBrg=="],
 
-    "@yaasl/core": ["@yaasl/core@0.14.0-alpha.0", "", { "peerDependencies": { "@yaasl/utils": "^0.13.1" } }, "sha512-WcRH7CBVhf1IqqqkY9ZU+Ns5eWKsbo/ZmLjAIWo1vArv1xpyrn/75JMQKJfX9R7wgUq4nRP+N65VNUwsPrmH3Q=="],
+    "@yaasl/core": ["@yaasl/core@0.14.0-alpha.1", "", { "peerDependencies": { "@yaasl/utils": "^0.13.1" } }, "sha512-mAw0IE2FQn2qUsrPap+rmcJcaw903Qw04WBqRDU+De4Yt2WUTK3rCiUQBBMT/SJ35cIHIfWqQkWEoZ+LSfi/RQ=="],
 
     "@yaasl/devtools": ["@yaasl/devtools@0.13.1", "", { "peerDependencies": { "@yaasl/core": "^0.13.1", "@yaasl/utils": "^0.13.1" } }, "sha512-cqqcUa3Pxo6LXqQK0gLcy9Q+owwbB9c7BTjpDfczvQ0p+nbuxVgn0mwx3xrtlQnNWDb72dWddtdLiYS0LtdlMQ=="],
 

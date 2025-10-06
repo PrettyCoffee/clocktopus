@@ -1,11 +1,6 @@
-import {
-  autoSort,
-  createSlice,
-  indexedDb,
-  localStorage,
-  sync,
-  useAtomValue,
-} from "lib/yaasl"
+import { autoSort, createSlice, indexedDb, sync } from "lib/yaasl"
+
+import { trackedDates } from "./tracked-dates"
 
 export interface TimeEntry {
   id: number
@@ -18,22 +13,6 @@ export interface TimeEntry {
 
 const getNextId = (entries: TimeEntry[]) =>
   entries.reduce((current, { id }) => Math.max(current, id), 0) + 1
-
-const sortDates = (a: string, b: string) => b.localeCompare(a)
-
-const trackedDates = createSlice({
-  name: "tracked-dates",
-  defaultValue: [] as string[],
-  effects: [localStorage(), autoSort({ sortFn: sortDates })],
-  reducers: {
-    add: (state, date: string) =>
-      state.includes(date) ? state : [...state, date],
-    remove: (state, date: string) =>
-      !state.includes(date) ? state : state.filter(item => item !== date),
-  },
-})
-
-export const useTrackedDates = () => useAtomValue(trackedDates)
 
 const sortEntries = (a: TimeEntry, b: TimeEntry) => {
   const start = b.start.localeCompare(a.start)
@@ -65,6 +44,7 @@ const createEntriesByDate = (date: string) => {
   })
 
   atom.subscribe(entries => {
+    if (trackedDates.didInit !== true) return
     if (entries.length > 0) {
       trackedDates.actions.add(date)
     } else {
