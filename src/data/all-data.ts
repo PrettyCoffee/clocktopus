@@ -40,27 +40,36 @@ const getAllData = (): AllData => {
   }
 }
 
-const patchAllData = (data: AllData) => {
+const patchAllData = async (data: AllData) => {
   if (data.preferences) preferencesData.set(data.preferences)
   if (data.theme) themeData.set(data.theme)
   if (data.projects) projectsData.set(data.projects)
   if (data.projectCategories) projectCategories.set(data.projectCategories)
-  if (data.timeEntries)
-    Object.entries(data.timeEntries).forEach(([date, entries]) =>
-      getDateAtom(date).set(entries)
-    )
+  if (data.timeEntries) {
+    for (const date of trackedDates.get()) {
+      const atom = getDateAtom(date)
+      await atom.didInit
+      atom.set(atom.defaultValue)
+    }
+    for (const [date, entries] of Object.entries(data.timeEntries)) {
+      const atom = getDateAtom(date)
+      await atom.didInit
+      atom.set(entries)
+    }
+  }
 }
 
-const resetAllData = () => {
+const resetAllData = async () => {
   preferencesData.set(preferencesData.defaultValue)
   themeData.set(themeData.defaultValue)
   projectsData.set(projectsData.defaultValue)
   projectCategories.set(projectCategories.defaultValue)
 
-  trackedDates.get().forEach(date => {
+  for (const date of trackedDates.get()) {
     const atom = getDateAtom(date)
+    await atom.didInit
     atom.set(atom.defaultValue)
-  })
+  }
 }
 
 export const allData = {

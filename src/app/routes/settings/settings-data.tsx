@@ -54,7 +54,7 @@ const importData = async (file: File) => {
       .then(validateData)
       .then(atLeastOneKey)
 
-    allData.patch(data)
+    await allData.patch(data)
     showToast({
       kind: "success",
       title: "Data imported",
@@ -111,13 +111,13 @@ const requestDeletion = () =>
     confirm: {
       caption: "Confirm deletion",
       look: "destructive",
-      onClick: () => {
-        allData.reset()
-        showToast({
-          kind: "success",
-          title: "Deleted data",
-        })
-      },
+      onClick: () =>
+        void allData.reset().then(() =>
+          showToast({
+            kind: "success",
+            title: "Deleted data",
+          })
+        ),
     },
     cancel: {
       caption: "Cancel",
