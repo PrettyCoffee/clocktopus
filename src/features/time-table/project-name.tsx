@@ -1,12 +1,13 @@
 import { projectCategories, projectsData } from "data/projects"
 import { useAtomValue } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
+import { cn } from "utils/cn"
 import { colored } from "utils/styles"
 
 export const ProjectName = ({
   projectId,
   className,
-}: ClassNameProp & { projectId: string }) => {
+}: ClassNameProp & { projectId?: string }) => {
   const projects = useAtomValue(projectsData)
   const categories = useAtomValue(projectCategories)
 
@@ -24,7 +25,9 @@ export const ProjectName = ({
     </span>
   )
 
-  return !project ? null : (
+  return !project ? (
+    <span className={cn("text-text-muted", className)}>No Project</span>
+  ) : (
     <span className={className}>
       {categoryName}
       {project.name}

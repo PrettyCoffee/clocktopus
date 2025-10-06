@@ -38,7 +38,7 @@ const formatDate = (date: string) => {
 const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
   const projects = useAtomValue(projectsData)
 
-  const totalTimeByProject = projects
+  const totalTimeByProject = [{ id: undefined }, ...projects]
     .map(project => {
       const items = entries.filter(entry => entry.project === project.id)
       const minutes = items.reduce(

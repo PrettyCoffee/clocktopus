@@ -78,7 +78,7 @@ interface LabelProps {
 const OptionLabel = ({ description, project }: LabelProps) => (
   <>
     {description}
-    {project && <ProjectName projectId={project.id} />}
+    <ProjectName projectId={project?.id} />
   </>
 )
 
