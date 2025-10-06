@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
@@ -7,8 +7,7 @@ import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
-import { DialogState, dialogState } from "./dialog-data"
-import { Button } from "../button"
+import { Button, ButtonProps } from "../button"
 import { IconButton } from "../icon-button"
 
 const transitionStyles = {
@@ -26,12 +25,62 @@ const transitionStyles = {
   },
 }
 
+interface DialogAction {
+  look?: ButtonProps["look"]
+  caption?: string
+  onClick?: () => void
+}
+
+export interface DialogProps {
+  title: string
+  description?: ReactNode
+  onClose?: () => void
+  confirm?: DialogAction
+  cancel?: DialogAction
+}
+
+const DialogActions = ({
+  confirm,
+  cancel,
+  onClose,
+}: Pick<DialogProps, "confirm" | "cancel" | "onClose">) => {
+  if (!confirm && !cancel) return null
+
+  return (
+    <div className={cn(hstack({ gap: 2, wrap: true }), "p-4")}>
+      {confirm && (
+        <Button
+          look={confirm.look ?? "key"}
+          onClick={() => {
+            onClose?.()
+            confirm.onClick?.()
+          }}
+        >
+          {confirm.caption ?? "Confirm"}
+        </Button>
+      )}
+      {cancel && (
+        <Button
+          look={cancel.look ?? "flat"}
+          onClick={() => {
+            onClose?.()
+            cancel.onClick?.()
+          }}
+        >
+          {cancel.caption ?? "Cancel"}
+        </Button>
+      )}
+    </div>
+  )
+}
+
 export const Dialog = ({
   title,
   description,
+  onClose,
   confirm,
   cancel,
-}: DialogState) => {
+}: DialogProps) => {
   const [status, setStatus] = useState<"init" | "show" | "closing">("init")
 
   const transition = transitionStyles[status === "show" ? "show" : "hide"]
@@ -39,13 +88,13 @@ export const Dialog = ({
   if (status === "init") {
     setTimeout(() => setStatus("show"), 0)
   } else if (status === "closing") {
-    setTimeout(() => dialogState.set(null), transition.duration)
+    setTimeout(() => onClose?.(), transition.duration)
   }
 
   const close = () => setStatus("closing")
 
   return (
-    <DialogPrimitive.Root open>
+    <DialogPrimitive.Root open onOpenChange={open => !open && close()}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
           className={cn(
@@ -70,30 +119,14 @@ export const Dialog = ({
           >
             <span className="truncate">{title}</span>
           </DialogPrimitive.Title>
-          <DialogPrimitive.Description className="px-4 text-sm text-text-gentle">
-            {description}
-          </DialogPrimitive.Description>
 
-          <div className={cn(hstack({ gap: 2, wrap: true }), "p-4")}>
-            <Button
-              look={confirm.look}
-              onClick={() => {
-                close()
-                confirm.onClick()
-              }}
-            >
-              {confirm.caption}
-            </Button>
-            <Button
-              look={cancel.look}
-              onClick={() => {
-                close()
-                cancel.onClick()
-              }}
-            >
-              {cancel.caption}
-            </Button>
-          </div>
+          {description && (
+            <DialogPrimitive.Description className="px-4 text-sm text-text-gentle">
+              {description}
+            </DialogPrimitive.Description>
+          )}
+
+          <DialogActions confirm={confirm} cancel={cancel} onClose={close} />
 
           <DialogPrimitive.Close asChild className="absolute top-1 right-1">
             <IconButton
@@ -102,7 +135,7 @@ export const Dialog = ({
               icon={X}
               onClick={() => {
                 close()
-                cancel.onClick()
+                cancel?.onClick?.()
               }}
             />
           </DialogPrimitive.Close>

@@ -1,20 +1,12 @@
-import { JSX } from "react"
-
 import { createAtom } from "lib/yaasl"
 
-import { ButtonProps } from "../button"
+import { DialogProps } from "./dialog"
 
-interface DialogAction {
-  look?: ButtonProps["look"]
-  caption?: string
-  onClick: () => void
-}
-
-export interface DialogState {
-  title: string
-  description: string | JSX.Element
-  confirm: Required<DialogAction>
-  cancel: Required<DialogAction>
+interface DialogState {
+  title: DialogProps["title"]
+  description: DialogProps["description"]
+  confirm: NonNullable<DialogProps["confirm"]>
+  cancel?: DialogProps["cancel"]
 }
 
 export const dialogState = createAtom<DialogState | null>({
@@ -22,25 +14,14 @@ export const dialogState = createAtom<DialogState | null>({
   defaultValue: null,
 })
 
-interface DialogProps {
-  title: string
-  description: string | JSX.Element
-  confirm: DialogAction
-  cancel?: Partial<DialogAction>
-}
-
-export const showDialog = (dialog: DialogProps) => {
+export const showDialog = (dialog: DialogState) => {
   dialogState.set({
     ...dialog,
     confirm: {
-      look: "key",
-      caption: "Confirm",
       ...dialog.confirm,
-      onClick: () => dialog.confirm.onClick(),
+      onClick: () => dialog.confirm.onClick?.(),
     },
     cancel: {
-      look: "flat",
-      caption: "Cancel",
       ...dialog.cancel,
       onClick: () => dialog.cancel?.onClick?.(),
     },

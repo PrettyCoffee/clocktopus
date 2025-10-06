@@ -5,5 +5,7 @@ import { dialogState } from "./dialog-data"
 
 export const DialogProvider = () => {
   const dialog = useAtomValue(dialogState)
-  return !dialog ? null : <Dialog {...dialog} />
+  return !dialog ? null : (
+    <Dialog onClose={() => dialogState.set(null)} {...dialog} />
+  )
 }
