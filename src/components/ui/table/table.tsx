@@ -6,6 +6,8 @@ import { createId } from "utils/create-id"
 
 import { focusManager } from "./focus-manager"
 
+const subgridCols = "col-[1_/_-1] grid grid-cols-subgrid"
+
 type Repeat<T extends string> = T | `${T} ${T}` | `${T} ${T} ${T}`
 
 interface TableData {
@@ -31,6 +33,7 @@ interface ColumnDef<TConfig extends TableConfig> {
 
 type TwGridCols = `grid-cols-[${string}]` | `@${string}:grid-cols-[${string}]`
 type TableProps<TConfig extends TableConfig> = Pick<TConfig, "rowMeta"> & {
+  hideHeaders?: boolean
   name?: string
   rowData: TConfig["rowData"][]
   columns: ColumnDef<TConfig>[]
@@ -57,7 +60,8 @@ const TableRow = ({ data }: TableRowProps) => {
     <div
       role="row"
       className={cn(
-        "col-[1_/_-1] grid grid-cols-subgrid items-center gap-1 rounded-md p-1",
+        subgridCols,
+        "items-center gap-1 rounded-md p-1",
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
         "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent"
       )}
@@ -76,10 +80,10 @@ const TableRow = ({ data }: TableRowProps) => {
 }
 
 const TableBody = () => {
-  const { gridCols, rowData } = Context.useRequiredValue()
+  const { rowData } = Context.useRequiredValue()
 
   return (
-    <div role="rowgroup" className={cn("grid gap-x-2", gridCols)}>
+    <div role="rowgroup" className={cn(subgridCols)}>
       {rowData.map((data, index) => (
         <Fragment key={data.id}>
           {index !== 0 && (
@@ -94,12 +98,19 @@ const TableBody = () => {
 }
 
 const TableHeader = () => {
-  const { columns } = Context.useRequiredValue()
+  const { columns, hideHeaders } = Context.useRequiredValue()
 
   return (
-    <div role="row" className="sr-only">
+    <div
+      role="row"
+      className={cn(
+        hideHeaders
+          ? "sr-only"
+          : cn(subgridCols, "border-b border-stroke-gentle")
+      )}
+    >
       {columns.map(column => (
-        <div key={column.id} role="columnheader">
+        <div key={column.id} role="columnheader" className="p-2">
           {column.name}
         </div>
       ))}
@@ -110,7 +121,7 @@ const TableHeader = () => {
 export const Table = <TConfig extends TableConfig>(
   props: TableProps<TConfig>
 ) => {
-  const { name } = props
+  const { name, gridCols } = props
   return (
     <Context value={props as unknown as TableProps<TableConfig>}>
       {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
@@ -120,8 +131,10 @@ export const Table = <TConfig extends TableConfig>(
         className="@container"
         onKeyDown={event => focusManager.listen({ event, name })}
       >
-        <TableHeader />
-        <TableBody />
+        <div className={cn("grid gap-x-2", gridCols)}>
+          <TableHeader />
+          <TableBody />
+        </div>
       </div>
     </Context>
   )

@@ -127,6 +127,7 @@ const CategoryRows = () => {
   return (
     <ScrollArea className="max-h-60">
       <Table
+        hideHeaders
         columns={[
           categoryNameColumn,
           categoryColorColumn,
@@ -150,7 +151,7 @@ const CategorySelect = ({
   categories: Record<string, ProjectCategory>
 }) => (
   <Select.Root placeholder="None" value={value} onChange={onChange}>
-    <Select.Option value="no" label="No category">
+    <Select.Option value="none" label="No category">
       <span className="text-text-muted">No category</span>
     </Select.Option>
     <Select.Separator />
@@ -263,6 +264,7 @@ const ProjectRows = () => {
   return (
     <ScrollArea className="max-h-60">
       <Table
+        hideHeaders
         columns={[
           projectNameColumn,
           projectCategoryColumn,

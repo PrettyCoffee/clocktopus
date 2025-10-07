@@ -261,6 +261,7 @@ const TimeTableRows = ({
 
   return (
     <Table<TableConfig>
+      hideHeaders
       name="time-table"
       gridCols="grid-cols-[auto_1fr_auto_auto_auto_auto_auto_auto] @4xl:grid-cols-[auto_1fr_auto_auto_auto_auto_auto_auto_auto]"
       rowData={entries}
