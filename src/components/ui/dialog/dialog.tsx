@@ -3,8 +3,9 @@ import { PropsWithChildren, ReactNode, useState } from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
+import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
-import { hstack } from "utils/styles"
+import { hstack, vstack } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
 import { Button, ButtonProps } from "../button"
@@ -31,7 +32,7 @@ interface DialogAction {
   onClick?: () => void
 }
 
-export interface DialogProps {
+export interface DialogProps extends ClassNameProp {
   title: string
   description?: ReactNode
   onClose?: () => void
@@ -81,6 +82,7 @@ export const Dialog = ({
   children,
   confirm,
   cancel,
+  className,
 }: PropsWithChildren<DialogProps>) => {
   const [status, setStatus] = useState<"init" | "show" | "closing">("init")
 
@@ -107,9 +109,11 @@ export const Dialog = ({
 
         <DialogPrimitive.Content
           className={cn(
+            vstack({}),
             "fixed inset-1/2 h-max w-96 -translate-1/2 rounded-lg border border-stroke-gentle bg-background-page",
             zIndex.dialog,
-            transition.contentClassName
+            transition.contentClassName,
+            className
           )}
         >
           <DialogPrimitive.Title
@@ -127,7 +131,9 @@ export const Dialog = ({
             </DialogPrimitive.Description>
           )}
 
-          {children && <div className="px-4 pb-4">{children}</div>}
+          {children && (
+            <div className="flex-1 overflow-auto px-4 pb-4">{children}</div>
+          )}
 
           <DialogActions confirm={confirm} cancel={cancel} onClose={close} />
 
