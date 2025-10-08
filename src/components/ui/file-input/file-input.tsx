@@ -2,18 +2,19 @@ import { ChangeEvent, useState, DragEvent, useId } from "react"
 
 import { Upload } from "lucide-react"
 
-import { AlertKind, ClassNameProp } from "../../../types/base-props"
-import { cn } from "../../../utils/cn"
+import { AlertKind, ClassNameProp, IconProp } from "types/base-props"
+import { cn } from "utils/cn"
 import {
   alertStyles,
   focusWithinOutline,
   hstack,
   interactive,
-} from "../../../utils/styles"
+} from "utils/styles"
+
 import { Icon } from "../icon"
 import { TitleTooltip } from "../tooltip"
 
-interface FileInputProps extends ClassNameProp {
+interface FileInputProps extends ClassNameProp, IconProp {
   label?: string
   alert?: { kind: AlertKind; text: string }
   onChange?: (value: File) => void
@@ -26,6 +27,7 @@ export const FileInput = ({
   alert,
   className,
   accept,
+  icon = Upload,
 }: FileInputProps) => {
   const id = useId()
   const [dragging, setDragging] = useState(false)
@@ -80,7 +82,7 @@ export const FileInput = ({
             className="sr-only"
             onChange={handleChange}
           />
-          <Icon icon={Upload} color="current" />
+          <Icon icon={icon} color="current" />
           {label}
           {alert && (
             <Icon icon={alertStyles[alert.kind].icon} color={alert.kind} />

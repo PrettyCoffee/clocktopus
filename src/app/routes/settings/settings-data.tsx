@@ -1,4 +1,4 @@
-import { Download, Trash } from "lucide-react"
+import { FileJson2, HardDriveDownload, Trash } from "lucide-react"
 import { ZodError } from "zod"
 
 import { Button } from "components/ui/button"
@@ -82,7 +82,7 @@ const BackupData = () => (
     }
   >
     <OrChain>
-      <Button look="key" icon={Download} onClick={exportData}>
+      <Button look="key" icon={HardDriveDownload} onClick={exportData}>
         Export data
       </Button>
 
@@ -90,6 +90,7 @@ const BackupData = () => (
         label="Import data"
         onChange={file => void importData(file)}
         accept=".json"
+        icon={FileJson2}
       />
     </OrChain>
   </Card>
