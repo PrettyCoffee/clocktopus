@@ -1,4 +1,11 @@
-import { FileJson2, HardDriveDownload, Trash } from "lucide-react"
+import { useState } from "react"
+
+import {
+  FileJson2,
+  HardDriveDownload,
+  Trash,
+  FileSpreadsheet,
+} from "lucide-react"
 import { ZodError } from "zod"
 
 import { Button } from "components/ui/button"
@@ -7,6 +14,8 @@ import { showDialog } from "components/ui/dialog"
 import { FileInput } from "components/ui/file-input/file-input"
 import { showToast } from "components/ui/toaster"
 import { allData, AllData } from "data/all-data"
+import { TimeEntry } from "data/time-entries"
+import { CsvImport } from "features/csv-import"
 import { cn } from "utils/cn"
 import { download } from "utils/download"
 import { vstack } from "utils/styles"
@@ -78,7 +87,7 @@ const BackupData = () => (
     description={
       "Backup your data and import your backups. " +
       "This is important since your data is only stored locally in your browser. " +
-      "Emptying your browser cache will also delete all data and settings of Clocktopus."
+      "Resetting your browser's data will also delete all data and settings of Clocktopus."
     }
   >
     <OrChain>
@@ -95,6 +104,58 @@ const BackupData = () => (
     </OrChain>
   </Card>
 )
+
+const importCsv = (data: TimeEntry[]) => {
+  console.info("Imported csv: ", data)
+  // TODO: store imported data
+  showToast({ kind: "success", title: `Imported ${data.length} entries` })
+}
+
+const ImportCsvData = () => {
+  const [csv, setCsv] = useState<string | null>(null)
+  return (
+    <Card
+      title="CSV Import / Export"
+      description={
+        <>
+          Import or export a .csv file to move your data between clocktopus and
+          other time tracking tools.
+          <br />
+          <span className="font-bold text-text">Note: </span>
+          The new data will be added to your existing data! Make sure to create
+          a backup before starting the import. If you want a clean start, delete
+          your data first.
+        </>
+      }
+    >
+      <OrChain>
+        <Button
+          look="ghost"
+          icon={HardDriveDownload}
+          onClick={() => null}
+          disabled
+        >
+          Export .csv
+        </Button>
+
+        <FileInput
+          label="Import .csv"
+          onChange={file => void file.text().then(setCsv)}
+          accept=".csv"
+          icon={FileSpreadsheet}
+        />
+      </OrChain>
+
+      {csv && (
+        <CsvImport
+          csv={csv}
+          onImport={importCsv}
+          onClose={() => setCsv(null)}
+        />
+      )}
+    </Card>
+  )
+}
 
 const requestDeletion = () =>
   showDialog({
@@ -161,13 +222,14 @@ const Privacy = () => (
         entered.
       </>
     }
-  ></Card>
+  />
 )
 
 export const SettingsData = () => (
   <div className={cn(vstack({ gap: 2 }))}>
     <Privacy />
     <BackupData />
+    <ImportCsvData />
     <DeleteData />
   </div>
 )

@@ -6,7 +6,7 @@ import { Resolve } from "types/util-types"
 export const preferencesSchema = z.object({
   locale: z.string(),
 })
-export type Preferences = Resolve<z.infer<typeof preferencesSchema>>
+type Preferences = Resolve<z.infer<typeof preferencesSchema>>
 
 const defaultValue: Preferences = {
   locale: "iso",
