@@ -10,6 +10,7 @@ import {
   useAllTimeEntries,
   type TimeEntry,
 } from "data/time-entries"
+import { ProjectName } from "features/components/project-name"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
@@ -19,7 +20,6 @@ import { today } from "utils/today"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
-import { ProjectName } from "./project-name"
 
 const useSearchableTimeEntries = () => {
   const allEntries = useAllTimeEntries()

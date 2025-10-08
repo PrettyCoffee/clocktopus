@@ -75,7 +75,7 @@ export default defineConfig(
             ...readdirSync("./src/features").map(feature => ({
               target: `./src/features/${feature}`,
               from: "./src/features",
-              except: [`./${feature}`],
+              except: [...new Set([`./${feature}`, "./components"])],
             })),
 
             // enforce unidirectional codebase:

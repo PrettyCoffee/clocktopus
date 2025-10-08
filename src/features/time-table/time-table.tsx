@@ -9,6 +9,7 @@ import { createColumnHelper, Table } from "components/ui/table"
 import { Tooltip } from "components/ui/tooltip"
 import { projectsData } from "data/projects"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
+import { ProjectName } from "features/components/project-name"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
@@ -18,7 +19,6 @@ import { timeHelpers } from "utils/time-helpers"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
-import { ProjectName } from "./project-name"
 
 const formatDate = (date: string) => {
   const locale = getLocale()

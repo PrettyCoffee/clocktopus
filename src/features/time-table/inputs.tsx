@@ -1,25 +1,14 @@
-import { Dispatch, PropsWithChildren } from "react"
-
-import { Link } from "wouter"
+import { Dispatch } from "react"
 
 import { DateInput } from "components/ui/date-input"
 import { Input } from "components/ui/input"
-import { Select } from "components/ui/select"
 import { TimeInput } from "components/ui/time-input"
-import {
-  categoriesWithProjects,
-  CategoryWithProjects,
-  Project,
-} from "data/projects"
 import { type TimeEntry } from "data/time-entries"
-import { useAtomValue } from "lib/yaasl"
+import { ProjectSelect } from "features/components/project-select"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
-import { colored } from "utils/styles"
 import { today } from "utils/today"
-
-import { ProjectName } from "./project-name"
 
 interface InputProps extends ClassNameProp {
   entry: TimeEntry
@@ -59,66 +48,15 @@ const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => (
 )
 const TimeSeparator = () => <span className="mx-2 text-text-gentle">–⁠</span>
 
-const ProjectOption = ({ project }: { project: Project }) => (
-  <Select.Option key={project.id} label={project.name} value={project.id}>
-    <ProjectName
-      projectId={project.id}
-      className="*:hidden [[role='combobox']_&_*]:inline"
-    />
-  </Select.Option>
+const TableProjectSelect = ({ entry, onChange, ...rest }: InputProps) => (
+  <ProjectSelect
+    {...rest}
+    value={entry.projectId ?? ""}
+    onChange={project =>
+      onChange({ projectId: project === "none" ? undefined : project })
+    }
+  />
 )
-const NoGroup = ({ children }: PropsWithChildren) => (
-  <>
-    {children}
-    <Select.Separator />
-  </>
-)
-const ProjectGroup = ({ projects, ...category }: CategoryWithProjects) => {
-  if (projects.length === 0) return null
-  const Group = !category.name ? NoGroup : Select.Group
-
-  return (
-    <Group
-      key={category.id}
-      label={category.name ?? ""}
-      labelClassName={colored({ type: "text", color: category.color })}
-    >
-      {projects.map(project => (
-        <ProjectOption key={project.id} project={project} />
-      ))}
-    </Group>
-  )
-}
-const ProjectSelect = ({ entry, onChange, ...rest }: InputProps) => {
-  const categories = useAtomValue(categoriesWithProjects)
-
-  return (
-    <Select.Root
-      {...rest}
-      placeholder="Project"
-      value={entry.projectId ?? ""}
-      onChange={project =>
-        onChange({ projectId: project === "none" ? undefined : project })
-      }
-    >
-      <Select.Option value="none" className="text-text-muted">
-        No project
-      </Select.Option>
-      <Select.Separator />
-
-      {categories.map(props => (
-        <ProjectGroup key={props.id} {...props} />
-      ))}
-
-      <Link
-        to="/settings/projects"
-        className="m-2 h-8 text-sm text-text-gentle hover:text-text"
-      >
-        Go to project settings
-      </Link>
-    </Select.Root>
-  )
-}
 
 export const inputs = {
   Description,
@@ -126,5 +64,5 @@ export const inputs = {
   TimeStart,
   TimeEnd,
   TimeSeparator,
-  Project: ProjectSelect,
+  Project: TableProjectSelect,
 }
