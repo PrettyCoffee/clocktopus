@@ -4,7 +4,9 @@ import { Select } from "components/ui/select"
 import { preferencesData } from "data/preferences"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
-import { hstack, vstack } from "utils/styles"
+import { vstack } from "utils/styles"
+
+import { OrChain } from "./fragments/or-chain"
 
 const locales = {
   "de-DE": "German",
@@ -23,14 +25,7 @@ const Locale = () => {
         "You can either select one in the dropdown or provide your own by using the text field."
       }
     >
-      <div
-        className={hstack({
-          wrap: true,
-          gap: 4,
-          align: "center",
-          justify: "center",
-        })}
-      >
+      <OrChain>
         <Select.Root
           value={preferences.locale}
           onChange={locale => preferencesData.actions.setLocale(locale)}
@@ -44,7 +39,7 @@ const Locale = () => {
               <Select.Option key={value} value={value} label={label} />
             ))}
         </Select.Root>
-        - or -
+
         <Input
           type="text"
           value={
@@ -55,7 +50,7 @@ const Locale = () => {
           onChange={locale => preferencesData.actions.setLocale(locale)}
           placeholder="Custom locale (e.g. ja-JP)"
         />
-      </div>
+      </OrChain>
     </Card>
   )
 }

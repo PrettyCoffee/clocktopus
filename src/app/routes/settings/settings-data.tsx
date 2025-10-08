@@ -9,8 +9,10 @@ import { showToast } from "components/ui/toaster"
 import { allData, AllData } from "data/all-data"
 import { cn } from "utils/cn"
 import { download } from "utils/download"
-import { hstack, vstack } from "utils/styles"
+import { vstack } from "utils/styles"
 import { today } from "utils/today"
+
+import { OrChain } from "./fragments/or-chain"
 
 const exportData = () => {
   download(`clocktopus-export_${today()}.json`, allData.get())
@@ -79,27 +81,17 @@ const BackupData = () => (
       "Emptying your browser cache will also delete all data and settings of Clocktopus."
     }
   >
-    <div
-      className={cn(
-        hstack({
-          align: "center",
-          justify: "evenly",
-          gap: 4,
-          wrap: true,
-        }),
-        "text-nowrap"
-      )}
-    >
+    <OrChain>
       <Button look="key" icon={Download} onClick={exportData}>
         Export data
       </Button>
-      - or -
+
       <FileInput
         label="Import data"
         onChange={file => void importData(file)}
         accept=".json"
       />
-    </div>
+    </OrChain>
   </Card>
 )
 
