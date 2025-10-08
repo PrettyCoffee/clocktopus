@@ -20,18 +20,34 @@ const getImportedProjects = (rows: string[][], projectIndex: number) => {
   return [...new Set(allProjects)].sort()
 }
 
+const findHeader = (headers: string[], columnName: string) => {
+  const nameParts = columnName.toLowerCase().split(/\s+/)
+  return headers.findIndex(header =>
+    nameParts.every(part => header.toLowerCase().includes(part))
+  )
+}
+const getInitialColumnLookup = (headers: string[]): ColumnLookup => ({
+  date: findHeader(headers, "date"),
+  description: findHeader(headers, "description"),
+  project: findHeader(headers, "project"),
+  timeStart: findHeader(headers, "time start"),
+  timeEnd: findHeader(headers, "time end"),
+})
+
 interface CsvImportProps {
   csv: string
   onImport: Dispatch<TimeEntry[]>
   onClose: () => void
 }
 export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
-  const [columnLookup, updateColumnLookup] = useObjectState<ColumnLookup>({})
   const [projectMapping, updateProjectMapping] = useObjectState<ProjectMapping>(
     {}
   )
 
   const { headers, rows } = useMemo(() => processCsv(csv), [csv])
+  const [columnLookup, updateColumnLookup] = useObjectState<ColumnLookup>(
+    getInitialColumnLookup(headers)
+  )
 
   const importedProjects = useMemo(
     () => getImportedProjects(rows, columnLookup.project ?? -1),

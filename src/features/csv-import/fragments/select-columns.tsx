@@ -63,7 +63,7 @@ export const SelectColumns = ({
   columnLookup: ColumnLookup
   onColumnLookupChange: Dispatch<ColumnLookup>
 }) => (
-  <Container title="Select columns">
+  <Container title="Column mapping">
     <div className="grid grid-cols-[auto_1fr] items-center gap-2">
       {columnSelects.map(({ key, label }) => (
         <Fragment key={key}>
