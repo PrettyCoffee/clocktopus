@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-import { Settings, ClockFading, ChartNoAxesColumn } from "lucide-react"
+import { Settings, ClockFading, ChartNoAxesColumn, Search } from "lucide-react"
 import { useHashLocation } from "wouter/use-hash-location"
 
 import { MainErrorFallback } from "components/errors/main"
@@ -12,6 +12,7 @@ import { ErrorBoundary } from "components/utility/error-boundary"
 const routes = [
   { to: "/", title: "Time Tracker", icon: ClockFading },
   { to: "/stats", title: "Stats", icon: ChartNoAxesColumn, disabled: true },
+  { to: "/search", title: "Search", icon: Search, disabled: true },
   { to: "/settings", title: "Settings", icon: Settings },
   {
     href: "https://github.com/PrettyCoffee/clocktopus",
