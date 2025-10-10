@@ -12,13 +12,15 @@ import { Button } from "components/ui/button"
 import { Card } from "components/ui/card"
 import { showDialog } from "components/ui/dialog"
 import { FileInput } from "components/ui/file-input/file-input"
+import { Spinner } from "components/ui/spinner"
 import { showToast } from "components/ui/toaster"
 import { allData, AllData } from "data/all-data"
-import { TimeEntry } from "data/time-entries"
+import { TimeEntry, timeEntriesData } from "data/time-entries"
 import { CsvImport } from "features/csv-import"
 import { cn } from "utils/cn"
 import { download } from "utils/download"
-import { vstack } from "utils/styles"
+import { sleep } from "utils/sleep"
+import { hstack, vstack } from "utils/styles"
 import { today } from "utils/today"
 
 import { OrChain } from "./fragments/or-chain"
@@ -105,10 +107,76 @@ const BackupData = () => (
   </Card>
 )
 
-const importCsv = (data: TimeEntry[]) => {
-  console.info("Imported csv: ", data)
-  // TODO: store imported data
-  showToast({ kind: "success", title: `Imported ${data.length} entries` })
+const splitByDates = (data: TimeEntry[]) =>
+  data.reduce<Record<string, TimeEntry[]>>((result, entry) => {
+    const date = entry.date
+    if (!date) return result
+
+    if (!result[date]) result[date] = []
+    result[date].push(entry)
+    return result
+  }, {})
+
+const processWithPauses = async ([
+  current,
+  ...chain
+]: (() => void | Promise<void>)[]): Promise<void> => {
+  if (!current) return
+  try {
+    await current()
+  } catch {
+    // don't abort chain if one item fails
+  }
+
+  await sleep(50)
+  return processWithPauses(chain)
+}
+
+const CsvImportProgress = ({
+  current,
+  total,
+}: {
+  current: number
+  total: number
+}) => {
+  const percent = Math.round((current / total) * 100)
+  return (
+    <div className={cn(hstack({ align: "center", gap: 2 }))}>
+      <Spinner size="sm" /> Importing data ({percent}%)
+    </div>
+  )
+}
+
+const importCsv = async (data: TimeEntry[]) => {
+  const progress = {
+    total: data.length,
+    current: 0,
+  }
+
+  const toast = showToast({
+    kind: "info",
+    title: "CSV Import",
+    duration: 0,
+    message: <CsvImportProgress {...progress} />,
+  })
+
+  const byDate = splitByDates(data)
+  await processWithPauses(
+    Object.entries(byDate).map(([date, entries]) => () => {
+      timeEntriesData.actions.add(date, ...entries)
+      progress.current += entries.length
+      toast.edit({
+        message: <CsvImportProgress {...progress} />,
+      })
+    })
+  )
+
+  toast.edit({
+    kind: "success",
+    title: "CSV Import",
+    message: `Imported ${data.length} entries`,
+    duration: 5000,
+  })
 }
 
 const ImportCsvData = () => {
@@ -149,7 +217,7 @@ const ImportCsvData = () => {
       {csv && (
         <CsvImport
           csv={csv}
-          onImport={importCsv}
+          onImport={data => void importCsv(data)}
           onClose={() => setCsv(null)}
         />
       )}
