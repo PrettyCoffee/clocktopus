@@ -19,9 +19,8 @@ const Main = ({ children, className }: PropsWithChildren & ClassNameProp) => (
 interface LayoutSideProps extends PropsWithChildren, ClassNameProp {
   actions?: ReactNode
 }
-const initialOpen = document.body.getBoundingClientRect().width > 1260
 const sideBarOpen = createAtom({
-  defaultValue: initialOpen,
+  defaultValue: false,
   effects: [sessionStorage()],
 })
 
