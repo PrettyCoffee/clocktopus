@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { Dispatch, useState } from "react"
 
 import { DateInput } from "components/ui/date-input"
 import { Input } from "components/ui/input"
@@ -36,16 +36,30 @@ const DateComp = ({ entry, onChange, ...rest }: InputProps) => (
   />
 )
 
-const TimeStart = ({ entry, onChange, ...rest }: InputProps) => (
-  <TimeInput
-    {...rest}
-    value={entry.start}
-    onChange={start => onChange({ start })}
-  />
-)
-const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => (
-  <TimeInput {...rest} value={entry.end} onChange={end => onChange({ end })} />
-)
+const TimeStart = ({ entry, onChange, ...rest }: InputProps) => {
+  const [start, setStart] = useState(entry.start)
+  return (
+    <TimeInput
+      {...rest}
+      value={start}
+      onChange={setStart}
+      onBlur={() => onChange({ start })}
+      onKeyDown={({ key }) => key === "Enter" && onChange({ start })}
+    />
+  )
+}
+const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => {
+  const [end, setEnd] = useState(entry.end)
+  return (
+    <TimeInput
+      {...rest}
+      value={end}
+      onChange={setEnd}
+      onBlur={() => onChange({ end })}
+      onKeyDown={({ key }) => key === "Enter" && onChange({ end })}
+    />
+  )
+}
 const TimeSeparator = () => <span className="mx-2 text-text-gentle">–⁠</span>
 
 const TableProjectSelect = ({ entry, onChange, ...rest }: InputProps) => (
