@@ -124,7 +124,7 @@ export const CreateTimeEntry = () => {
       <div
         className={cn(
           "grid items-center gap-2",
-          "grid-cols-[1fr_auto_auto_auto_auto] @4xl:grid-cols-[1fr_auto_auto_auto_auto_auto]"
+          "grid-cols-[auto_auto_1fr_2.5rem] @xl:grid-cols-[1fr_auto_auto_auto_2.5rem] @4xl:grid-cols-[1fr_auto_auto_auto_auto_2.5rem]"
         )}
       >
         <DescriptionAutoComplete
@@ -138,26 +138,30 @@ export const CreateTimeEntry = () => {
           />
         </DescriptionAutoComplete>
 
-        <div>
+        <div className="col-[span_2] @xl:col-auto">
           <inputs.Project entry={data} onChange={updateData} />
         </div>
 
-        <inputs.Date entry={data} onChange={updateData} />
+        <div className="col-[span_2] justify-self-end @xl:col-auto @xl:justify-self-start">
+          <inputs.Date entry={data} onChange={updateData} />
+        </div>
         <div className={hstack({ align: "center" })}>
           <inputs.TimeStart entry={data} onChange={updateData} />
           <inputs.TimeSeparator />
           <inputs.TimeEnd entry={data} onChange={updateData} />
         </div>
         <Duration entries={[data]} className="inline-block w-15 text-center" />
-        <IconButton
-          icon={Plus}
-          title="Add item"
-          hideTitle
-          onClick={() => {
-            atom.actions.add(data)
-            updateData(getInitialState(data.date, data.end))
-          }}
-        />
+        <div className="col-[4] @xl:col-auto">
+          <IconButton
+            icon={Plus}
+            title="Add item"
+            hideTitle
+            onClick={() => {
+              atom.actions.add(data)
+              updateData(getInitialState(data.date, data.end))
+            }}
+          />
+        </div>
       </div>
     </div>
   )

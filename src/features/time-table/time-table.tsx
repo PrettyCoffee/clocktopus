@@ -154,7 +154,7 @@ const checkedColumn = helper.column({
 })
 const descriptionColumn = helper.column({
   name: "Description",
-  colSize: "col-[2_/_-1] @4xl:col-[span_1]",
+  colSize: "col-[2_/_-1] @xl:col-[2_/_-1] @4xl:col-[span_1]",
   className: "flex",
   render: ({ rowData, onChange }) => (
     <inputs.Description
@@ -165,7 +165,7 @@ const descriptionColumn = helper.column({
 })
 const projectColumn = helper.column({
   name: "Project",
-  colSize: "col-[2] @4xl:col-[span_1]",
+  colSize: "col-[2_/_6] @xl:col-[2] @4xl:col-[span_1]",
   className: "@4xl:*:w-full",
   render: ({ rowData, onChange }) => (
     <inputs.Project
@@ -176,6 +176,8 @@ const projectColumn = helper.column({
 })
 const dateColumn = helper.column({
   name: "Date",
+  colSize:
+    "col-[6_/_-1] justify-self-end @xl:justify-self-start @xl:col-[auto]",
   render: ({ rowData, onChange }) => (
     <inputs.Date
       entry={rowData}
@@ -185,6 +187,7 @@ const dateColumn = helper.column({
 })
 const timeStartColumn = helper.column({
   name: "Time Start",
+  colSize: "col-[2] @xl:col-[auto]",
   render: ({ rowData, onChange }) => (
     <inputs.TimeStart
       entry={rowData}
@@ -213,13 +216,14 @@ const durationColumn = helper.column({
 })
 const actionColumn = helper.column({
   name: "Actions",
+  colSize: "col-[7] @xl:col-[auto]",
   render: ({ rowData, onRemove }) => (
     <IconButton
       title="Delete"
       hideTitle
       icon={Trash}
       onClick={() => onRemove(rowData.id)}
-      className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
+      className="@4xl:[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
     />
   ),
 })
@@ -263,7 +267,7 @@ const TimeTableRows = ({
     <Table<TableConfig>
       hideHeaders
       name="time-table"
-      gridCols="grid-cols-[auto_1fr_auto_auto_auto_auto_auto_auto] @4xl:grid-cols-[auto_1fr_auto_auto_auto_auto_auto_auto_auto]"
+      gridCols="grid-cols-[2.5rem_auto_auto_auto_auto_1fr_2.5rem] @xl:grid-cols-[2.5rem_1fr_auto_auto_auto_auto_auto_2.5rem] @4xl:grid-cols-[2.5rem_1fr_auto_auto_auto_auto_auto_auto_2.5rem]"
       rowData={entries}
       columns={[
         checkedColumn,

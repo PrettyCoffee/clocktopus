@@ -72,7 +72,7 @@ export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
       cancel={{}}
     >
       <div className={cn(vstack({ justify: "evenly" }), "h-full")}>
-        <div className={cn(hstack({}), "pb-2 *:flex-1")}>
+        <div className={cn(hstack({}), "pb-2 *:flex-1 tablet:flex-col")}>
           <SelectColumns
             headers={headers}
             columnLookup={columnLookup}
