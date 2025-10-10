@@ -7,7 +7,7 @@ import { ContextInfo } from "components/ui/context-info"
 import { showDialog } from "components/ui/dialog"
 import { showToast } from "components/ui/toaster"
 import { AutoAnimateHeight } from "components/utility/auto-animate-height"
-import { getDateAtom, TimeEntry, useTrackedDates } from "data/time-entries"
+import { getDateAtom, timeEntriesData, TimeEntry } from "data/time-entries"
 import { selectedWeek } from "features/date-selection"
 import { TimeTable } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
@@ -130,7 +130,7 @@ const FirstEntry = () => (
 
 export const MainRoute = () => {
   const selected = useAtomValue(selectedWeek)
-  const trackedDates = useTrackedDates()
+  const trackedDates = useAtomValue(timeEntriesData.selectors.getTrackedDates)
 
   const visibleDates = useMemo(
     () =>

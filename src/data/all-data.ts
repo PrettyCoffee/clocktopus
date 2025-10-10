@@ -10,7 +10,7 @@ import {
   projectSchema,
   projectsData,
 } from "./projects"
-import { getDateAtom, timeEntrySchema, trackedDates } from "./time-entries"
+import { timeEntrySchema, timeEntriesData } from "./time-entries"
 
 const allDataSchema = z.object({
   preferences: z.optional(preferencesSchema),
@@ -22,54 +22,28 @@ const allDataSchema = z.object({
 
 export type AllData = Resolve<z.infer<typeof allDataSchema>>
 
-const getAllData = (): AllData => {
-  const preferences = preferencesData.get()
-  const theme = themeData.get()
-  const projects = projectsData.get()
-  const categories = projectCategories.get()
-  const timeEntries = Object.fromEntries(
-    trackedDates.get().map(date => [date, getDateAtom(date).get()])
-  )
+const getAllData = (): AllData => ({
+  preferences: preferencesData.get(),
+  theme: themeData.get(),
+  projects: projectsData.get(),
+  projectCategories: projectCategories.get(),
+  timeEntries: timeEntriesData.get(),
+})
 
-  return {
-    preferences,
-    theme,
-    projects,
-    projectCategories: categories,
-    timeEntries,
-  }
-}
-
-const patchAllData = async (data: AllData) => {
+const patchAllData = (data: AllData) => {
   if (data.preferences) preferencesData.set(data.preferences)
   if (data.theme) themeData.set(data.theme)
   if (data.projects) projectsData.set(data.projects)
   if (data.projectCategories) projectCategories.set(data.projectCategories)
-  if (data.timeEntries) {
-    for (const date of trackedDates.get()) {
-      const atom = getDateAtom(date)
-      await atom.didInit
-      atom.set(atom.defaultValue)
-    }
-    for (const [date, entries] of Object.entries(data.timeEntries)) {
-      const atom = getDateAtom(date)
-      await atom.didInit
-      atom.set(entries)
-    }
-  }
+  if (data.timeEntries) timeEntriesData.set(data.timeEntries)
 }
 
-const resetAllData = async () => {
+const resetAllData = () => {
   preferencesData.set(preferencesData.defaultValue)
   themeData.set(themeData.defaultValue)
   projectsData.set(projectsData.defaultValue)
   projectCategories.set(projectCategories.defaultValue)
-
-  for (const date of trackedDates.get()) {
-    const atom = getDateAtom(date)
-    await atom.didInit
-    atom.set(atom.defaultValue)
-  }
+  timeEntriesData.set(timeEntriesData.defaultValue)
 }
 
 export const allData = {

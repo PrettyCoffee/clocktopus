@@ -1,5 +1,6 @@
 import { Button } from "components/ui/button"
-import { useTrackedDates } from "data/time-entries"
+import { timeEntriesData } from "data/time-entries"
+import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
 
@@ -12,7 +13,7 @@ export interface WeekProps {
   selected?: boolean
 }
 export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
-  const trackedDates = useTrackedDates()
+  const trackedDates = useAtomValue(timeEntriesData.selectors.getTrackedDates)
   const first = days.find(day => day.getDate() === 1)
   const isFirstOfYear = days[0]!.getMonth() === 0 && days[0]!.getDate() === 1
   const hasTimeEntry = days.some(day =>

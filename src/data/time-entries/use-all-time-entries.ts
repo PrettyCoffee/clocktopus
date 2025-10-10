@@ -1,21 +1,10 @@
 import { useMemo } from "react"
 
-import { Atom, createSelector, useAtomValue } from "lib/yaasl"
+import { useAtomValue } from "lib/yaasl"
 
-import { getDateAtom, TimeEntry } from "./get-date-atom"
-import { useTrackedDates } from "./tracked-dates"
+import { timeEntriesData } from "./time-entries-data"
 
 export const useAllTimeEntries = () => {
-  const dates = useTrackedDates()
-
-  const allEntriesAtom = useMemo(() => {
-    const dateAtoms = dates.map(getDateAtom) as unknown as [
-      Atom<TimeEntry[]>,
-      ...Atom<TimeEntry[]>[],
-    ]
-
-    return createSelector(dateAtoms, (...dates) => dates.flat())
-  }, [dates])
-
-  return useAtomValue(allEntriesAtom)
+  const state = useAtomValue(timeEntriesData)
+  return useMemo(() => Object.values(state).flat(), [state])
 }

@@ -4,7 +4,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { IconButton } from "components/ui/icon-button"
 import { ScrollArea } from "components/utility/scroll-area"
-import { useTrackedDates } from "data/time-entries"
+import { timeEntriesData } from "data/time-entries"
+import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
@@ -28,7 +29,7 @@ const YearCarousel = ({
   year: number
   setYear: Dispatch<SetStateAction<number>>
 }) => {
-  const trackedDates = useTrackedDates()
+  const trackedDates = useAtomValue(timeEntriesData.selectors.getTrackedDates)
   const years = getYears(trackedDates)
 
   return (

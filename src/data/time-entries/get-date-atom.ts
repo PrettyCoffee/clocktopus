@@ -1,69 +1,21 @@
-import { z } from "zod"
+import { createDerived } from "lib/yaasl"
 
-import { autoSort, createSlice, indexedDb, sync } from "lib/yaasl"
-import { Resolve } from "types/util-types"
-
-import { trackedDates } from "./tracked-dates"
-
-export const timeEntrySchema = z.object({
-  id: z.number(),
-  description: z.string(),
-  start: z.string(),
-  end: z.string(),
-  date: z.string(),
-  projectId: z.optional(z.string()),
-})
-export type TimeEntry = Resolve<z.infer<typeof timeEntrySchema>>
-
-const getNextId = (entries: TimeEntry[]) =>
-  entries.reduce((current, { id }) => Math.max(current, id), 0) + 1
-
-const sortEntries = (a: TimeEntry, b: TimeEntry) => {
-  const start = b.start.localeCompare(a.start)
-  if (start !== 0) return start
-  return b.end.localeCompare(a.end)
-}
-
-const defaultValue: TimeEntry[] = []
-
-const createEntriesByDate = (date: string) => {
-  const atom = createSlice({
-    name: date,
-    defaultValue,
-    effects: [indexedDb(), autoSort({ sortFn: sortEntries }), sync()],
-    reducers: {
-      add: (state, entry: Omit<TimeEntry, "id">) => [
-        ...state,
-        { ...entry, id: getNextId(state) },
-      ],
-
-      edit: (state, id: number, entry: Partial<TimeEntry>) =>
-        state.map(item => (item.id !== id ? item : { ...item, ...entry })),
-
-      delete: (state, id: number) => {
-        const newState = state.filter(item => item.id != id)
-        return newState.length === 0 ? defaultValue : newState
-      },
-    },
-  })
-
-  atom.subscribe(entries => {
-    if (trackedDates.didInit !== true) return
-    if (entries.length > 0) {
-      trackedDates.actions.add(date)
-    } else {
-      trackedDates.actions.remove(date)
-    }
-  })
-
-  return atom
-}
-
-const atomsCache: Record<string, ReturnType<typeof createEntriesByDate>> = {}
+import { timeEntriesData, TimeEntry } from "./time-entries-data"
 
 export const getDateAtom = (date: string) => {
-  if (!atomsCache[date]) {
-    atomsCache[date] = createEntriesByDate(date)
-  }
-  return atomsCache[date]
+  const atom = createDerived(
+    ({ get }) => get(timeEntriesData)[date] ?? [],
+    ({ set, value }) =>
+      set(timeEntriesData, state => ({ ...state, [date]: value }))
+  )
+
+  return Object.assign(atom, {
+    actions: {
+      add: (...entries: TimeEntry[]) =>
+        timeEntriesData.actions.add(date, ...entries),
+      edit: (id: number, entry: Partial<TimeEntry>) =>
+        timeEntriesData.actions.edit(date, id, entry),
+      delete: (id: number) => timeEntriesData.actions.delete(date, id),
+    },
+  })
 }
