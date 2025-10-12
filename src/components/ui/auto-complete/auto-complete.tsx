@@ -147,7 +147,7 @@ export const AutoComplete = <TData,>({
             <Button
               key={getFilterValue(item)}
               onClick={() => onSelect(item)}
-              className="w-full justify-between"
+              className="w-full justify-between gap-2 truncate text-start"
             >
               {renderOptionLabel(item)}
             </Button>

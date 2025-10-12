@@ -72,7 +72,7 @@ interface LabelProps {
 }
 const OptionLabel = ({ description, project }: LabelProps) => (
   <>
-    {description}
+    <div className="flex-1 truncate">{description}</div>
     <ProjectName projectId={project?.id} />
   </>
 )
