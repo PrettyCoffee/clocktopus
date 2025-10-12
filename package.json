@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "lint:fix": "bun run lint -- --fix",
     "lint:time": "TIMING=15 bun run lint",
-    "lint:inspect": "eslint --inspect-config"
+    "lint:inspect": "eslint --inspect-config",
+    "validate": "bun run build && bun knip && bun lint"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.3",
