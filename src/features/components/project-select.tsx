@@ -58,15 +58,19 @@ export const ProjectSelect = ({
 }: ProjectSelectProps) => {
   const categories = useAtomValue(categoriesWithProjects)
 
+  const exists = categories.some(item =>
+    item.projects.some(({ id }) => id === value)
+  )
+
   return (
     <Select.Root
       placeholder="Project"
-      value={value}
+      value={exists ? value : "none"}
       onChange={project => onChange(project === "none" ? "" : project)}
       {...rest}
     >
-      <Select.Option value="none" className="text-text-muted">
-        No project
+      <Select.Option value="none">
+        <span className="text-text-muted">No project</span>
       </Select.Option>
       <Select.Separator />
 
