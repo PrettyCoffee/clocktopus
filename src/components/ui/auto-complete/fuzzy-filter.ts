@@ -22,9 +22,20 @@ const levenshtein = (a: string, b: string) => {
   return prev[b.length]!
 }
 
+const compare = (item: string, query: string) => {
+  if (!item || !query) return
+  if (item === query) return 0
+  if (item.includes(query)) return 0.01
+
+  return
+}
+
 const matchScore = (item: string, query: string) => {
-  const itemWords = item.toLowerCase().split(/\s+/)
-  const queryWords = query.toLowerCase().split(/\s+/)
+  const primitive = compare(item, query)
+  if (primitive != null) return primitive
+
+  const itemWords = item.trim().split(/\s+/)
+  const queryWords = query.trim().split(/\s+/)
 
   let total = 0
 
@@ -40,7 +51,8 @@ const matchScore = (item: string, query: string) => {
   return total / queryWords.length
 }
 
-const normalize = (text: string) => text.toLowerCase()
+const normalize = (text: string) =>
+  text.toLowerCase().replaceAll(/[^0-9a-z]+/g, " ")
 
 interface FilterProps<TData> {
   items: TData[]
@@ -57,15 +69,17 @@ export const fuzzyFilter = <TData>({
 }: FilterProps<TData>) => {
   if (!filter) return []
 
-  const normalizedFilter = normalize(filter)
   return items
-    .flatMap(item => {
-      const itemValue = normalize(getFilterValue(item))
-      if (normalizedFilter === itemValue) return []
-      const score = matchScore(itemValue, normalizedFilter)
-      if (score > 2) return []
+    .filter(item => getFilterValue(item) !== filter)
+    .map(item => {
+      const value = getFilterValue(item)
+      const score = Math.min(
+        matchScore(value.toLowerCase(), filter.toLowerCase()),
+        matchScore(normalize(value), normalize(filter)) * 1.1
+      )
       return { item, score }
     })
+    .filter(({ score }) => score < 2)
     .sort((a, b) => a.score - b.score)
     .slice(0, maxItems)
     .map(({ item }) => item)
