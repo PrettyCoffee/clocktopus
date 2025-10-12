@@ -7,8 +7,8 @@ import { type TimeEntry } from "data/time-entries"
 import { ProjectSelect } from "features/components/project-select"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
-import { today } from "utils/today"
 
 interface InputProps extends ClassNameProp {
   entry: TimeEntry
@@ -31,7 +31,7 @@ const DateComp = ({ entry, onChange, ...rest }: InputProps) => (
     {...rest}
     locale={getLocale()}
     value={entry.date}
-    max={today()}
+    max={dateHelpers.today()}
     onChange={date => onChange({ date })}
   />
 )

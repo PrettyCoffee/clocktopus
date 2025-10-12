@@ -1,17 +1,4 @@
-import { today } from "utils/today"
-
-interface ParsedDay {
-  year: number
-  month: number
-  day: number
-}
-
-const stringify = (parsed: ParsedDay) =>
-  [
-    parsed.year.toString().padStart(4, "0"),
-    parsed.month.toString().padStart(2, "0"),
-    parsed.day.toString().padStart(2, "0"),
-  ].join("-")
+import { dateHelpers, ParsedDate } from "utils/date-helpers"
 
 interface DayMeta {
   isFiller: boolean
@@ -23,7 +10,7 @@ export class Day {
   public readonly meta: DayMeta = { isFiller: false, isToday: false }
   public readonly weekday: string
   public readonly weekdayNumber: number
-  public readonly parsed: ParsedDay
+  public readonly parsed: ParsedDate
 
   constructor(...args: [Date] | [string] | [number, number, number]) {
     if (args.length === 3) {
@@ -32,11 +19,7 @@ export class Day {
     }
     this.date = Object.freeze(new Date(...(args as [Date])))
 
-    this.parsed = {
-      year: this.date.getFullYear(),
-      month: this.date.getMonth() + 1,
-      day: this.date.getDate(),
-    }
+    this.parsed = dateHelpers.parse(this.date)
 
     this.weekday = this.date.toLocaleDateString("en", { weekday: "long" })
 
@@ -50,11 +33,11 @@ export class Day {
       Sunday: 7,
     }[this.weekday]!
 
-    this.meta.isToday = today() === this.toString()
+    this.meta.isToday = dateHelpers.today() === this.toString()
   }
 
   public toString() {
-    return stringify(this.parsed)
+    return dateHelpers.stringify(this.parsed)
   }
 
   public getRelative(dayOffset: number): Day {

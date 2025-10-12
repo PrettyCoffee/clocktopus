@@ -14,6 +14,7 @@ import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { hstack, vstack } from "utils/styles"
 
 type CheckedState = Record<string, Record<string, true>>
@@ -131,11 +132,10 @@ const FirstEntry = () => (
 export const MainRoute = () => {
   const selected = useAtomValue(selectedWeek)
   const trackedDates = useAtomValue(timeEntriesData.selectors.getTrackedDates)
-
   const visibleDates = useMemo(
     () =>
       selected.days
-        .map(date => date.toISOString().split("T")[0]!)
+        .map(dateHelpers.stringify)
         .filter(date => trackedDates.includes(date))
         .reverse(),
     [selected, trackedDates]

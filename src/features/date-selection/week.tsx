@@ -2,6 +2,7 @@ import { Button } from "components/ui/button"
 import { timeEntriesData } from "data/time-entries"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
 
 import { selectedWeek } from "./selected-week"
@@ -17,7 +18,7 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
   const first = days.find(day => day.getDate() === 1)
   const isFirstOfYear = days[0]!.getMonth() === 0 && days[0]!.getDate() === 1
   const hasTimeEntry = days.some(day =>
-    trackedDates.includes(day.toISOString().split("T")[0]!)
+    trackedDates.includes(dateHelpers.stringify(day))
   )
   return (
     <div className="relative pl-4">

@@ -18,15 +18,15 @@ import { allData, AllData } from "data/all-data"
 import { TimeEntry, timeEntriesData } from "data/time-entries"
 import { CsvImport } from "features/csv-import"
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { download } from "utils/download"
 import { sleep } from "utils/sleep"
 import { hstack, vstack } from "utils/styles"
-import { today } from "utils/today"
 
 import { OrChain } from "./fragments/or-chain"
 
 const exportData = () => {
-  download(`clocktopus-export_${today()}.json`, allData.get())
+  download(`clocktopus-export_${dateHelpers.today()}.json`, allData.get())
 }
 
 class ImportError extends Error {}

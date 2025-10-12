@@ -14,9 +14,9 @@ import { ProjectName } from "features/components/project-name"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { hstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
-import { today } from "utils/today"
 
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
@@ -112,7 +112,7 @@ const getInitialState = (date?: string, start?: string): TimeEntry => ({
   description: "",
   start: start ?? timeHelpers.now({ snap: 15 }),
   end: timeHelpers.now({ snap: 15 }),
-  date: date || today(),
+  date: date || dateHelpers.today(),
 })
 
 export const CreateTimeEntry = () => {

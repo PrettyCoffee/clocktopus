@@ -3,8 +3,8 @@ import { Dispatch, PropsWithChildren, useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { hstack, vstack } from "utils/styles"
-import { today } from "utils/today"
 
 import { Button } from "../button"
 import { IconButton } from "../icon-button"
@@ -140,7 +140,7 @@ export interface CalendarProps extends Partial<SizeProp> {
 
 export const Calendar = ({
   size = "sm",
-  initialView = today(),
+  initialView = dateHelpers.today(),
   selected,
   onSelectionChange,
   locale,
