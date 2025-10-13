@@ -13,19 +13,8 @@ interface TextInputProps {
   type: "text"
   placeholder?: string
 }
-interface TimeInputProps {
-  type: "time"
-  min?: string
-  max?: string
-  step?: number
-}
-interface DateInputProps {
-  type: "date"
-  min?: string
-  max?: string
-}
 
-type PropsByType = TextInputProps | TimeInputProps | DateInputProps
+type PropsByType = TextInputProps
 
 export type InputProps = RefProp<HTMLInputElement> &
   PropsByType &
