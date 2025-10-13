@@ -106,18 +106,26 @@ const FirstEntry = () => (
   <div
     className={cn(
       vstack({ align: "center" }),
-      "size-full px-10 pt-[20vh] mobile:pt-8"
+      "min-h-full w-full px-10 pt-[max(20vh,3rem)] pb-12 mobile:pt-8"
     )}
   >
-    <img
-      className="size-40 rounded-lg opacity-50 shade-medium"
-      src="./clocktopus.png"
-      alt="logo"
-    />
+    <div className="relative size-40">
+      <img
+        className="absolute -inset-5 min-h-50 min-w-50 opacity-50 blur-3xl"
+        src="./octopus.png"
+        aria-hidden
+        alt=""
+      />
+      <img
+        className="absolute inset-0 z-1 size-full drop-shadow-md"
+        src="./octopus.png"
+        alt="cute octopus emoji"
+      />
+    </div>
 
     <div className="pt-8" />
 
-    <h1 className="mb-2 text-3xl">Welcome to Clocktopus! 🐙</h1>
+    <h1 className="mb-2 text-3xl">Welcome to Clocktopus!</h1>
     <p className="text-text-gentle">
       Seems like you didn't clock your time yet. Time to change that!
     </p>

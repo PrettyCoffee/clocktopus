@@ -19,7 +19,7 @@ type ThemePreferences = Resolve<z.infer<typeof themeSchema>>
 const defaultValue: ThemePreferences = {
   radius: theme.defaultTokens.radius,
   mode: "dark",
-  colored: false,
+  colored: true,
   accent: "rose",
 }
 

@@ -13,7 +13,6 @@
 
 # local test files
 /.dump
-/public/*.csv
 
 # editors
 .idea/*
