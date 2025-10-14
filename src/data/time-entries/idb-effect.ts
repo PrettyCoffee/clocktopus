@@ -3,7 +3,7 @@ import { createEffect, indexedDb } from "lib/yaasl"
 type StateItem = unknown
 type AtomState = Record<string, StateItem[]>
 
-const hash = (text: string) =>
+const hash = (text = "") =>
   // eslint-disable-next-line @typescript-eslint/no-misused-spread
   [...text]
     .reduce((out, char) => (101 * out + char.charCodeAt(0)) >>> 0, 11)
@@ -18,11 +18,15 @@ const createHashStore = () => {
     set: (date: string, entries: StateItem[]) =>
       (hashes[date] = convertToHash(entries)),
 
-    getChanged: (state: AtomState) =>
-      Object.entries(state).flatMap(([date, entries]) => {
-        const didChange = hashes[date] !== convertToHash(entries)
-        return didChange ? [date] : []
-      }),
+    getChanged: (state: AtomState) => {
+      const allDates = [
+        ...new Set([...Object.keys(state), ...Object.keys(hashes)]),
+      ]
+      return allDates.flatMap(date => {
+        const didChange = hashes[date] !== convertToHash(state[date])
+        return didChange ? date : []
+      })
+    },
   }
 }
 
