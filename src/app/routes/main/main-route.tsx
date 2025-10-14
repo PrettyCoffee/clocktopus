@@ -156,7 +156,7 @@ export const MainRoute = () => {
   return (
     <div
       key={`${selected.year}-${selected.week}`}
-      className="flex h-full flex-col px-10"
+      className="flex min-h-full flex-col px-10"
     >
       <div ref={ref} />
       <div
