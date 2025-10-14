@@ -69,7 +69,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
       <Tooltip.Trigger asChild>
         <button className="rounded-md">{totalDuration}</button>
       </Tooltip.Trigger>
-      <Tooltip.Content align="end" asChild>
+      <Tooltip.Content align="end" side="bottom" asChild>
         <div className={cn(vstack({ justify: "end" }), "text-sm")}>
           {totalTimeByProject.map(({ duration, projectId }) => (
             <span
@@ -112,7 +112,7 @@ export const TimeTableHeader = ({
         }}
         className={cn(
           hstack({ align: "center" }),
-          "h-10 rounded-t-lg border-b border-stroke-gentle bg-background-page",
+          "h-11 rounded-t-lg border-b border-stroke-gentle bg-background-page",
           "sticky top-18 z-20",
           !isIntersecting && "rounded-lg"
         )}
@@ -120,9 +120,12 @@ export const TimeTableHeader = ({
         <h2 className="mr-2 pl-4 text-base">{formatDate(date)}</h2>
         <IconButton
           icon={isEditable ? Unlock : Lock}
-          title="Toggle editability"
+          title={
+            isEditable ? "Switch to summary mode" : "Switch to editable mode"
+          }
+          titleSide="right"
           iconColor="muted"
-          size="sm"
+          iconSize="sm"
           onClick={() => editableDatesData.actions.toggle(date)}
         />
         <div className="flex-1" />

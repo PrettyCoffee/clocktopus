@@ -50,7 +50,7 @@ const summarize = (entries: TimeEntry[]): EntrySummary[] => {
 }
 
 const SummaryBlock = ({ description, projectId, minutes }: EntrySummary) => (
-  <div className={cn(surface({ look: "card", size: "md" }), vstack({}), "m-2")}>
+  <div className={cn(surface({ look: "card", size: "md" }), vstack({}))}>
     <div className={cn("line-clamp-2", !description && "text-text-muted")}>
       {description || "No description"}
     </div>
@@ -69,8 +69,8 @@ export const TimeTableSummary = ({ entries }: { entries: TimeEntry[] }) => {
   const summary = useMemo(() => summarize(entries), [entries])
 
   return (
-    <div className="@container">
-      <div className="grid grid-cols-1 @xl:grid-cols-2 @3xl:grid-cols-3">
+    <div className="@container m-2">
+      <div className="grid grid-cols-1 gap-4 @xl:grid-cols-2 @3xl:grid-cols-3">
         {summary.map(entry => (
           <SummaryBlock key={entry.projectId + entry.description} {...entry} />
         ))}

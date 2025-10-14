@@ -29,6 +29,7 @@ interface IconButtonProps
   look?: Exclude<ButtonProps["look"], "link">
   titleSide?: TitleTooltipProps["side"]
   hideTitle?: boolean
+  iconSize?: IconProps["size"]
 }
 
 export const IconButton = ({
@@ -42,6 +43,7 @@ export const IconButton = ({
   hideTitle,
   titleSide,
   iconColor = "current",
+  iconSize = size,
   ...delegated
 }: IconButtonProps) => (
   <TitleTooltip title={hideTitle ? undefined : title} side={titleSide} asChild>
@@ -52,7 +54,7 @@ export const IconButton = ({
       {...delegated}
     >
       <VisuallyHidden>{title}</VisuallyHidden>
-      <Icon icon={icon} size={size} color={iconColor} filled={filled} />
+      <Icon icon={icon} size={iconSize} color={iconColor} filled={filled} />
     </Button>
   </TitleTooltip>
 )
