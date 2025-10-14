@@ -112,13 +112,13 @@ const FirstEntry = () => (
     <div className="relative size-40">
       <img
         className="absolute -inset-5 min-h-50 min-w-50 opacity-50 blur-3xl"
-        src="./octopus.png"
+        src="./octopus-animated.png"
         aria-hidden
         alt=""
       />
       <img
         className="absolute inset-0 z-1 size-full drop-shadow-md"
-        src="./octopus.png"
+        src="./octopus-animated.png"
         alt="cute octopus emoji"
       />
     </div>
