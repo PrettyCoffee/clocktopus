@@ -24,6 +24,13 @@ export default defineConfig(
       "no-restricted-imports": [
         "error",
         {
+          paths: [
+            {
+              name: "zod",
+              allowImportNames: ["ZodError"],
+              message: "Import from zod/mini instead.",
+            },
+          ],
           patterns: [
             {
               group: ["@yaasl/*"],

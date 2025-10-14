@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod/mini"
 
 import { themeData, themeSchema } from "data/theme"
 import { Resolve } from "types/util-types"

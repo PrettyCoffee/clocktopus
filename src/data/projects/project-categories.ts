@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod/mini"
 
 import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
