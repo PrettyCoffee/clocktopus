@@ -41,6 +41,7 @@ export const IconButton = ({
   className,
   hideTitle,
   titleSide,
+  iconColor = "current",
   ...delegated
 }: IconButtonProps) => (
   <TitleTooltip title={hideTitle ? undefined : title} side={titleSide} asChild>
@@ -51,7 +52,7 @@ export const IconButton = ({
       {...delegated}
     >
       <VisuallyHidden>{title}</VisuallyHidden>
-      <Icon icon={icon} size={size} color="current" filled={filled} />
+      <Icon icon={icon} size={size} color={iconColor} filled={filled} />
     </Button>
   </TitleTooltip>
 )
