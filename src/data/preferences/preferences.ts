@@ -5,11 +5,13 @@ import { Resolve } from "types/util-types"
 
 export const preferencesSchema = z.object({
   locale: z.string(),
+  summaryStyle: z.enum(["table", "grid"]),
 })
 type Preferences = Resolve<z.infer<typeof preferencesSchema>>
 
 const defaultValue: Preferences = {
   locale: "iso",
+  summaryStyle: "grid",
 }
 
 export const preferencesData = createSlice({
@@ -20,6 +22,10 @@ export const preferencesData = createSlice({
     setLocale: (state, locale: string) => ({
       ...state,
       locale: locale || "iso",
+    }),
+    setSummaryStye: (state, summaryStyle: Preferences["summaryStyle"]) => ({
+      ...state,
+      summaryStyle,
     }),
   },
 })

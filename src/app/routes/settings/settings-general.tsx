@@ -1,3 +1,5 @@
+import { LayoutGrid, TableProperties } from "lucide-react"
+
 import { Card } from "components/ui/card"
 import { Input } from "components/ui/input"
 import { Select } from "components/ui/select"
@@ -7,6 +9,10 @@ import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 
 import { OrChain } from "./fragments/or-chain"
+import {
+  StyleRadioButton,
+  styleRadioButtonFocusManager,
+} from "./fragments/style-radio-button"
 
 const locales = {
   "de-DE": "German",
@@ -16,7 +22,7 @@ const locales = {
 }
 
 const Locale = () => {
-  const preferences = useAtomValue(preferencesData)
+  const { locale } = useAtomValue(preferencesData)
   return (
     <Card
       title="Locale"
@@ -27,7 +33,7 @@ const Locale = () => {
     >
       <OrChain>
         <Select.Root
-          value={preferences.locale}
+          value={locale}
           onChange={locale => preferencesData.actions.setLocale(locale)}
           placeholder="Locale"
         >
@@ -43,9 +49,7 @@ const Locale = () => {
         <Input
           type="text"
           value={
-            ["iso", ...Object.keys(locales)].includes(preferences.locale)
-              ? ""
-              : preferences.locale
+            ["iso", ...Object.keys(locales)].includes(locale) ? "" : locale
           }
           onChange={locale => preferencesData.actions.setLocale(locale)}
           placeholder="Custom locale (e.g. ja-JP)"
@@ -55,8 +59,34 @@ const Locale = () => {
   )
 }
 
+const SummaryStyle = () => {
+  const { summaryStyle } = useAtomValue(preferencesData)
+  return (
+    <Card
+      title="Summary style"
+      description="Decide how the time summary of past dates is displayed — as table rows or in grid items?"
+    >
+      <OrChain role="radiogroup" onKeyDown={styleRadioButtonFocusManager}>
+        <StyleRadioButton
+          active={summaryStyle === "grid"}
+          icon={LayoutGrid}
+          label="Grid"
+          onClick={() => preferencesData.actions.setSummaryStye("grid")}
+        />
+        <StyleRadioButton
+          active={summaryStyle === "table"}
+          icon={TableProperties}
+          label="Table"
+          onClick={() => preferencesData.actions.setSummaryStye("table")}
+        />
+      </OrChain>
+    </Card>
+  )
+}
+
 export const SettingsGeneral = () => (
   <div className={cn(vstack({ gap: 2 }))}>
     <Locale />
+    <SummaryStyle />
   </div>
 )

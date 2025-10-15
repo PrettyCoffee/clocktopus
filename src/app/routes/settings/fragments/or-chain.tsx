@@ -1,10 +1,15 @@
-import { Children, Fragment, PropsWithChildren } from "react"
+import { Children, Fragment, PropsWithChildren, HTMLProps } from "react"
 
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
-export const OrChain = ({ children }: PropsWithChildren) => (
+export const OrChain = ({
+  children,
+  className,
+  ...rest
+}: PropsWithChildren<HTMLProps<HTMLDivElement>>) => (
   <div
+    {...rest}
     className={cn(
       hstack({
         align: "center",
@@ -12,7 +17,8 @@ export const OrChain = ({ children }: PropsWithChildren) => (
         gap: 4,
         wrap: true,
       }),
-      "text-nowrap"
+      "text-nowrap",
+      className
     )}
   >
     {Children.map(children, (child, index) => (

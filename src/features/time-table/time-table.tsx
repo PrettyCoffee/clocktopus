@@ -4,9 +4,9 @@ import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { surface } from "utils/styles"
 
+import { TimeSummary } from "./time-summary"
 import { CheckedProps, TimeTableEditable } from "./time-table-editable"
 import { TimeTableHeader } from "./time-table-header"
-import { TimeTableSummary } from "./time-table-summary"
 
 interface TimeTableProps extends CheckedProps {
   date: string
@@ -36,7 +36,7 @@ export const TimeTable = ({ date, ...rest }: TimeTableProps) => {
           />
         </div>
       ) : (
-        <TimeTableSummary entries={entries} />
+        <TimeSummary entries={entries} />
       )}
     </div>
   )
