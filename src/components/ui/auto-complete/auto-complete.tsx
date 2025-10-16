@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  KeyboardEvent,
   PropsWithChildren,
   ReactNode,
   RefObject,
@@ -119,6 +120,9 @@ export const AutoComplete = <TData,>({
   const inputRef = useRef<HTMLElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const focus = useFocus([inputRef, dropdownRef])
+  const [selection, setSelection] = useState(0)
+
+  const [forceClose, setForceClose] = useState(false)
 
   const inputRect = useBoundingRect()
 
@@ -127,7 +131,30 @@ export const AutoComplete = <TData,>({
     [filter, getFilterValue, allItems]
   )
 
-  const open = focus && !!filter && items.length > 0
+  const moveSelection = (diff: number) =>
+    setSelection(prev => (items.length + 1 + prev + diff) % (items.length + 1))
+
+  const acceptSelection = () => {
+    const selected = items[selection - 1]
+    if (!selected) return
+    onSelect(selected)
+  }
+
+  const keyHandler = (event: KeyboardEvent) => {
+    const events: Record<string, () => void> = {
+      ArrowDown: () => moveSelection(1),
+      ArrowUp: () => moveSelection(-1),
+      Enter: () => acceptSelection(),
+      Escape: () => setForceClose(true),
+    }
+
+    const handler = events[event.key]
+    if (!handler) return
+    event.preventDefault()
+    handler()
+  }
+
+  const open = focus && !forceClose && !!filter && items.length > 0
 
   return (
     <>
@@ -137,17 +164,25 @@ export const AutoComplete = <TData,>({
           inputRef.current = element
           inputRect.update(element)
         }}
+        onKeyDown={keyHandler}
+        onChange={() => {
+          setSelection(0)
+          setForceClose(false)
+        }}
       >
         {children}
       </Slot>
 
       {open && (
         <AutoCompleteDropdown ref={dropdownRef} anchorRect={inputRect.value}>
-          {items.map(item => (
+          {items.map((item, index) => (
             <Button
               key={getFilterValue(item)}
               onClick={() => onSelect(item)}
-              className="w-full justify-between gap-2 truncate text-start"
+              className={cn(
+                "w-full justify-between gap-2 truncate text-start",
+                index === selection - 1 && "bgl-layer-w/10"
+              )}
             >
               {renderOptionLabel(item)}
             </Button>
