@@ -27,7 +27,7 @@ export const TimeTable = ({ date, ...rest }: TimeTableProps) => {
       <TimeTableHeader date={date} entries={entries} isEditable={isEditable} />
 
       {isEditable ? (
-        <div className="bg-background">
+        <div className="rounded-b-lg bg-background">
           <TimeTableEditable
             date={date}
             entries={entries}
