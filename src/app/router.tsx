@@ -1,5 +1,4 @@
-import { Router, Route, Switch } from "wouter"
-import { useHashLocation } from "wouter/use-hash-location"
+import { Route, Switch } from "wouter"
 
 import { AppLayout } from "./layout"
 import { MainRoute } from "./routes/main/main-route"
@@ -9,25 +8,22 @@ import { SettingsRoute } from "./routes/settings/settings-route"
 import { SettingsSideRoute } from "./routes/settings/settings-side-route"
 
 const AppRouter = () => (
-  // eslint-disable-next-line react-compiler/react-compiler
-  <Router hook={useHashLocation}>
-    <AppLayout
-      sideContent={
-        <Switch>
-          <Route path="/settings/*" component={SettingsSideRoute} />
-          <Route path="/settings" component={SettingsSideRoute} />
-          <Route path="/" component={MainSideRoute} />
-        </Switch>
-      }
-      mainContent={
-        <Switch>
-          <Route path="/settings" nest component={SettingsRoute} />
-          <Route path="/" component={MainRoute} />
-          <Route component={NotFoundRoute} />
-        </Switch>
-      }
-    />
-  </Router>
+  <AppLayout
+    sideContent={
+      <Switch>
+        <Route path="/settings/*" component={SettingsSideRoute} />
+        <Route path="/settings" component={SettingsSideRoute} />
+        <Route path="/" component={MainSideRoute} />
+      </Switch>
+    }
+    mainContent={
+      <Switch>
+        <Route path="/settings" nest component={SettingsRoute} />
+        <Route path="/" component={MainRoute} />
+        <Route component={NotFoundRoute} />
+      </Switch>
+    }
+  />
 )
 
 export default AppRouter
