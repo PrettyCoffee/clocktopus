@@ -4,11 +4,18 @@ import { createSlice } from "lib/yaasl"
 import { AlertKind } from "types/base-props"
 import { createId } from "utils/create-id"
 
+import { ButtonProps } from "../button"
+
 const defaultDurations: Record<AlertKind, number> = {
   info: 5000,
   success: 5000,
   warn: 0,
   error: 0,
+}
+
+export interface ToastAction
+  extends Pick<ButtonProps, "look" | "onClick" | "icon" | "to"> {
+  label: string
 }
 
 export interface ToastProps {
@@ -17,6 +24,7 @@ export interface ToastProps {
   title: string
   message?: ReactNode
   duration?: number
+  actions?: ToastAction[]
 }
 
 type ToastPatch = Partial<Omit<ToastProps, "id">>
