@@ -83,7 +83,7 @@ export const Toast = ({
       className={cn(
         hstack(),
         surface({ look: "overlay", size: "md" }),
-        "relative my-1 w-72 overflow-hidden border-2 p-1",
+        "relative my-1 w-screen max-w-96 overflow-hidden border-2 p-1",
         alertStyles[kind].borderGentle
       )}
     >
