@@ -58,7 +58,7 @@ const Side = ({ children, actions = [], className }: LayoutSideProps) => {
           className={cn(
             vstack({}),
             "absolute top-3 -right-5 rounded-2xl border border-stroke-gentle bg-background-page",
-            "[&_:where(button,a)]:size-10 [&_:where(button,a)]:rounded-2xl"
+            "[&_:where(button,a)]:size-10 [&_:where(button,a)]:rounded-2xl [&_:where(button,a)_svg]:size-5"
           )}
         >
           <IconButton

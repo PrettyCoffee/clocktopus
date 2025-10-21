@@ -99,7 +99,7 @@ export const Button = ({
         <Icon
           color={iconColor}
           icon={icon}
-          size={size === "sm" ? "sm" : "md"}
+          size={size === "sm" ? "xs" : "sm"}
           className="mr-2"
         />
       ) : null}

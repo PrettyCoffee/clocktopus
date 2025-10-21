@@ -125,7 +125,6 @@ export const TimeTableHeader = ({
           }
           titleSide="right"
           iconColor="muted"
-          iconSize="sm"
           onClick={() => editableDatesData.actions.toggle(date)}
         />
         <div className="flex-1" />
