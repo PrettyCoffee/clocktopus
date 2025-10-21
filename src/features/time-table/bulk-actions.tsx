@@ -1,9 +1,10 @@
 import { useState } from "react"
 
-import { Trash } from "lucide-react"
+import { CheckCheck, Trash } from "lucide-react"
 
 import { Button } from "components/ui/button"
 import { Dialog } from "components/ui/dialog"
+import { Icon } from "components/ui/icon"
 import { showToast } from "components/ui/toaster"
 import { AutoAnimateHeight } from "components/utility/auto-animate-height"
 import { timeEntriesData } from "data/time-entries"
@@ -32,6 +33,8 @@ export const TimEntriesBulkActions = ({
   const selectedAmount = getSelectedAmount(checked)
   const hasChecked = selectedAmount > 0
 
+  const close = () => setStatus(null)
+
   const forEachChecked = (action: (date: string, id: number) => void) => {
     Object.entries(checked).forEach(([date, checked]) =>
       Object.keys(checked).forEach(id => action(date, Number(id)))
@@ -42,19 +45,23 @@ export const TimEntriesBulkActions = ({
     forEachChecked((date, id) => timeEntriesData.actions.delete(date, id))
     showToast({ kind: "success", title: "Deleted selected entries" })
     resetChecked()
-    setStatus(null)
+    close()
   }
 
   return (
     <>
       <AutoAnimateHeight duration={150}>
-        <div
-          className={cn(hstack({ align: "center" }), "pt-4 [&:has(*)]:pb-1")}
-        >
+        <div className={cn("pt-4 [&:has(*)]:pb-1")}>
           {hasChecked && (
-            <Button icon={Trash} onClick={() => setStatus("delete")}>
-              Delete selected
-            </Button>
+            <div className={cn(hstack({ align: "center" }), "pl-5")}>
+              <Icon icon={CheckCheck} size="sm" color="muted" />
+              <span className="mx-2 text-text-gentle">{selectedAmount}</span>
+              <span className="mx-2 h-6 w-px bg-stroke-gentle" />
+
+              <Button icon={Trash} onClick={() => setStatus("delete")}>
+                Delete
+              </Button>
+            </div>
           )}
         </div>
       </AutoAnimateHeight>
@@ -63,6 +70,7 @@ export const TimEntriesBulkActions = ({
         <Dialog
           title="Delete time entries?"
           description="Do you really want to delete the selected time entries? This action cannot be reverted."
+          onClose={close}
           confirm={{
             look: "destructive",
             caption: `Delete ${getSelectedAmount(checked)} entries`,
