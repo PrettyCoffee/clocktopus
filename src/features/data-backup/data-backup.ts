@@ -2,11 +2,13 @@ import { ZodError } from "zod"
 
 import { showToast } from "components/ui/toaster"
 import { allData, AllData } from "data/all-data"
+import { dataBackupData } from "data/data-backup"
 import { dateHelpers } from "utils/date-helpers"
 import { download } from "utils/download"
 
 const downloadBackup = () => {
   download(`clocktopus-export_${dateHelpers.today()}.json`, allData.get())
+  dataBackupData.set(state => ({ ...state, last: dateHelpers.today() }))
 }
 
 class ImportError extends Error {}

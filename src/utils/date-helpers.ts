@@ -1,3 +1,8 @@
+const DAY_IN_MS = 1000 * 60 * 60 * 24
+
+const daysSince = (date: string) =>
+  Math.floor((Date.now() - new Date(date).valueOf()) / DAY_IN_MS)
+
 export interface ParsedDate {
   year: number
   month: number
@@ -29,4 +34,5 @@ export const dateHelpers = {
   today,
   parse,
   stringify,
+  daysSince,
 }

@@ -11,12 +11,15 @@ import { Button } from "components/ui/button"
 import { Card } from "components/ui/card"
 import { showDialog } from "components/ui/dialog"
 import { FileInput } from "components/ui/file-input/file-input"
+import { NumberInput } from "components/ui/number-input"
 import { Spinner } from "components/ui/spinner"
 import { showToast } from "components/ui/toaster"
 import { allData } from "data/all-data"
+import { dataBackupData } from "data/data-backup"
 import { TimeEntry, timeEntriesData } from "data/time-entries"
 import { CsvImport } from "features/csv-import"
 import { dataBackup } from "features/data-backup"
+import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { sleep } from "utils/sleep"
 import { hstack, vstack } from "utils/styles"
@@ -44,6 +47,28 @@ const BackupData = () => (
         icon={FileJson2}
       />
     </OrChain>
+  </Card>
+)
+
+const BackupReminderData = () => (
+  <Card
+    title="Backup reminder"
+    description={
+      "To make sure you don't forget to backup your data, there will be a reminder every few days. " +
+      "Here you can define how often you want to be reminded."
+    }
+  >
+    <div className="mx-auto w-max">
+      <NumberInput
+        value={useAtomValue(dataBackupData).reminderSchedule}
+        min={1}
+        max={356}
+        unit="day schedule"
+        onChange={(reminderSchedule = 0) =>
+          dataBackupData.set(state => ({ ...state, reminderSchedule }))
+        }
+      />
+    </div>
   </Card>
 )
 
@@ -237,6 +262,7 @@ export const SettingsData = () => (
   <div className={cn(vstack({ gap: 2 }))}>
     <Privacy />
     <BackupData />
+    <BackupReminderData />
     <ImportCsvData />
     <DeleteData />
   </div>
