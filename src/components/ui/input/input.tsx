@@ -5,6 +5,7 @@ import {
   ClassNameProp,
   DisableProp,
   RefProp,
+  StyleProp,
 } from "types/base-props"
 import { cn } from "utils/cn"
 import { alertStyles } from "utils/styles"
@@ -17,6 +18,7 @@ interface TextInputProps {
 type PropsByType = TextInputProps
 
 export type InputProps = RefProp<HTMLInputElement> &
+  StyleProp &
   PropsByType &
   ClassNameProp &
   DisableProp & {
