@@ -6,7 +6,6 @@ import {
   Trash,
   FileSpreadsheet,
 } from "lucide-react"
-import { ZodError } from "zod"
 
 import { Button } from "components/ui/button"
 import { Card } from "components/ui/card"
@@ -14,74 +13,15 @@ import { showDialog } from "components/ui/dialog"
 import { FileInput } from "components/ui/file-input/file-input"
 import { Spinner } from "components/ui/spinner"
 import { showToast } from "components/ui/toaster"
-import { allData, AllData } from "data/all-data"
+import { allData } from "data/all-data"
 import { TimeEntry, timeEntriesData } from "data/time-entries"
 import { CsvImport } from "features/csv-import"
+import { dataBackup } from "features/data-backup"
 import { cn } from "utils/cn"
-import { dateHelpers } from "utils/date-helpers"
-import { download } from "utils/download"
 import { sleep } from "utils/sleep"
 import { hstack, vstack } from "utils/styles"
 
 import { OrChain } from "./fragments/or-chain"
-
-const exportData = () => {
-  download(`clocktopus-export_${dateHelpers.today()}.json`, allData.get())
-}
-
-class ImportError extends Error {}
-const parse = (content: string): unknown => {
-  try {
-    return JSON.parse(content)
-  } catch {
-    throw new ImportError("The file you selected could not be parsed.")
-  }
-}
-
-const validateData = (data: unknown) => {
-  try {
-    return allData.validate(data)
-  } catch (error) {
-    if (!(error instanceof ZodError)) {
-      throw error
-    }
-    const errorPaths = error.issues.flatMap(({ path }) => path).join(", ")
-    throw new ImportError(
-      `The following data fields seem to be corrupted: ${errorPaths}`
-    )
-  }
-}
-
-const atLeastOneKey = (data: AllData) => {
-  if (Object.keys(data).length === 0) {
-    throw new ImportError("The file you selected contains no usable data.")
-  }
-  return data
-}
-
-const importData = async (file: File) => {
-  try {
-    const data = await file
-      .text()
-      .then(parse)
-      .then(validateData)
-      .then(atLeastOneKey)
-
-    allData.patch(data)
-    showToast({
-      kind: "success",
-      title: "Data imported",
-    })
-  } catch (error) {
-    const message =
-      error instanceof ImportError
-        ? error.message
-        : "An unexpected error occurred during the import."
-    showToast({ kind: "error", title: "Import error", message })
-    console.error(error)
-    return
-  }
-}
 
 const BackupData = () => (
   <Card
@@ -93,13 +33,13 @@ const BackupData = () => (
     }
   >
     <OrChain>
-      <Button look="key" icon={HardDriveDownload} onClick={exportData}>
+      <Button look="key" icon={HardDriveDownload} onClick={dataBackup.download}>
         Export data
       </Button>
 
       <FileInput
         label="Import data"
-        onChange={file => void importData(file)}
+        onChange={file => void dataBackup.import(file)}
         accept=".json"
         icon={FileJson2}
       />
