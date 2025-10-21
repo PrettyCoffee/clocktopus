@@ -1,48 +1,21 @@
 import { useMemo, useState } from "react"
 
-import { Ghost, Trash } from "lucide-react"
+import { Ghost } from "lucide-react"
 
-import { Button } from "components/ui/button"
 import { ContextInfo } from "components/ui/context-info"
-import { showDialog } from "components/ui/dialog"
-import { showToast } from "components/ui/toaster"
-import { AutoAnimateHeight } from "components/utility/auto-animate-height"
-import { getDateAtom, timeEntriesData, TimeEntry } from "data/time-entries"
+import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { selectedWeek } from "features/date-selection"
-import { TimeTable } from "features/time-table"
+import {
+  CheckedState,
+  TimEntriesBulkActions,
+  TimeTable,
+} from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
-import { hstack, vstack } from "utils/styles"
-
-type CheckedState = Record<string, Record<string, true>>
-
-const getSelectedAmount = (checked: CheckedState) =>
-  Object.values(checked).reduce(
-    (result, checked) => result + Object.keys(checked).length,
-    0
-  )
-
-const bulkDelete = (checked: CheckedState, onDelete: () => void) =>
-  showDialog({
-    title: "Delete time entries?",
-    description:
-      "Do you really want to delete the selected time entries? This action cannot be reverted.",
-    confirm: {
-      look: "destructive",
-      caption: `Delete ${getSelectedAmount(checked)} entries`,
-      onClick: () => {
-        Object.entries(checked).forEach(([date, checked]) => {
-          const atom = getDateAtom(date)
-          Object.keys(checked).forEach(id => atom.actions.delete(Number(id)))
-        })
-        showToast({ kind: "success", title: "Deleted selected entries" })
-        onDelete()
-      },
-    },
-  })
+import { vstack } from "utils/styles"
 
 const toggleChecked = (state: CheckedState, { date, id }: TimeEntry) => {
   if (!state[date]?.[id]) {
@@ -68,25 +41,12 @@ const TimeTables = ({ dates }: { dates: string[] }) => {
   const toggle = (entry: TimeEntry) =>
     setChecked(state => toggleChecked(state, entry))
 
-  const selectedAmount = getSelectedAmount(checked)
-  const hasChecked = selectedAmount > 0
-
   return (
     <>
-      <AutoAnimateHeight duration={150}>
-        <div
-          className={cn(hstack({ align: "center" }), "pt-4 [&:has(*)]:pb-1")}
-        >
-          {hasChecked && (
-            <Button
-              icon={Trash}
-              onClick={() => bulkDelete(checked, () => setChecked({}))}
-            >
-              Delete selected
-            </Button>
-          )}
-        </div>
-      </AutoAnimateHeight>
+      <TimEntriesBulkActions
+        checked={checked}
+        resetChecked={() => setChecked({})}
+      />
 
       <div className="space-y-4">
         {dates.map(date => (
