@@ -25,6 +25,27 @@ const sortEntries = (entries: TimeEntry[]) =>
     return b.end.localeCompare(a.end)
   })
 
+const popEntry = (state: AtomState, date: string, id: string) => {
+  const { [date]: entries, ...rest } = state
+
+  const entry = (entries ?? []).find(item => item.id != id)
+  const filtered = (entries ?? []).filter(item => item.id != id)
+
+  const newState = filtered.length === 0 ? rest : { ...rest, [date]: filtered }
+
+  return { entry, newState }
+}
+
+const pushEntries = (
+  state: AtomState,
+  date: string,
+  ...entries: TimeEntry[]
+) => {
+  const oldEntries = state[date] ?? []
+  const newEntries = [...oldEntries, ...entries]
+  return { ...state, [date]: sortEntries(newEntries) }
+}
+
 export const timeEntriesData = createSlice({
   name: "time-entries",
   defaultValue: {} as AtomState,
@@ -36,30 +57,24 @@ export const timeEntriesData = createSlice({
 
   reducers: {
     add: (state, date: string, ...entries: Omit<TimeEntry, "id">[]) => {
-      const newEntries = [
-        ...(state[date] ?? []),
-        ...entries.map(entry => ({
-          ...entry,
-          id: createId("mini"),
-        })),
-      ]
-      return { ...state, [date]: sortEntries(newEntries) }
+      const entriesWithIds = entries.map(entry => ({
+        ...entry,
+        id: createId("mini"),
+      }))
+
+      return pushEntries(state, date, ...entriesWithIds)
     },
 
     edit: (state, date: string, id: string, entry: Partial<TimeEntry>) => {
-      const newEntries = state[date]?.map(item =>
-        item.id !== id ? item : { ...item, ...entry, id }
-      )
-      if (!newEntries) return state
-      return { ...state, [date]: sortEntries(newEntries) }
+      const { entry: oldEntry, newState } = popEntry(state, date, id)
+      if (!oldEntry) return state
+
+      const newDate = entry.date ?? date
+      return pushEntries(newState, newDate, { ...oldEntry, ...entry, id })
     },
 
     delete: (state, date: string, id: string) => {
-      const newEntries = (state[date] ?? []).filter(item => item.id != id)
-      const newState = { ...state, [date]: newEntries }
-      if (newEntries.length === 0) {
-        delete newState[date]
-      }
+      const { newState } = popEntry(state, date, id)
       return newState
     },
   },
