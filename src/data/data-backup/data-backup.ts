@@ -1,16 +1,12 @@
-import { z } from "zod/mini"
-
 import { createAtom, indexedDb } from "lib/yaasl"
-import { Resolve } from "types/util-types"
 import { dateHelpers } from "utils/date-helpers"
 
-export const dataBackupSchema = z.object({
-  last: z.string(),
-  reminderSchedule: z.number(),
-})
-type Preferences = Resolve<z.infer<typeof dataBackupSchema>>
+interface DataBackupPreferences {
+  last: string
+  reminderSchedule: number
+}
 
-const defaultValue: Preferences = {
+const defaultValue: DataBackupPreferences = {
   last: dateHelpers.today(),
   reminderSchedule: 30,
 }
