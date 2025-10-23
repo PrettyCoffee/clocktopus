@@ -36,6 +36,21 @@ const popEntry = (state: AtomState, date: string, id: string) => {
   return { entry, newState }
 }
 
+const popEntries = (
+  state: AtomState,
+  ...items: Pick<TimeEntry, "date" | "id">[]
+) =>
+  items.reduce<{ entries: TimeEntry[]; newState: AtomState }>(
+    (result, { date, id }) => {
+      const { entry, newState } = popEntry(result.newState, date, id)
+      if (entry) result.entries.push(entry)
+
+      result.newState = newState
+      return result
+    },
+    { entries: [], newState: state }
+  )
+
 const pushEntries = (
   state: AtomState,
   date: string,
@@ -73,8 +88,8 @@ export const timeEntriesData = createSlice({
       return pushEntries(newState, newDate, { ...oldEntry, ...entry, id })
     },
 
-    delete: (state, date: string, id: string) => {
-      const { newState } = popEntry(state, date, id)
+    delete: (state, ...entries: Pick<TimeEntry, "date" | "id">[]) => {
+      const { newState } = popEntries(state, ...entries)
       return newState
     },
   },

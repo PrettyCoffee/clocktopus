@@ -35,14 +35,11 @@ export const TimEntriesBulkActions = ({
 
   const close = () => setStatus(null)
 
-  const forEachChecked = (action: (date: string, id: string) => void) => {
-    Object.entries(checked).forEach(([date, checked]) =>
-      Object.keys(checked).forEach(id => action(date, id))
-    )
-  }
-
   const handleDelete = () => {
-    forEachChecked((date, id) => timeEntriesData.actions.delete(date, id))
+    const checkedItems = Object.entries(checked).flatMap(([date, checked]) =>
+      Object.keys(checked).map(id => ({ date, id }))
+    )
+    timeEntriesData.actions.delete(...checkedItems)
     showToast({ kind: "success", title: "Deleted selected entries" })
     resetChecked()
     close()

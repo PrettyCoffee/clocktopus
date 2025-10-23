@@ -15,7 +15,7 @@ export const getDateAtom = (date: string) => {
         timeEntriesData.actions.add(date, ...entries),
       edit: (id: string, entry: Partial<TimeEntry>) =>
         timeEntriesData.actions.edit(date, id, entry),
-      delete: (id: string) => timeEntriesData.actions.delete(date, id),
+      delete: (id: string) => timeEntriesData.actions.delete({ date, id }),
     },
   })
 }
