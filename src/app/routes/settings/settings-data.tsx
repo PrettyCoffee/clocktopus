@@ -127,8 +127,8 @@ const importCsv = async (data: TimeEntry[]) => {
 
   const byDate = splitByDates(data)
   await processWithPauses(
-    Object.entries(byDate).map(([date, entries]) => () => {
-      timeEntriesData.actions.add(date, ...entries)
+    Object.values(byDate).map(entries => () => {
+      timeEntriesData.actions.add(...entries)
       progress.current += entries.length
       toast.edit({
         message: <CsvImportProgress {...progress} />,

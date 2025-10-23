@@ -48,6 +48,7 @@ const ProjectGroup = ({ projects, ...category }: CategoryWithProjects) => {
 }
 
 interface ProjectSelectProps extends ClassNameProp {
+  caption?: string
   value: string
   onChange: Dispatch<string>
 }

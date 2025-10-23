@@ -11,10 +11,9 @@ export const getDateAtom = (date: string) => {
 
   return Object.assign(atom, {
     actions: {
-      add: (...entries: TimeEntry[]) =>
-        timeEntriesData.actions.add(date, ...entries),
+      add: (...entries: TimeEntry[]) => timeEntriesData.actions.add(...entries),
       edit: (id: string, entry: Partial<TimeEntry>) =>
-        timeEntriesData.actions.edit(date, id, entry),
+        timeEntriesData.actions.edit({ date, id, data: entry }),
       delete: (id: string) => timeEntriesData.actions.delete({ date, id }),
     },
   })

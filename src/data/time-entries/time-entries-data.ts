@@ -15,6 +15,7 @@ export const timeEntrySchema = z.object({
   projectId: z.optional(z.string()),
 })
 export type TimeEntry = Resolve<z.infer<typeof timeEntrySchema>>
+type DataAndId = Pick<TimeEntry, "date" | "id">
 
 type AtomState = Record<string, TimeEntry[]>
 
@@ -28,18 +29,15 @@ const sortEntries = (entries: TimeEntry[]) =>
 const popEntry = (state: AtomState, date: string, id: string) => {
   const { [date]: entries, ...rest } = state
 
-  const entry = (entries ?? []).find(item => item.id != id)
-  const filtered = (entries ?? []).filter(item => item.id != id)
+  const entry = (entries ?? []).find(item => item.id === id)
+  const filtered = (entries ?? []).filter(item => item.id !== id)
 
   const newState = filtered.length === 0 ? rest : { ...rest, [date]: filtered }
 
   return { entry, newState }
 }
 
-const popEntries = (
-  state: AtomState,
-  ...items: Pick<TimeEntry, "date" | "id">[]
-) =>
+const popEntries = (state: AtomState, ...items: DataAndId[]) =>
   items.reduce<{ entries: TimeEntry[]; newState: AtomState }>(
     (result, { date, id }) => {
       const { entry, newState } = popEntry(result.newState, date, id)
@@ -51,15 +49,12 @@ const popEntries = (
     { entries: [], newState: state }
   )
 
-const pushEntries = (
-  state: AtomState,
-  date: string,
-  ...entries: TimeEntry[]
-) => {
-  const oldEntries = state[date] ?? []
-  const newEntries = [...oldEntries, ...entries]
-  return { ...state, [date]: sortEntries(newEntries) }
-}
+const pushEntries = (state: AtomState, ...entries: TimeEntry[]) =>
+  entries.reduce((result, entry) => {
+    const oldEntries = result[entry.date] ?? []
+    const newEntries = [...oldEntries, entry]
+    return { ...result, [entry.date]: sortEntries(newEntries) }
+  }, state)
 
 export const timeEntriesData = createSlice({
   name: "time-entries",
@@ -71,24 +66,27 @@ export const timeEntriesData = createSlice({
   },
 
   reducers: {
-    add: (state, date: string, ...entries: Omit<TimeEntry, "id">[]) => {
+    add: (state, ...entries: Omit<TimeEntry, "id">[]) => {
       const entriesWithIds = entries.map(entry => ({
         ...entry,
         id: createId("mini"),
       }))
 
-      return pushEntries(state, date, ...entriesWithIds)
+      return pushEntries(state, ...entriesWithIds)
     },
 
-    edit: (state, date: string, id: string, entry: Partial<TimeEntry>) => {
-      const { entry: oldEntry, newState } = popEntry(state, date, id)
-      if (!oldEntry) return state
+    edit: (state, ...items: (DataAndId & { data: Partial<TimeEntry> })[]) => {
+      const { entries: oldEntries, newState } = popEntries(state, ...items)
+      if (oldEntries.length === 0) return state
 
-      const newDate = entry.date ?? date
-      return pushEntries(newState, newDate, { ...oldEntry, ...entry, id })
+      const entries = oldEntries.map(oldEntry => {
+        const { data } = items.find(entry => entry.id === oldEntry.id) ?? {}
+        return { ...oldEntry, ...data }
+      })
+      return pushEntries(newState, ...entries)
     },
 
-    delete: (state, ...entries: Pick<TimeEntry, "date" | "id">[]) => {
+    delete: (state, ...entries: DataAndId[]) => {
       const { newState } = popEntries(state, ...entries)
       return newState
     },

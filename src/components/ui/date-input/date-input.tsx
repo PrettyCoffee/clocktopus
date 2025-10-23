@@ -23,15 +23,17 @@ interface DateInputProps
     CalendarProps,
     "selected" | "initialView" | "onSelectionChange"
   > {
-  value: string
+  caption?: string
+  value?: string
   onChange: Dispatch<string>
   locale: string
 }
 
 export const DateInput = ({
-  value,
+  value = dateHelpers.today(),
   onChange,
   locale,
+  caption,
   ...props
 }: DateInputProps) => {
   const [open, setOpen] = useState(false)
@@ -43,7 +45,7 @@ export const DateInput = ({
           iconColor="muted"
           className="border border-stroke-gentle"
         >
-          {printDate(value, locale)}
+          {caption ?? printDate(value, locale)}
         </Button>
       </Popover.Trigger>
 

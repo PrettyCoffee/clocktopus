@@ -15,8 +15,9 @@ import { Icon } from "../icon"
 
 interface TriggerProps extends ClassNameProp {
   placeholder: string
+  caption?: string
 }
-const Trigger = ({ placeholder, className }: TriggerProps) => (
+const Trigger = ({ placeholder, caption, className }: TriggerProps) => (
   <Primitive.Trigger asChild>
     <Button
       className={cn(
@@ -25,7 +26,7 @@ const Trigger = ({ placeholder, className }: TriggerProps) => (
         className
       )}
     >
-      <Primitive.Value placeholder={placeholder} />
+      <Primitive.Value placeholder={placeholder}>{caption}</Primitive.Value>
       <Primitive.Icon asChild>
         <Icon icon={ChevronDown} size="sm" color="gentle" />
       </Primitive.Icon>
@@ -138,19 +139,25 @@ const Group = ({
 )
 
 interface SelectRootProps extends ClassNameProp {
+  caption?: string
   placeholder: string
   value: string
   onChange: Dispatch<string>
 }
 const Root = ({
   children,
+  caption,
   placeholder,
   value,
   onChange,
   className,
 }: PropsWithChildren<SelectRootProps>) => (
   <Primitive.Root value={value} onValueChange={onChange}>
-    <Trigger placeholder={placeholder} className={className} />
+    <Trigger
+      caption={caption}
+      placeholder={placeholder}
+      className={className}
+    />
     <Content>{children}</Content>
   </Primitive.Root>
 )
