@@ -26,7 +26,7 @@ interface TableConfig {
   rowData: TimeEntry
   rowMeta: CheckedProps & {
     onChange: Dispatch<TimeEntry>
-    onRemove: Dispatch<number>
+    onRemove: Dispatch<string>
   }
 }
 
@@ -139,7 +139,7 @@ export const TimeTableEditable = ({
     }
   }
 
-  const handleRemove = (id: number) =>
+  const handleRemove = (id: string) =>
     showDialog({
       title: "Delete time entry?",
       description:

@@ -17,7 +17,10 @@ import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { vstack } from "utils/styles"
 
-const toggleChecked = (state: CheckedState, { date, id }: TimeEntry) => {
+const toggleChecked = (
+  state: CheckedState,
+  { date, id }: TimeEntry
+): CheckedState => {
   if (!state[date]?.[id]) {
     return {
       ...state,

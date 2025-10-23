@@ -2,11 +2,12 @@ import { z } from "zod/mini"
 
 import { createSlice } from "lib/yaasl"
 import { Resolve } from "types/util-types"
+import { createId } from "utils/create-id"
 
 import { idbEffect } from "./idb-effect"
 
 export const timeEntrySchema = z.object({
-  id: z.number(),
+  id: z.string(),
   description: z.string(),
   start: z.string(),
   end: z.string(),
@@ -16,9 +17,6 @@ export const timeEntrySchema = z.object({
 export type TimeEntry = Resolve<z.infer<typeof timeEntrySchema>>
 
 type AtomState = Record<string, TimeEntry[]>
-
-const getNextId = (entries?: TimeEntry[]) =>
-  (entries ?? []).reduce((current, { id }) => Math.max(current, id), 0) + 1
 
 const sortEntries = (entries: TimeEntry[]) =>
   entries.toSorted((a, b) => {
@@ -38,18 +36,17 @@ export const timeEntriesData = createSlice({
 
   reducers: {
     add: (state, date: string, ...entries: Omit<TimeEntry, "id">[]) => {
-      const nextId = getNextId(state[date])
       const newEntries = [
         ...(state[date] ?? []),
-        ...entries.map((entry, index) => ({
+        ...entries.map(entry => ({
           ...entry,
-          id: nextId + index,
+          id: createId("mini"),
         })),
       ]
       return { ...state, [date]: sortEntries(newEntries) }
     },
 
-    edit: (state, date: string, id: number, entry: Partial<TimeEntry>) => {
+    edit: (state, date: string, id: string, entry: Partial<TimeEntry>) => {
       const newEntries = state[date]?.map(item =>
         item.id !== id ? item : { ...item, ...entry, id }
       )
@@ -57,7 +54,7 @@ export const timeEntriesData = createSlice({
       return { ...state, [date]: sortEntries(newEntries) }
     },
 
-    delete: (state, date: string, id: number) => {
+    delete: (state, date: string, id: string) => {
       const newEntries = (state[date] ?? []).filter(item => item.id != id)
       const newState = { ...state, [date]: newEntries }
       if (newEntries.length === 0) {

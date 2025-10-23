@@ -35,9 +35,9 @@ export const TimEntriesBulkActions = ({
 
   const close = () => setStatus(null)
 
-  const forEachChecked = (action: (date: string, id: number) => void) => {
+  const forEachChecked = (action: (date: string, id: string) => void) => {
     Object.entries(checked).forEach(([date, checked]) =>
-      Object.keys(checked).forEach(id => action(date, Number(id)))
+      Object.keys(checked).forEach(id => action(date, id))
     )
   }
 

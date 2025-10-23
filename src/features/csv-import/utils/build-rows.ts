@@ -1,4 +1,5 @@
 import { TimeEntry } from "data/time-entries"
+import { createId } from "utils/create-id"
 
 import { ColumnLookup } from "../fragments/select-columns"
 import { ProjectMapping } from "../fragments/select-projects"
@@ -39,7 +40,7 @@ export const buildRows = (
   projectMapping: ProjectMapping
 ) => {
   // eslint-disable-next-line complexity
-  const create = (row: string[], index: number): TimeEntry => {
+  const create = (row: string[]): TimeEntry => {
     const raw = {
       date: row[columnLookup.date ?? -1],
       description: row[columnLookup.description ?? -1],
@@ -49,7 +50,7 @@ export const buildRows = (
     }
 
     return {
-      id: index,
+      id: createId("mini"),
       date: toDate(raw.date) ?? "",
       description: raw.description ?? "",
       projectId: projectMapping[raw.project ?? ""],

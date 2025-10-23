@@ -14,6 +14,7 @@ import { ProjectName } from "features/components/project-name"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
+import { createId } from "utils/create-id"
 import { dateHelpers } from "utils/date-helpers"
 import { hstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
@@ -108,7 +109,7 @@ const DescriptionAutoComplete = ({
 }
 
 const getInitialState = (date?: string, start?: string): TimeEntry => ({
-  id: 0,
+  id: createId("mini"),
   description: "",
   start: start ?? timeHelpers.now({ snap: 15 }),
   end: timeHelpers.now({ snap: 15 }),
