@@ -58,7 +58,6 @@ export interface ButtonProps
   onKeyDown?: KeyboardEventHandler<HTMLButtonElement>
 }
 
-// eslint-disable-next-line complexity
 export const Button = ({
   ref,
   className,
@@ -72,6 +71,7 @@ export const Button = ({
   active,
   disabled,
   ...props
+  // eslint-disable-next-line complexity
 }: PropsWithChildren<ButtonProps>) => {
   const Comp = asChild
     ? Slot
