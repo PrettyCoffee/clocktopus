@@ -1,14 +1,14 @@
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 
 import { Ghost } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
-import { timeEntriesData, TimeEntry } from "data/time-entries"
+import { timeEntriesData } from "data/time-entries"
 import { selectedWeek } from "features/date-selection"
 import {
-  CheckedState,
   TimeEntriesBulkActions,
   TimeTable,
+  CheckedStateProvider,
 } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
@@ -17,54 +17,17 @@ import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { vstack } from "utils/styles"
 
-const toggleChecked = (
-  state: CheckedState,
-  { date, id }: TimeEntry
-): CheckedState => {
-  if (!state[date]?.[id]) {
-    return {
-      ...state,
-      [date]: { ...state[date], [id]: true },
-    }
-  }
+const TimeTables = ({ dates }: { dates: string[] }) => (
+  <CheckedStateProvider>
+    <TimeEntriesBulkActions />
 
-  const checked = { ...state }
-
-  delete checked[date]?.[id]
-  if (Object.keys(checked[date] ?? {}).length === 0) {
-    delete checked[date]
-  }
-
-  return checked
-}
-
-const TimeTables = ({ dates }: { dates: string[] }) => {
-  const [checked, setChecked] = useState<CheckedState>({})
-
-  const toggle = (entry: TimeEntry) =>
-    setChecked(state => toggleChecked(state, entry))
-
-  return (
-    <>
-      <TimeEntriesBulkActions
-        checked={checked}
-        resetChecked={() => setChecked({})}
-      />
-
-      <div className="space-y-4">
-        {dates.map(date => (
-          <TimeTable
-            key={date}
-            date={date}
-            checked={checked[date] ?? {}}
-            onCheckedChange={toggle}
-            setChecked={setChecked}
-          />
-        ))}
-      </div>
-    </>
-  )
-}
+    <div className="space-y-4">
+      {dates.map(date => (
+        <TimeTable key={date} date={date} />
+      ))}
+    </div>
+  </CheckedStateProvider>
+)
 
 const FirstEntry = () => (
   <div

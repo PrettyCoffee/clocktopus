@@ -19,12 +19,7 @@ import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { hstack } from "utils/styles"
 
-export type CheckedState = Record<string, Record<string, true>>
-
-interface TimeEntriesBulkActionsProps {
-  checked: CheckedState
-  resetChecked: () => void
-}
+import { CheckedState, useCheckedState } from "./checked-context"
 
 const getSelectedAmount = (checked: CheckedState) =>
   Object.values(checked).reduce(
@@ -150,10 +145,8 @@ const BulkEditModal = ({
   )
 }
 
-export const TimeEntriesBulkActions = ({
-  checked,
-  resetChecked,
-}: TimeEntriesBulkActionsProps) => {
+export const TimeEntriesBulkActions = () => {
+  const { checked, resetChecked } = useCheckedState()
   const [status, setStatus] = useState<"delete" | "edit" | null>(null)
 
   const selectedAmount = getSelectedAmount(checked)

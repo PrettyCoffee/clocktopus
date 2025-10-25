@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { useState } from "react"
 
 import { Lock, Unlock } from "lucide-react"
 
@@ -16,7 +16,7 @@ import { getLocale } from "utils/get-locale"
 import { hstack, vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
-import { CheckedState } from "./bulk-actions"
+import { useCheckedState } from "./checked-context"
 import { Duration } from "./duration"
 
 const formatDate = (date: string) => {
@@ -92,16 +92,14 @@ interface TimeTableHeaderProps {
   date: string
   entries: TimeEntry[]
   isEditable: boolean
-  checked: CheckedState[string]
-  setChecked: Dispatch<SetStateAction<CheckedState>>
 }
 export const TimeTableHeader = ({
   date,
   entries,
   isEditable,
-  checked,
-  setChecked,
 }: TimeTableHeaderProps) => {
+  const { checkedByDate, onCheckedChange } = useCheckedState()
+  const checked = checkedByDate(date)
   const [topOffset, setTopOffset] = useState("0px")
   const { ref, isIntersecting } = useIntersectionObserver({
     rootMargin: `-${topOffset} 0px 0px 0px`, // trigger offset to the top of the scroll area (window)
@@ -121,7 +119,7 @@ export const TimeTableHeader = ({
           return all
         }, {})
 
-    setChecked(state => {
+    onCheckedChange(state => {
       const newState = { ...state }
       if (Object.keys(newChecked).length === 0) {
         delete newState[date]

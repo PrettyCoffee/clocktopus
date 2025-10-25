@@ -1,22 +1,18 @@
-import { Dispatch, SetStateAction } from "react"
-
 import { editableDatesData } from "data/editable-dates"
 import { useDateEntries } from "data/time-entries"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { surface } from "utils/styles"
 
-import { CheckedState } from "./bulk-actions"
 import { TimeSummary } from "./time-summary"
-import { CheckedProps, TimeTableEditable } from "./time-table-editable"
+import { TimeTableEditable } from "./time-table-editable"
 import { TimeTableHeader } from "./time-table-header"
 
-interface TimeTableProps extends CheckedProps {
+interface TimeTableProps {
   date: string
-  setChecked: Dispatch<SetStateAction<CheckedState>>
 }
 
-export const TimeTable = ({ date, setChecked, ...rest }: TimeTableProps) => {
+export const TimeTable = ({ date }: TimeTableProps) => {
   const { entries, atom } = useDateEntries(date)
 
   const isEditable = !!useAtomValue(editableDatesData)[date]
@@ -28,22 +24,11 @@ export const TimeTable = ({ date, setChecked, ...rest }: TimeTableProps) => {
         "isolate bg-transparent p-0"
       )}
     >
-      <TimeTableHeader
-        date={date}
-        entries={entries}
-        isEditable={isEditable}
-        setChecked={setChecked}
-        {...rest}
-      />
+      <TimeTableHeader date={date} entries={entries} isEditable={isEditable} />
 
       {isEditable ? (
         <div className="rounded-b-lg bg-background">
-          <TimeTableEditable
-            date={date}
-            entries={entries}
-            atom={atom}
-            {...rest}
-          />
+          <TimeTableEditable date={date} entries={entries} atom={atom} />
         </div>
       ) : (
         <TimeSummary entries={entries} />

@@ -135,7 +135,7 @@ export const CreateTimeEntry = () => {
           <inputs.Description
             entry={data}
             onChange={updateData}
-            className="col-[1_/_-1] @4xl:col-[span_1]"
+            className="col-span-full @4xl:col-[span_1]"
           />
         </DescriptionAutoComplete>
 
@@ -152,7 +152,7 @@ export const CreateTimeEntry = () => {
           <inputs.TimeEnd entry={data} onChange={updateData} />
         </div>
         <Duration entries={[data]} className="inline-block w-15 text-center" />
-        <div className="col-[4] @xl:col-auto">
+        <div className="col-4 @xl:col-auto">
           <IconButton
             icon={Plus}
             title="Add item"

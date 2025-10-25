@@ -8,17 +8,16 @@ import { IconButton } from "components/ui/icon-button"
 import { createColumnHelper, Table } from "components/ui/table"
 import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
 
+import { useCheckedState } from "./checked-context"
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
 
-export interface CheckedProps {
+interface CheckedProps {
   checked: Record<string, true>
-  onCheckedChange: Dispatch<TimeEntry>
+  toggleChecked: Dispatch<TimeEntry>
 }
 
-interface TimeTableRowsProps
-  extends CheckedProps,
-    ReturnType<typeof useDateEntries> {
+interface TimeTableRowsProps extends ReturnType<typeof useDateEntries> {
   date: string
 }
 
@@ -33,10 +32,10 @@ interface TableConfig {
 const helper = createColumnHelper<TableConfig>()
 const checkedColumn = helper.column({
   name: "Selected",
-  render: ({ rowData, checked, onCheckedChange }) => (
+  render: ({ rowData, checked, toggleChecked }) => (
     <Checkbox
       checked={checked[rowData.id] ?? false}
-      onCheckedChange={() => onCheckedChange(rowData)}
+      onCheckedChange={() => toggleChecked(rowData)}
     />
   ),
 })
@@ -120,9 +119,9 @@ export const TimeTableEditable = ({
   date,
   atom,
   entries,
-  checked,
-  onCheckedChange,
 }: TimeTableRowsProps) => {
+  const { checkedByDate, toggleChecked } = useCheckedState()
+
   const handleChange = (data: TimeEntry) => {
     if (data.date === date) {
       atom.actions.edit(data.id, data)
@@ -169,8 +168,8 @@ export const TimeTableEditable = ({
         actionColumn,
       ]}
       rowMeta={{
-        checked,
-        onCheckedChange,
+        checked: checkedByDate(date),
+        toggleChecked,
         onChange: handleChange,
         onRemove: handleRemove,
       }}
