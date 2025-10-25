@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
 import { Lock, Unlock } from "lucide-react"
 
+import { Checkbox } from "components/ui/checkbox"
 import { IconButton } from "components/ui/icon-button"
 import { Tooltip } from "components/ui/tooltip"
 import { editableDatesData } from "data/editable-dates"
@@ -15,6 +16,7 @@ import { getLocale } from "utils/get-locale"
 import { hstack, vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
+import { CheckedState } from "./bulk-actions"
 import { Duration } from "./duration"
 
 const formatDate = (date: string) => {
@@ -90,16 +92,45 @@ interface TimeTableHeaderProps {
   date: string
   entries: TimeEntry[]
   isEditable: boolean
+  checked: CheckedState[string]
+  setChecked: Dispatch<SetStateAction<CheckedState>>
 }
 export const TimeTableHeader = ({
   date,
   entries,
   isEditable,
+  checked,
+  setChecked,
 }: TimeTableHeaderProps) => {
   const [topOffset, setTopOffset] = useState("0px")
   const { ref, isIntersecting } = useIntersectionObserver({
     rootMargin: `-${topOffset} 0px 0px 0px`, // trigger offset to the top of the scroll area (window)
   })
+
+  const checkedState = entries.every(({ id }) => checked[id])
+    ? true
+    : Object.keys(checked).length > 0
+      ? "indeterminate"
+      : false
+
+  const handleCheckedChange = (checked: boolean) => {
+    const newChecked = !checked
+      ? {}
+      : entries.reduce<Record<string, true>>((all, { id }) => {
+          all[id] = true
+          return all
+        }, {})
+
+    setChecked(state => {
+      const newState = { ...state }
+      if (Object.keys(newChecked).length === 0) {
+        delete newState[date]
+      } else {
+        newState[date] = newChecked
+      }
+      return newState
+    })
+  }
 
   return (
     <>
@@ -112,12 +143,19 @@ export const TimeTableHeader = ({
         }}
         className={cn(
           hstack({ align: "center" }),
-          "h-11 rounded-t-lg border-b border-stroke-gentle bg-background-page",
+          "h-12 rounded-t-lg border-b border-stroke-gentle bg-background-page",
           "sticky top-18 z-20",
           !isIntersecting && "rounded-lg"
         )}
       >
-        <h2 className="mr-2 pl-4 text-base">{formatDate(date)}</h2>
+        {isEditable && (
+          <Checkbox
+            checked={checkedState}
+            onCheckedChange={handleCheckedChange}
+            className="ml-1"
+          />
+        )}
+        <h2 className="mr-2 ml-3 text-base">{formatDate(date)}</h2>
         <IconButton
           icon={isEditable ? Unlock : Lock}
           title={

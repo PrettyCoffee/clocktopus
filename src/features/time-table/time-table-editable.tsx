@@ -12,7 +12,7 @@ import { Duration } from "./duration"
 import { inputs } from "./inputs"
 
 export interface CheckedProps {
-  checked: Record<string, boolean>
+  checked: Record<string, true>
   onCheckedChange: Dispatch<TimeEntry>
 }
 

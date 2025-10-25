@@ -58,6 +58,7 @@ const TimeTables = ({ dates }: { dates: string[] }) => {
             date={date}
             checked={checked[date] ?? {}}
             onCheckedChange={toggle}
+            setChecked={setChecked}
           />
         ))}
       </div>
