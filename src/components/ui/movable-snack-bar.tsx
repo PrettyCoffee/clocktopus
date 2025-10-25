@@ -9,11 +9,13 @@ import {
 } from "react"
 
 import { GripHorizontal } from "lucide-react"
+import { AnimationSequence, useAnimate } from "motion/react"
 
 import { Icon } from "components/ui/icon"
 import { Portal } from "components/utility/portal"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
+import { mergeRefs } from "utils/merge-refs"
 import { surface } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
@@ -80,8 +82,11 @@ const useDragging = (
   }, [handler, moving])
 }
 
-const clampToWindow = (position: Position, element: HTMLElement | null) => {
-  if (!element) return position
+const clampToWindow = (
+  position: Position | null,
+  element: HTMLElement | null
+) => {
+  if (!element || !position) return position
   const rect = element.getBoundingClientRect()
 
   const off = 8
@@ -100,15 +105,27 @@ interface MovableSnackBarProps {
   initialPosition: (rect: DOMRect) => Position
 }
 
+const enterAnimation = (element: HTMLElement): AnimationSequence => [
+  [element, { opacity: 0, scale: 0 }, { duration: 0, type: "spring" }],
+  [
+    element,
+    { opacity: 1, scale: 1 },
+    { duration: 0.2, type: "spring", bounce: 0.25 },
+  ],
+]
+
 export const MovableSnackBar = ({
   children,
   initialPosition,
 }: PropsWithChildren<MovableSnackBarProps>) => {
-  // TODO: Add presence animation with motion/react useAnimate
-
-  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [scope, animate] = useAnimate<HTMLDivElement>()
+  const [position, setPosition] = useState<Position | null>(null)
   const ref = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    animate(enterAnimation(scope.current))
+  }, [animate, scope])
 
   useWindowResize(() => {
     setPosition(prev => clampToWindow(prev, ref.current))
@@ -123,26 +140,25 @@ export const MovableSnackBar = ({
     setPosition(clampToWindow(position, ref.current))
   })
 
-  const initPosition = (element: HTMLElement) => {
-    const rect = element.getBoundingClientRect()
-    const initial = initialPosition(rect)
-    setPosition(clampToWindow(initial, element))
-  }
+  const initPosition = position
+    ? undefined
+    : (element: HTMLElement | null) => {
+        if (!element) return
+        const rect = element.getBoundingClientRect()
+        const initial = initialPosition(rect)
+        setPosition(clampToWindow(initial, element))
+      }
 
   return (
     <Portal>
       <div
-        ref={element => {
-          if (!element) return
-          if (!ref.current) initPosition(element)
-          ref.current = element
-        }}
+        ref={mergeRefs(initPosition, ref, scope)}
         className={cn(
           surface({ look: "overlay", size: "lg" }),
           zIndex.movableSnackBar,
           "fixed flex p-1"
         )}
-        style={{ left: position.x, top: position.y }}
+        style={{ left: position?.x, top: position?.y }}
       >
         <button
           ref={buttonRef}
