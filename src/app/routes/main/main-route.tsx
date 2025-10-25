@@ -103,7 +103,7 @@ export const MainRoute = () => {
           />
         </div>
       ) : (
-        <div className="flex-1">
+        <div className="flex-1 pt-3">
           <TimeTables dates={visibleDates} />
         </div>
       )}

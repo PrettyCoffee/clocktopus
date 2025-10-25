@@ -1,6 +1,11 @@
 export const zIndex = {
-  toast: "z-49",
-  dialog: "z-50", // should be above toasts
+  toast: "z-50",
+
+  movableSnackBar: "z-60",
+  dragOverlay: "z-61",
+
+  dialog: "z-70",
+
   popover: "z-998",
   tooltip: "z-999",
 } as const

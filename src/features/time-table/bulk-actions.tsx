@@ -8,8 +8,8 @@ import { Dialog } from "components/ui/dialog"
 import { Icon } from "components/ui/icon"
 import { Input } from "components/ui/input"
 import { InputLabel } from "components/ui/input-label"
+import { MovableSnackBar } from "components/ui/movable-snack-bar"
 import { showToast } from "components/ui/toaster"
-import { AutoAnimateHeight } from "components/utility/auto-animate-height"
 import { preferencesData } from "data/preferences"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { ProjectSelect } from "features/components/project-select"
@@ -176,24 +176,27 @@ export const TimeEntriesBulkActions = () => {
 
   return (
     <>
-      <AutoAnimateHeight duration={150}>
-        <div className={cn("pt-4 [&:has(*)]:pb-1")}>
-          {hasChecked && (
-            <div className={cn(hstack({ align: "center" }), "pl-5")}>
-              <Icon icon={CheckCheck} size="sm" color="muted" />
-              <span className="mx-2 text-text-gentle">{selectedAmount}</span>
-              <span className="mx-2 h-6 w-px bg-stroke-gentle" />
+      {hasChecked && (
+        <MovableSnackBar
+          initialPosition={rect => ({
+            x: window.innerWidth / 2 - rect.width / 2,
+            y: window.innerHeight,
+          })}
+        >
+          <div className={cn(hstack({ align: "center" }))}>
+            <Icon icon={CheckCheck} size="sm" color="gentle" className="ml-2" />
+            <span className="mx-2 text-text-gentle">{selectedAmount}</span>
+            <span className="mx-2 h-6 w-px bg-stroke-gentle" />
 
-              <Button icon={SquarePen} onClick={() => setStatus("edit")}>
-                Edit
-              </Button>
-              <Button icon={Trash} onClick={() => setStatus("delete")}>
-                Delete
-              </Button>
-            </div>
-          )}
-        </div>
-      </AutoAnimateHeight>
+            <Button icon={SquarePen} onClick={() => setStatus("edit")}>
+              Edit
+            </Button>
+            <Button icon={Trash} onClick={() => setStatus("delete")}>
+              Delete
+            </Button>
+          </div>
+        </MovableSnackBar>
+      )}
 
       {status === "delete" && (
         <BulkDeleteModal
