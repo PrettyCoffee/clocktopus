@@ -43,7 +43,7 @@ export const IconButton = ({
   hideTitle,
   titleSide,
   iconColor = "current",
-  iconSize = size === "sm" ? "xs" : "sm",
+  iconSize = "sm",
   ...delegated
 }: IconButtonProps) => (
   <TitleTooltip title={hideTitle ? undefined : title} side={titleSide} asChild>
