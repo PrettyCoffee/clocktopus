@@ -16,11 +16,12 @@ import { ProjectSelect } from "features/components/project-select"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { hstack } from "utils/styles"
 
 export type CheckedState = Record<string, Record<string, true>>
 
-interface TimEntriesBulkActionsProps {
+interface TimeEntriesBulkActionsProps {
   checked: CheckedState
   resetChecked: () => void
 }
@@ -141,6 +142,7 @@ const BulkEditModal = ({
             locale={useAtomValue(preferencesData).locale}
             value={state.date === mixedData ? undefined : state.date}
             onChange={date => updateState({ date })}
+            max={dateHelpers.today()}
           />
         </InputLabel>
       </div>
@@ -148,10 +150,10 @@ const BulkEditModal = ({
   )
 }
 
-export const TimEntriesBulkActions = ({
+export const TimeEntriesBulkActions = ({
   checked,
   resetChecked,
-}: TimEntriesBulkActionsProps) => {
+}: TimeEntriesBulkActionsProps) => {
   const [status, setStatus] = useState<"delete" | "edit" | null>(null)
 
   const selectedAmount = getSelectedAmount(checked)

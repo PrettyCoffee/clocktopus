@@ -7,7 +7,7 @@ import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { selectedWeek } from "features/date-selection"
 import {
   CheckedState,
-  TimEntriesBulkActions,
+  TimeEntriesBulkActions,
   TimeTable,
 } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
@@ -46,7 +46,7 @@ const TimeTables = ({ dates }: { dates: string[] }) => {
 
   return (
     <>
-      <TimEntriesBulkActions
+      <TimeEntriesBulkActions
         checked={checked}
         resetChecked={() => setChecked({})}
       />
