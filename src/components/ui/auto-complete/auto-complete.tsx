@@ -16,10 +16,9 @@ import { Button } from "components/ui/button"
 import { Portal } from "components/utility/portal"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
+import { fuzzyFilter } from "utils/fuzzy-filter"
 import { surface } from "utils/styles"
 import { zIndex } from "utils/z-index"
-
-import { fuzzyFilter } from "./fuzzy-filter"
 
 const useFocus = (refs: RefObject<Element | null>[]) => {
   const [focus, setFocus] = useState(false)
