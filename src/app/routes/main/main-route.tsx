@@ -81,7 +81,7 @@ const FirstEntry = () => (
   >
     <div className="relative size-40">
       <img
-        className="absolute -inset-5 min-h-50 min-w-50 opacity-50 blur-3xl"
+        className="absolute -inset-5 min-h-50 min-w-50 opacity-75 blur-3xl"
         src="./octopus-animated.png"
         aria-hidden
         alt=""

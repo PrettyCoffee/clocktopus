@@ -11,20 +11,31 @@ import { TimeTableHeader } from "./time-table-header"
 interface TimeTableProps {
   title: string
   entries: TimeEntry[]
+  hideTotal?: boolean
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>
   }
 }
 
-export const TimeTable = ({ title, entries, locked }: TimeTableProps) => (
+export const TimeTable = ({
+  title,
+  entries,
+  hideTotal,
+  locked,
+}: TimeTableProps) => (
   <div
     className={cn(
       surface({ look: "card", size: "lg" }),
       "isolate bg-transparent p-0"
     )}
   >
-    <TimeTableHeader title={title} entries={entries} locked={locked} />
+    <TimeTableHeader
+      title={title}
+      entries={entries}
+      hideTotal={hideTotal}
+      locked={locked}
+    />
 
     {locked?.value ? (
       <TimeSummary entries={entries} />

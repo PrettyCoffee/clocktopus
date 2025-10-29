@@ -90,6 +90,7 @@ const check = (checked: CheckedState, { date, id }: TimeEntry) => {
 interface TimeTableHeaderProps {
   title: string
   entries: TimeEntry[]
+  hideTotal?: boolean
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>
@@ -98,6 +99,7 @@ interface TimeTableHeaderProps {
 export const TimeTableHeader = ({
   title,
   entries,
+  hideTotal,
   locked,
 }: TimeTableHeaderProps) => {
   const { checked, onCheckedChange } = useCheckedState()
@@ -160,7 +162,7 @@ export const TimeTableHeader = ({
           />
         )}
         <div className="flex-1" />
-        <DateDurations entries={entries} />
+        {!hideTotal && <DateDurations entries={entries} />}
       </div>
     </>
   )

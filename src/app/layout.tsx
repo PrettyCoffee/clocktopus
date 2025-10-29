@@ -12,7 +12,7 @@ import { ErrorBoundary } from "components/utility/error-boundary"
 const routes = [
   { to: "/", title: "Time Tracker", icon: ClockFading },
   { to: "/stats", title: "Stats", icon: ChartNoAxesColumn, disabled: true },
-  { to: "/search", title: "Search", icon: Search, disabled: true },
+  { to: "/search", title: "Search", icon: Search },
   { to: "/settings", title: "Settings", icon: Settings },
   {
     href: "https://github.com/PrettyCoffee/clocktopus",
