@@ -125,10 +125,14 @@ export const AutoComplete = <TData,>({
 
   const inputRect = useBoundingRect()
 
-  const items = useMemo(
-    () => fuzzyFilter({ filter, items: allItems, getFilterValue, maxItems: 5 }),
-    [filter, getFilterValue, allItems]
-  )
+  const items = useMemo(() => {
+    const noExact = allItems.filter(item => getFilterValue(item) !== filter)
+    return fuzzyFilter({
+      filter,
+      items: noExact,
+      getFilterValue,
+    }).slice(0, 5)
+  }, [filter, getFilterValue, allItems])
 
   const moveSelection = (diff: number) =>
     setSelection(prev => (items.length + 1 + prev + diff) % (items.length + 1))

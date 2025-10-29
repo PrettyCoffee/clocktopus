@@ -58,19 +58,16 @@ interface FilterProps<TData> {
   items: TData[]
   filter: string
   getFilterValue: (item: TData) => string
-  maxItems: number
 }
 
 export const fuzzyFilter = <TData>({
   items,
   filter,
   getFilterValue,
-  maxItems,
 }: FilterProps<TData>) => {
   if (!filter) return []
 
   return items
-    .filter(item => getFilterValue(item) !== filter)
     .map(item => {
       const value = getFilterValue(item)
       const score = Math.min(
@@ -81,6 +78,5 @@ export const fuzzyFilter = <TData>({
     })
     .filter(({ score }) => score < 2)
     .sort((a, b) => a.score - b.score)
-    .slice(0, maxItems)
     .map(({ item }) => item)
 }
