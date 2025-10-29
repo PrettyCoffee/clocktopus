@@ -12,22 +12,65 @@ import {
 } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
-import { useAtomValue } from "lib/yaasl"
+import { useAtomValue, createSlice } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
+import { getLocale } from "utils/get-locale"
 import { vstack } from "utils/styles"
 
-const TimeTables = ({ dates }: { dates: string[] }) => (
-  <CheckedStateProvider>
-    <TimeEntriesBulkActions />
+const defaultEditableDates: Record<string, true> = {
+  [dateHelpers.today()]: true,
+}
 
-    <div className="space-y-4">
-      {dates.map(date => (
-        <TimeTable key={date} date={date} />
-      ))}
-    </div>
-  </CheckedStateProvider>
-)
+const editableDates = createSlice({
+  name: "locked-dates",
+  defaultValue: defaultEditableDates,
+  reducers: {
+    toggle: (state, date: string) => {
+      const { [date]: existing, ...rest } = state
+      return existing ? rest : { ...rest, [date]: true }
+    },
+  },
+})
+
+const formatDate = (date: string) => {
+  const locale = getLocale()
+  if (locale === "iso") {
+    const weekday = new Date(date).toLocaleDateString("en", {
+      weekday: "short",
+    })
+    return `${weekday}, ${date}`
+  }
+  return new Date(date).toLocaleDateString(locale, {
+    day: "2-digit",
+    month: "short",
+    weekday: "short",
+  })
+}
+
+const TimeTables = ({ dates }: { dates: string[] }) => {
+  const allEntries = useAtomValue(timeEntriesData)
+  const editable = useAtomValue(editableDates)
+  return (
+    <CheckedStateProvider>
+      <TimeEntriesBulkActions />
+
+      <div className="space-y-4">
+        {dates.map(date => (
+          <TimeTable
+            key={date}
+            title={formatDate(date)}
+            entries={allEntries[date] ?? []}
+            locked={{
+              value: !editable[date],
+              onChange: () => editableDates.actions.toggle(date),
+            }}
+          />
+        ))}
+      </div>
+    </CheckedStateProvider>
+  )
+}
 
 const FirstEntry = () => (
   <div

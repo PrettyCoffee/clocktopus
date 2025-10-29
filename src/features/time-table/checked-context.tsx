@@ -25,7 +25,6 @@ export type CheckedState = Record<string, Record<string, true>>
 
 interface CheckedContextState {
   checked: CheckedState
-  checkedByDate: (date: string) => CheckedState[string]
   onCheckedChange: Dispatch<SetStateAction<CheckedState>>
   toggleChecked: Dispatch<TimeEntry>
   resetChecked: () => void
@@ -38,8 +37,6 @@ export const useCheckedState = () => CheckedContext.useRequiredValue()
 export const CheckedStateProvider = ({ children }: PropsWithChildren) => {
   const [checked, setChecked] = useState<CheckedState>({})
 
-  const checkedByDate = (date: string) => checked[date] ?? {}
-
   const toggleChecked = (entry: TimeEntry) =>
     setChecked(state => toggle(state, entry))
 
@@ -49,7 +46,6 @@ export const CheckedStateProvider = ({ children }: PropsWithChildren) => {
     <CheckedContext
       value={{
         checked,
-        checkedByDate,
         onCheckedChange: setChecked,
         resetChecked,
         toggleChecked,

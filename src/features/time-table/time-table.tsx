@@ -1,6 +1,6 @@
-import { editableDatesData } from "data/editable-dates"
-import { useDateEntries } from "data/time-entries"
-import { useAtomValue } from "lib/yaasl"
+import { Dispatch } from "react"
+
+import { TimeEntry } from "data/time-entries"
 import { cn } from "utils/cn"
 import { surface } from "utils/styles"
 
@@ -9,30 +9,29 @@ import { TimeTableEditable } from "./time-table-editable"
 import { TimeTableHeader } from "./time-table-header"
 
 interface TimeTableProps {
-  date: string
+  title: string
+  entries: TimeEntry[]
+  locked?: {
+    value: boolean
+    onChange: Dispatch<boolean>
+  }
 }
 
-export const TimeTable = ({ date }: TimeTableProps) => {
-  const { entries, atom } = useDateEntries(date)
+export const TimeTable = ({ title, entries, locked }: TimeTableProps) => (
+  <div
+    className={cn(
+      surface({ look: "card", size: "lg" }),
+      "isolate bg-transparent p-0"
+    )}
+  >
+    <TimeTableHeader title={title} entries={entries} locked={locked} />
 
-  const isEditable = !!useAtomValue(editableDatesData)[date]
-
-  return (
-    <div
-      className={cn(
-        surface({ look: "card", size: "lg" }),
-        "isolate bg-transparent p-0"
-      )}
-    >
-      <TimeTableHeader date={date} entries={entries} isEditable={isEditable} />
-
-      {isEditable ? (
-        <div className="rounded-b-lg bg-background">
-          <TimeTableEditable date={date} entries={entries} atom={atom} />
-        </div>
-      ) : (
-        <TimeSummary entries={entries} />
-      )}
-    </div>
-  )
-}
+    {locked?.value ? (
+      <TimeSummary entries={entries} />
+    ) : (
+      <div className="rounded-b-lg bg-background">
+        <TimeTableEditable entries={entries} />
+      </div>
+    )}
+  </div>
+)

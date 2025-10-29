@@ -6,26 +6,22 @@ import { Checkbox } from "components/ui/checkbox"
 import { showDialog } from "components/ui/dialog"
 import { IconButton } from "components/ui/icon-button"
 import { createColumnHelper, Table } from "components/ui/table"
-import { getDateAtom, useDateEntries, type TimeEntry } from "data/time-entries"
+import { timeEntriesData, type TimeEntry } from "data/time-entries"
 
-import { useCheckedState } from "./checked-context"
+import { CheckedState, useCheckedState } from "./checked-context"
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
 
 interface CheckedProps {
-  checked: Record<string, true>
+  checked: CheckedState
   toggleChecked: Dispatch<TimeEntry>
-}
-
-interface TimeTableRowsProps extends ReturnType<typeof useDateEntries> {
-  date: string
 }
 
 interface TableConfig {
   rowData: TimeEntry
   rowMeta: CheckedProps & {
     onChange: Dispatch<TimeEntry>
-    onRemove: Dispatch<string>
+    onRemove: (date: string, id: string) => void
   }
 }
 
@@ -34,7 +30,7 @@ const checkedColumn = helper.column({
   name: "Selected",
   render: ({ rowData, checked, toggleChecked }) => (
     <Checkbox
-      checked={checked[rowData.id] ?? false}
+      checked={checked[rowData.date]?.[rowData.id] ?? false}
       onCheckedChange={() => toggleChecked(rowData)}
     />
   ),
@@ -109,46 +105,30 @@ const actionColumn = helper.column({
       title="Delete"
       hideTitle
       icon={Trash}
-      onClick={() => onRemove(rowData.id)}
+      onClick={() => onRemove(rowData.date, rowData.id)}
       className="@4xl:[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
     />
   ),
 })
 
-export const TimeTableEditable = ({
-  date,
-  atom,
-  entries,
-}: TimeTableRowsProps) => {
-  const { checkedByDate, toggleChecked } = useCheckedState()
+const handleChange = (data: TimeEntry) => {
+  timeEntriesData.actions.edit({ id: data.id, date: data.date, data })
+}
 
-  const handleChange = (data: TimeEntry) => {
-    if (data.date === date) {
-      atom.actions.edit(data.id, data)
-      return
-    }
-    // If date changed, move entry to new table
-    atom.actions.delete(data.id)
-    const newAtom = getDateAtom(data.date)
-    const add = () => newAtom.actions.add(data)
-    if (newAtom.didInit instanceof Promise) {
-      void newAtom.didInit.then(add)
-    } else {
-      add()
-    }
-  }
+const handleRemove = (date: string, id: string) =>
+  showDialog({
+    title: "Delete time entry?",
+    description:
+      "Do you really want to delete this time entry? This action cannot be reverted.",
+    confirm: {
+      caption: "Delete",
+      look: "destructive",
+      onClick: () => timeEntriesData.actions.delete({ date, id }),
+    },
+  })
 
-  const handleRemove = (id: string) =>
-    showDialog({
-      title: "Delete time entry?",
-      description:
-        "Do you really want to delete this time entry? This action cannot be reverted.",
-      confirm: {
-        caption: "Delete",
-        look: "destructive",
-        onClick: () => atom.actions.delete(id),
-      },
-    })
+export const TimeTableEditable = ({ entries }: { entries: TimeEntry[] }) => {
+  const { checked, toggleChecked } = useCheckedState()
 
   return (
     <Table<TableConfig>
@@ -168,7 +148,7 @@ export const TimeTableEditable = ({
         actionColumn,
       ]}
       rowMeta={{
-        checked: checkedByDate(date),
+        checked,
         toggleChecked,
         onChange: handleChange,
         onRemove: handleRemove,
