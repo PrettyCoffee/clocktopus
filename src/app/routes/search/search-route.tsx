@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 import { Input } from "components/ui/input"
 import { PageRange, Pagination } from "components/ui/pagination"
@@ -8,6 +8,7 @@ import {
   CheckedStateProvider,
   TimeEntriesBulkActions,
   TimeTable,
+  useCheckedState,
 } from "features/time-table"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
@@ -17,11 +18,16 @@ import { hstack, vstack } from "utils/styles"
 
 const SearchTable = ({ filtered }: { filtered: TimeEntry[] }) => {
   const [pageRange, setPageRange] = useState<PageRange>({ start: 0, end: 10 })
+  const { resetChecked } = useCheckedState()
 
   const pageEntries = useMemo(
     () => filtered.slice(pageRange.start, pageRange.end),
     [filtered, pageRange.end, pageRange.start]
   )
+
+  useEffect(() => {
+    resetChecked()
+  }, [resetChecked, pageEntries])
 
   return (
     <>

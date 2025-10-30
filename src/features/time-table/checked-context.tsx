@@ -1,4 +1,10 @@
-import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react"
+import {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useCallback,
+  useState,
+} from "react"
 
 import { TimeEntry } from "data/time-entries"
 import { createContext } from "utils/create-context"
@@ -34,13 +40,17 @@ const CheckedContext = createContext<CheckedContextState>("CheckedContext")
 
 export const useCheckedState = () => CheckedContext.useRequiredValue()
 
+const empty = {}
+
 export const CheckedStateProvider = ({ children }: PropsWithChildren) => {
-  const [checked, setChecked] = useState<CheckedState>({})
+  const [checked, setChecked] = useState<CheckedState>(empty)
 
-  const toggleChecked = (entry: TimeEntry) =>
-    setChecked(state => toggle(state, entry))
+  const toggleChecked = useCallback(
+    (entry: TimeEntry) => setChecked(state => toggle(state, entry)),
+    []
+  )
 
-  const resetChecked = () => setChecked({})
+  const resetChecked = useCallback(() => setChecked(empty), [])
 
   return (
     <CheckedContext
