@@ -12,7 +12,7 @@ interface TimeTableProps {
   title: string
   entries: TimeEntry[]
   showTotal?: boolean
-  stickyHeader?: boolean
+  stickyHeader?: `top-${number}`
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>

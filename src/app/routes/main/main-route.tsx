@@ -62,7 +62,7 @@ const TimeTables = ({ dates }: { dates: string[] }) => {
             title={formatDate(date)}
             entries={allEntries[date] ?? []}
             showTotal
-            stickyHeader
+            stickyHeader="top-18"
             locked={{
               value: !editable[date],
               onChange: () => editableDates.actions.toggle(date),

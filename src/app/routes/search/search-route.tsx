@@ -13,7 +13,37 @@ import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { fuzzyFilter } from "utils/fuzzy-filter"
-import { hstack } from "utils/styles"
+import { hstack, vstack } from "utils/styles"
+
+const SearchTable = ({ filtered }: { filtered: TimeEntry[] }) => {
+  const [pageRange, setPageRange] = useState<PageRange>({ start: 0, end: 10 })
+
+  const pageEntries = useMemo(
+    () => filtered.slice(pageRange.start, pageRange.end),
+    [filtered, pageRange.end, pageRange.start]
+  )
+
+  return (
+    <>
+      <TimeEntriesBulkActions />
+
+      <div className="h-max max-h-max flex-1 overflow-y-auto">
+        <TimeTable
+          title={`Search Results (${filtered.length})`}
+          entries={pageEntries}
+          stickyHeader="top-0"
+        />
+      </div>
+
+      <Pagination
+        items={filtered.length}
+        pageSizes={[10, 15, 20, 25, 30]}
+        onRangeChange={setPageRange}
+        className="pt-4 pl-1"
+      />
+    </>
+  )
+}
 
 const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
   const stampA = `${a.date}_${a.start}_${a.end}`
@@ -22,7 +52,6 @@ const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
 }
 
 export const SearchRoute = () => {
-  const [pageRange, setPageRange] = useState<PageRange>({ start: 0, end: 10 })
   const raw = useAtomValue(timeEntriesData)
   const allFlat = useMemo(
     () => Object.values(raw).flat().sort(sortLatestTop),
@@ -52,7 +81,7 @@ export const SearchRoute = () => {
   }, [allFlat, filter.description, filter.projectId])
 
   return (
-    <div className="flex min-h-full flex-col px-10 pt-6">
+    <div className={cn(vstack({}), "h-full px-10 pt-6")}>
       <div className={cn(hstack({ gap: 2 }), "mb-4")}>
         <Input
           type="text"
@@ -69,20 +98,8 @@ export const SearchRoute = () => {
       </div>
 
       <CheckedStateProvider>
-        <TimeEntriesBulkActions />
-
-        <TimeTable
-          title={`Search Results (${filtered.length})`}
-          entries={filtered.slice(pageRange.start, pageRange.end)}
-        />
+        <SearchTable filtered={filtered} />
       </CheckedStateProvider>
-
-      <Pagination
-        items={filtered.length}
-        pageSizes={[10, 15, 20, 25]}
-        onRangeChange={setPageRange}
-        className="pt-4 pl-1"
-      />
 
       <div className="pb-8" />
     </div>

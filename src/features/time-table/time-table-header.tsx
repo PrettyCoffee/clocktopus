@@ -91,7 +91,7 @@ interface TimeTableHeaderProps {
   title: string
   entries: TimeEntry[]
   showTotal?: boolean
-  stickyHeader?: boolean
+  stickyHeader?: `top-${number}`
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>
@@ -139,8 +139,8 @@ export const TimeTableHeader = ({
         className={cn(
           hstack({ align: "center" }),
           "h-12 rounded-t-lg border-b border-stroke-gentle bg-background-page",
-          stickyHeader && "sticky top-18 z-20",
-          !isIntersecting && "rounded-lg"
+          stickyHeader && `sticky z-20 ${stickyHeader}`,
+          !isIntersecting && "rounded-lg shade-low border-b-0"
         )}
       >
         {!locked?.value && (
