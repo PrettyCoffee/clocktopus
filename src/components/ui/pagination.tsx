@@ -39,49 +39,45 @@ const PaginationButtons = ({
   currentPage,
   onPageChange,
 }: PaginationButtonsProps) => {
-  const buttons = Array.from({ length: 5 }, (_, index) => {
-    const min = clamp(currentPage - 2, 0, pages - 4)
-    return min + index
-  })
+  const buttons =
+    pages < 5
+      ? Array.from({ length: pages }, (_, index) => index)
+      : Array.from({ length: 5 }, (_, index) => {
+          const min = clamp(currentPage - 2, 0, pages - 5)
+          return min + index
+        })
 
   const ellipsis = (
     <span className="inline-grid w-8 place-content-center font-bold text-text-muted before:content-['...']" />
   )
 
+  const firstPage = 0
+  const lastPage = pages - 1
+
+  const getButton = (pageIndex: number) => (
+    <Button
+      key={pageIndex}
+      active={currentPage === pageIndex}
+      onClick={() => onPageChange(pageIndex)}
+      className="w-10"
+    >
+      {pageIndex + 1}
+    </Button>
+  )
+
   return (
     <>
-      {!buttons.includes(0) && (
+      {!buttons.includes(firstPage) && (
         <>
-          <Button
-            active={currentPage === 0}
-            onClick={() => onPageChange(0)}
-            className="w-10"
-          >
-            {1}
-          </Button>
+          {getButton(firstPage)}
           {ellipsis}
         </>
       )}
-      {buttons.map(page => (
-        <Button
-          key={page}
-          active={currentPage === page}
-          onClick={() => onPageChange(page)}
-          className="w-10"
-        >
-          {page + 1}
-        </Button>
-      ))}
-      {!buttons.includes(pages) && (
+      {buttons.map(getButton)}
+      {!buttons.includes(lastPage) && (
         <>
           {ellipsis}
-          <Button
-            active={currentPage === pages}
-            onClick={() => onPageChange(pages)}
-            className="w-10"
-          >
-            {pages + 1}
-          </Button>
+          {getButton(lastPage)}
         </>
       )}
     </>
@@ -91,7 +87,7 @@ const PaginationButtons = ({
 const getPages = (items: number, size: number) => {
   let pages = Math.floor(items / size)
   if (items % size === 0) pages--
-  return pages
+  return pages + 1
 }
 
 const getPageRange = (page: number, size: number) => {
