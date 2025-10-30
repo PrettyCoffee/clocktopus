@@ -104,20 +104,28 @@ export interface PageRange {
   start: number
   end: number
 }
-interface PaginationProps extends ClassNameProp {
-  pageSizes: [number, ...number[]]
+interface PaginationProps<
+  TPageSize extends number,
+  TInitialPageSize extends TPageSize,
+> extends ClassNameProp {
+  initialPageSize: TInitialPageSize
+  pageSizes: [TPageSize, ...TPageSize[]]
   items: number
   onRangeChange: Dispatch<PageRange>
 }
 
-export const Pagination = ({
+export const Pagination = <
+  TPageSize extends number,
+  TInitialPageSize extends TPageSize,
+>({
+  initialPageSize,
   pageSizes,
   items,
   onRangeChange,
   className,
-}: PaginationProps) => {
+}: PaginationProps<TPageSize, TInitialPageSize>) => {
   const [currentPage, setCurrentPage] = useState(0)
-  const [size, setSize] = useState(pageSizes[0])
+  const [size, setSize] = useState<TPageSize>(initialPageSize)
 
   const pages = getPages(items, size)
 
@@ -128,8 +136,8 @@ export const Pagination = ({
 
   const changePageSize = (size: number) => {
     setCurrentPage(0)
-    setSize(size)
-    onRangeChange(getPageRange(0, size))
+    setSize(size as TPageSize)
+    onRangeChange(getPageRange(0, size as TPageSize))
   }
 
   return (

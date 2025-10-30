@@ -16,8 +16,11 @@ import { cn } from "utils/cn"
 import { fuzzyFilter } from "utils/fuzzy-filter"
 import { hstack, vstack } from "utils/styles"
 
+const pageSizes = [10, 15, 20, 25, 30] as const satisfies number[]
+const initialPageSize = 15 as const
+
 const SearchTable = ({ filtered }: { filtered: TimeEntry[] }) => {
-  const [pageRange, setPageRange] = useState<PageRange>({ start: 0, end: 10 })
+  const [pageRange, setPageRange] = useState<PageRange>({ start: 0, end: 15 })
   const { resetChecked } = useCheckedState()
 
   const pageEntries = useMemo(
@@ -43,7 +46,8 @@ const SearchTable = ({ filtered }: { filtered: TimeEntry[] }) => {
 
       <Pagination
         items={filtered.length}
-        pageSizes={[10, 15, 20, 25, 30]}
+        initialPageSize={initialPageSize}
+        pageSizes={pageSizes}
         onRangeChange={setPageRange}
         className="pt-4 pl-1"
       />
