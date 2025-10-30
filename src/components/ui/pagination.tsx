@@ -96,7 +96,7 @@ const getPages = (items: number, size: number) => {
 
 const getPageRange = (page: number, size: number) => {
   const start = page * size
-  const end = start + size - 1
+  const end = start + size
   return { start, end }
 }
 
