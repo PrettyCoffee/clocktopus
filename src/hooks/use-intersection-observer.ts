@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react"
 
-export const useIntersectionObserver = (options?: IntersectionObserverInit) => {
+import { DisableProp } from "types/base-props"
+
+export const useIntersectionObserver = (
+  options?: IntersectionObserverInit & DisableProp
+) => {
   const ref = useRef<HTMLDivElement>(null)
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null)
 
   useEffect(() => {
     const node = ref.current
-    if (!node) return
+    if (!node || options?.disabled) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -22,7 +26,12 @@ export const useIntersectionObserver = (options?: IntersectionObserverInit) => {
     observer.observe(node)
 
     return () => observer.disconnect()
-  }, [options?.root, options?.rootMargin, options?.threshold])
+  }, [
+    options?.disabled,
+    options?.root,
+    options?.rootMargin,
+    options?.threshold,
+  ])
 
   return { ref, entry, isIntersecting: !!entry?.isIntersecting }
 }

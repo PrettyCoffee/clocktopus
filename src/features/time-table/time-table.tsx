@@ -11,7 +11,8 @@ import { TimeTableHeader } from "./time-table-header"
 interface TimeTableProps {
   title: string
   entries: TimeEntry[]
-  hideTotal?: boolean
+  showTotal?: boolean
+  stickyHeader?: boolean
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>
@@ -21,7 +22,8 @@ interface TimeTableProps {
 export const TimeTable = ({
   title,
   entries,
-  hideTotal,
+  showTotal,
+  stickyHeader,
   locked,
 }: TimeTableProps) => (
   <div
@@ -33,7 +35,8 @@ export const TimeTable = ({
     <TimeTableHeader
       title={title}
       entries={entries}
-      hideTotal={hideTotal}
+      showTotal={showTotal}
+      stickyHeader={stickyHeader}
       locked={locked}
     />
 

@@ -74,7 +74,6 @@ export const SearchRoute = () => {
         <TimeTable
           title={`Search Results (${filtered.length})`}
           entries={filtered.slice(pageRange.start, pageRange.end)}
-          hideTotal
         />
       </CheckedStateProvider>
 

@@ -90,7 +90,8 @@ const check = (checked: CheckedState, { date, id }: TimeEntry) => {
 interface TimeTableHeaderProps {
   title: string
   entries: TimeEntry[]
-  hideTotal?: boolean
+  showTotal?: boolean
+  stickyHeader?: boolean
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>
@@ -99,13 +100,15 @@ interface TimeTableHeaderProps {
 export const TimeTableHeader = ({
   title,
   entries,
-  hideTotal,
+  showTotal,
+  stickyHeader,
   locked,
 }: TimeTableHeaderProps) => {
   const { checked, onCheckedChange } = useCheckedState()
   const [topOffset, setTopOffset] = useState("0px")
   const { ref, isIntersecting } = useIntersectionObserver({
     rootMargin: `-${topOffset} 0px 0px 0px`, // trigger offset to the top of the scroll area (window)
+    disabled: !stickyHeader,
   })
 
   const checkedState = useMemo(() => {
@@ -136,7 +139,7 @@ export const TimeTableHeader = ({
         className={cn(
           hstack({ align: "center" }),
           "h-12 rounded-t-lg border-b border-stroke-gentle bg-background-page",
-          "sticky top-18 z-20",
+          stickyHeader && "sticky top-18 z-20",
           !isIntersecting && "rounded-lg"
         )}
       >
@@ -162,7 +165,7 @@ export const TimeTableHeader = ({
           />
         )}
         <div className="flex-1" />
-        {!hideTotal && <DateDurations entries={entries} />}
+        {showTotal && <DateDurations entries={entries} />}
       </div>
     </>
   )
