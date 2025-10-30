@@ -1,6 +1,7 @@
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 
 import { Input } from "components/ui/input"
+import { PageRange, Pagination } from "components/ui/pagination"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { ProjectSelect } from "features/components/project-select"
 import {
@@ -21,6 +22,7 @@ const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
 }
 
 export const SearchRoute = () => {
+  const [pageRange, setPageRange] = useState<PageRange>({ start: 0, end: 10 })
   const raw = useAtomValue(timeEntriesData)
   const allFlat = useMemo(
     () => Object.values(raw).flat().sort(sortLatestTop),
@@ -71,10 +73,17 @@ export const SearchRoute = () => {
 
         <TimeTable
           title={`Search Results (${filtered.length})`}
-          entries={filtered.slice(0, 15)}
+          entries={filtered.slice(pageRange.start, pageRange.end)}
           hideTotal
         />
       </CheckedStateProvider>
+
+      <Pagination
+        items={filtered.length}
+        pageSizes={[10, 15, 20, 25]}
+        onRangeChange={setPageRange}
+        className="pt-4 pl-1"
+      />
 
       <div className="pb-8" />
     </div>
