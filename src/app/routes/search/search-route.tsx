@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 
+import { ContextInfo } from "components/ui/context-info"
 import { Input } from "components/ui/input"
 import { PageRange, Pagination } from "components/ui/pagination"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
@@ -107,9 +108,15 @@ export const SearchRoute = () => {
         />
       </div>
 
-      <CheckedStateProvider>
-        <SearchTable filtered={filtered} />
-      </CheckedStateProvider>
+      {filtered.length === 0 ? (
+        <div className="grid h-full place-items-center">
+          <ContextInfo label="No matches found" />
+        </div>
+      ) : (
+        <CheckedStateProvider>
+          <SearchTable filtered={filtered} />
+        </CheckedStateProvider>
+      )}
 
       <div className="pb-8" />
     </div>
