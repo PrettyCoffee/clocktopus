@@ -65,6 +65,8 @@ const PaginationButtons = ({
     </Button>
   )
 
+  if (buttons.length <= 1) return <>{getButton(0)}</>
+
   return (
     <>
       {!buttons.includes(firstPage) && (
