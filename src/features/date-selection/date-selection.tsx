@@ -12,7 +12,7 @@ import { hstack } from "utils/styles"
 import { Year } from "./year"
 
 const Divider = () => (
-  <div className="my-1 mb-2 ml-1 border-b-1 border-stroke-gentle" />
+  <div className="my-1 mb-2 ml-1 border-b border-stroke-gentle" />
 )
 
 const getYears = (dates: string[]) => {

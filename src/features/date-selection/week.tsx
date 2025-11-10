@@ -17,13 +17,13 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
   const trackedDates = useAtomValue(timeEntriesData.selectors.getTrackedDates)
   const first = days.find(day => day.getDate() === 1)
   const isFirstOfYear = days[0]!.getMonth() === 0 && days[0]!.getDate() === 1
-  const hasTimeEntry = days.some(day =>
+  const hasTimeEntry = (day: Date) =>
     trackedDates.includes(dateHelpers.stringify(day))
-  )
+
   return (
     <div className="relative pl-4">
       {first && (
-        <span className="absolute bottom-1 left-1 inline-block origin-left -rotate-90 text-sm text-text-muted">
+        <span className="absolute bottom-1 left-1.5 inline-block origin-left -rotate-90 text-sm text-text-muted">
           {first.toLocaleDateString(getLocale(), { month: "short" })}
         </span>
       )}
@@ -34,8 +34,7 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
         className={cn(
           "relative w-full justify-start border border-transparent px-1",
           isFirstOfYear && "justify-end",
-          selected && "border-stroke",
-          !hasTimeEntry && "*:opacity-50"
+          selected && "border-stroke"
         )}
       >
         {days.map(day => {
@@ -48,16 +47,18 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
             <span
               key={date}
               className={cn(
-                "w-[calc(100%_/_7)] border-current font-mono",
+                "w-[calc(100%/7)] border-text-gentle/50 font-mono",
                 isFirstOfMonth && "border-b-2 border-l-2 rounded-bl-sm",
                 isLastMonth && "border-t-2",
                 isNextMonth && "border-b-2",
                 weekday === 0 || weekday === 6
                   ? "text-highlight/75"
-                  : "text-text/75"
+                  : "text-text-gentle"
               )}
             >
-              {String(date).padStart(2, "0")}
+              <span className={cn(!hasTimeEntry(day) && "opacity-50")}>
+                {String(date).padStart(2, "0")}
+              </span>
             </span>
           )
         })}
