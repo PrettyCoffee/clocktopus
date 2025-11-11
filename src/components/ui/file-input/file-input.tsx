@@ -68,8 +68,7 @@ export const FileInput = ({
             hstack({ gap: 2, align: "center", justify: "center" }),
             interactive({ look: "flat" }),
             focusWithinOutline,
-            "cursor-pointer rounded-md p-6",
-            "border-2 border-dashed border-stroke",
+            "relative cursor-pointer rounded-md border-2 border-dashed border-stroke p-6",
             alert && alert.kind !== "info" && alertStyles[alert.kind].border,
             dragging && "border-stroke-focus bgl-layer-w/10",
             className
@@ -79,7 +78,7 @@ export const FileInput = ({
             type="file"
             accept={accept}
             id={id}
-            className="sr-only"
+            className="absolute size-0"
             onChange={handleChange}
           />
           <Icon icon={icon} color="current" />
