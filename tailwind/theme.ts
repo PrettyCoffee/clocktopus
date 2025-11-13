@@ -99,6 +99,12 @@ export const theme = createTheme({
         invert: colors.neutral["950"],
         button: colors.neutral["800"],
       },
+      chart: {
+        priority: colors.neutral["950"],
+        default: colors.neutral["800"],
+        gentle: colors.neutral["500"],
+        muted: colors.neutral["200"],
+      },
       alert: {
         error: colors.alert.error["500"],
         warn: colors.alert.warn["500"],
@@ -168,6 +174,13 @@ export const theme = createTheme({
         button: get("color.stroke.button"),
         focus: get("color.accent"),
       },
+      chart: {
+        priority: get("color.chart.priority"),
+        default: get("color.chart.default"),
+        gentle: get("color.chart.gentle"),
+        muted: get("color.chart.muted"),
+        accent: get("color.accent"),
+      },
       alert: {
         error: get("color.alert.error"),
         warn: get("color.alert.warn"),
@@ -230,6 +243,12 @@ theme.addVariant("dark", {
       invert: colors.neutral["50"],
       button: colors.neutral["50"],
     },
+    chart: {
+      priority: colors.neutral["50"],
+      default: colors.neutral["200"],
+      gentle: colors.neutral["500"],
+      muted: colors.neutral["800"],
+    },
     alert: {
       error: colors.alert.error["400"],
       warn: colors.alert.warn["400"],
@@ -291,6 +310,12 @@ theme.addVariant("light-with-accent", {
       invert: colors.neutralWithAccent["950"],
       button: colors.neutralWithAccent["800"],
     },
+    chart: {
+      priority: colors.neutralWithAccent["950"],
+      default: colors.neutralWithAccent["800"],
+      gentle: colors.neutralWithAccent["500"],
+      muted: colors.neutralWithAccent["200"],
+    },
     alert: {
       error: colors.alert.error["500"],
       warn: colors.alert.warn["500"],
@@ -351,6 +376,12 @@ theme.addVariant("dark-with-accent", {
       //muted: colors.neutralWithAccent["800"],
       invert: colors.neutralWithAccent["50"],
       button: colors.neutralWithAccent["50"],
+    },
+    chart: {
+      priority: colors.neutralWithAccent["50"],
+      default: colors.neutralWithAccent["200"],
+      gentle: colors.neutralWithAccent["500"],
+      muted: colors.neutralWithAccent["800"],
     },
     alert: {
       error: colors.alert.error["300"],
