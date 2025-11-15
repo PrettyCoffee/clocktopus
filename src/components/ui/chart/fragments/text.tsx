@@ -1,22 +1,22 @@
 import { PropsWithChildren, SVGAttributes } from "react"
 
-import { ClassNameProp } from "types/base-props"
+import { ClassNameProp, RefProp } from "types/base-props"
 import { cn } from "utils/cn"
 
 import { chartColor, ChartFillColor } from "./chart-color"
-import { Coordinate } from "./chart-context"
 
 export interface TextProps
   extends PropsWithChildren<ChartFillColor>,
-    ClassNameProp {
+    ClassNameProp,
+    RefProp<SVGTextElement> {
   x: number
   y: number
   rotate?: number
   anchor?: SVGAttributes<SVGTextElement>["textAnchor"]
-  offset?: Partial<Coordinate> | ((position: Coordinate) => Partial<Coordinate>)
 }
 
 export const Text = ({
+  ref,
   x,
   y,
   anchor = "middle",
@@ -26,6 +26,7 @@ export const Text = ({
   className,
 }: TextProps) => (
   <text
+    ref={ref}
     x={x}
     y={y}
     textAnchor={anchor}

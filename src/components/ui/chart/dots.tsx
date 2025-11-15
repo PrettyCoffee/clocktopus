@@ -3,6 +3,18 @@ import { Fragment } from "react/jsx-runtime"
 import { chartColor, ChartFillColor } from "./fragments/chart-color"
 import { Coordinate, useChartContext } from "./fragments/chart-context"
 import { Text } from "./fragments/text"
+import { createTransition } from "./utils/get-transition"
+
+const { runTransition } = createTransition({
+  initStyles: {
+    translate: "0 -16px",
+    opacity: "0",
+  },
+  targetStyles: {
+    opacity: "1",
+    translate: "0 0",
+  },
+})
 
 export interface LineProps extends ChartFillColor {
   points: Coordinate[]
@@ -18,11 +30,14 @@ export const Dots = ({ points, printValue, color = "priority" }: LineProps) => {
 
   return (
     <>
-      {projectedPoints.map(({ x, y, value }) => {
+      {projectedPoints.map(({ x, y, value }, index) => {
         const text = printValue?.(value)
         return (
           <Fragment key={`${value.x}-${value.y}`}>
             <circle
+              ref={node => {
+                runTransition({ node, index, items: projectedPoints.length })
+              }}
               cx={x}
               cy={y}
               r={3}
@@ -30,7 +45,14 @@ export const Dots = ({ points, printValue, color = "priority" }: LineProps) => {
               className={chartColor.fill({ color })}
             />
             {text && (
-              <Text x={x} y={y - 8} anchor="middle">
+              <Text
+                ref={node => {
+                  runTransition({ node, index, items: projectedPoints.length })
+                }}
+                x={x}
+                y={y - 8}
+                anchor="middle"
+              >
                 {text}
               </Text>
             )}
