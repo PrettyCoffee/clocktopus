@@ -18,22 +18,25 @@ export const Dots = ({ points, printValue, color = "priority" }: LineProps) => {
 
   return (
     <>
-      {projectedPoints.map(({ x, y, value }) => (
-        <Fragment key={`${value.x}-${value.y}`}>
-          <circle
-            cx={x}
-            cy={y}
-            r={3}
-            strokeWidth={0}
-            className={chartColor.fill({ color })}
-          />
-          {printValue && (
-            <Text x={x} y={y - 8} anchor="middle">
-              {printValue(value)}
-            </Text>
-          )}
-        </Fragment>
-      ))}
+      {projectedPoints.map(({ x, y, value }) => {
+        const text = printValue?.(value)
+        return (
+          <Fragment key={`${value.x}-${value.y}`}>
+            <circle
+              cx={x}
+              cy={y}
+              r={3}
+              strokeWidth={0}
+              className={chartColor.fill({ color })}
+            />
+            {text && (
+              <Text x={x} y={y - 8} anchor="middle">
+                {text}
+              </Text>
+            )}
+          </Fragment>
+        )
+      })}
     </>
   )
 }
