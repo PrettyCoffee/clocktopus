@@ -9,6 +9,7 @@ import { IconButton } from "components/ui/icon-button"
 import { Input } from "components/ui/input"
 import { Select } from "components/ui/select"
 import { createColumnHelper, Table } from "components/ui/table"
+import { Toggle } from "components/ui/toggle"
 import { ScrollArea } from "components/utility/scroll-area"
 import {
   Project,
@@ -222,6 +223,19 @@ const projectNameColumn = projectHelper.column({
     />
   ),
 })
+const projectBreakColumn = projectHelper.column({
+  name: "Project is break",
+  className: "flex",
+  render: ({ rowData }) => (
+    <Toggle
+      label="Private"
+      checked={!!rowData.isPrivate}
+      onChange={isPrivate =>
+        projectsData.actions.edit(rowData.id, { isPrivate })
+      }
+    />
+  ),
+})
 const projectCategoryColumn = projectHelper.column({
   name: "Project actions",
   className: "*:w-full",
@@ -268,9 +282,10 @@ const ProjectRows = () => {
         columns={[
           projectNameColumn,
           projectCategoryColumn,
+          projectBreakColumn,
           projectDeleteColumn,
         ]}
-        gridCols="grid-cols-[1fr_auto_auto]"
+        gridCols="grid-cols-[1fr_auto_auto_auto]"
         rowData={projects}
         rowMeta={{ categories }}
       />

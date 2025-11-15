@@ -8,6 +8,7 @@ export const projectSchema = z.object({
   id: z.string(),
   name: z.string(),
   categoryId: z.optional(z.string()),
+  isPrivate: z.optional(z.boolean()),
 })
 export type Project = Resolve<z.infer<typeof projectSchema>>
 
@@ -19,7 +20,7 @@ const defaultValue: Project[] = [
   { id: createId("mini"), name: "Meeting", categoryId: "3" },
   { id: createId("mini"), name: "Course", categoryId: "3" },
   { id: createId("mini"), name: "Other", categoryId: "3" },
-  { id: createId("mini"), name: "Break", categoryId: "4" },
+  { id: createId("mini"), name: "Break", isPrivate: true, categoryId: "4" },
 ]
 
 export const projectsData = createSlice({
