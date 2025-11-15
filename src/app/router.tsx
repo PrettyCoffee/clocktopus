@@ -7,6 +7,7 @@ import { NotFoundRoute } from "./routes/not-found"
 import { SearchRoute } from "./routes/search/search-route"
 import { SettingsRoute } from "./routes/settings/settings-route"
 import { SettingsSideRoute } from "./routes/settings/settings-side-route"
+import { StatsRoute } from "./routes/stats/stats-route"
 
 const AppRouter = () => (
   <AppLayout
@@ -21,6 +22,7 @@ const AppRouter = () => (
       <Switch>
         <Route path="/settings" nest component={SettingsRoute} />
         <Route path="/search" component={SearchRoute} />
+        <Route path="/stats" component={StatsRoute} />
         <Route path="/" component={MainRoute} />
         <Route component={NotFoundRoute} />
       </Switch>
