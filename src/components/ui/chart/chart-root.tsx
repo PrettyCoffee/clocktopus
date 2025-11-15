@@ -19,7 +19,7 @@ const reverseNormalize = (normalized: number, min: number, max: number) =>
 
 type Padding = number | [number, number] | [number, number, number, number]
 
-const getPadding = (padProp: Padding = 20) => {
+const getPadding = (padProp: Padding = 24) => {
   if (typeof padProp === "number") {
     return { top: padProp, right: padProp, bottom: padProp, left: padProp }
   }

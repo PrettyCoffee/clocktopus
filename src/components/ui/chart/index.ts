@@ -1,4 +1,5 @@
 import { XAxis, YAxis } from "./axis"
+import { Caption } from "./caption"
 import { ChartRoot } from "./chart-root"
 import { Dots } from "./dots"
 import { Grid } from "./grid"
@@ -16,5 +17,6 @@ export const Chart = {
   YAxis,
   Line,
   Dots,
+  Caption,
   utils: { getExtremes },
 }
