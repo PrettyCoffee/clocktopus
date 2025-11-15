@@ -5,7 +5,7 @@ export interface Coordinate {
   y: number
 }
 
-export interface Boundaries {
+interface Boundaries {
   minX: number
   minY: number
   maxX: number

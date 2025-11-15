@@ -16,12 +16,12 @@ const { runTransition } = createTransition({
   },
 })
 
-export interface LineProps extends ChartFillColor {
+interface DotsProps extends ChartFillColor {
   points: Coordinate[]
   printValue?: (value: Coordinate) => string
 }
 
-export const Dots = ({ points, printValue, color = "priority" }: LineProps) => {
+export const Dots = ({ points, printValue, color = "priority" }: DotsProps) => {
   const { scalePoint } = useChartContext()
   const projectedPoints = points.map(point => ({
     ...scalePoint(point),
