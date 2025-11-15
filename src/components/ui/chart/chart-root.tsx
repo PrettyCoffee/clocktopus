@@ -1,4 +1,10 @@
-import { PropsWithChildren, useState } from "react"
+import {
+  Children,
+  isValidElement,
+  PropsWithChildren,
+  ReactNode,
+  useState,
+} from "react"
 
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
@@ -35,6 +41,20 @@ const getPadding = (padProp: Padding = 20) => {
   }
 }
 
+const getTypePriority = (child: ReactNode) => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define -- this function is only being used inside the component
+  const priority = ChartRoot._childrenPriority
+
+  const type = !isValidElement(child) ? null : child.type
+  const index = priority.indexOf(type)
+  return index >= 0 ? index : priority.length
+}
+
+const sortChildren = (children: ReactNode) =>
+  Children.toArray(children).toSorted(
+    (a, b) => getTypePriority(a) - getTypePriority(b)
+  )
+
 interface ChartRootProps extends ClassNameProp {
   minX?: number
   minY?: number
@@ -43,68 +63,76 @@ interface ChartRootProps extends ClassNameProp {
   padding?: Padding
 }
 
-export const ChartRoot = ({
-  padding: padProp,
-  minX = 0,
-  minY = 0,
-  maxX,
-  maxY,
-  className,
-  children,
-}: PropsWithChildren<ChartRootProps>) => {
-  const padding = getPadding(padProp)
-  const [rect, setRect] = useState({ width: 0, height: 0 })
+export const ChartRoot = Object.assign(
+  ({
+    padding: padProp,
+    minX = 0,
+    minY = 0,
+    maxX,
+    maxY,
+    className,
+    children,
+  }: PropsWithChildren<ChartRootProps>) => {
+    const padding = getPadding(padProp)
+    const [rect, setRect] = useState({ width: 0, height: 0 })
 
-  const scaleX = (x: number) => {
-    const normalized = normalize(x, minX, maxX)
-    const availableWidth = rect.width - padding.left - padding.right
-    return normalized * availableWidth + padding.left
-  }
-  const reverseScaleX = (scaledX: number) => {
-    const availableWidth = rect.width - padding.left - padding.right
-    const normalized = (scaledX - padding.left) / availableWidth
-    return reverseNormalize(normalized, minX, maxX)
-  }
-  const scaleY = (y: number) => {
-    const normalized = normalize(y, minY, maxY)
-    const availableHeight = rect.height - padding.top - padding.bottom
-    return (1 - normalized) * availableHeight + padding.top
-  }
-  const reverseScaleY = (scaledY: number) => {
-    const availableHeight = rect.height - padding.top - padding.bottom
-    const normalized = 1 - (scaledY - padding.top) / availableHeight
-    return reverseNormalize(normalized, minY, maxY)
-  }
-  const scalePoint = (value: Coordinate): Coordinate => ({
-    x: scaleX(value.x),
-    y: scaleY(value.y),
-  })
+    const scaleX = (x: number) => {
+      const normalized = normalize(x, minX, maxX)
+      const availableWidth = rect.width - padding.left - padding.right
+      return normalized * availableWidth + padding.left
+    }
+    const reverseScaleX = (scaledX: number) => {
+      const availableWidth = rect.width - padding.left - padding.right
+      const normalized = (scaledX - padding.left) / availableWidth
+      return reverseNormalize(normalized, minX, maxX)
+    }
+    const scaleY = (y: number) => {
+      const normalized = normalize(y, minY, maxY)
+      const availableHeight = rect.height - padding.top - padding.bottom
+      return (1 - normalized) * availableHeight + padding.top
+    }
+    const reverseScaleY = (scaledY: number) => {
+      const availableHeight = rect.height - padding.top - padding.bottom
+      const normalized = 1 - (scaledY - padding.top) / availableHeight
+      return reverseNormalize(normalized, minY, maxY)
+    }
+    const scalePoint = (value: Coordinate): Coordinate => ({
+      x: scaleX(value.x),
+      y: scaleY(value.y),
+    })
 
-  const updateRect = (element: HTMLElement | null) => {
-    if (!element) return
-    const { height, width } = element.getBoundingClientRect()
-    setRect(prev =>
-      prev.height === height && prev.width === width ? prev : { height, width }
+    const updateRect = (element: HTMLElement | null) => {
+      if (!element) return
+      const { height, width } = element.getBoundingClientRect()
+      setRect(prev =>
+        prev.height === height && prev.width === width
+          ? prev
+          : { height, width }
+      )
+    }
+
+    return (
+      <ChartContext
+        value={{
+          scaleX,
+          scaleY,
+          reverseScaleX,
+          reverseScaleY,
+          scalePoint,
+          boundaries: { minX, minY, maxX, maxY },
+          rect,
+        }}
+      >
+        <div ref={updateRect} className={cn("relative", className)}>
+          <svg
+            viewBox={`0 0 ${rect.width} ${rect.height}`}
+            className="size-full"
+          >
+            {sortChildren(children)}
+          </svg>
+        </div>
+      </ChartContext>
     )
-  }
-
-  return (
-    <ChartContext
-      value={{
-        scaleX,
-        scaleY,
-        reverseScaleX,
-        reverseScaleY,
-        scalePoint,
-        boundaries: { minX, minY, maxX, maxY },
-        rect,
-      }}
-    >
-      <div ref={updateRect} className={cn("relative", className)}>
-        <svg viewBox={`0 0 ${rect.width} ${rect.height}`} className="size-full">
-          {children}
-        </svg>
-      </div>
-    </ChartContext>
-  )
-}
+  },
+  { _childrenPriority: [] as unknown[] }
+)
