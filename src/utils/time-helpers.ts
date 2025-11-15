@@ -1,5 +1,5 @@
 const snap = (value: number, snap: number) => Math.round(value / snap) * snap
-const twoDigit = (value: number) => String(value).padStart(2, "0")
+const twoDigit = (value: number) => String(value).padStart(2, "0").slice(0, 2)
 const getNumbers = (value = "") => value.replaceAll(/[^\d]+/g, "")
 
 export interface ParsedTime {
