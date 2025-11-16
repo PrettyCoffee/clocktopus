@@ -87,8 +87,7 @@ export const TotalTimeChart = ({
   return (
     <Chart.Root maxX={maxX} minY={0} maxY={maxY}>
       <Chart.Caption>Working Time (avg)</Chart.Caption>
-      <Chart.Line points={points} />
-      <Chart.Dots points={points} printValue={hourDotLabel} />
+      <Chart.Bars points={points} printValue={hourDotLabel} />
 
       <Chart.XAxis color="gentle" position={0} ticks={ticks} />
       <Chart.Grid gapY={60} />
