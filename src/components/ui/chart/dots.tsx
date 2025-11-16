@@ -6,6 +6,7 @@ import { Text } from "./fragments/text"
 import { createTransition } from "./utils/get-transition"
 
 const { runTransition } = createTransition({
+  timingFunction: "bounce",
   initStyles: {
     translate: "0 -16px",
     opacity: "0",

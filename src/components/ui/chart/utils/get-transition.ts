@@ -3,7 +3,6 @@ import { CSSProperties } from "react"
 import { ease } from "utils/ease"
 
 const DURATION = 1000
-const TIMING_FUNCTION = `cubic-bezier(${ease.out.join(",")})`
 
 type AllowedElement = HTMLElement | SVGElement
 
@@ -22,6 +21,7 @@ const applyStyles = (node: AllowedElement, styles: CSSProperties) => {
 interface TransitionProps<TElement extends AllowedElement> {
   initStyles: CSSProperties | ((node: TElement) => CSSProperties)
   targetStyles: CSSProperties | ((node: TElement) => CSSProperties)
+  timingFunction?: keyof typeof ease
 }
 
 interface InitTransitionProps<TElement extends AllowedElement> {
@@ -33,6 +33,7 @@ interface InitTransitionProps<TElement extends AllowedElement> {
 export const createTransition = <TElement extends AllowedElement>({
   initStyles,
   targetStyles,
+  timingFunction = "out",
 }: TransitionProps<TElement>) => {
   const initTransition = (node: TElement) => {
     const styles =
@@ -56,7 +57,7 @@ export const createTransition = <TElement extends AllowedElement>({
       transitionProperty: toCssProperties(styles),
       transitionDuration: `${DURATION}ms`,
       transitionDelay: `${itemDelay}ms`,
-      transitionTimingFunction: TIMING_FUNCTION,
+      transitionTimingFunction: `cubic-bezier(${ease[timingFunction].join(",")})`,
     })
   }
 

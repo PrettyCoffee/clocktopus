@@ -8,8 +8,10 @@ const { runTransition } = createTransition<SVGPolylineElement>({
   initStyles: node => ({
     strokeDashoffset: String(node.getTotalLength()),
     strokeDasharray: String(node.getTotalLength()),
+    opacity: "0",
   }),
   targetStyles: {
+    opacity: "1",
     strokeDashoffset: "0",
   },
 })
