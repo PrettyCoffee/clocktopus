@@ -35,7 +35,7 @@ const getYearStats = (timeEntries: Record<string, TimeEntry[]>) => {
 
   Object.entries(byYear).forEach(([year, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
-    if (!stats) return
+    if (!stats || stats.total === 0) return
     allStats[Number(year)] = stats
   })
 
@@ -50,7 +50,7 @@ const getMonthStats = (timeEntries: Record<string, TimeEntry[]>) => {
 
   Object.entries(byMonth).forEach(([month, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
-    if (!stats) return
+    if (!stats || stats.total === 0) return
     allStats[Number(month)] = stats
   })
 
@@ -65,7 +65,7 @@ const getDayStats = (timeEntries: Record<string, TimeEntry[]>) => {
 
   Object.entries(byWeekday).forEach(([weekday, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
-    if (!stats) return
+    if (!stats || stats.total === 0) return
     allStats[Number(weekday)] = stats
   })
 
