@@ -1,141 +1,155 @@
+import { Dispatch, Fragment, useState } from "react"
+
 import { ClockPlus } from "lucide-react"
 
-import { Chart, Coordinate } from "components/ui/chart"
 import { ContextInfo } from "components/ui/context-info"
-import { projectsData } from "data/projects"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
+import { getTimeStats, TimeStats } from "./get-time-stats"
+import { TimeStatsChart } from "./time-stats-chart"
+
 const getEntries = <TObj extends object>(obj: TObj) =>
   Object.entries(obj) as [keyof TObj | string, TObj[keyof TObj]][]
 
-const splitByWeekdays = (timeEntries: Record<string, TimeEntry[]>) => {
-  const byWeekday: Record<number, Record<string, TimeEntry[]>> = {}
+const splitEntries = (
+  timeEntries: Record<string, TimeEntry[]>,
+  getKey: (date: string) => number
+) => {
+  const result: Record<number, Record<string, TimeEntry[]>> = {}
+
   getEntries(timeEntries).forEach(([date, entries]) => {
-    const day = new Date(date).getDay()
-    if (!byWeekday[day]) byWeekday[day] = {}
-    byWeekday[day][date] = entries
+    const key = getKey(date)
+    if (!result[key]) result[key] = {}
+    result[key][date] = entries
   })
-  return byWeekday
+
+  return result
 }
 
-const average = (numbers: number[]) => {
-  const sum = numbers.reduce((sum, value) => sum + value, 0)
-  return sum / numbers.length
-}
+type TimeStatsByYear = Record<number, TimeStats>
 
-interface TimeStats {
-  start: number
-  end: number
-  total: number
-}
-type TimeStatsByDay = Record<number, TimeStats>
+const getYearStats = (timeEntries: Record<string, TimeEntry[]>) => {
+  const byYear = splitEntries(timeEntries, date => new Date(date).getFullYear())
+  const allStats: TimeStatsByYear = {}
 
-const getProject = (projectId?: string) =>
-  projectsData.get().find(project => project.id === projectId)
-
-const getDayStats = (timeEntries: Record<string, TimeEntry[]>) => {
-  const byWeekday = splitByWeekdays(timeEntries)
-  const allStats: TimeStatsByDay = {}
-
-  getEntries(byWeekday).forEach(([weekday, entriesByDate]) => {
-    const total: number[] = []
-    const start: number[] = []
-    const end: number[] = []
-
-    Object.values(entriesByDate).forEach(entries => {
-      const times = entries.flatMap(({ start, end, projectId }) =>
-        getProject(projectId)?.isPrivate
-          ? []
-          : {
-              start: timeHelpers.toMinutes(start),
-              end: timeHelpers.toMinutes(end),
-            }
-      )
-      if (times.length === 0) return
-
-      const dateStart = Math.min(...times.map(({ start }) => start))
-      const dateEnd = Math.max(...times.map(({ end }) => end))
-
-      const totalTime = times.reduce((total, { start, end }) => {
-        const duration = end - start
-        return total + duration
-      }, 0)
-
-      start.push(dateStart)
-      end.push(dateEnd)
-      total.push(totalTime)
-    })
-
-    if (total.length === 0) return
-
-    allStats[Number(weekday)] = {
-      start: average(start),
-      end: average(end),
-      total: average(total),
-    }
+  getEntries(byYear).forEach(([year, entriesByDate]) => {
+    const stats = getTimeStats(entriesByDate)
+    if (!stats) return
+    allStats[Number(year)] = stats
   })
 
   return allStats
 }
 
-const DayChart = ({
-  caption,
-  dayStats,
-  type,
-  printValue,
-}: {
-  caption: string
-  dayStats: TimeStatsByDay
-  type: keyof TimeStats
-  printValue: (coord: Coordinate) => string
-}) => {
-  const points = getEntries(dayStats)
-    .flatMap(([day, stats]) =>
-      !stats[type]
-        ? []
-        : {
-            day: (Number(day) + 6) % 7, // start week with monday
-            value: stats[type],
-          }
-    )
-    .sort((a, b) => a.day - b.day)
-    .map(({ day, value }, index) => ({ x: index, y: value, day }))
+type TimeStatsByMonth = Record<number, TimeStats>
 
-  const { min, max } = Chart.utils.getExtremes(points)
+const getMonthStats = (timeEntries: Record<string, TimeEntry[]>) => {
+  const byMonth = splitEntries(timeEntries, date => new Date(date).getMonth())
+  const allStats: TimeStatsByMonth = {}
 
-  const minY = min.y + (15 - (min.y % 15)) - 30
-  const maxY = max.y - (max.y % 15) + 30
+  getEntries(byMonth).forEach(([month, entriesByDate]) => {
+    const stats = getTimeStats(entriesByDate)
+    if (!stats) return
+    allStats[Number(month)] = stats
+  })
 
-  const ticks = (() => {
-    const ticks: Record<number, string> = {}
-    points.forEach(
-      ({ x, day }) =>
-        (ticks[x] = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"][day] ?? "??")
-    )
-    return ticks
-  })()
-
-  return (
-    <Chart.Root maxX={max.x} minY={minY} maxY={maxY}>
-      <Chart.Caption>{caption}</Chart.Caption>
-      <Chart.Line points={points} />
-      <Chart.Dots points={points} printValue={printValue} />
-
-      <Chart.XAxis color="gentle" position={minY} ticks={ticks} />
-      <Chart.Grid gapY={15} />
-    </Chart.Root>
-  )
+  return allStats
 }
+
+type TimeStatsByDay = Record<number, TimeStats>
+
+const getDayStats = (timeEntries: Record<string, TimeEntry[]>) => {
+  const byWeekday = splitEntries(timeEntries, date => new Date(date).getDay())
+  const allStats: TimeStatsByDay = {}
+
+  getEntries(byWeekday).forEach(([weekday, entriesByDate]) => {
+    const stats = getTimeStats(entriesByDate)
+    if (!stats) return
+    allStats[Number(weekday)] = stats
+  })
+
+  return allStats
+}
+
+const weekdayTick = (value: number) =>
+  ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"][value] ?? "??"
+
+const transformWeekday = (x: number) =>
+  // start week with monday
+  (x + 6) % 7
+
+const monthTick = (value: number) =>
+  [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ][value] ?? "??"
+
+type Mode = "weekday" | "month" | "year"
+
+const StatsModeHeader = ({
+  mode,
+  onChange,
+}: {
+  mode: Mode
+  onChange: Dispatch<Mode>
+}) => (
+  <h2 className="mb-2 text-xl">
+    <span className="text-text-muted">Stats by </span>
+    {(["weekday", "month", "year"] as const).map((value, index) => (
+      <Fragment key={value}>
+        {index !== 0 && <span className="font-bold text-text-muted"> | </span>}
+        <button
+          key={value}
+          onClick={() => onChange(value)}
+          className={cn(
+            "cursor-pointer font-bold text-text-gentle uppercase underline-offset-4 hover:text-text hover:underline",
+            value === mode && "text-text-priority"
+          )}
+        >
+          {value}
+        </button>
+      </Fragment>
+    ))}
+  </h2>
+)
 
 export const StatsRoute = () => {
   const timeEntries = useAtomValue(timeEntriesData)
-  const dayStats = getDayStats(timeEntries)
+  const [mode, setMode] = useState<Mode>("weekday")
 
-  if (Object.values(dayStats).length < 2) {
+  const data = {
+    weekday: () => getDayStats(timeEntries),
+    month: () => getMonthStats(timeEntries),
+    year: () => getYearStats(timeEntries),
+  }[mode]()
+
+  const tick = {
+    weekday: weekdayTick,
+    month: monthTick,
+    year: (value: number) => String(value),
+  }[mode]
+
+  const transform = {
+    weekday: transformWeekday,
+    month: (x: number) => x,
+    year: (x: number) => x,
+  }[mode]
+
+  if (Object.values(data).length < 2) {
     return (
       <div className="grid h-full place-items-center">
         <ContextInfo
@@ -146,27 +160,35 @@ export const StatsRoute = () => {
       </div>
     )
   }
+
   return (
     <div className={cn(vstack({}), "h-full px-10 pt-6")}>
-      <h2 className="mb-2 text-xl">Stats by week day</h2>
-      <div className="grid auto-rows-[10rem] grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-10 *:h-full">
-        <DayChart
+      <StatsModeHeader mode={mode} onChange={setMode} />
+
+      <div className="grid auto-rows-[10rem] grid-cols-[repeat(auto-fit,minmax(30rem,1fr))] gap-10 *:h-full">
+        <TimeStatsChart
           caption="Start time"
-          dayStats={dayStats}
+          timeStats={data}
           type="start"
-          printValue={({ y }) => timeHelpers.fromMinutes(y)}
+          dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
+          tickLabel={tick}
+          transformX={transform}
         />
-        <DayChart
+        <TimeStatsChart
           caption="End time"
-          dayStats={dayStats}
+          timeStats={data}
           type="end"
-          printValue={({ y }) => timeHelpers.fromMinutes(y)}
+          dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
+          tickLabel={tick}
+          transformX={transform}
         />
-        <DayChart
+        <TimeStatsChart
           caption="Work time"
-          dayStats={dayStats}
+          timeStats={data}
           type="total"
-          printValue={({ y }) => `${(y / 60).toFixed(1)}h`}
+          dotLabel={({ y }) => `${(y / 60).toFixed(1)}h`}
+          tickLabel={tick}
+          transformX={transform}
         />
       </div>
 
