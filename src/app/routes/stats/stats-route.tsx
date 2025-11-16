@@ -7,14 +7,10 @@ import { TimeEntry } from "data/time-entries"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
-import { timeHelpers } from "utils/time-helpers"
 
 import { getTimeStats, TimeStats } from "./get-time-stats"
 import { filteredStatsEntries } from "./stats-side-route"
-import { TimeStatsChart } from "./time-stats-chart"
-
-const getEntries = <TObj extends object>(obj: TObj) =>
-  Object.entries(obj) as [keyof TObj | string, TObj[keyof TObj]][]
+import { WorkingHoursChart, TotalTimeChart } from "./time-charts"
 
 const splitEntries = (
   timeEntries: Record<string, TimeEntry[]>,
@@ -22,7 +18,7 @@ const splitEntries = (
 ) => {
   const result: Record<number, Record<string, TimeEntry[]>> = {}
 
-  getEntries(timeEntries).forEach(([date, entries]) => {
+  Object.entries(timeEntries).forEach(([date, entries]) => {
     const key = getKey(date)
     if (!result[key]) result[key] = {}
     result[key][date] = entries
@@ -37,7 +33,7 @@ const getYearStats = (timeEntries: Record<string, TimeEntry[]>) => {
   const byYear = splitEntries(timeEntries, date => new Date(date).getFullYear())
   const allStats: TimeStatsByYear = {}
 
-  getEntries(byYear).forEach(([year, entriesByDate]) => {
+  Object.entries(byYear).forEach(([year, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
     if (!stats) return
     allStats[Number(year)] = stats
@@ -52,7 +48,7 @@ const getMonthStats = (timeEntries: Record<string, TimeEntry[]>) => {
   const byMonth = splitEntries(timeEntries, date => new Date(date).getMonth())
   const allStats: TimeStatsByMonth = {}
 
-  getEntries(byMonth).forEach(([month, entriesByDate]) => {
+  Object.entries(byMonth).forEach(([month, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
     if (!stats) return
     allStats[Number(month)] = stats
@@ -67,7 +63,7 @@ const getDayStats = (timeEntries: Record<string, TimeEntry[]>) => {
   const byWeekday = splitEntries(timeEntries, date => new Date(date).getDay())
   const allStats: TimeStatsByDay = {}
 
-  getEntries(byWeekday).forEach(([weekday, entriesByDate]) => {
+  Object.entries(byWeekday).forEach(([weekday, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
     if (!stats) return
     allStats[Number(weekday)] = stats
@@ -77,7 +73,7 @@ const getDayStats = (timeEntries: Record<string, TimeEntry[]>) => {
 }
 
 const weekdayTick = (value: number) =>
-  ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"][value] ?? "??"
+  ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"][value] ?? "N/A"
 
 const transformWeekday = (x: number) =>
   // start week with monday
@@ -97,7 +93,7 @@ const monthTick = (value: number) =>
     "Oct",
     "Nov",
     "Dec",
-  ][value] ?? "??"
+  ][value] ?? "N/A"
 
 type Mode = "weekday" | "month" | "year"
 
@@ -145,13 +141,13 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
   const tick = {
     weekday: weekdayTick,
     month: monthTick,
-    year: (value: number) => String(value),
+    year: undefined,
   }[mode]
 
   const transform = {
     weekday: transformWeekday,
-    month: (x: number) => x,
-    year: (x: number) => x,
+    month: undefined,
+    year: undefined,
   }[mode]
 
   if (Object.values(data).length < 2) {
@@ -170,28 +166,19 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
   }
 
   return (
-    <div className={cn(vstack({ gap: 8 }), "w-full max-w-xl gap-10 *:h-48")}>
-      <TimeStatsChart
-        caption="Start time (avg)"
+    <div
+      className={cn(
+        vstack({ gap: 8 }),
+        "w-full max-w-xl gap-10 *:h-64 *:first:h-64"
+      )}
+    >
+      <WorkingHoursChart
         timeStats={data}
-        type="start"
-        dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
         tickLabel={tick}
         transformX={transform}
       />
-      <TimeStatsChart
-        caption="End time (avg)"
+      <TotalTimeChart
         timeStats={data}
-        type="end"
-        dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
-        tickLabel={tick}
-        transformX={transform}
-      />
-      <TimeStatsChart
-        caption="Work time (avg)"
-        timeStats={data}
-        type="total"
-        dotLabel={({ y }) => `${(y / 60).toFixed(1)}h`}
         tickLabel={tick}
         transformX={transform}
       />
