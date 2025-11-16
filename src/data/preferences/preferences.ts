@@ -11,7 +11,7 @@ type Preferences = Resolve<z.infer<typeof preferencesSchema>>
 
 const defaultValue: Preferences = {
   locale: "iso",
-  summaryStyle: "grid",
+  summaryStyle: "table",
 }
 
 export const preferencesData = createSlice({

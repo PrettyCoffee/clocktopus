@@ -68,16 +68,16 @@ const SummaryStyle = () => {
     >
       <OrChain role="radiogroup" onKeyDown={styleRadioButtonFocusManager}>
         <StyleRadioButton
-          active={summaryStyle === "grid"}
-          icon={LayoutGrid}
-          label="Grid"
-          onClick={() => preferencesData.actions.setSummaryStye("grid")}
-        />
-        <StyleRadioButton
           active={summaryStyle === "table"}
           icon={TableProperties}
           label="Table"
           onClick={() => preferencesData.actions.setSummaryStye("table")}
+        />
+        <StyleRadioButton
+          active={summaryStyle === "grid"}
+          icon={LayoutGrid}
+          label="Grid"
+          onClick={() => preferencesData.actions.setSummaryStye("grid")}
         />
       </OrChain>
     </Card>
