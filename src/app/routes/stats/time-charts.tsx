@@ -37,6 +37,11 @@ const getTicks = (
 const timeDotLabel = ({ y }: Coordinate) => timeHelpers.fromMinutes(y)
 const hourDotLabel = ({ y }: Coordinate) => `${(y / 60).toFixed(1)}h`
 
+const getPadding = (items: number): [number, number] => [
+  24,
+  Math.max(1, 6 - items) * 24,
+]
+
 interface TimeChartProps {
   timeStats: Record<string, TimeStats>
   tickLabel?: (x: number) => string
@@ -60,7 +65,12 @@ export const WorkingHoursChart = ({
   const maxY = Math.max(startRange.maxY, endRange.maxY)
 
   return (
-    <Chart.Root maxX={maxX} minY={minY} maxY={maxY}>
+    <Chart.Root
+      maxX={maxX}
+      minY={minY}
+      maxY={maxY}
+      padding={getPadding(startPoints.length)}
+    >
       <Chart.Caption>Working Hours (avg)</Chart.Caption>
 
       <Chart.Line points={startPoints} />
@@ -85,7 +95,12 @@ export const TotalTimeChart = ({
   const { maxX, maxY } = getGraphRange(points)
 
   return (
-    <Chart.Root maxX={maxX} minY={0} maxY={maxY}>
+    <Chart.Root
+      maxX={maxX}
+      minY={0}
+      maxY={maxY}
+      padding={getPadding(points.length)}
+    >
       <Chart.Caption>Working Time (avg)</Chart.Caption>
       <Chart.Bars points={points} printValue={hourDotLabel} />
 
