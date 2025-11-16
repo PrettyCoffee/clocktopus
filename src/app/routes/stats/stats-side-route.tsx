@@ -9,9 +9,11 @@ import { getLocale } from "utils/get-locale"
 
 interface StatsFilter {
   name: string
-  start: string
-  end: string
+  start?: string
+  end?: string
 }
+
+const allFilter: StatsFilter = { name: "All" }
 
 const createYearFilter = (year: number) => ({
   name: `${year}`,
@@ -19,10 +21,9 @@ const createYearFilter = (year: number) => ({
   end: `${year}-12-31`,
 })
 
-const year = new Date().getFullYear()
 const statsFilterData = createAtom<StatsFilter>({
   name: "stats-filter",
-  defaultValue: createYearFilter(year),
+  defaultValue: allFilter,
 })
 
 export const filteredStatsEntries = createSelector(
@@ -50,12 +51,11 @@ export const StatsSideRoute = () => {
     useAtomValue(filteredStatsEntries)
   ).flat()
 
+  const firstEntry = dateHelpers.stringify(dates[0]!)
+  const lastEntry = dateHelpers.stringify(dates.at(-1)!)
+
   const predefinedFilters: StatsFilter[] = [
-    {
-      name: "All",
-      start: dateHelpers.stringify(dates[0]!),
-      end: dateHelpers.stringify(dates.at(-1)!),
-    },
+    allFilter,
     ...years.map(createYearFilter),
   ]
 
@@ -80,7 +80,7 @@ export const StatsSideRoute = () => {
       <InputLabel label="Start date">
         <DateInput
           locale={getLocale()}
-          value={selectedFilter.start}
+          value={selectedFilter.start ?? firstEntry}
           onChange={start =>
             statsFilterData.set(state => ({ ...state, start, name: "Custom" }))
           }
@@ -91,7 +91,7 @@ export const StatsSideRoute = () => {
       <InputLabel label="End date">
         <DateInput
           locale={getLocale()}
-          value={selectedFilter.end}
+          value={selectedFilter.end ?? lastEntry}
           onChange={end =>
             statsFilterData.set(state => ({ ...state, end, name: "Custom" }))
           }

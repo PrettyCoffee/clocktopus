@@ -30,8 +30,11 @@ const stringify = (date: Date | ParsedDate) => {
 
 const today = () => stringify(new Date())
 
-const isInRange = (date: string, start: string, end: string) =>
-  [date, start, end].sort()[1] === date
+const isInRange = (date: string, start?: string, end?: string) => {
+  const afterStart = !start || [date, start].sort()[1] === date
+  const beforeEnd = !end || [date, end].sort()[0] === date
+  return afterStart && beforeEnd
+}
 
 export const dateHelpers = {
   today,
