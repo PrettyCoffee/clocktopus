@@ -1,15 +1,16 @@
-import { Dispatch, Fragment, useState } from "react"
+import { Dispatch, Fragment, useMemo, useState } from "react"
 
 import { ClockPlus } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
-import { timeEntriesData, TimeEntry } from "data/time-entries"
+import { TimeEntry } from "data/time-entries"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
 import { getTimeStats, TimeStats } from "./get-time-stats"
+import { filteredStatsEntries } from "./stats-side-route"
 import { TimeStatsChart } from "./time-stats-chart"
 
 const getEntries = <TObj extends object>(obj: TObj) =>
@@ -128,13 +129,18 @@ const StatsModeHeader = ({
 )
 
 const StatsCharts = ({ mode }: { mode: Mode }) => {
-  const timeEntries = useAtomValue(timeEntriesData)
+  const filtered = useAtomValue(filteredStatsEntries)
 
-  const data = {
-    weekday: () => getDayStats(timeEntries),
-    month: () => getMonthStats(timeEntries),
-    year: () => getYearStats(timeEntries),
-  }[mode]()
+  const data = useMemo(() => {
+    switch (mode) {
+      case "weekday":
+        return getDayStats(filtered)
+      case "month":
+        return getMonthStats(filtered)
+      case "year":
+        return getYearStats(filtered)
+    }
+  }, [mode, filtered])
 
   const tick = {
     weekday: weekdayTick,
@@ -156,8 +162,8 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
           icon={ClockPlus}
           label="Insufficient data"
         >
-          You will need to add more data first, to be able to see stats here.
-          (at least 2 {mode}s)
+          You will need to provide more data, to be able to see stats here. (at
+          least 2 {mode}s)
         </ContextInfo>
       </div>
     )
@@ -166,7 +172,7 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
   return (
     <div className={cn(vstack({ gap: 8 }), "w-full max-w-xl gap-10 *:h-48")}>
       <TimeStatsChart
-        caption="Start time"
+        caption="Start time (avg)"
         timeStats={data}
         type="start"
         dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
@@ -174,7 +180,7 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
         transformX={transform}
       />
       <TimeStatsChart
-        caption="End time"
+        caption="End time (avg)"
         timeStats={data}
         type="end"
         dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
@@ -182,7 +188,7 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
         transformX={transform}
       />
       <TimeStatsChart
-        caption="Work time"
+        caption="Work time (avg)"
         timeStats={data}
         type="total"
         dotLabel={({ y }) => `${(y / 60).toFixed(1)}h`}

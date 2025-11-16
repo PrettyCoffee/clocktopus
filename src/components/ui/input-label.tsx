@@ -9,7 +9,7 @@ import { vstack } from "utils/styles"
 interface InputLabelProps extends ClassNameProp {
   label: string
   htmlFor?: string
-  children: ((id: string) => ReactNode) | ReactNode
+  children?: ((id: string) => ReactNode) | ReactNode
 }
 
 export const InputLabel = ({

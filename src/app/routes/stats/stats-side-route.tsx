@@ -1,0 +1,107 @@
+import { Button } from "components/ui/button"
+import { DateInput } from "components/ui/date-input"
+import { Divider } from "components/ui/divider"
+import { InputLabel } from "components/ui/input-label"
+import { timeEntriesData } from "data/time-entries"
+import { createAtom, createSelector, useAtomValue } from "lib/yaasl"
+import { dateHelpers } from "utils/date-helpers"
+import { getLocale } from "utils/get-locale"
+
+interface StatsFilter {
+  name: string
+  start: string
+  end: string
+}
+
+const createYearFilter = (year: number) => ({
+  name: `${year}`,
+  start: `${year}-01-01`,
+  end: `${year}-12-31`,
+})
+
+const year = new Date().getFullYear()
+const statsFilterData = createAtom<StatsFilter>({
+  name: "stats-filter",
+  defaultValue: createYearFilter(year),
+})
+
+export const filteredStatsEntries = createSelector(
+  [timeEntriesData, statsFilterData],
+  (entries, { start, end }) =>
+    Object.fromEntries(
+      Object.entries(entries).filter(([date]) =>
+        dateHelpers.isInRange(date, start, end)
+      )
+    )
+)
+
+export const StatsSideRoute = () => {
+  const selectedFilter = useAtomValue(statsFilterData)
+  const entries = useAtomValue(timeEntriesData)
+  const dates = Object.keys(entries)
+    .sort()
+    .map(date => new Date(date))
+
+  const years = [...new Set(dates.map(date => date.getFullYear()))].sort(
+    (a, b) => b - a
+  )
+
+  const matchingEntries = Object.values(
+    useAtomValue(filteredStatsEntries)
+  ).flat()
+
+  const predefinedFilters: StatsFilter[] = [
+    {
+      name: "All",
+      start: dateHelpers.stringify(dates[0]!),
+      end: dateHelpers.stringify(dates.at(-1)!),
+    },
+    ...years.map(createYearFilter),
+  ]
+
+  return (
+    <div>
+      <InputLabel label="Predefined Filters" />
+      {predefinedFilters.map(filter => (
+        <Button
+          key={filter.name}
+          onClick={() => statsFilterData.set(filter)}
+          active={
+            selectedFilter.start === filter.start &&
+            selectedFilter.end === filter.end
+          }
+        >
+          {filter.name}
+        </Button>
+      ))}
+
+      <Divider color="gentle" className="my-4" />
+
+      <InputLabel label="Start date">
+        <DateInput
+          locale={getLocale()}
+          value={selectedFilter.start}
+          onChange={start =>
+            statsFilterData.set(state => ({ ...state, start, name: "Custom" }))
+          }
+          max={dateHelpers.today()}
+        />
+      </InputLabel>
+
+      <InputLabel label="End date">
+        <DateInput
+          locale={getLocale()}
+          value={selectedFilter.end}
+          onChange={end =>
+            statsFilterData.set(state => ({ ...state, end, name: "Custom" }))
+          }
+          max={dateHelpers.today()}
+        />
+      </InputLabel>
+
+      <Divider color="gentle" className="my-4" />
+
+      <InputLabel label={`${matchingEntries.length} Matching time entries`} />
+    </div>
+  )
+}
