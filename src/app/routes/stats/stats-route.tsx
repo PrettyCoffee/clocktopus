@@ -127,9 +127,8 @@ const StatsModeHeader = ({
   </h2>
 )
 
-export const StatsRoute = () => {
+const StatsCharts = ({ mode }: { mode: Mode }) => {
   const timeEntries = useAtomValue(timeEntriesData)
-  const [mode, setMode] = useState<Mode>("weekday")
 
   const data = {
     weekday: () => getDayStats(timeEntries),
@@ -151,47 +150,57 @@ export const StatsRoute = () => {
 
   if (Object.values(data).length < 2) {
     return (
-      <div className="grid h-full place-items-center">
+      <div className="max-w-90 text-center">
         <ContextInfo
           animateIcon="rotate"
           icon={ClockPlus}
-          label="You need to add more data first, to be able to see stats."
-        />
+          label="Insufficient data"
+        >
+          You will need to add more data first, to be able to see stats here.
+          (at least 2 {mode}s)
+        </ContextInfo>
       </div>
     )
   }
 
   return (
-    <div className={cn(vstack({}), "h-full px-10 pt-6")}>
+    <div className={cn(vstack({ gap: 8 }), "w-full max-w-xl gap-10 *:h-48")}>
+      <TimeStatsChart
+        caption="Start time"
+        timeStats={data}
+        type="start"
+        dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
+        tickLabel={tick}
+        transformX={transform}
+      />
+      <TimeStatsChart
+        caption="End time"
+        timeStats={data}
+        type="end"
+        dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
+        tickLabel={tick}
+        transformX={transform}
+      />
+      <TimeStatsChart
+        caption="Work time"
+        timeStats={data}
+        type="total"
+        dotLabel={({ y }) => `${(y / 60).toFixed(1)}h`}
+        tickLabel={tick}
+        transformX={transform}
+      />
+    </div>
+  )
+}
+
+export const StatsRoute = () => {
+  const [mode, setMode] = useState<Mode>("weekday")
+
+  return (
+    <div className={cn(vstack({ align: "center" }), "min-h-full px-10 pt-20")}>
       <StatsModeHeader mode={mode} onChange={setMode} />
-
-      <div className="grid auto-rows-[10rem] grid-cols-[repeat(auto-fit,minmax(30rem,1fr))] gap-10 *:h-full">
-        <TimeStatsChart
-          caption="Start time"
-          timeStats={data}
-          type="start"
-          dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
-          tickLabel={tick}
-          transformX={transform}
-        />
-        <TimeStatsChart
-          caption="End time"
-          timeStats={data}
-          type="end"
-          dotLabel={({ y }) => timeHelpers.fromMinutes(y)}
-          tickLabel={tick}
-          transformX={transform}
-        />
-        <TimeStatsChart
-          caption="Work time"
-          timeStats={data}
-          type="total"
-          dotLabel={({ y }) => `${(y / 60).toFixed(1)}h`}
-          tickLabel={tick}
-          transformX={transform}
-        />
-      </div>
-
+      <div className="pb-8" />
+      <StatsCharts mode={mode} />
       <div className="pb-8" />
     </div>
   )
