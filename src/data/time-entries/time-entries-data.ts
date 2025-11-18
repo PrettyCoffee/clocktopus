@@ -15,7 +15,7 @@ export const timeEntrySchema = z.object({
   projectId: z.optional(z.string()),
 })
 export type TimeEntry = Resolve<z.infer<typeof timeEntrySchema>>
-type DataAndId = Pick<TimeEntry, "date" | "id">
+type DateAndId = Pick<TimeEntry, "date" | "id">
 
 type AtomState = Record<string, TimeEntry[]>
 
@@ -37,7 +37,7 @@ const popEntry = (state: AtomState, date: string, id: string) => {
   return { entry, newState }
 }
 
-const popEntries = (state: AtomState, ...items: DataAndId[]) =>
+const popEntries = (state: AtomState, ...items: DateAndId[]) =>
   items.reduce<{ entries: TimeEntry[]; newState: AtomState }>(
     (result, { date, id }) => {
       const { entry, newState } = popEntry(result.newState, date, id)
@@ -75,7 +75,7 @@ export const timeEntriesData = createSlice({
       return pushEntries(state, ...entriesWithIds)
     },
 
-    edit: (state, ...items: (DataAndId & { data: Partial<TimeEntry> })[]) => {
+    edit: (state, ...items: (DateAndId & { data: Partial<TimeEntry> })[]) => {
       const { entries: oldEntries, newState } = popEntries(state, ...items)
       if (oldEntries.length === 0) return state
 
@@ -86,7 +86,7 @@ export const timeEntriesData = createSlice({
       return pushEntries(newState, ...entries)
     },
 
-    delete: (state, ...entries: DataAndId[]) => {
+    delete: (state, ...entries: DateAndId[]) => {
       const { newState } = popEntries(state, ...entries)
       return newState
     },

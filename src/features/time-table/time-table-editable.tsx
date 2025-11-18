@@ -20,7 +20,7 @@ interface CheckedProps {
 interface TableConfig {
   rowData: TimeEntry
   rowMeta: CheckedProps & {
-    onChange: Dispatch<TimeEntry>
+    onChange: (date: string, id: string, data: TimeEntry) => void
     onRemove: (date: string, id: string) => void
   }
 }
@@ -42,7 +42,9 @@ const descriptionColumn = helper.column({
   render: ({ rowData, onChange }) => (
     <inputs.Description
       entry={rowData}
-      onChange={data => onChange({ ...rowData, ...data })}
+      onChange={data =>
+        onChange(rowData.date, rowData.id, { ...rowData, ...data })
+      }
     />
   ),
 })
@@ -53,7 +55,9 @@ const projectColumn = helper.column({
   render: ({ rowData, onChange }) => (
     <inputs.Project
       entry={rowData}
-      onChange={data => onChange({ ...rowData, ...data })}
+      onChange={data =>
+        onChange(rowData.date, rowData.id, { ...rowData, ...data })
+      }
     />
   ),
 })
@@ -64,7 +68,9 @@ const dateColumn = helper.column({
   render: ({ rowData, onChange }) => (
     <inputs.Date
       entry={rowData}
-      onChange={data => onChange({ ...rowData, ...data })}
+      onChange={data =>
+        onChange(rowData.date, rowData.id, { ...rowData, ...data })
+      }
     />
   ),
 })
@@ -74,7 +80,9 @@ const timeStartColumn = helper.column({
   render: ({ rowData, onChange }) => (
     <inputs.TimeStart
       entry={rowData}
-      onChange={data => onChange({ ...rowData, ...data })}
+      onChange={data =>
+        onChange(rowData.date, rowData.id, { ...rowData, ...data })
+      }
     />
   ),
 })
@@ -87,7 +95,9 @@ const timeEndColumn = helper.column({
   render: ({ rowData, onChange }) => (
     <inputs.TimeEnd
       entry={rowData}
-      onChange={data => onChange({ ...rowData, ...data })}
+      onChange={data =>
+        onChange(rowData.date, rowData.id, { ...rowData, ...data })
+      }
     />
   ),
 })
@@ -111,8 +121,8 @@ const actionColumn = helper.column({
   ),
 })
 
-const handleChange = (data: TimeEntry) => {
-  timeEntriesData.actions.edit({ id: data.id, date: data.date, data })
+const handleChange = (date: string, id: string, data: TimeEntry) => {
+  timeEntriesData.actions.edit({ date, id, data })
 }
 
 const handleRemove = (date: string, id: string) =>
