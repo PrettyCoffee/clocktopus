@@ -42,7 +42,8 @@ const button = cva(
 type ButtonHtmlProps = ButtonHTMLAttributes<HTMLButtonElement>
 
 export interface ButtonProps
-  extends Pick<ButtonHtmlProps, "onClick" | "onFocus" | "onBlur">,
+  extends
+    Pick<ButtonHtmlProps, "onClick" | "onFocus" | "onBlur">,
     RefProp<HTMLButtonElement>,
     IconProp,
     ClassNameProp,

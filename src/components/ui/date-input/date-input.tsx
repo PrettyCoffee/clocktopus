@@ -18,11 +18,10 @@ const printDate = (date: string, locale: string) => {
   })
 }
 
-interface DateInputProps
-  extends Omit<
-    CalendarProps,
-    "selected" | "initialView" | "onSelectionChange"
-  > {
+interface DateInputProps extends Omit<
+  CalendarProps,
+  "selected" | "initialView" | "onSelectionChange"
+> {
   caption?: string
   value?: string
   onChange: Dispatch<string>

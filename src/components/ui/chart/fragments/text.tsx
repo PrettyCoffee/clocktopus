@@ -6,7 +6,8 @@ import { cn } from "utils/cn"
 import { chartColor, ChartFillColor } from "./chart-color"
 
 export interface TextProps
-  extends PropsWithChildren<ChartFillColor>,
+  extends
+    PropsWithChildren<ChartFillColor>,
     ClassNameProp,
     RefProp<SVGTextElement> {
   x: number

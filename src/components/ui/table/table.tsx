@@ -27,6 +27,7 @@ interface ColumnDef<TConfig extends TableConfig> {
   colSize?: Repeat<TwColSize>
   className?: string
   render: (
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents -- the exact type might be different and not be overwritten
     props: { rowData: TConfig["rowData"] } & TConfig["rowMeta"]
   ) => ReactNode
 }
@@ -87,7 +88,7 @@ const TableBody = () => {
       {rowData.map((data, index) => (
         <Fragment key={data.id}>
           {index !== 0 && (
-            <div className="col-[1_/_-1] mx-2 border-b border-stroke-gentle" />
+            <div className="col-span-full mx-2 border-b border-stroke-gentle" />
           )}
 
           <TableRow data={data} />
