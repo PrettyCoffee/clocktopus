@@ -1,3 +1,5 @@
+import { dateHelpers } from "utils/date-helpers"
+
 import { Day } from "./day"
 
 const getMonthStart = (year: number, month: number) => {
@@ -72,5 +74,14 @@ export class Month {
       month -= 12
     }
     return new Month(this.locale, year, month)
+  }
+
+  public valueOf() {
+    return this.year * 12 + this.month
+  }
+
+  static fromDate(locale: string, date: string) {
+    const { year, month } = dateHelpers.parse(date)
+    return new Month(locale, year, month)
   }
 }

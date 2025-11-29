@@ -1,4 +1,4 @@
-import { Dispatch, PropsWithChildren, useState } from "react"
+import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react"
 
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -76,55 +76,75 @@ const GridBody = ({
   </>
 )
 
+const clampMonth = (value: Month, min: Month, max: Month) => {
+  if (value.valueOf() < min.valueOf()) return min
+  if (value.valueOf() > max.valueOf()) return max
+  return value
+}
+
 interface ViewSwitchProps extends SizeProp {
   month: Month
-  prevMonthDisabled: boolean
-  nextMonthDisabled: boolean
-  prevMonth: () => void
-  nextMonth: () => void
+  min: string
+  max: string
+  setMonth: Dispatch<SetStateAction<Month>>
 }
-const ViewSwitch = ({
-  month,
-  size,
-  nextMonthDisabled,
-  prevMonthDisabled,
-  nextMonth,
-  prevMonth,
-}: ViewSwitchProps) => (
-  <div className="flex">
-    <Button size={size} disabled>
-      {month.name}, {month.year}
-    </Button>
+const ViewSwitch = ({ month, size, min, max, setMonth }: ViewSwitchProps) => {
+  const [magnitude, setMagnitude] = useState<"month" | "year">("month")
 
-    <span className="flex-1" />
+  const minMonth = Month.fromDate(month.locale, min)
+  const maxMonth = Month.fromDate(month.locale, max)
 
-    <IconButton
-      size={size}
-      icon={ChevronLeft}
-      hideTitle
-      title="Previous month"
-      onClick={prevMonth}
-      disabled={prevMonthDisabled}
-    />
-    <IconButton
-      size={size}
-      icon={ChevronRight}
-      hideTitle
-      title="Next month"
-      onClick={nextMonth}
-      disabled={nextMonthDisabled}
-    />
-  </div>
-)
+  const monthDiff = magnitude === "month" ? 1 : 12
+  const prev = clampMonth(month.getRelative(-1 * monthDiff), minMonth, maxMonth)
+  const next = clampMonth(month.getRelative(monthDiff), minMonth, maxMonth)
 
-const getMonth = (locale: string, date: string) => {
-  const [year, month] = date.split("-").map(Number)
-  if (!year || !month) {
-    throw new Error(
-      `Date "${date}" is not valid and cannot be used to create a month.`
-    )
-  }
-  return new Month(locale, year, month)
+  const prevDisabled = month.valueOf() <= minMonth.valueOf()
+  const nextDisabled = month.valueOf() >= maxMonth.valueOf()
+
+  return (
+    <div className="flex">
+      <Button
+        size={size}
+        className="text-text-gentle"
+        onClick={() =>
+          setMagnitude(prev => (prev === "month" ? "year" : "month"))
+        }
+      >
+        {magnitude === "month" ? (
+          <>
+            <span className="text-text-priority">{month.name}</span>
+            <span className="mr-1">,</span>
+            {month.year}
+          </>
+        ) : (
+          <>
+            {month.name}
+            <span className="mr-1">,</span>
+            <span className="text-text-priority">{month.year}</span>
+          </>
+        )}
+      </Button>
+
+      <span className="flex-1" />
+
+      <IconButton
+        size={size}
+        icon={ChevronLeft}
+        hideTitle
+        title={`Previous ${magnitude}`}
+        onClick={() => setMonth(prev)}
+        disabled={prevDisabled}
+      />
+      <IconButton
+        size={size}
+        icon={ChevronRight}
+        hideTitle
+        title={`Next ${magnitude}`}
+        onClick={() => setMonth(next)}
+        disabled={nextDisabled}
+      />
+    </div>
+  )
 }
 
 const getDateValue = (date: string) => Number(date.replaceAll("-", ""))
@@ -147,23 +167,11 @@ export const Calendar = ({
   max = "2069-12-31",
   min = "1970-01-01",
 }: CalendarProps) => {
-  const [month, setMonth] = useState(() => getMonth(locale, initialView))
-
-  const nextMonth = month.getRelative(1)
-  const prevMonth = month.getRelative(-1)
-
-  const minValue = getDateValue(min)
-  const maxValue = getDateValue(max)
-
-  const nextMonthDisabled =
-    getDateValue(nextMonth.firstDay.toString()) > maxValue
-
-  const prevMonthDisabled =
-    getDateValue(prevMonth.lastDay.toString()) < minValue
+  const [month, setMonth] = useState(() => Month.fromDate(locale, initialView))
 
   const isDisabled = (day: Day) => {
     const dayValue = getDateValue(day.toString())
-    return minValue > dayValue || dayValue > maxValue
+    return getDateValue(min) > dayValue || dayValue > getDateValue(max)
   }
 
   return (
@@ -175,10 +183,9 @@ export const Calendar = ({
       <ViewSwitch
         size={size}
         month={month}
-        prevMonth={() => setMonth(prevMonth)}
-        nextMonth={() => setMonth(nextMonth)}
-        nextMonthDisabled={nextMonthDisabled}
-        prevMonthDisabled={prevMonthDisabled}
+        max={max}
+        min={min}
+        setMonth={setMonth}
       />
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions
           -- event bubbles up to this element */}
