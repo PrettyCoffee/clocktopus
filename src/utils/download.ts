@@ -1,5 +1,21 @@
+const toString = (data: unknown) => {
+  if (!data) return ""
+
+  switch (typeof data) {
+    case "object":
+      return JSON.stringify(data, null, 2)
+    case "string":
+    case "number":
+    case "boolean":
+    case "bigint":
+      return String(data)
+    default:
+      throw new Error("Value could not be converted to string")
+  }
+}
+
 const createBlobUrl = (content: unknown) => {
-  const fileContent = JSON.stringify(content, null, 2)
+  const fileContent = toString(content)
   const file = new Blob([fileContent])
   return URL.createObjectURL(file)
 }

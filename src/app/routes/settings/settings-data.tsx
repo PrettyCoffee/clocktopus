@@ -18,6 +18,7 @@ import { allData } from "data/all-data"
 import { dataBackupData } from "data/data-backup"
 import { TimeEntry, timeEntriesData } from "data/time-entries"
 import { CsvImport } from "features/csv-import"
+import { csvExport } from "features/csv-import/csv-export"
 import { dataBackup } from "features/data-backup"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
@@ -165,8 +166,7 @@ const ImportCsvData = () => {
         <Button
           look="ghost"
           icon={HardDriveDownload}
-          onClick={() => null}
-          disabled
+          onClick={() => csvExport(timeEntriesData.get())}
         >
           Export .csv
         </Button>
