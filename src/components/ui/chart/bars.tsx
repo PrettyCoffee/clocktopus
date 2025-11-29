@@ -1,5 +1,7 @@
 import { Fragment } from "react/jsx-runtime"
 
+import { themeData } from "data/theme"
+import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 
 import {
@@ -53,6 +55,7 @@ export const Bars = ({
   fillColor = "default",
   printValue,
 }: BarsProps) => {
+  const { radius } = useAtomValue(themeData)
   const { scalePoint, scaleY } = useChartContext()
   const bars = points.map(point => {
     const top = scalePoint(point)
@@ -70,8 +73,8 @@ export const Bars = ({
               ref={node => {
                 runBarTransition({ node, items: bars.length, index })
               }}
-              rx={2}
-              ry={2}
+              rx={radius / 3}
+              ry={radius / 3}
               x={top.x - barWidth / 2}
               y={top.y}
               width={barWidth}
