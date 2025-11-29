@@ -14,6 +14,7 @@ import { FileInput } from "components/ui/file-input/file-input"
 import { NumberInput } from "components/ui/number-input"
 import { Spinner } from "components/ui/spinner"
 import { showToast } from "components/ui/toaster"
+import { Toggle } from "components/ui/toggle"
 import { allData } from "data/all-data"
 import { dataBackupData } from "data/data-backup"
 import { TimeEntry, timeEntriesData } from "data/time-entries"
@@ -59,14 +60,21 @@ const BackupReminderData = () => (
       "Here you can define how often you want to be reminded."
     }
   >
-    <div className="mx-auto w-max">
+    <div className={cn(hstack({ gap: 4, wrap: true }), "mx-auto w-max")}>
       <NumberInput
         value={useAtomValue(dataBackupData).reminderSchedule}
         min={1}
         max={356}
         unit="day schedule"
-        onChange={(reminderSchedule = 0) =>
+        onChange={(reminderSchedule = 1) =>
           dataBackupData.set(state => ({ ...state, reminderSchedule }))
+        }
+      />
+      <Toggle
+        label="Auto download"
+        checked={useAtomValue(dataBackupData).autoDownload}
+        onChange={autoDownload =>
+          dataBackupData.set(state => ({ ...state, autoDownload }))
         }
       />
     </div>

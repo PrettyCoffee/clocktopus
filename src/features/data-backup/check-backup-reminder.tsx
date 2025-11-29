@@ -1,6 +1,6 @@
 import { HardDriveDownload, Settings } from "lucide-react"
 
-import { showToast } from "components/ui/toaster"
+import { showToast, ToastAction } from "components/ui/toaster"
 import { dataBackupData } from "data/data-backup"
 import { dateHelpers } from "utils/date-helpers"
 
@@ -11,10 +11,21 @@ const shouldRemind = () => {
   return dateHelpers.daysSince(last) >= reminderSchedule
 }
 
-export const checkBackupReminder = async () => {
-  await dataBackupData.didInit
-  if (!shouldRemind()) return
+const toBackupSettings: ToastAction = {
+  icon: Settings,
+  label: "Data Settings",
+  look: "flat",
+  to: "settings/data",
+}
 
+const downloadBackup: ToastAction = {
+  icon: HardDriveDownload,
+  label: "Export Data",
+  look: "ghost",
+  onClick: dataBackup.download,
+}
+
+const suggestDownload = () => {
   const toast = showToast({
     kind: "warn",
     title: "Backup Reminder",
@@ -24,25 +35,62 @@ export const checkBackupReminder = async () => {
         save it, to prevent data loss.
       </>
     ),
+    actions: [toBackupSettings, downloadBackup],
+  })
+
+  const unsubscribe = dataBackupData.subscribe(() => {
+    if (shouldRemind()) return
+    unsubscribe()
+    toast.close()
+  })
+}
+
+const autoDownload = () => {
+  let canceled = false
+
+  const toast = showToast({
+    kind: "info",
+    title: "Automated backup",
+    duration: 5000,
+    message: (
+      <>A backup of your data will be created automatically in a moment.</>
+    ),
     actions: [
       {
-        icon: Settings,
-        label: "Data Settings",
-        look: "flat",
-        to: "settings/data",
-      },
-      {
-        icon: HardDriveDownload,
-        label: "Export Data",
+        label: "Cancel",
         look: "ghost",
-        onClick: dataBackup.download,
+        onClick: () => {
+          canceled = true
+          toast.edit({
+            kind: "warn",
+            duration: undefined,
+            message: (
+              <>
+                Automated backup was cancelled. You can permanently disable it
+                in the data settings.
+              </>
+            ),
+            actions: [toBackupSettings, downloadBackup],
+          })
+        },
       },
     ],
   })
 
-  const unsubscribe = dataBackupData.subscribe(({ last, reminderSchedule }) => {
-    if (dateHelpers.daysSince(last) >= reminderSchedule) return
-    unsubscribe()
-    toast.close()
-  })
+  setTimeout(() => {
+    if (canceled) return
+    dataBackup.download()
+  }, 5000)
+}
+
+export const checkBackupReminder = async () => {
+  await dataBackupData.didInit
+  if (!shouldRemind()) return
+
+  const data = dataBackupData.get()
+  if (data.autoDownload) {
+    autoDownload()
+  } else {
+    suggestDownload()
+  }
 }
