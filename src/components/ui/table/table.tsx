@@ -27,7 +27,11 @@ interface ColumnDef<TConfig extends TableConfig> {
   colSize?: Repeat<TwColSize>
   className?: string
   render: (
-    props: { rowData: TConfig["rowData"] } & TConfig["rowMeta"]
+    props: {
+      rowData: TConfig["rowData"]
+      allData: TConfig["rowData"][]
+      rowIndex: number
+    } & TConfig["rowMeta"]
   ) => ReactNode
 }
 
@@ -44,9 +48,10 @@ const Context = createContext<TableProps<TableConfig>>("TableProps")
 
 interface TableRowProps {
   data: TableData
+  index: number
 }
-const TableRow = ({ data }: TableRowProps) => {
-  const { columns, rowMeta } = Context.useRequiredValue()
+const TableRow = ({ data, index }: TableRowProps) => {
+  const { columns, rowMeta, rowData } = Context.useRequiredValue()
 
   const cellPropsByType = {
     decorator: {},
@@ -72,7 +77,12 @@ const TableRow = ({ data }: TableRowProps) => {
           className={cn(column.colSize, column.className)}
           {...cellPropsByType[column.type]}
         >
-          {column.render({ rowData: data, ...rowMeta })}
+          {column.render({
+            rowData: data,
+            allData: rowData,
+            rowIndex: index,
+            ...rowMeta,
+          })}
         </div>
       ))}
     </div>
@@ -90,7 +100,7 @@ const TableBody = () => {
             <div className="col-span-full mx-2 border-b border-stroke-gentle" />
           )}
 
-          <TableRow data={data} />
+          <TableRow data={data} index={index} />
         </Fragment>
       ))}
     </div>
