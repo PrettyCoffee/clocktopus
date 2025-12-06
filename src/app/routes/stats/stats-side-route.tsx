@@ -51,8 +51,10 @@ export const StatsSideRoute = () => {
     useAtomValue(filteredStatsEntries)
   ).flat()
 
-  const firstEntry = dateHelpers.stringify(dates[0]!)
-  const lastEntry = dateHelpers.stringify(dates.at(-1)!)
+  const firstEntry = !dates[0] ? undefined : dateHelpers.stringify(dates[0])
+  const lastEntry = !dates.at(-1)
+    ? undefined
+    : dateHelpers.stringify(dates.at(-1)!)
 
   const predefinedFilters: StatsFilter[] = [
     allFilter,
