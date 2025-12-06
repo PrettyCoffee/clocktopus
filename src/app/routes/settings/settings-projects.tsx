@@ -296,17 +296,6 @@ const ProjectRows = () => {
 export const SettingsProjects = () => (
   <>
     <Card
-      title="Manage Projects"
-      description={
-        "Organize the projects that you are working on. " +
-        "You can assign categories from below for better structure."
-      }
-    >
-      <AddProject />
-      <div className="pb-0.5" />
-      <ProjectRows />
-    </Card>
-    <Card
       title="Manage Project Categories"
       description={
         "Manage the projects categories that you can use to cluster your projects. " +
@@ -316,6 +305,18 @@ export const SettingsProjects = () => (
       <AddCategory />
       <div className="pb-0.5" />
       <CategoryRows />
+    </Card>
+
+    <Card
+      title="Manage Projects"
+      description={
+        "Organize the projects that you are working on. " +
+        "You can mark a project as private to remove it from statistics."
+      }
+    >
+      <AddProject />
+      <div className="pb-0.5" />
+      <ProjectRows />
     </Card>
   </>
 )
