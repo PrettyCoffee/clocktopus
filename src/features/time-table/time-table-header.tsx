@@ -20,7 +20,7 @@ import { Duration } from "./duration"
 const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
   const projects = useAtomValue(projectsData)
 
-  const totalTimeByProject = [{ id: undefined }, ...projects]
+  const totalTimeByProject = [{ id: undefined, isPrivate: false }, ...projects]
     .map(project => {
       const items = entries.filter(entry => entry.projectId === project.id)
       const minutes = items.reduce(
@@ -31,13 +31,14 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
         projectId: project.id,
         minutes,
         duration: timeHelpers.fromMinutes(minutes),
+        isPrivate: project.isPrivate,
       }
     })
     .filter(({ minutes }) => minutes > 0)
     .sort((a, b) => b.minutes - a.minutes)
 
   const total = totalTimeByProject.reduce(
-    (result, { minutes }) => result + minutes,
+    (result, { minutes, isPrivate }) => (isPrivate ? result : result + minutes),
     0
   )
   const totalDuration = (
