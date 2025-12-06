@@ -25,7 +25,10 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
     ...categories,
   ]
     .map(category => {
-      const items = entries.filter(entry => entry.categoryId === category.id)
+      const items = entries.filter(
+        // Use "" as fallback to catch entries without categoryId
+        entry => (entry.categoryId || "") === (category.id || "")
+      )
       const minutes = items.reduce(
         (result, { start, end }) => result + timeHelpers.getDiff(start, end),
         0
