@@ -5,7 +5,7 @@ import { Dices } from "lucide-react"
 import { IconButton } from "components/ui/icon-button"
 import { createColumnHelper, Table } from "components/ui/table"
 import { TimeEntry } from "data/time-entries"
-import { ProjectName } from "features/components/project-name"
+import { CategoryName } from "features/components/category-name"
 import { cn } from "utils/cn"
 
 import { Container } from "./container"
@@ -37,10 +37,10 @@ const columns = [
     render: ({ rowData }) => <Cell>{rowData.description}</Cell>,
   }),
   helper.column({
-    name: "Project",
+    name: "Category",
     render: ({ rowData, ...meta }) => (
       <Cell>
-        <ProjectName projectId={rowData.projectId} {...meta} />
+        <CategoryName categoryId={rowData.categoryId} {...meta} />
       </Cell>
     ),
   }),

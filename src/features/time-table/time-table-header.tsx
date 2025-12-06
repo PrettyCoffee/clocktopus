@@ -5,9 +5,9 @@ import { Lock, Unlock } from "lucide-react"
 import { Checkbox } from "components/ui/checkbox"
 import { IconButton } from "components/ui/icon-button"
 import { Tooltip } from "components/ui/tooltip"
-import { projectsData } from "data/projects"
+import { categoriesData } from "data/categories"
 import { type TimeEntry } from "data/time-entries"
-import { ProjectName } from "features/components/project-name"
+import { CategoryName } from "features/components/category-name"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
@@ -18,26 +18,29 @@ import { CheckedState, useCheckedState } from "./checked-context"
 import { Duration } from "./duration"
 
 const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
-  const projects = useAtomValue(projectsData)
+  const categories = useAtomValue(categoriesData)
 
-  const totalTimeByProject = [{ id: undefined, isPrivate: false }, ...projects]
-    .map(project => {
-      const items = entries.filter(entry => entry.projectId === project.id)
+  const totalTimeByCategory = [
+    { id: undefined, isPrivate: false },
+    ...categories,
+  ]
+    .map(category => {
+      const items = entries.filter(entry => entry.categoryId === category.id)
       const minutes = items.reduce(
         (result, { start, end }) => result + timeHelpers.getDiff(start, end),
         0
       )
       return {
-        projectId: project.id,
+        categoryId: category.id,
         minutes,
         duration: timeHelpers.fromMinutes(minutes),
-        isPrivate: project.isPrivate,
+        isPrivate: category.isPrivate,
       }
     })
     .filter(({ minutes }) => minutes > 0)
     .sort((a, b) => b.minutes - a.minutes)
 
-  const total = totalTimeByProject.reduce(
+  const total = totalTimeByCategory.reduce(
     (result, { minutes, isPrivate }) => (isPrivate ? result : result + minutes),
     0
   )
@@ -57,12 +60,12 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
       </Tooltip.Trigger>
       <Tooltip.Content align="end" side="bottom" asChild>
         <div className={cn(vstack({ justify: "end" }), "text-sm")}>
-          {totalTimeByProject.map(({ duration, projectId }) => (
+          {totalTimeByCategory.map(({ duration, categoryId }) => (
             <span
-              key={projectId}
+              key={categoryId}
               className={hstack({ justify: "between", gap: 2 })}
             >
-              <ProjectName projectId={projectId} />
+              <CategoryName categoryId={categoryId} />
               <span className="font-mono">{duration}</span>
             </span>
           ))}

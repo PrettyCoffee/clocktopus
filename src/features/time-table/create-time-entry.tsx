@@ -4,13 +4,13 @@ import { Plus } from "lucide-react"
 
 import { AutoComplete } from "components/ui/auto-complete"
 import { IconButton } from "components/ui/icon-button"
-import { projectCategories, projectsData } from "data/projects"
+import { categoryGroupsData, categoriesData } from "data/categories"
 import {
   useDateEntries,
   useAllTimeEntries,
   type TimeEntry,
 } from "data/time-entries"
-import { ProjectName } from "features/components/project-name"
+import { CategoryName } from "features/components/category-name"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
@@ -28,7 +28,7 @@ const useSearchableTimeEntries = () => {
   return useMemo(() => {
     const allItems = allEntries
       .filter(({ description }) => !!description)
-      .map(({ description, projectId }) => ({ description, projectId }))
+      .map(({ description, categoryId }) => ({ description, categoryId }))
 
     const withoutDuplicates = allItems.reduce(
       (result, item) => {
@@ -44,45 +44,43 @@ const useSearchableTimeEntries = () => {
   }, [allEntries])
 }
 
-const useProjects = () => {
-  const projects = useAtomValue(projectsData)
-  const categories = useAtomValue(projectCategories)
+const useCategory = () => {
+  const categories = useAtomValue(categoriesData)
+  const groups = useAtomValue(categoryGroupsData)
 
   return useMemo(
     () =>
       Object.fromEntries(
-        projects.map(({ categoryId, ...project }) => {
-          const category = categories.find(
-            category => category.id === categoryId
-          )
+        categories.map(({ groupId, ...category }) => {
+          const group = groups.find(group => group.id === groupId)
           return [
-            project.id,
+            category.id,
             {
-              ...project,
-              categoryName: category?.name,
-              categoryColor: category?.color,
+              ...category,
+              groupName: group?.name,
+              groupColor: group?.color,
             },
           ] as const
         })
       ),
-    [projects, categories]
+    [categories, groups]
   )
 }
 
 interface LabelProps {
   description: string
-  project?: ReturnType<typeof useProjects>[number]
+  category?: ReturnType<typeof useCategory>[number]
 }
-const OptionLabel = ({ description, project }: LabelProps) => (
+const OptionLabel = ({ description, category }: LabelProps) => (
   <>
     <div className="flex-1 truncate">{description}</div>
-    <ProjectName projectId={project?.id} />
+    <CategoryName categoryId={category?.id} />
   </>
 )
 
 interface DescriptionAutoCompleteProps {
   filter: string
-  onSelect: Dispatch<{ description: string; project?: string }>
+  onSelect: Dispatch<{ description: string; category?: string }>
 }
 const DescriptionAutoComplete = ({
   filter,
@@ -90,7 +88,7 @@ const DescriptionAutoComplete = ({
   children,
 }: PropsWithChildren<DescriptionAutoCompleteProps>) => {
   const entries = useSearchableTimeEntries()
-  const projects = useProjects()
+  const categories = useCategory()
 
   return (
     <AutoComplete<(typeof entries)[number]>
@@ -101,7 +99,7 @@ const DescriptionAutoComplete = ({
       renderOptionLabel={item => (
         <OptionLabel
           description={item.description}
-          project={!item.projectId ? undefined : projects[item.projectId]}
+          category={!item.categoryId ? undefined : categories[item.categoryId]}
         />
       )}
     >
@@ -142,7 +140,7 @@ export const CreateTimeEntry = () => {
         </DescriptionAutoComplete>
 
         <div className="col-[span_2] @xl:col-auto">
-          <inputs.Project entry={data} onChange={updateData} />
+          <inputs.Category entry={data} onChange={updateData} />
         </div>
 
         <div className="col-[span_2] justify-self-end @xl:col-auto @xl:justify-self-start">

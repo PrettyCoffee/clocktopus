@@ -41,7 +41,7 @@ const ColumnSelect = ({
 export interface ColumnLookup {
   date?: number
   description?: number
-  project?: number
+  category?: number
   timeStart?: number
   timeEnd?: number
 }
@@ -49,7 +49,7 @@ export interface ColumnLookup {
 const columnSelects: { label: string; key: keyof ColumnLookup }[] = [
   { key: "date", label: "Date" },
   { key: "description", label: "Description" },
-  { key: "project", label: "Project" },
+  { key: "category", label: "Category" },
   { key: "timeStart", label: "Time Start" },
   { key: "timeEnd", label: "Time End" },
 ]

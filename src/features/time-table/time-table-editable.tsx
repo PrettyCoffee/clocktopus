@@ -48,12 +48,12 @@ const descriptionColumn = helper.column({
     />
   ),
 })
-const projectColumn = helper.column({
-  name: "Project",
+const categoryColumn = helper.column({
+  name: "Category",
   colSize: "col-[2_/_6] @xl:col-[2] @4xl:col-[span_1]",
   className: "@4xl:*:w-full",
   render: ({ rowData, onChange }) => (
-    <inputs.Project
+    <inputs.Category
       entry={rowData}
       onChange={data =>
         onChange(rowData.date, rowData.id, { ...rowData, ...data })
@@ -149,7 +149,7 @@ export const TimeTableEditable = ({ entries }: { entries: TimeEntry[] }) => {
       columns={[
         checkedColumn,
         descriptionColumn,
-        projectColumn,
+        categoryColumn,
         dateColumn,
         timeStartColumn,
         timeSeparatorColumn,

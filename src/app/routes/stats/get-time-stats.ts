@@ -1,4 +1,4 @@
-import { projectsData } from "data/projects"
+import { categoriesData } from "data/categories"
 import { TimeEntry } from "data/time-entries"
 import { timeHelpers } from "utils/time-helpers"
 
@@ -7,8 +7,8 @@ const average = (numbers: number[]) => {
   return sum / numbers.length
 }
 
-const getProject = (projectId?: string) =>
-  projectsData.get().find(project => project.id === projectId)
+const getCategory = (categoryId?: string) =>
+  categoriesData.get().find(category => category.id === categoryId)
 
 export interface TimeStats {
   start: number
@@ -24,8 +24,8 @@ export const getTimeStats = (
   const end: number[] = []
 
   Object.values(entries).forEach(entries => {
-    const times = entries.flatMap(({ start, end, projectId }) =>
-      getProject(projectId)?.isPrivate
+    const times = entries.flatMap(({ start, end, categoryId }) =>
+      getCategory(categoryId)?.isPrivate
         ? []
         : {
             start: timeHelpers.toMinutes(start),

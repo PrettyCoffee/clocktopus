@@ -7,17 +7,17 @@ import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 
 import { Preview } from "./fragments/preview"
+import { CategoryMapping, SelectCategory } from "./fragments/select-categories"
 import { SelectColumns, ColumnLookup } from "./fragments/select-columns"
-import { ProjectMapping, SelectProjects } from "./fragments/select-projects"
 import { buildRows } from "./utils/build-rows"
 import { processCsv } from "./utils/process-csv"
 
-const getImportedProjects = (rows: string[][], projectIndex: number) => {
-  const allProjects = rows
-    .map(row => row[projectIndex])
+const getImportedCategories = (rows: string[][], categoryIndex: number) => {
+  const allCategories = rows
+    .map(row => row[categoryIndex])
     .filter(Boolean) as string[]
 
-  return [...new Set(allProjects)].sort()
+  return [...new Set(allCategories)].sort()
 }
 
 const findHeader = (headers: string[], columnName: string) => {
@@ -29,7 +29,7 @@ const findHeader = (headers: string[], columnName: string) => {
 const getInitialColumnLookup = (headers: string[]): ColumnLookup => ({
   date: findHeader(headers, "date"),
   description: findHeader(headers, "description"),
-  project: findHeader(headers, "project"),
+  category: findHeader(headers, "category"),
   timeStart: findHeader(headers, "time start"),
   timeEnd: findHeader(headers, "time end"),
 })
@@ -40,22 +40,21 @@ interface CsvImportProps {
   onClose: () => void
 }
 export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
-  const [projectMapping, updateProjectMapping] = useObjectState<ProjectMapping>(
-    {}
-  )
+  const [categoryMapping, updateCategoryMapping] =
+    useObjectState<CategoryMapping>({})
 
   const { headers, rows } = useMemo(() => processCsv(csv), [csv])
   const [columnLookup, updateColumnLookup] = useObjectState<ColumnLookup>(
     getInitialColumnLookup(headers)
   )
 
-  const importedProjects = useMemo(
-    () => getImportedProjects(rows, columnLookup.project ?? -1),
-    [columnLookup.project, rows]
+  const importedCategories = useMemo(
+    () => getImportedCategories(rows, columnLookup.category ?? -1),
+    [columnLookup.category, rows]
   )
   const data = useMemo(
-    () => buildRows(rows, columnLookup, projectMapping),
-    [columnLookup, rows, projectMapping]
+    () => buildRows(rows, columnLookup, categoryMapping),
+    [columnLookup, rows, categoryMapping]
   )
 
   return (
@@ -78,10 +77,10 @@ export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
             columnLookup={columnLookup}
             onColumnLookupChange={updateColumnLookup}
           />
-          <SelectProjects
-            importedProjects={importedProjects}
-            projectMapping={projectMapping}
-            onProjectMappingChange={updateProjectMapping}
+          <SelectCategory
+            importedCategories={importedCategories}
+            categoryMapping={categoryMapping}
+            onCategoryMappingChange={updateCategoryMapping}
           />
         </div>
 

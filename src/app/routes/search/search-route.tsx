@@ -4,7 +4,7 @@ import { ContextInfo } from "components/ui/context-info"
 import { Input } from "components/ui/input"
 import { PageRange, Pagination } from "components/ui/pagination"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
-import { ProjectSelect } from "features/components/project-select"
+import { CategorySelect } from "features/components/category-select"
 import {
   CheckedStateProvider,
   TimeEntriesBulkActions,
@@ -74,9 +74,9 @@ export const SearchRoute = () => {
   const filtered = useMemo(() => {
     let filtered = allFlat
 
-    if (filter.projectId) {
+    if (filter.categoryId) {
       filtered = filtered.filter(
-        ({ projectId }) => projectId === filter.projectId
+        ({ categoryId }) => categoryId === filter.categoryId
       )
     }
 
@@ -89,7 +89,7 @@ export const SearchRoute = () => {
     }
 
     return filtered
-  }, [allFlat, filter.description, filter.projectId])
+  }, [allFlat, filter.description, filter.categoryId])
 
   return (
     <div className={cn(vstack({}), "h-full px-10 pt-6")}>
@@ -101,9 +101,9 @@ export const SearchRoute = () => {
           onChange={description => setFilter({ description })}
           className="flex-1"
         />
-        <ProjectSelect
-          value={filter.projectId ?? ""}
-          onChange={projectId => setFilter({ projectId })}
+        <CategorySelect
+          value={filter.categoryId ?? ""}
+          onChange={categoryId => setFilter({ categoryId })}
           className="min-w-45"
         />
       </div>

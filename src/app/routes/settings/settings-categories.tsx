@@ -12,11 +12,11 @@ import { createColumnHelper, Table } from "components/ui/table"
 import { Toggle } from "components/ui/toggle"
 import { ScrollArea } from "components/utility/scroll-area"
 import {
-  Project,
-  projectCategories,
-  ProjectCategory,
-  projectsData,
-} from "data/projects"
+  Category,
+  categoryGroupsData,
+  CategoryGroup,
+  categoriesData,
+} from "data/categories"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
@@ -27,7 +27,7 @@ const requestDeletion = ({
   name,
   onDelete,
 }: {
-  type: "Project" | "Category"
+  type: "category" | "category group"
   name: string
   onDelete: () => void
 }) =>
@@ -45,12 +45,130 @@ const requestDeletion = ({
     },
   })
 
-const AddCategory = () => {
-  const initialData: Omit<ProjectCategory, "id"> = {
+const AddGroup = () => {
+  const initialData: Omit<CategoryGroup, "id"> = {
     name: "",
     color: "neutral",
   }
   const [data, updateData] = useObjectState(initialData)
+
+  return (
+    <div
+      className={cn(hstack({ gap: 2 }), "rounded-md bg-background-page/50 p-1")}
+    >
+      <Input
+        type="text"
+        placeholder="Group name"
+        value={data.name}
+        onChange={name => updateData({ name })}
+        className="flex-1"
+      />
+      <ColorInput
+        mode="dropdown"
+        value={data.color}
+        onChange={color => updateData({ color })}
+      />
+      <IconButton
+        icon={Plus}
+        title="Add group"
+        onClick={() => {
+          categoryGroupsData.actions.add(data)
+          updateData(initialData)
+        }}
+      />
+    </div>
+  )
+}
+
+const groupHelper = createColumnHelper<{ rowData: CategoryGroup }>()
+const groupNameColumn = groupHelper.column({
+  name: "Group name",
+  className: "flex",
+  render: ({ rowData }) => (
+    <Input
+      type="text"
+      placeholder="Group name"
+      value={rowData.name}
+      onChange={name => categoryGroupsData.actions.edit(rowData.id, { name })}
+      className="flex-1"
+    />
+  ),
+})
+const groupColorColumn = groupHelper.column({
+  name: "Group color",
+  className: "*:w-full",
+  render: ({ rowData }) => (
+    <ColorInput
+      mode="dropdown"
+      value={rowData.color}
+      onChange={color => categoryGroupsData.actions.edit(rowData.id, { color })}
+    />
+  ),
+})
+const groupDeleteColumn = groupHelper.column({
+  name: "Group actions",
+  render: ({ rowData }) => (
+    <IconButton
+      icon={Trash}
+      title="Delete group"
+      className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
+      onClick={() =>
+        requestDeletion({
+          type: "category group",
+          name: rowData.name,
+          onDelete: () => categoryGroupsData.actions.delete(rowData.id),
+        })
+      }
+    />
+  ),
+})
+
+const GroupRows = () => {
+  const groups = useAtomValue(categoryGroupsData)
+  return (
+    <ScrollArea className="max-h-60">
+      <Table
+        hideHeaders
+        columns={[groupNameColumn, groupColorColumn, groupDeleteColumn]}
+        gridCols="grid-cols-[1fr_auto_auto]"
+        rowData={groups}
+        rowMeta={{}}
+      />
+    </ScrollArea>
+  )
+}
+
+const GroupSelect = ({
+  value,
+  onChange,
+  groups,
+}: {
+  value: string
+  onChange: Dispatch<string>
+  groups: CategoryGroup[]
+}) => (
+  <Select.Root placeholder="None" value={value} onChange={onChange}>
+    <Select.Option value="none" label="No group">
+      <span className="text-text-muted">No group</span>
+    </Select.Option>
+    <Select.Separator />
+    {groups.map(group => (
+      <Select.Option key={group.id} value={group.id} label={group.name}>
+        <span className={colored({ type: "text", color: group.color })}>
+          {group.name}
+        </span>
+      </Select.Option>
+    ))}
+  </Select.Root>
+)
+
+const AddCategory = () => {
+  const initialData: Omit<Category, "id"> = {
+    name: "",
+    groupId: "",
+  }
+  const [data, updateData] = useObjectState(initialData)
+  const groups = useAtomValue(categoryGroupsData)
 
   return (
     <div
@@ -63,16 +181,16 @@ const AddCategory = () => {
         onChange={name => updateData({ name })}
         className="flex-1"
       />
-      <ColorInput
-        mode="dropdown"
-        value={data.color}
-        onChange={color => updateData({ color })}
+      <GroupSelect
+        value={data.groupId ?? ""}
+        onChange={groupId => updateData({ groupId })}
+        groups={groups}
       />
       <IconButton
         icon={Plus}
         title="Add category"
         onClick={() => {
-          projectCategories.actions.add(data)
+          categoriesData.actions.add(data)
           updateData(initialData)
         }}
       />
@@ -80,7 +198,10 @@ const AddCategory = () => {
   )
 }
 
-const categoryHelper = createColumnHelper<{ rowData: ProjectCategory }>()
+const categoryHelper = createColumnHelper<{
+  rowData: Category
+  rowMeta: { groups: CategoryGroup[] }
+}>()
 const categoryNameColumn = categoryHelper.column({
   name: "Category name",
   className: "flex",
@@ -89,21 +210,39 @@ const categoryNameColumn = categoryHelper.column({
       type="text"
       placeholder="Category name"
       value={rowData.name}
-      onChange={name => projectCategories.actions.edit(rowData.id, { name })}
+      onChange={name => categoriesData.actions.edit(rowData.id, { name })}
       className="flex-1"
     />
   ),
 })
-const categoryColorColumn = categoryHelper.column({
-  name: "Category color",
-  className: "*:w-full",
+const categoryPrivateColumn = categoryHelper.column({
+  name: "Category is private",
+  className: "flex",
   render: ({ rowData }) => (
-    <ColorInput
-      mode="dropdown"
-      value={rowData.color}
-      onChange={color => projectCategories.actions.edit(rowData.id, { color })}
+    <Toggle
+      label="Private"
+      checked={!!rowData.isPrivate}
+      onChange={isPrivate =>
+        categoriesData.actions.edit(rowData.id, { isPrivate })
+      }
     />
   ),
+})
+const categoryGroupColumn = categoryHelper.column({
+  name: "Category actions",
+  className: "*:w-full",
+  render: ({ rowData, groups }) => {
+    const current = groups.find(group => group.id === rowData.groupId)
+    return (
+      <GroupSelect
+        groups={groups}
+        value={current?.id ?? ""}
+        onChange={groupId =>
+          categoriesData.actions.edit(rowData.id, { groupId })
+        }
+      />
+    )
+  },
 })
 const categoryDeleteColumn = categoryHelper.column({
   name: "Category actions",
@@ -114,9 +253,9 @@ const categoryDeleteColumn = categoryHelper.column({
       className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
       onClick={() =>
         requestDeletion({
-          type: "Category",
+          type: "category",
           name: rowData.name,
-          onDelete: () => projectCategories.actions.delete(rowData.id),
+          onDelete: () => categoriesData.actions.delete(rowData.id),
         })
       }
     />
@@ -124,199 +263,50 @@ const categoryDeleteColumn = categoryHelper.column({
 })
 
 const CategoryRows = () => {
-  const categories = useAtomValue(projectCategories)
+  const categories = useAtomValue(categoriesData)
+  const groups = useAtomValue(categoryGroupsData)
   return (
     <ScrollArea className="max-h-60">
       <Table
         hideHeaders
         columns={[
           categoryNameColumn,
-          categoryColorColumn,
+          categoryGroupColumn,
+          categoryPrivateColumn,
           categoryDeleteColumn,
         ]}
-        gridCols="grid-cols-[1fr_auto_auto]"
-        rowData={Object.values(categories)}
-        rowMeta={{}}
-      />
-    </ScrollArea>
-  )
-}
-
-const CategorySelect = ({
-  value,
-  onChange,
-  categories,
-}: {
-  value: string
-  onChange: Dispatch<string>
-  categories: ProjectCategory[]
-}) => (
-  <Select.Root placeholder="None" value={value} onChange={onChange}>
-    <Select.Option value="none" label="No category">
-      <span className="text-text-muted">No category</span>
-    </Select.Option>
-    <Select.Separator />
-    {categories.map(category => (
-      <Select.Option
-        key={category.id}
-        value={category.id}
-        label={category.name}
-      >
-        <span className={colored({ type: "text", color: category.color })}>
-          {category.name}
-        </span>
-      </Select.Option>
-    ))}
-  </Select.Root>
-)
-
-const AddProject = () => {
-  const initialData: Omit<Project, "id"> = {
-    name: "",
-    categoryId: "",
-  }
-  const [data, updateData] = useObjectState(initialData)
-  const categories = useAtomValue(projectCategories)
-
-  return (
-    <div
-      className={cn(hstack({ gap: 2 }), "rounded-md bg-background-page/50 p-1")}
-    >
-      <Input
-        type="text"
-        placeholder="Project name"
-        value={data.name}
-        onChange={name => updateData({ name })}
-        className="flex-1"
-      />
-      <CategorySelect
-        value={data.categoryId ?? ""}
-        onChange={categoryId => updateData({ categoryId })}
-        categories={categories}
-      />
-      <IconButton
-        icon={Plus}
-        title="Add project"
-        onClick={() => {
-          projectsData.actions.add(data)
-          updateData(initialData)
-        }}
-      />
-    </div>
-  )
-}
-
-const projectHelper = createColumnHelper<{
-  rowData: Project
-  rowMeta: { categories: ProjectCategory[] }
-}>()
-const projectNameColumn = projectHelper.column({
-  name: "Project name",
-  className: "flex",
-  render: ({ rowData }) => (
-    <Input
-      type="text"
-      placeholder="Project name"
-      value={rowData.name}
-      onChange={name => projectsData.actions.edit(rowData.id, { name })}
-      className="flex-1"
-    />
-  ),
-})
-const projectBreakColumn = projectHelper.column({
-  name: "Project is break",
-  className: "flex",
-  render: ({ rowData }) => (
-    <Toggle
-      label="Private"
-      checked={!!rowData.isPrivate}
-      onChange={isPrivate =>
-        projectsData.actions.edit(rowData.id, { isPrivate })
-      }
-    />
-  ),
-})
-const projectCategoryColumn = projectHelper.column({
-  name: "Project actions",
-  className: "*:w-full",
-  render: ({ rowData, categories }) => {
-    const current = categories.find(
-      category => category.id === rowData.categoryId
-    )
-    return (
-      <CategorySelect
-        categories={categories}
-        value={current?.id ?? ""}
-        onChange={categoryId =>
-          projectsData.actions.edit(rowData.id, { categoryId })
-        }
-      />
-    )
-  },
-})
-const projectDeleteColumn = projectHelper.column({
-  name: "Project actions",
-  render: ({ rowData }) => (
-    <IconButton
-      icon={Trash}
-      title="Delete project"
-      className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
-      onClick={() =>
-        requestDeletion({
-          type: "Project",
-          name: rowData.name,
-          onDelete: () => projectsData.actions.delete(rowData.id),
-        })
-      }
-    />
-  ),
-})
-
-const ProjectRows = () => {
-  const projects = useAtomValue(projectsData)
-  const categories = useAtomValue(projectCategories)
-  return (
-    <ScrollArea className="max-h-60">
-      <Table
-        hideHeaders
-        columns={[
-          projectNameColumn,
-          projectCategoryColumn,
-          projectBreakColumn,
-          projectDeleteColumn,
-        ]}
         gridCols="grid-cols-[1fr_auto_auto_auto]"
-        rowData={projects}
-        rowMeta={{ categories }}
+        rowData={categories}
+        rowMeta={{ groups }}
       />
     </ScrollArea>
   )
 }
 
-export const SettingsProjects = () => (
+export const SettingsCategories = () => (
   <>
     <Card
-      title="Manage Project Categories"
+      title="Manage Category Groups"
       description={
-        "Manage the projects categories that you can use to cluster your projects. " +
-        'For example, you could group the Projects "Feature Development" and "Code Maintenance" in a "Development" category. '
+        "Manage groups that you can use to cluster your categories. " +
+        'For example, you could group the categories "Feature Development" and "Code Maintenance" in a "Development" group. '
+      }
+    >
+      <AddGroup />
+      <div className="pb-0.5" />
+      <GroupRows />
+    </Card>
+
+    <Card
+      title="Manage Categories"
+      description={
+        "Organize categories to label your time entries. " +
+        "You can mark a category as private to remove it from statistics."
       }
     >
       <AddCategory />
       <div className="pb-0.5" />
       <CategoryRows />
-    </Card>
-
-    <Card
-      title="Manage Projects"
-      description={
-        "Organize the projects that you are working on. " +
-        "You can mark a project as private to remove it from statistics."
-      }
-    >
-      <AddProject />
-      <div className="pb-0.5" />
-      <ProjectRows />
     </Card>
   </>
 )

@@ -1,4 +1,4 @@
-import { projectCategories, projectsData } from "data/projects"
+import { categoryGroupsData, categoriesData } from "data/categories"
 import { TimeEntry } from "data/time-entries"
 import { dateHelpers } from "utils/date-helpers"
 import { download } from "utils/download"
@@ -35,19 +35,17 @@ export const csvExport = (entries: Record<string, TimeEntry[]>) => {
       )
     )
 
-  const projects = projectsData.get()
-  const categories = projectCategories.get()
-  const getProjectName = (projectId?: string) => {
-    const current = projects.find(project => project.id === projectId)
-    const category = categories.find(
-      category => category.id === current?.categoryId
-    )
-    return [category?.name, current?.name].filter(Boolean).join(" - ")
+  const categories = categoriesData.get()
+  const groups = categoryGroupsData.get()
+  const getCategoryName = (categoryId?: string) => {
+    const current = categories.find(category => category.id === categoryId)
+    const group = groups.find(group => group.id === current?.groupId)
+    return [group?.name, current?.name].filter(Boolean).join(" - ")
   }
 
   const csv = toCsv(allEntries, [
     { key: "description", format: description => description ?? "" },
-    { key: "projectId", format: getProjectName },
+    { key: "categoryId", format: getCategoryName },
     { key: "date" },
     { key: "start" },
     { key: "end" },

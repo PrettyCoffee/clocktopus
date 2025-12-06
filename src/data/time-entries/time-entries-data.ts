@@ -12,7 +12,7 @@ export const timeEntrySchema = z.object({
   start: z.string(),
   end: z.string(),
   date: z.string(),
-  projectId: z.optional(z.string()),
+  categoryId: z.optional(z.string()),
 })
 export type TimeEntry = Resolve<z.infer<typeof timeEntrySchema>>
 type DateAndId = Pick<TimeEntry, "date" | "id">

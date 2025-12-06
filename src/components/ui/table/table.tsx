@@ -27,7 +27,6 @@ interface ColumnDef<TConfig extends TableConfig> {
   colSize?: Repeat<TwColSize>
   className?: string
   render: (
-    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents -- the exact type might be different and not be overwritten
     props: { rowData: TConfig["rowData"] } & TConfig["rowMeta"]
   ) => ReactNode
 }

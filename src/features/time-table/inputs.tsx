@@ -4,7 +4,7 @@ import { DateInput } from "components/ui/date-input"
 import { Input } from "components/ui/input"
 import { TimeInput } from "components/ui/time-input"
 import { type TimeEntry } from "data/time-entries"
-import { ProjectSelect } from "features/components/project-select"
+import { CategorySelect } from "features/components/category-select"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
@@ -62,12 +62,12 @@ const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => {
 }
 const TimeSeparator = () => <span className="mx-2 text-text-gentle">–⁠</span>
 
-const TableProjectSelect = ({ entry, onChange, ...rest }: InputProps) => (
-  <ProjectSelect
+const TableCategorySelect = ({ entry, onChange, ...rest }: InputProps) => (
+  <CategorySelect
     {...rest}
-    value={entry.projectId ?? ""}
-    onChange={project =>
-      onChange({ projectId: project === "none" ? undefined : project })
+    value={entry.categoryId ?? ""}
+    onChange={categoryId =>
+      onChange({ categoryId: categoryId === "none" ? undefined : categoryId })
     }
   />
 )
@@ -78,5 +78,5 @@ export const inputs = {
   TimeStart,
   TimeEnd,
   TimeSeparator,
-  Project: TableProjectSelect,
+  Category: TableCategorySelect,
 }

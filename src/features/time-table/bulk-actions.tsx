@@ -12,7 +12,7 @@ import { MovableSnackBar } from "components/ui/movable-snack-bar"
 import { showToast } from "components/ui/toaster"
 import { preferencesData } from "data/preferences"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
-import { ProjectSelect } from "features/components/project-select"
+import { CategorySelect } from "features/components/category-select"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
@@ -64,15 +64,15 @@ const getInitialData = (checked: CheckedState) => {
   const sameDescription = rest.every(
     ({ description }) => description === first?.description
   )
-  const sameProject = rest.every(
-    ({ projectId }) => projectId === first?.projectId
+  const sameCategory = rest.every(
+    ({ categoryId }) => categoryId === first?.categoryId
   )
   const sameDate = rest.every(({ date }) => date === first?.date)
 
   return {
     description: sameDescription ? first?.description : mixedData,
     date: sameDate ? first?.date : mixedData,
-    projectId: sameProject ? first?.projectId : mixedData,
+    categoryId: sameCategory ? first?.categoryId : mixedData,
   }
 }
 
@@ -95,7 +95,7 @@ const BulkEditModal = ({
     const changes: Partial<TimeEntry> = {}
     if (state.description !== mixedData) changes.description = state.description
     if (state.date !== mixedData) changes.date = state.date
-    if (state.projectId !== mixedData) changes.projectId = state.projectId
+    if (state.categoryId !== mixedData) changes.categoryId = state.categoryId
 
     onEdit(changes)
   }
@@ -123,11 +123,11 @@ const BulkEditModal = ({
       </InputLabel>
 
       <div className={cn(hstack({ gap: 2 }))}>
-        <InputLabel label="Project" className="flex-1">
-          <ProjectSelect
-            caption={state.projectId === mixedData ? mixedData : undefined}
-            value={state.projectId ?? ""}
-            onChange={projectId => updateState({ projectId })}
+        <InputLabel label="Category" className="flex-1">
+          <CategorySelect
+            caption={state.categoryId === mixedData ? mixedData : undefined}
+            value={state.categoryId ?? ""}
+            onChange={categoryId => updateState({ categoryId })}
           />
         </InputLabel>
 

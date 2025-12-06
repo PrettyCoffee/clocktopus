@@ -4,9 +4,9 @@ import { Route, Switch } from "wouter"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
+import { SettingsCategories } from "./settings-categories"
 import { SettingsData } from "./settings-data"
 import { SettingsGeneral } from "./settings-general"
-import { SettingsProjects } from "./settings-projects"
 import { SettingsTheming } from "./settings-theming"
 
 const SectionHeader = ({ title }: { title: string }) => (
@@ -45,7 +45,7 @@ const SettingsHeader = () => (
 export const settingPages = [
   { path: "/general", title: "General", Component: SettingsGeneral },
   { path: "/theming", title: "Theming", Component: SettingsTheming },
-  { path: "/projects", title: "Projects", Component: SettingsProjects },
+  { path: "/categories", title: "Categories", Component: SettingsCategories },
   { path: "/data", title: "Data", Component: SettingsData },
 ]
 

@@ -4,7 +4,7 @@ import { Divider } from "components/ui/divider"
 import { createColumnHelper, Table } from "components/ui/table"
 import { preferencesData } from "data/preferences"
 import { type TimeEntry } from "data/time-entries"
-import { ProjectName } from "features/components/project-name"
+import { CategoryName } from "features/components/category-name"
 import { useAtomValue } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
@@ -16,30 +16,30 @@ import { Duration } from "./duration"
 interface TimeSummary {
   id: string
   description: string
-  projectId: string
+  categoryId: string
   minutes: number
 }
 
 const summarize = (entries: TimeEntry[]): TimeSummary[] => {
   const clustered = entries.reduce<Record<string, Record<string, number>>>(
-    (result, { description, projectId = "", start, end }) => {
-      if (!result[projectId]) {
-        result[projectId] = {}
+    (result, { description, categoryId = "", start, end }) => {
+      if (!result[categoryId]) {
+        result[categoryId] = {}
       }
-      if (result[projectId][description] == null) {
-        result[projectId][description] = 0
+      if (result[categoryId][description] == null) {
+        result[categoryId][description] = 0
       }
-      result[projectId][description] += timeHelpers.getDiff(start, end)
+      result[categoryId][description] += timeHelpers.getDiff(start, end)
       return result
     },
     {}
   )
 
   return Object.entries(clustered)
-    .flatMap(([projectId, descriptions]) =>
+    .flatMap(([categoryId, descriptions]) =>
       Object.entries(descriptions).map(([description, minutes]) => ({
-        id: `${description}-${projectId}`,
-        projectId,
+        id: `${description}-${categoryId}`,
+        categoryId,
         description,
         minutes,
       }))
@@ -83,10 +83,10 @@ const descriptionColumn = helper.column({
     </Cell>
   ),
 })
-const projectColumn = helper.column({
-  name: "Project",
+const categoryColumn = helper.column({
+  name: "Category",
   className: "@4xl:*:w-full",
-  render: ({ rowData }) => <ProjectName projectId={rowData.projectId} />,
+  render: ({ rowData }) => <CategoryName categoryId={rowData.categoryId} />,
 })
 const durationColumn = helper.column({
   name: "Duration",
@@ -106,12 +106,12 @@ const TimeSummaryTable = ({ summary }: { summary: TimeSummary[] }) => (
       gridCols="grid-cols-[1fr_auto] @xl:grid-cols-[1fr_auto_auto]"
       rowData={summary}
       rowMeta={{}}
-      columns={[descriptionColumn, projectColumn, durationColumn]}
+      columns={[descriptionColumn, categoryColumn, durationColumn]}
     />
   </div>
 )
 
-const SummaryBlock = ({ description, projectId, minutes }: TimeSummary) => (
+const SummaryBlock = ({ description, categoryId, minutes }: TimeSummary) => (
   <div className={cn(surface({ look: "card", size: "md" }), vstack({}))}>
     <div className={cn("line-clamp-2", !description && "text-text-muted")}>
       {description || "No description"}
@@ -121,7 +121,7 @@ const SummaryBlock = ({ description, projectId, minutes }: TimeSummary) => (
 
     <Divider color="gentle" className="my-2" />
     <div className={hstack({ justify: "between" })}>
-      <ProjectName projectId={projectId} />
+      <CategoryName categoryId={categoryId} />
       <Duration minutes={minutes} />
     </div>
   </div>
