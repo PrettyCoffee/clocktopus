@@ -1,16 +1,18 @@
 import { Dispatch } from "react"
 
-import { Plus, Trash } from "lucide-react"
+import { ChevronDown, ChevronUp, Plus, Trash } from "lucide-react"
 
 import { Card } from "components/ui/card"
 import { ColorInput } from "components/ui/color-input"
 import { showDialog } from "components/ui/dialog"
+import { Icon } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
 import { Input } from "components/ui/input"
 import { Select } from "components/ui/select"
 import { createColumnHelper, Table } from "components/ui/table"
 import { Toggle } from "components/ui/toggle"
 import { ScrollArea } from "components/utility/scroll-area"
+import { VisuallyHidden } from "components/utility/visually-hidden"
 import {
   Category,
   categoryGroupsData,
@@ -20,7 +22,7 @@ import {
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
-import { colored, hstack } from "utils/styles"
+import { colored, hstack, interactive, vstack } from "utils/styles"
 
 const requestDeletion = ({
   type,
@@ -80,7 +82,68 @@ const AddGroup = () => {
   )
 }
 
+interface MoveButtonProps {
+  direction: "up" | "down"
+  onClick: () => void
+  disabled: boolean
+}
+const MoveButton = ({ direction, disabled, ...props }: MoveButtonProps) => {
+  const isUp = direction === "up"
+  const icon = isUp ? ChevronUp : ChevronDown
+  const caption = isUp ? "Move up" : "Move down"
+
+  return (
+    <button
+      {...props}
+      disabled={disabled}
+      className={cn(
+        interactive({ look: "flat", disabled }),
+        hstack({ align: isUp ? "end" : "start", justify: "center" }),
+        "m-0 w-full flex-1 overflow-hidden"
+      )}
+    >
+      <Icon size="sm" icon={icon} />
+      <VisuallyHidden>{caption}</VisuallyHidden>
+    </button>
+  )
+}
+
+interface MoveButtonsProps {
+  canMoveUp: boolean
+  canMoveDown: boolean
+  onClick: Dispatch<number>
+}
+const MoveButtons = ({ canMoveDown, canMoveUp, onClick }: MoveButtonsProps) => (
+  <div
+    className={cn(
+      vstack({ gap: 0, inline: true }),
+      "size-10 overflow-hidden rounded-md [[role='row']:not(:hover,:has(*:focus-visible))_&]:opacity-50"
+    )}
+  >
+    <MoveButton
+      direction="up"
+      disabled={!canMoveUp}
+      onClick={() => onClick(-1)}
+    />
+    <MoveButton
+      direction="down"
+      disabled={!canMoveDown}
+      onClick={() => onClick(1)}
+    />
+  </div>
+)
+
 const groupHelper = createColumnHelper<{ rowData: CategoryGroup }>()
+const groupOrderColumn = groupHelper.column({
+  name: "Group order",
+  render: ({ rowData, allData, rowIndex }) => (
+    <MoveButtons
+      onClick={change => categoryGroupsData.actions.move(rowData.id, change)}
+      canMoveUp={rowIndex > 0}
+      canMoveDown={rowIndex < allData.length - 1}
+    />
+  ),
+})
 const groupNameColumn = groupHelper.column({
   name: "Group name",
   className: "flex",
@@ -129,8 +192,13 @@ const GroupRows = () => {
     <ScrollArea className="max-h-60">
       <Table
         hideHeaders
-        columns={[groupNameColumn, groupColorColumn, groupDeleteColumn]}
-        gridCols="grid-cols-[1fr_auto_auto]"
+        columns={[
+          groupOrderColumn,
+          groupNameColumn,
+          groupColorColumn,
+          groupDeleteColumn,
+        ]}
+        gridCols="grid-cols-[auto_1fr_auto_auto]"
         rowData={groups}
         rowMeta={{}}
       />
@@ -202,6 +270,16 @@ const categoryHelper = createColumnHelper<{
   rowData: Category
   rowMeta: { groups: CategoryGroup[] }
 }>()
+const categoryOrderColumn = categoryHelper.column({
+  name: "Category order",
+  render: ({ rowData, allData, rowIndex }) => (
+    <MoveButtons
+      onClick={change => categoriesData.actions.move(rowData.id, change)}
+      canMoveUp={rowIndex > 0}
+      canMoveDown={rowIndex < allData.length - 1}
+    />
+  ),
+})
 const categoryNameColumn = categoryHelper.column({
   name: "Category name",
   className: "flex",
@@ -270,12 +348,13 @@ const CategoryRows = () => {
       <Table
         hideHeaders
         columns={[
+          categoryOrderColumn,
           categoryNameColumn,
           categoryGroupColumn,
           categoryPrivateColumn,
           categoryDeleteColumn,
         ]}
-        gridCols="grid-cols-[1fr_auto_auto_auto]"
+        gridCols="grid-cols-[auto_1fr_auto_auto_auto]"
         rowData={categories}
         rowMeta={{ groups }}
       />

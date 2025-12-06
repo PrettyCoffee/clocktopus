@@ -1,7 +1,8 @@
 import { z } from "zod/mini"
 
-import { autoSort, createSlice, indexedDb, sync } from "lib/yaasl"
+import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
+import { arrayMove } from "utils/array-move"
 import { createId } from "utils/create-id"
 import { allColors } from "utils/styles"
 
@@ -22,13 +23,7 @@ const defaultValue: CategoryGroup[] = [
 export const categoryGroupsData = createSlice({
   name: "category-groups",
   defaultValue,
-  effects: [
-    autoSort<CategoryGroup>({
-      sortFn: (a, b) => a.name.localeCompare(b.name),
-    }),
-    indexedDb(),
-    sync(),
-  ],
+  effects: [indexedDb(), sync()],
   reducers: {
     add: (state, data: Omit<CategoryGroup, "id">) => {
       const id = createId("mini")
@@ -37,5 +32,9 @@ export const categoryGroupsData = createSlice({
     edit: (state, id: string, data: Partial<CategoryGroup>) =>
       state.map(group => (group.id !== id ? group : { ...group, ...data, id })),
     delete: (state, id: string) => state.filter(group => group.id !== id),
+    move: (state, id: string, change: number) => {
+      const oldIndex = state.findIndex(group => group.id === id)
+      return arrayMove(state, oldIndex, oldIndex + change)
+    },
   },
 })

@@ -2,6 +2,7 @@ import { z } from "zod/mini"
 
 import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
+import { arrayMove } from "utils/array-move"
 import { createId } from "utils/create-id"
 
 export const categorySchema = z.object({
@@ -35,5 +36,9 @@ export const categoriesData = createSlice({
     edit: (state, id: string, category: Partial<Category>) =>
       state.map(item => (item.id !== id ? item : { ...item, ...category })),
     delete: (state, id: string) => state.filter(item => item.id !== id),
+    move: (state, id: string, change: number) => {
+      const oldIndex = state.findIndex(category => category.id === id)
+      return arrayMove(state, oldIndex, oldIndex + change)
+    },
   },
 })
