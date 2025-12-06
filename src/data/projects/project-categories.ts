@@ -1,6 +1,6 @@
 import { z } from "zod/mini"
 
-import { createSlice, indexedDb, sync } from "lib/yaasl"
+import { autoSort, createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
 import { createId } from "utils/create-id"
 import { allColors } from "utils/styles"
@@ -22,7 +22,13 @@ const defaultValue: ProjectCategory[] = [
 export const projectCategories = createSlice({
   name: "project-categories",
   defaultValue,
-  effects: [indexedDb(), sync()],
+  effects: [
+    autoSort<ProjectCategory>({
+      sortFn: (a, b) => a.name.localeCompare(b.name),
+    }),
+    indexedDb(),
+    sync(),
+  ],
   reducers: {
     add: (state, data: Omit<ProjectCategory, "id">) => {
       const id = createId("mini")
