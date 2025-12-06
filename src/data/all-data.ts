@@ -16,7 +16,7 @@ const allDataSchema = z.object({
   preferences: z.optional(preferencesSchema),
   theme: z.optional(themeSchema),
   projects: z.optional(z.array(projectSchema)),
-  projectCategories: z.optional(z.record(z.string(), projectCategorySchema)),
+  projectCategories: z.optional(z.array(projectCategorySchema)),
   timeEntries: z.optional(z.record(z.string(), z.array(timeEntrySchema))),
 })
 

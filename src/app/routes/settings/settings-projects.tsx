@@ -149,14 +149,14 @@ const CategorySelect = ({
 }: {
   value: string
   onChange: Dispatch<string>
-  categories: Record<string, ProjectCategory>
+  categories: ProjectCategory[]
 }) => (
   <Select.Root placeholder="None" value={value} onChange={onChange}>
     <Select.Option value="none" label="No category">
       <span className="text-text-muted">No category</span>
     </Select.Option>
     <Select.Separator />
-    {Object.values(categories).map(category => (
+    {categories.map(category => (
       <Select.Option
         key={category.id}
         value={category.id}
@@ -208,7 +208,7 @@ const AddProject = () => {
 
 const projectHelper = createColumnHelper<{
   rowData: Project
-  rowMeta: { categories: Record<string, ProjectCategory> }
+  rowMeta: { categories: ProjectCategory[] }
 }>()
 const projectNameColumn = projectHelper.column({
   name: "Project name",
@@ -240,9 +240,9 @@ const projectCategoryColumn = projectHelper.column({
   name: "Project actions",
   className: "*:w-full",
   render: ({ rowData, categories }) => {
-    const current = !rowData.categoryId
-      ? undefined
-      : categories[rowData.categoryId]
+    const current = categories.find(
+      category => category.id === rowData.categoryId
+    )
     return (
       <CategorySelect
         categories={categories}

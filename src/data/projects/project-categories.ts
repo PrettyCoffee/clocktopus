@@ -12,34 +12,26 @@ export const projectCategorySchema = z.object({
 })
 export type ProjectCategory = Resolve<z.infer<typeof projectCategorySchema>>
 
-const defaultValue: Record<string, ProjectCategory> = {
-  1: { id: "1", name: "Dev", color: "rose" },
-  2: { id: "2", name: "Scrum", color: "blue" },
-  3: { id: "3", name: "Misc", color: "amber" },
-  4: { id: "4", name: "Break", color: "green" },
-}
+const defaultValue: ProjectCategory[] = [
+  { id: "1", name: "Dev", color: "rose" },
+  { id: "2", name: "Scrum", color: "blue" },
+  { id: "3", name: "Misc", color: "amber" },
+  { id: "4", name: "Break", color: "green" },
+]
 
 export const projectCategories = createSlice({
   name: "project-categories",
   defaultValue,
   effects: [indexedDb(), sync()],
   reducers: {
-    add: (state, category: Omit<ProjectCategory, "id">) => {
+    add: (state, data: Omit<ProjectCategory, "id">) => {
       const id = createId("mini")
-      return { ...state, [id]: { ...category, id } }
+      return [...state, { ...data, id }]
     },
-    edit: (state, id: string, category: Partial<ProjectCategory>) => {
-      const existing = state[id]
-      if (!existing) return state
-      return {
-        ...state,
-        [id]: { ...existing, ...category, id },
-      }
-    },
-    delete: (state, id: string) => {
-      const newState = { ...state }
-      delete newState[id]
-      return newState
-    },
+    edit: (state, id: string, data: Partial<ProjectCategory>) =>
+      state.map(category =>
+        category.id !== id ? category : { ...category, ...data, id }
+      ),
+    delete: (state, id: string) => state.filter(category => category.id !== id),
   },
 })

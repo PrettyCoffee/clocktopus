@@ -12,9 +12,9 @@ export const ProjectName = ({
   const categories = useAtomValue(projectCategories)
 
   const project = projects.find(({ id }) => id === projectId)
-  const category = !project?.categoryId
-    ? undefined
-    : categories[project.categoryId]
+  const category = categories.find(
+    category => category.id === project?.categoryId
+  )
 
   const categoryName = !category ? null : (
     <span>

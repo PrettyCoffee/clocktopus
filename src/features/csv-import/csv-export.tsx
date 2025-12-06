@@ -39,7 +39,9 @@ export const csvExport = (entries: Record<string, TimeEntry[]>) => {
   const categories = projectCategories.get()
   const getProjectName = (projectId?: string) => {
     const current = projects.find(project => project.id === projectId)
-    const category = categories[current?.categoryId ?? ""]
+    const category = categories.find(
+      category => category.id === current?.categoryId
+    )
     return [category?.name, current?.name].filter(Boolean).join(" - ")
   }
 

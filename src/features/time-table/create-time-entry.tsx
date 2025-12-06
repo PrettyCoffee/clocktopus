@@ -52,7 +52,9 @@ const useProjects = () => {
     () =>
       Object.fromEntries(
         projects.map(({ categoryId, ...project }) => {
-          const category = !categoryId ? undefined : categories[categoryId]
+          const category = categories.find(
+            category => category.id === categoryId
+          )
           return [
             project.id,
             {

@@ -23,7 +23,7 @@ export const categoriesWithProjects = createSelector(
 
     return categoryOrder.map<CategoryWithProjects>(id => {
       const projects = allProjects.filter(project => project.categoryId === id)
-      const category = !id ? undefined : categories[id]
+      const category = categories.find(category => category.id === id)
       return { ...category, projects }
     })
   }
