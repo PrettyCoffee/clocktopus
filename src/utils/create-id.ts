@@ -5,8 +5,11 @@ const symbol = () => {
   return symbols[index]
 }
 
+const createSymbols = (length: number) =>
+  Array.from({ length }, () => symbol()).join("")
+
 export const createId = (type: "uuid" | "mini") =>
   ({
-    mini: () => `${symbol()}${symbol()}${symbol()}${symbol()}${symbol()}`,
+    mini: () => createSymbols(10),
     uuid: () => crypto.randomUUID(),
   })[type]()
