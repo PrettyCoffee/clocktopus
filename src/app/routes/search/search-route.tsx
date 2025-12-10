@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react"
 
 import { ContextInfo } from "components/ui/context-info"
-import { Input } from "components/ui/input"
+import { FilterInput } from "components/ui/filter-input"
 import { PageRange, Pagination } from "components/ui/pagination"
+import { groupedCategories } from "data/categories"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
-import { CategorySelect } from "features/components/category-select"
 import {
   CheckedStateProvider,
   TimeEntriesBulkActions,
@@ -14,8 +14,9 @@ import {
 import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
+import { dateHelpers } from "utils/date-helpers"
 import { fuzzyFilter } from "utils/fuzzy-filter"
-import { hstack, vstack } from "utils/styles"
+import { vstack } from "utils/styles"
 
 const pageSizes = [10, 15, 20, 25, 30] as const satisfies number[]
 const initialPageSize = 15 as const
@@ -62,49 +63,96 @@ const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
   return stampB.localeCompare(stampA)
 }
 
+interface Filters {
+  description?: string
+  category?: string
+  fromDate?: string
+  toDate?: string
+}
+
 export const SearchRoute = () => {
   const raw = useAtomValue(timeEntriesData)
   const allFlat = useMemo(
     () => Object.values(raw).flat().sort(sortLatestTop),
     [raw]
   )
+  const groups = useAtomValue(groupedCategories)
+  const categories = useMemo(
+    () =>
+      Object.fromEntries([
+        ["", "No category"],
+        ...groups.flatMap(({ name: groupName, categories }) =>
+          categories.map(
+            ({ id, name }) =>
+              [id, [groupName, name].filter(Boolean).join(" - ")] as const
+          )
+        ),
+      ]),
+    [groups]
+  )
 
-  const [filter, setFilter] = useObjectState<Partial<TimeEntry>>({})
+  const [filter, setFilter] = useObjectState<Filters>({})
 
   const filtered = useMemo(() => {
     let filtered = allFlat
 
-    if (filter.categoryId) {
-      filtered = filtered.filter(
-        ({ categoryId }) => categoryId === filter.categoryId
-      )
+    if (filter.category) {
+      filtered = fuzzyFilter({
+        items: filtered,
+        filter: filter.category ?? "",
+        getFilterValue: item => categories[item.categoryId ?? ""] ?? "",
+      })
     }
 
     if (filter.description) {
       filtered = fuzzyFilter({
-        items: allFlat,
+        items: filtered,
         filter: filter.description,
         getFilterValue: item => item.description,
       })
     }
 
+    if (filter.fromDate || filter.toDate) {
+      filtered = filtered.filter(({ date }) =>
+        dateHelpers.isInRange(date, filter.fromDate, filter.toDate)
+      )
+    }
+
     return filtered
-  }, [allFlat, filter.description, filter.categoryId])
+  }, [
+    allFlat,
+    filter.category,
+    filter.description,
+    filter.fromDate,
+    filter.toDate,
+    categories,
+  ])
 
   return (
     <div className={cn(vstack({}), "h-full px-10 pt-6")}>
-      <div className={cn(hstack({ gap: 2 }), "mb-4")}>
-        <Input
-          type="text"
-          placeholder="Description"
-          value={filter.description ?? ""}
-          onChange={description => setFilter({ description })}
-          className="flex-1"
-        />
-        <CategorySelect
-          value={filter.categoryId ?? ""}
-          onChange={categoryId => setFilter({ categoryId })}
-          className="min-w-45"
+      <div className="mb-4">
+        <FilterInput
+          className="block"
+          placeholder="Search for time entries"
+          onChange={({ text, tags }) => {
+            setFilter({
+              description: text,
+              category: tags.category,
+              fromDate: tags.from,
+              toDate: tags.to,
+            })
+          }}
+          tagConfigs={{
+            category: { validate: Boolean },
+            to: {
+              validate: dateHelpers.isValid,
+              format: value => dateHelpers.stringify(dateHelpers.parse(value)),
+            },
+            from: {
+              validate: dateHelpers.isValid,
+              format: value => dateHelpers.stringify(dateHelpers.parse(value)),
+            },
+          }}
         />
       </div>
 

@@ -9,6 +9,11 @@ export interface ParsedDate {
   day: number
 }
 
+const isValid = (date: Date | string) => {
+  const dateObj = new Date(date)
+  return !Number.isNaN(dateObj.valueOf())
+}
+
 const parse = (date: Date | string) => {
   const dateObj = new Date(date)
   return {
@@ -37,6 +42,7 @@ const isInRange = (date: string, start?: string, end?: string) => {
 }
 
 export const dateHelpers = {
+  isValid,
   today,
   parse,
   stringify,
