@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 
 import { css } from "goober"
 import { Search, XCircle } from "lucide-react"
@@ -18,9 +18,7 @@ const transparentText = css`
   }
 `
 
-const textStyles = cn(
-  "px-10 text-sm whitespace-nowrap text-text **:whitespace-pre"
-)
+const textStyles = cn("text-sm whitespace-nowrap text-text **:whitespace-pre")
 
 interface FilterInputProps<TTagName extends string> extends Pick<
   InputProps,
@@ -38,6 +36,9 @@ export const FilterInput = <TTagName extends string>({
   className,
   ...props
 }: FilterInputProps<TTagName>) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const textRef = useRef<HTMLDivElement>(null)
+
   const [text, setText] = useState(initialValue)
   const [filter, setFilter] = useState(() =>
     parseFilter(initialValue, tagConfigs)
@@ -52,24 +53,42 @@ export const FilterInput = <TTagName extends string>({
     onChange(filter)
   }
 
+  useEffect(() => {
+    const input = inputRef.current
+    if (!input) return
+
+    const syncScroll = () => {
+      const text = textRef.current
+      const input = inputRef.current
+      if (!text || !input) return
+      text.scrollLeft = input.scrollLeft
+    }
+
+    input.addEventListener("scroll", syncScroll)
+    return () => input.removeEventListener("scroll", syncScroll)
+  }, [])
+
   return (
     <div {...props} className={cn("relative inline-block", className)}>
       <span className="pointer-events-none absolute top-1 bottom-1 left-1 grid size-8 place-items-center">
         <Icon icon={Search} size="sm" color="muted" />
       </span>
+
       <Input
+        ref={inputRef}
         type="text"
         value={text}
         onChange={updateText}
-        className={cn(transparentText, textStyles, "relative z-1 w-full px-10")}
+        className={cn(transparentText, textStyles, "relative w-full px-10")}
       />
 
       <div
+        ref={textRef}
         aria-hidden
         className={cn(
           hstack({ align: "center" }),
           textStyles,
-          "pointer-events-none absolute inset-0 z-0 ml-px size-full"
+          "pointer-events-none absolute inset-0 right-10 left-10 -z-1 ml-px h-full overflow-hidden"
         )}
       >
         {filter.segments.map(
