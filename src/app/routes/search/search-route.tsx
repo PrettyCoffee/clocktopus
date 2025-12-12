@@ -143,14 +143,28 @@ export const SearchRoute = () => {
             })
           }}
           tagConfigs={{
-            category: { validate: Boolean },
+            category: {},
             until: {
-              validate: dateHelpers.isValid,
-              format: value => dateHelpers.stringify(dateHelpers.parse(value)),
+              validate: value => value.length < 4 || dateHelpers.isValid(value),
+              format: value => {
+                if (value.length < 4) return ""
+                const isYear = /^\d{4}$/.test(value)
+                const date = dateHelpers.parse(
+                  isYear ? `${value}-12-31` : value
+                )
+                return dateHelpers.stringify(date)
+              },
             },
             from: {
-              validate: dateHelpers.isValid,
-              format: value => dateHelpers.stringify(dateHelpers.parse(value)),
+              validate: value => value.length < 4 || dateHelpers.isValid(value),
+              format: value => {
+                if (value.length < 4) return ""
+                const isYear = /^\d{4}$/.test(value)
+                const date = dateHelpers.parse(
+                  isYear ? `${value}-01-01` : value
+                )
+                return dateHelpers.stringify(date)
+              },
             },
           }}
         />

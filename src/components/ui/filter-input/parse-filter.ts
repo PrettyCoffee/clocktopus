@@ -1,5 +1,5 @@
 export interface TagConfig {
-  validate: (value: string) => boolean
+  validate?: (value: string) => boolean
   format?: (value: string) => string
 }
 
@@ -136,7 +136,7 @@ const enrichItems = (
       value,
       text,
       isTagValid: !!config || tag == null,
-      isValueValid: config?.validate(value) ?? (!!value || tag == null),
+      isValueValid: config?.validate?.(value) ?? true,
     }
   })
 
