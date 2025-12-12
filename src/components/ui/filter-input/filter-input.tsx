@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react"
 
+import { css } from "goober"
 import { Search, XCircle } from "lucide-react"
 
 import { cn } from "utils/cn"
@@ -9,6 +10,17 @@ import { Input, InputProps } from "../input"
 import { Filters, parseFilter, TagConfig } from "./parse-filter"
 import { Icon } from "../icon"
 import { IconButton } from "../icon-button"
+
+const transparentText = css`
+  -webkit-text-fill-color: transparent;
+  &::placeholder {
+    -webkit-text-fill-color: initial;
+  }
+`
+
+const textStyles = cn(
+  "px-10 text-sm whitespace-nowrap text-text **:whitespace-pre"
+)
 
 interface FilterInputProps<TTagName extends string> extends Pick<
   InputProps,
@@ -49,26 +61,26 @@ export const FilterInput = <TTagName extends string>({
         type="text"
         value={text}
         onChange={updateText}
-        className="w-full px-10"
+        className={cn(transparentText, textStyles, "relative z-1 w-full px-10")}
       />
 
       <div
         aria-hidden
         className={cn(
           hstack({ align: "center" }),
-          "pointer-events-none absolute inset-0 ml-px size-full px-10 text-sm whitespace-pre text-text"
+          textStyles,
+          "pointer-events-none absolute inset-0 z-0 ml-px size-full"
         )}
       >
         {filter.segments.map(
           ({ tag, value, text, isTagValid, isValueValid }, index) => (
             <Fragment key={index.toString() + tag + value}>
               {!tag ? (
-                <span className="whitespace-pre">{text}</span>
+                <span>{text}</span>
               ) : (
                 <span
                   className={cn(
-                    "inline-block rounded-[1px] whitespace-pre",
-                    "outline-1 outline-offset-1 outline-solid",
+                    "inline-block rounded-[1px] outline-1 outline-offset-1 outline-solid",
                     isTagValid && isValueValid
                       ? "bg-highlight/10 text-highlight outline-highlight/20"
                       : "bg-background outline-stroke-gentle decoration-wavy underline decoration-alert-error"
