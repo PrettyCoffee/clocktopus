@@ -67,7 +67,7 @@ interface Filters {
   description?: string
   category?: string
   fromDate?: string
-  toDate?: string
+  untilDate?: string
 }
 
 export const SearchRoute = () => {
@@ -112,9 +112,9 @@ export const SearchRoute = () => {
       })
     }
 
-    if (filter.fromDate || filter.toDate) {
+    if (filter.fromDate || filter.untilDate) {
       filtered = filtered.filter(({ date }) =>
-        dateHelpers.isInRange(date, filter.fromDate, filter.toDate)
+        dateHelpers.isInRange(date, filter.fromDate, filter.untilDate)
       )
     }
 
@@ -124,7 +124,7 @@ export const SearchRoute = () => {
     filter.category,
     filter.description,
     filter.fromDate,
-    filter.toDate,
+    filter.untilDate,
     categories,
   ])
 
@@ -139,12 +139,12 @@ export const SearchRoute = () => {
               description: text,
               category: tags.category,
               fromDate: tags.from,
-              toDate: tags.to,
+              untilDate: tags.until,
             })
           }}
           tagConfigs={{
             category: { validate: Boolean },
-            to: {
+            until: {
               validate: dateHelpers.isValid,
               format: value => dateHelpers.stringify(dateHelpers.parse(value)),
             },
