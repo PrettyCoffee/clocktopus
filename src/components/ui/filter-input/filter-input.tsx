@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react"
+import { Dispatch, Fragment, Ref, useEffect, useRef, useState } from "react"
 
 import { css } from "goober"
 import { Search, XCircle } from "lucide-react"
@@ -7,7 +7,12 @@ import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
 import { Input, InputProps } from "../input"
-import { Filters, parseFilter, TagConfig } from "./parse-filter"
+import {
+  EnrichedFilterItem,
+  Filters,
+  parseFilter,
+  TagConfig,
+} from "./parse-filter"
 import { Icon } from "../icon"
 import { IconButton } from "../icon-button"
 
@@ -18,7 +23,63 @@ const transparentText = css`
   }
 `
 
-const textStyles = cn("text-sm whitespace-nowrap text-text **:whitespace-pre")
+const textStyles = cn("text-sm whitespace-pre text-text **:whitespace-pre")
+
+interface FilterTextInputProps {
+  ref: Ref<HTMLInputElement>
+  value: string
+  onChange: Dispatch<string>
+}
+const FilterTextInput = ({
+  ref,
+  value,
+  onChange,
+  ...props
+}: FilterTextInputProps) => (
+  <Input
+    {...props}
+    ref={ref}
+    type="text"
+    value={value}
+    onChange={onChange}
+    className={cn(transparentText, textStyles, "relative w-full px-10")}
+  />
+)
+
+interface FilterTextDisplayProps {
+  ref: Ref<HTMLDivElement>
+  segments: EnrichedFilterItem[]
+}
+const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
+  <div
+    ref={ref}
+    aria-hidden
+    className={cn(
+      hstack({ align: "center" }),
+      textStyles,
+      "absolute inset-0 right-10 left-10 -z-1 ml-px h-full overflow-hidden"
+    )}
+  >
+    {segments.map(({ tag, value, text, isTagValid, isValueValid }, index) => (
+      <Fragment key={index.toString() + tag + value}>
+        {!tag ? (
+          <span>{text}</span>
+        ) : (
+          <span
+            className={cn(
+              "inline-block rounded-[1px] outline-1 outline-offset-1 outline-solid",
+              isTagValid && isValueValid
+                ? "bg-highlight/10 text-highlight outline-highlight/20"
+                : "bg-background outline-stroke-gentle decoration-wavy underline decoration-alert-error"
+            )}
+          >
+            {text}
+          </span>
+        )}
+      </Fragment>
+    ))}
+  </div>
+)
 
 interface FilterInputProps<TTagName extends string> extends Pick<
   InputProps,
@@ -74,44 +135,9 @@ export const FilterInput = <TTagName extends string>({
         <Icon icon={Search} size="sm" color="muted" />
       </span>
 
-      <Input
-        ref={inputRef}
-        type="text"
-        value={text}
-        onChange={updateText}
-        className={cn(transparentText, textStyles, "relative w-full px-10")}
-      />
+      <FilterTextInput ref={inputRef} value={text} onChange={updateText} />
 
-      <div
-        ref={textRef}
-        aria-hidden
-        className={cn(
-          hstack({ align: "center" }),
-          textStyles,
-          "pointer-events-none absolute inset-0 right-10 left-10 -z-1 ml-px h-full overflow-hidden"
-        )}
-      >
-        {filter.segments.map(
-          ({ tag, value, text, isTagValid, isValueValid }, index) => (
-            <Fragment key={index.toString() + tag + value}>
-              {!tag ? (
-                <span>{text}</span>
-              ) : (
-                <span
-                  className={cn(
-                    "inline-block rounded-[1px] outline-1 outline-offset-1 outline-solid",
-                    isTagValid && isValueValid
-                      ? "bg-highlight/10 text-highlight outline-highlight/20"
-                      : "bg-background outline-stroke-gentle decoration-wavy underline decoration-alert-error"
-                  )}
-                >
-                  {text}
-                </span>
-              )}
-            </Fragment>
-          )
-        )}
-      </div>
+      <FilterTextDisplay ref={textRef} segments={filter.segments} />
 
       {text && (
         <IconButton
