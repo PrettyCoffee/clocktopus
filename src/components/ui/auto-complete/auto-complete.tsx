@@ -150,6 +150,7 @@ export const AutoComplete = <TData,>({
           {items.map((item, index) => (
             <Button
               key={getFilterValue(item)}
+              size="sm"
               onClick={() => onSelect(item)}
               className={cn(
                 "w-full justify-between gap-2 truncate text-start",
