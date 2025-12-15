@@ -17,9 +17,10 @@ const defaultValue: Category[] = [
   { id: createId("mini"), name: "Strategic", groupId: "1" },
   { id: createId("mini"), name: "Maintenance", groupId: "1" },
   { id: createId("mini"), name: "PR Review", groupId: "1" },
+  { id: createId("mini"), name: "Research", groupId: "1" },
   { id: createId("mini"), name: "Meeting", groupId: "2" },
   { id: createId("mini"), name: "Meeting", groupId: "3" },
-  { id: createId("mini"), name: "Course", groupId: "3" },
+  { id: createId("mini"), name: "Learning", groupId: "3" },
   { id: createId("mini"), name: "Other", groupId: "3" },
   { id: createId("mini"), name: "Break", isPrivate: true, groupId: "4" },
 ]
