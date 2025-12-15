@@ -4,7 +4,6 @@ import {
   PropsWithChildren,
   ReactNode,
   RefObject,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -14,42 +13,12 @@ import { Slot } from "@radix-ui/react-slot"
 
 import { Button } from "components/ui/button"
 import { Portal } from "components/utility/portal"
+import { useFocus } from "hooks/use-focus"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { fuzzyFilter } from "utils/fuzzy-filter"
 import { surface } from "utils/styles"
 import { zIndex } from "utils/z-index"
-
-const useFocus = (refs: RefObject<Element | null>[]) => {
-  const [focus, setFocus] = useState(false)
-
-  useEffect(() => {
-    const handler = () => {
-      const elements = refs
-        .map(({ current }) => current)
-        .filter(Boolean) as Element[]
-
-      const target = document.activeElement
-      const focus = elements.some(
-        element => element === target || element.contains(target)
-      )
-
-      setFocus(!!focus)
-    }
-
-    window.addEventListener("focusin", handler)
-    window.addEventListener("click", handler)
-
-    return () => {
-      window.removeEventListener("focusin", handler)
-      window.removeEventListener("click", handler)
-    }
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, refs)
-
-  return focus
-}
 
 const useBoundingRect = () => {
   const [boundingRect, setBoundingRect] =
