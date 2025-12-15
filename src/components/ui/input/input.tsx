@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, KeyboardEvent, FocusEventHandler } from "react"
+import {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  FocusEventHandler,
+  MouseEvent,
+} from "react"
 
 import {
   AlertKind,
@@ -27,6 +33,9 @@ export type InputProps = RefProp<HTMLInputElement> &
 
     onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void
     onKeyDown?: Dispatch<KeyboardEvent<HTMLInputElement>>
+    onKeyUp?: Dispatch<KeyboardEvent<HTMLInputElement>>
+    onMouseDown?: Dispatch<MouseEvent<HTMLInputElement>>
+    onMouseUp?: Dispatch<MouseEvent<HTMLInputElement>>
     onFocus?: FocusEventHandler<HTMLInputElement>
     onBlur?: FocusEventHandler<HTMLInputElement>
   }
