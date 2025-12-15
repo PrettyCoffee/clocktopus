@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { Dispatch, useEffect, useMemo, useState } from "react"
 
 import { ContextInfo } from "components/ui/context-info"
 import { FilterInput } from "components/ui/filter-input"
@@ -70,6 +70,42 @@ interface Filters {
   untilDate?: string
 }
 
+const SearchFilters = ({ onChange }: { onChange: Dispatch<Filters> }) => (
+  <FilterInput
+    className="block"
+    placeholder="Search for time entries"
+    onChange={({ text, tags }) => {
+      onChange({
+        description: text,
+        category: tags.category,
+        fromDate: tags.from,
+        untilDate: tags.until,
+      })
+    }}
+    tagConfigs={{
+      category: {},
+      until: {
+        validate: value => value.length < 4 || dateHelpers.isValid(value),
+        format: value => {
+          if (value.length < 4) return ""
+          const isYear = /^\d{4}$/.test(value)
+          const date = dateHelpers.parse(isYear ? `${value}-12-31` : value)
+          return dateHelpers.stringify(date)
+        },
+      },
+      from: {
+        validate: value => value.length < 4 || dateHelpers.isValid(value),
+        format: value => {
+          if (value.length < 4) return ""
+          const isYear = /^\d{4}$/.test(value)
+          const date = dateHelpers.parse(isYear ? `${value}-01-01` : value)
+          return dateHelpers.stringify(date)
+        },
+      },
+    }}
+  />
+)
+
 export const SearchRoute = () => {
   const raw = useAtomValue(timeEntriesData)
   const allFlat = useMemo(
@@ -131,43 +167,7 @@ export const SearchRoute = () => {
   return (
     <div className={cn(vstack({}), "h-full px-10 pt-6")}>
       <div className="mb-4">
-        <FilterInput
-          className="block"
-          placeholder="Search for time entries"
-          onChange={({ text, tags }) => {
-            setFilter({
-              description: text,
-              category: tags.category,
-              fromDate: tags.from,
-              untilDate: tags.until,
-            })
-          }}
-          tagConfigs={{
-            category: {},
-            until: {
-              validate: value => value.length < 4 || dateHelpers.isValid(value),
-              format: value => {
-                if (value.length < 4) return ""
-                const isYear = /^\d{4}$/.test(value)
-                const date = dateHelpers.parse(
-                  isYear ? `${value}-12-31` : value
-                )
-                return dateHelpers.stringify(date)
-              },
-            },
-            from: {
-              validate: value => value.length < 4 || dateHelpers.isValid(value),
-              format: value => {
-                if (value.length < 4) return ""
-                const isYear = /^\d{4}$/.test(value)
-                const date = dateHelpers.parse(
-                  isYear ? `${value}-01-01` : value
-                )
-                return dateHelpers.stringify(date)
-              },
-            },
-          }}
-        />
+        <SearchFilters onChange={setFilter} />
       </div>
 
       {filtered.length === 0 ? (
