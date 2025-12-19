@@ -1,4 +1,12 @@
-import { Dispatch, Ref, useEffect, useRef, useState } from "react"
+import {
+  Dispatch,
+  Ref,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 
 import { css } from "goober"
 import { Search, XCircle } from "lucide-react"
@@ -38,17 +46,56 @@ const measureText = (text: string) => {
   return width
 }
 
+const useCursorPos = (ref: RefObject<HTMLInputElement | null>) => {
+  const [cursorPos, setCursorPos] = useState({ start: 0, end: 0 })
+
+  const updateCursorPos = useCallback(
+    (value: number | { start: number; end: number }) => {
+      const { start, end } =
+        typeof value === "number" ? { start: value, end: value } : value
+
+      setCursorPos(prev => {
+        const didChange = start !== prev.start || end !== prev.end
+        return !didChange ? prev : { start, end }
+      })
+    },
+    []
+  )
+
+  useEffect(() => {
+    const input = ref.current
+    if (!input) return
+
+    const handler = () => {
+      const { selectionStart, selectionEnd } = input
+      const start = selectionStart ?? selectionEnd ?? 0
+      const end = selectionEnd ?? selectionStart ?? 0
+      updateCursorPos({ start, end })
+    }
+
+    input.addEventListener("keydown", handler)
+    input.addEventListener("keyup", handler)
+    input.addEventListener("mouseup", handler)
+
+    return () => {
+      input.removeEventListener("keydown", handler)
+      input.removeEventListener("keyup", handler)
+      input.removeEventListener("mouseup", handler)
+    }
+  }, [ref, updateCursorPos])
+
+  return [cursorPos, updateCursorPos] as const
+}
+
 interface FilterTextInputProps {
   ref: Ref<HTMLInputElement>
   value: string
   onChange: Dispatch<string>
-  onCursorMove: Dispatch<number>
 }
 const FilterTextInput = ({
   ref,
   value,
   onChange,
-  onCursorMove,
   ...props
 }: FilterTextInputProps) => (
   <Input
@@ -58,15 +105,6 @@ const FilterTextInput = ({
     value={value}
     onChange={onChange}
     className={cn(transparentText, textStyles, "relative w-full px-10")}
-    onKeyDown={({ currentTarget }) =>
-      onCursorMove(currentTarget.selectionStart ?? 0)
-    }
-    onKeyUp={({ currentTarget }) =>
-      onCursorMove(currentTarget.selectionStart ?? 0)
-    }
-    onMouseUp={({ currentTarget }) =>
-      onCursorMove(currentTarget.selectionStart ?? 0)
-    }
   />
 )
 
@@ -161,8 +199,7 @@ export const FilterInput = <TTagName extends string>({
   const textRef = useRef<HTMLDivElement>(null)
 
   const hasFocus = useFocus([wrapperRef])
-
-  const [cursorPos, setCursorPos] = useState(0)
+  const [cursorPos, setCursorPos] = useCursorPos(inputRef)
 
   const [text, setText] = useState(initialValue)
   const [filter, setFilter] = useState(() =>
@@ -197,14 +234,16 @@ export const FilterInput = <TTagName extends string>({
     .map(tag => `${tag}:`)
     .filter(item => {
       if (text.includes(item)) return false
-      const currentWord = text.slice(0, cursorPos).split(/\s+/).at(-1) ?? ""
+      const currentWord = text.slice(0, cursorPos.end).split(/\s+/).at(-1) ?? ""
       return item.startsWith(currentWord)
     })
 
   const insertSuggestion = (suggestion: string) => {
-    const beforeCursor = text.slice(0, cursorPos).replace(/[^\s]*$/, suggestion)
+    const beforeCursor = text
+      .slice(0, cursorPos.start)
+      .replace(/[^\s]*$/, suggestion)
 
-    let afterCursor = text.slice(cursorPos)
+    let afterCursor = text.slice(cursorPos.end)
     if (afterCursor && !afterCursor.startsWith(" ")) {
       afterCursor = " " + afterCursor
     }
@@ -229,12 +268,7 @@ export const FilterInput = <TTagName extends string>({
         <Icon icon={Search} size="sm" color="muted" />
       </span>
 
-      <FilterTextInput
-        ref={inputRef}
-        value={text}
-        onChange={updateText}
-        onCursorMove={setCursorPos}
-      />
+      <FilterTextInput ref={inputRef} value={text} onChange={updateText} />
 
       <FilterTextDisplay ref={textRef} segments={filter.segments} />
 
@@ -244,7 +278,7 @@ export const FilterInput = <TTagName extends string>({
           onSelect={insertSuggestion}
           offsetLeft={(() => {
             const scroll = textRef.current?.scrollLeft ?? 0
-            return measureText(text.slice(0, cursorPos)) - scroll
+            return measureText(text.slice(0, cursorPos.start)) - scroll
           })()}
         />
       )}
