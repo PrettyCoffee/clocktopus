@@ -63,9 +63,12 @@ const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
   return stampB.localeCompare(stampA)
 }
 
+const isYear = (value: string) => /^\d{4}$/.test(value)
+
 interface Filters {
   description?: string
   category?: string
+  year?: string
   fromDate?: string
   untilDate?: string
 }
@@ -78,27 +81,31 @@ const SearchFilters = ({ onChange }: { onChange: Dispatch<Filters> }) => (
       onChange({
         description: text,
         category: tags.category,
+        year: tags.year,
         fromDate: tags.from,
         untilDate: tags.until,
       })
     }}
     tagConfigs={{
       category: {},
+      year: { validate: isYear },
       until: {
-        validate: value => value.length < 4 || dateHelpers.isValid(value),
+        validate: dateHelpers.isValid,
         format: value => {
           if (value.length < 4) return ""
-          const isYear = /^\d{4}$/.test(value)
-          const date = dateHelpers.parse(isYear ? `${value}-12-31` : value)
+          const date = dateHelpers.parse(
+            isYear(value) ? `${value}-12-31` : value
+          )
           return dateHelpers.stringify(date)
         },
       },
       from: {
-        validate: value => value.length < 4 || dateHelpers.isValid(value),
+        validate: dateHelpers.isValid,
         format: value => {
           if (value.length < 4) return ""
-          const isYear = /^\d{4}$/.test(value)
-          const date = dateHelpers.parse(isYear ? `${value}-01-01` : value)
+          const date = dateHelpers.parse(
+            isYear(value) ? `${value}-01-01` : value
+          )
           return dateHelpers.stringify(date)
         },
       },
@@ -148,6 +155,16 @@ export const SearchRoute = () => {
       })
     }
 
+    if (filter.year) {
+      filtered = filtered.filter(({ date }) =>
+        dateHelpers.isInRange(
+          date,
+          `${filter.year}-01-01`,
+          `${filter.year}-12-31`
+        )
+      )
+    }
+
     if (filter.fromDate || filter.untilDate) {
       filtered = filtered.filter(({ date }) =>
         dateHelpers.isInRange(date, filter.fromDate, filter.untilDate)
@@ -157,8 +174,9 @@ export const SearchRoute = () => {
     return filtered
   }, [
     allFlat,
-    filter.category,
     filter.description,
+    filter.category,
+    filter.year,
     filter.fromDate,
     filter.untilDate,
     categories,
