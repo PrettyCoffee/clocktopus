@@ -87,9 +87,10 @@ const SearchFilters = ({ onChange }: { onChange: Dispatch<Filters> }) => (
       })
     }}
     tagConfigs={{
-      category: {},
-      year: { validate: isYear },
+      category: { example: "Meeting" },
+      year: { example: dateHelpers.today().slice(0, 4), validate: isYear },
       until: {
+        example: dateHelpers.today(),
         validate: dateHelpers.isValid,
         format: value => {
           if (value.length < 4) return ""
@@ -100,6 +101,7 @@ const SearchFilters = ({ onChange }: { onChange: Dispatch<Filters> }) => (
         },
       },
       from: {
+        example: dateHelpers.today(),
         validate: dateHelpers.isValid,
         format: value => {
           if (value.length < 4) return ""

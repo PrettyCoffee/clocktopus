@@ -1,6 +1,7 @@
 export interface TagConfig {
   validate?: (value: string) => boolean
   format?: (value: string) => string
+  example: string
 }
 
 interface Token {

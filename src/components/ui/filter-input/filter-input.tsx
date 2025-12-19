@@ -146,7 +146,7 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
 
 interface FilterSuggestions {
   offsetLeft: number
-  suggestions: string[]
+  suggestions: { name: string; example: string }[]
   onSelect: Dispatch<string>
 }
 const FilterSuggestions = ({
@@ -167,12 +167,12 @@ const FilterSuggestions = ({
   >
     {suggestions.map(item => (
       <Button
-        key={item}
-        size="sm"
-        className="justify-start"
-        onClick={() => onSelect(item)}
+        key={item.name}
+        className={cn(vstack({ align: "start", gap: 0 }), "px-2")}
+        onClick={() => onSelect(item.name)}
       >
-        {item}
+        <span className="-my-0.5 text-sm text-text">{item.name}</span>
+        <span className="text-xs text-text-muted">e.g. {item.example}</span>
       </Button>
     ))}
   </div>
@@ -231,11 +231,14 @@ export const FilterInput = <TTagName extends string>({
   }, [])
 
   const suggestions = Object.keys(tagConfigs)
-    .map(tag => `${tag}:`)
-    .filter(item => {
-      if (text.includes(item)) return false
+    .map(tag => ({
+      name: `${tag}:`,
+      example: tagConfigs[tag as TTagName].example,
+    }))
+    .filter(({ name }) => {
+      if (text.includes(name)) return false
       const currentWord = text.slice(0, cursorPos.end).split(/\s+/).at(-1) ?? ""
-      return item.startsWith(currentWord)
+      return name.startsWith(currentWord)
     })
 
   const insertSuggestion = (suggestion: string) => {
