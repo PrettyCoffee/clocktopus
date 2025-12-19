@@ -1,6 +1,5 @@
 import {
   Dispatch,
-  KeyboardEvent,
   PropsWithChildren,
   ReactNode,
   RefObject,
@@ -13,6 +12,7 @@ import { Slot } from "@radix-ui/react-slot"
 
 import { Button } from "components/ui/button"
 import { Portal } from "components/utility/portal"
+import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
 import { useFocus } from "hooks/use-focus"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
@@ -87,10 +87,7 @@ export const AutoComplete = <TData,>({
 }: PropsWithChildren<AutoCompleteProps<TData>>) => {
   const inputRef = useRef<HTMLElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const focus = useFocus([inputRef, dropdownRef])
-  const [selection, setSelection] = useState(0)
-
-  const [forceClose, setForceClose] = useState(false)
+  const hasFocus = useFocus([inputRef, dropdownRef])
 
   const inputRect = useBoundingRect()
 
@@ -103,30 +100,13 @@ export const AutoComplete = <TData,>({
     }).slice(0, 5)
   }, [filter, getFilterValue, allItems])
 
-  const moveSelection = (diff: number) =>
-    setSelection(prev => (items.length + 1 + prev + diff) % (items.length + 1))
+  const dropdown = useDropdownNavigation({
+    triggerRef: inputRef,
+    items,
+    onSelect,
+  })
 
-  const acceptSelection = () => {
-    const selected = items[selection - 1]
-    if (!selected) return
-    onSelect(selected)
-  }
-
-  const keyHandler = (event: KeyboardEvent) => {
-    const events: Record<string, () => void> = {
-      ArrowDown: () => moveSelection(1),
-      ArrowUp: () => moveSelection(-1),
-      Enter: () => acceptSelection(),
-      Escape: () => setForceClose(true),
-    }
-
-    const handler = events[event.key]
-    if (!handler) return
-    event.preventDefault()
-    handler()
-  }
-
-  const open = focus && !forceClose && !!filter && items.length > 0
+  const open = hasFocus && !dropdown.forceClose && !!filter
 
   return (
     <>
@@ -135,11 +115,6 @@ export const AutoComplete = <TData,>({
         ref={element => {
           inputRef.current = element
           inputRect.update(element)
-        }}
-        onKeyDown={keyHandler}
-        onChange={() => {
-          setSelection(0)
-          setForceClose(false)
         }}
       >
         {children}
@@ -154,7 +129,7 @@ export const AutoComplete = <TData,>({
               onClick={() => onSelect(item)}
               className={cn(
                 "w-full justify-between gap-2 truncate text-start",
-                index === selection - 1 && "bgl-layer-w/10"
+                index === dropdown.selectedIndex && "bgl-layer-w/10"
               )}
             >
               {renderOptionLabel(item)}
