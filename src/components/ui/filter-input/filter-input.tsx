@@ -11,6 +11,7 @@ import {
 import { css } from "goober"
 import { Search, XCircle } from "lucide-react"
 
+import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
 import { useFocus } from "hooks/use-focus"
 import { cn } from "utils/cn"
 import { hstack, surface, vstack } from "utils/styles"
@@ -146,11 +147,13 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
 
 interface FilterSuggestions {
   offsetLeft: number
+  selectedIndex: number
   suggestions: { name: string; example: string }[]
   onSelect: Dispatch<string>
 }
 const FilterSuggestions = ({
   offsetLeft,
+  selectedIndex,
   suggestions,
   onSelect,
 }: FilterSuggestions) => (
@@ -165,10 +168,14 @@ const FilterSuggestions = ({
       translate: offsetLeft,
     }}
   >
-    {suggestions.map(item => (
+    {suggestions.map((item, index) => (
       <Button
         key={item.name}
-        className={cn(vstack({ align: "start", gap: 0 }), "px-2")}
+        className={cn(
+          vstack({ align: "start", gap: 0 }),
+          "px-2",
+          index === selectedIndex && "bgl-layer-w/10"
+        )}
         onClick={() => onSelect(item.name)}
       >
         <span className="-my-0.5 text-sm text-text">{item.name}</span>
@@ -261,6 +268,14 @@ export const FilterInput = <TTagName extends string>({
     })
   }
 
+  const dropdown = useDropdownNavigation({
+    triggerRef: inputRef,
+    items: suggestions,
+    onSelect: ({ name }) => insertSuggestion(name),
+  })
+
+  const open = hasFocus && !dropdown.forceClose
+
   return (
     <div
       {...props}
@@ -275,9 +290,10 @@ export const FilterInput = <TTagName extends string>({
 
       <FilterTextDisplay ref={textRef} segments={filter.segments} />
 
-      {hasFocus && suggestions.length > 0 && (
+      {open && (
         <FilterSuggestions
           suggestions={suggestions}
+          selectedIndex={dropdown.selectedIndex}
           onSelect={insertSuggestion}
           offsetLeft={(() => {
             const scroll = textRef.current?.scrollLeft ?? 0
