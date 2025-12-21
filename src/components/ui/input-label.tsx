@@ -30,9 +30,13 @@ export const InputLabel = ({
       children
     )
 
+  const hasContent = !!htmlFor || !!children
+
+  const Label = hasContent ? "label" : "div"
+
   return (
     <div className={cn(vstack({ gap: 1 }), "py-2", className)}>
-      <label
+      <Label
         htmlFor={id}
         className={cn(
           "w-max truncate text-sm font-semibold text-text-gentle",
@@ -40,7 +44,7 @@ export const InputLabel = ({
         )}
       >
         {label}
-      </label>
+      </Label>
 
       {content}
     </div>
