@@ -2,7 +2,7 @@ import { Button } from "components/ui/button"
 import { DateInput } from "components/ui/date-input"
 import { Divider } from "components/ui/divider"
 import { InputLabel } from "components/ui/input-label"
-import { timeEntriesData } from "data/time-entries"
+import { timeEntriesData, useTrackedYears } from "data/time-entries"
 import { createAtom, createSelector, useAtomValue } from "lib/yaasl"
 import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
@@ -43,9 +43,7 @@ export const StatsSideRoute = () => {
     .sort()
     .map(date => new Date(date))
 
-  const years = [...new Set(dates.map(date => date.getFullYear()))].sort(
-    (a, b) => b - a
-  )
+  const years = useTrackedYears()
 
   const matchingEntries = Object.values(
     useAtomValue(filteredStatsEntries)
