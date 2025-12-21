@@ -1,16 +1,21 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+
+import { Save } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
+import { IconButton } from "components/ui/icon-button"
 import { groupedCategories } from "data/categories"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom, useAtomValue, useSelector } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { fuzzyFilter } from "utils/fuzzy-filter"
-import { vstack } from "utils/styles"
+import { hstack, vstack } from "utils/styles"
 
+import { SaveFilterDialog } from "./fragments/save-filter-dialog"
 import { SearchFilterInput } from "./fragments/search-filter-input"
 import { SearchTable } from "./fragments/search-table"
+import { searchText } from "./search-data"
 
 const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
   const stampA = `${a.date}_${a.start}_${a.end}`
@@ -18,23 +23,18 @@ const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
   return stampB.localeCompare(stampA)
 }
 
-const useCategoryNames = () => {
-  const groups = useAtomValue(groupedCategories)
-  const categories = useMemo(
-    () =>
-      Object.fromEntries([
-        ["", "No category"],
-        ...groups.flatMap(({ name: groupName, categories }) =>
-          categories.map(
-            ({ id, name }) =>
-              [id, [groupName, name].filter(Boolean).join(" - ")] as const
-          )
-        ),
-      ]),
-    [groups]
+const useCategoryNames = () =>
+  useSelector(groupedCategories, groups =>
+    Object.fromEntries([
+      ["", "No category"],
+      ...groups.flatMap(({ name: groupName, categories }) =>
+        categories.map(
+          ({ id, name }) =>
+            [id, [groupName, name].filter(Boolean).join(" - ")] as const
+        )
+      ),
+    ])
   )
-  return categories
-}
 
 interface Filters {
   description?: string
@@ -94,6 +94,25 @@ const useFilters = (items: TimeEntry[], filter: Filters) => {
   ])
 }
 
+const SaveFilterButton = ({ filterText }: { filterText: string }) => {
+  const [saveFilter, setSaveFilter] = useState<string | null>(null)
+  return (
+    <>
+      <IconButton
+        icon={Save}
+        title="Save filter"
+        onClick={() => setSaveFilter(filterText)}
+      />
+      {saveFilter != null && (
+        <SaveFilterDialog
+          value={saveFilter}
+          onClose={() => setSaveFilter(null)}
+        />
+      )}
+    </>
+  )
+}
+
 export const SearchRoute = () => {
   const raw = useAtomValue(timeEntriesData)
   const allFlat = useMemo(
@@ -101,13 +120,15 @@ export const SearchRoute = () => {
     [raw]
   )
 
-  const [filterText, setFilterText] = useState("")
+  const [filterText, setFilterText] = useAtom(searchText)
   const [filter, setFilter] = useState<Filters>({})
   const filtered = useFilters(allFlat, filter)
 
+  useEffect(() => () => searchText.set(""), [])
+
   return (
     <div className={cn(vstack({}), "h-full px-10 pt-6")}>
-      <div className="mb-4">
+      <div className={cn(hstack({ gap: 2 }), "mb-4")}>
         <SearchFilterInput
           value={filterText}
           onChange={(value, filters) => {
@@ -121,6 +142,7 @@ export const SearchRoute = () => {
             })
           }}
         />
+        <SaveFilterButton filterText={filterText} />
       </div>
 
       {filtered.length === 0 ? (

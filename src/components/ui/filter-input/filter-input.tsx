@@ -93,6 +93,7 @@ interface FilterTextInputProps {
   ref: Ref<HTMLInputElement>
   value: string
   onChange: Dispatch<string>
+  id?: string
 }
 const FilterTextInput = ({
   ref,
@@ -190,9 +191,11 @@ export interface FilterInputProps<TTagName extends string> extends Pick<
   InputProps,
   "placeholder" | "ref" | "style" | "className"
 > {
+  id?: string
   value: string
   onChange: (value: string, filters: Filters<TTagName>) => void
   tagConfigs: Record<TTagName, TagConfig>
+  hideSuggestions?: boolean
 }
 
 export const FilterInput = <TTagName extends string>({
@@ -200,6 +203,8 @@ export const FilterInput = <TTagName extends string>({
   onChange,
   tagConfigs,
   className,
+  hideSuggestions,
+  id,
   ...props
 }: FilterInputProps<TTagName>) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -278,7 +283,7 @@ export const FilterInput = <TTagName extends string>({
     onSelect: ({ name }) => insertSuggestion(name),
   })
 
-  const open = hasFocus && !dropdown.forceClose
+  const open = !hideSuggestions && hasFocus && !dropdown.forceClose
 
   return (
     <div
@@ -294,6 +299,7 @@ export const FilterInput = <TTagName extends string>({
         ref={inputRef}
         value={textValue}
         onChange={updateFilters}
+        id={id}
       />
 
       <FilterTextDisplay ref={textRef} segments={filter.segments} />

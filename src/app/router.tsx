@@ -5,6 +5,7 @@ import { MainRoute } from "./routes/main/main-route"
 import { MainSideRoute } from "./routes/main/main-side-route"
 import { NotFoundRoute } from "./routes/not-found"
 import { SearchRoute } from "./routes/search/search-route"
+import { SearchSideRoute } from "./routes/search/search-side-route"
 import { SettingsRoute } from "./routes/settings/settings-route"
 import { SettingsSideRoute } from "./routes/settings/settings-side-route"
 import { StatsRoute } from "./routes/stats/stats-route"
@@ -16,6 +17,7 @@ const AppRouter = () => (
       <Switch>
         <Route path="/settings/*" component={SettingsSideRoute} />
         <Route path="/settings" component={SettingsSideRoute} />
+        <Route path="/search" component={SearchSideRoute} />
         <Route path="/stats" component={StatsSideRoute} />
         <Route path="/" component={MainSideRoute} />
       </Switch>

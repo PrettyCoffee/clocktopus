@@ -26,7 +26,10 @@ const tagConfigs = {
 } satisfies FilterInputProps<string>["tagConfigs"]
 
 export const SearchFilterInput = (
-  props: Pick<FilterInputProps<keyof typeof tagConfigs>, "value" | "onChange">
+  props: Pick<
+    FilterInputProps<keyof typeof tagConfigs>,
+    "value" | "onChange" | "hideSuggestions"
+  >
 ) => (
   <FilterInput
     className="block flex-1"
