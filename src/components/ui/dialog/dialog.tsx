@@ -30,6 +30,7 @@ interface DialogAction {
   look?: ButtonProps["look"]
   caption?: string
   onClick?: () => void
+  disabled?: boolean
 }
 
 export interface DialogProps extends ClassNameProp {
@@ -52,6 +53,7 @@ const DialogActions = ({
       {confirm && (
         <Button
           look={confirm.look ?? "key"}
+          disabled={confirm.disabled}
           onClick={() => {
             onClose?.()
             confirm.onClick?.()
@@ -63,6 +65,7 @@ const DialogActions = ({
       {cancel && (
         <Button
           look={cancel.look ?? "flat"}
+          disabled={cancel.disabled}
           onClick={() => {
             onClose?.()
             cancel.onClick?.()
