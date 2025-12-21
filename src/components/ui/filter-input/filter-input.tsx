@@ -121,7 +121,7 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
     className={cn(
       hstack({ align: "center" }),
       textStyles,
-      "absolute inset-0 right-10 left-10 -z-1 ml-px h-full overflow-hidden"
+      "absolute inset-0 right-10 left-10 -z-1 -ml-px h-full overflow-hidden pl-0.5"
     )}
   >
     {segments.map(({ tag, value, text, isTagValid, isValueValid }, index) =>
