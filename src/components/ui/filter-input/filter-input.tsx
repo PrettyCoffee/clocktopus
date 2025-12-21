@@ -4,6 +4,7 @@ import {
   RefObject,
   useCallback,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
 } from "react"
@@ -185,17 +186,17 @@ const FilterSuggestions = ({
   </div>
 )
 
-interface FilterInputProps<TTagName extends string> extends Pick<
+export interface FilterInputProps<TTagName extends string> extends Pick<
   InputProps,
   "placeholder" | "ref" | "style" | "className"
 > {
-  initialValue?: string
-  onChange: (filters: Filters<TTagName>) => void
+  value: string
+  onChange: (value: string, filters: Filters<TTagName>) => void
   tagConfigs: Record<TTagName, TagConfig>
 }
 
 export const FilterInput = <TTagName extends string>({
-  initialValue = "",
+  value: textValue,
   onChange,
   tagConfigs,
   className,
@@ -208,19 +209,21 @@ export const FilterInput = <TTagName extends string>({
   const hasFocus = useFocus([wrapperRef])
   const [cursorPos, setCursorPos] = useCursorPos(inputRef)
 
-  const [text, setText] = useState(initialValue)
-  const [filter, setFilter] = useState(() =>
-    parseFilter(initialValue, tagConfigs)
-  )
+  const [filter, setFilter] = useState(() => parseFilter(textValue, tagConfigs))
+  const lastText = useRef("")
 
-  const updateText = (newText: string) => {
-    if (text === newText) return
+  const updateFilters = useEffectEvent((newText: string) => {
+    if (lastText.current === newText) return
     const filter = parseFilter(newText, tagConfigs)
 
-    setText(newText)
+    lastText.current = newText
     setFilter(filter)
-    onChange(filter)
-  }
+    onChange(newText, filter)
+  })
+
+  useEffect(() => {
+    updateFilters(textValue)
+  }, [textValue, updateFilters])
 
   useEffect(() => {
     const input = inputRef.current
@@ -243,22 +246,23 @@ export const FilterInput = <TTagName extends string>({
       example: tagConfigs[tag as TTagName].example,
     }))
     .filter(({ name }) => {
-      if (text.includes(name)) return false
-      const currentWord = text.slice(0, cursorPos.end).split(/\s+/).at(-1) ?? ""
+      if (textValue.includes(name)) return false
+      const currentWord =
+        textValue.slice(0, cursorPos.end).split(/\s+/).at(-1) ?? ""
       return name.startsWith(currentWord)
     })
 
   const insertSuggestion = (suggestion: string) => {
-    const beforeCursor = text
+    const beforeCursor = textValue
       .slice(0, cursorPos.start)
       .replace(/[^\s]*$/, suggestion)
 
-    let afterCursor = text.slice(cursorPos.end)
+    let afterCursor = textValue.slice(cursorPos.end)
     if (afterCursor && !afterCursor.startsWith(" ")) {
       afterCursor = " " + afterCursor
     }
 
-    updateText(beforeCursor + afterCursor)
+    updateFilters(beforeCursor + afterCursor)
 
     window.queueMicrotask(() => {
       const newCursorPos = beforeCursor.length
@@ -286,7 +290,11 @@ export const FilterInput = <TTagName extends string>({
         <Icon icon={Search} size="sm" color="muted" />
       </span>
 
-      <FilterTextInput ref={inputRef} value={text} onChange={updateText} />
+      <FilterTextInput
+        ref={inputRef}
+        value={textValue}
+        onChange={updateFilters}
+      />
 
       <FilterTextDisplay ref={textRef} segments={filter.segments} />
 
@@ -297,18 +305,18 @@ export const FilterInput = <TTagName extends string>({
           onSelect={insertSuggestion}
           offsetLeft={(() => {
             const scroll = textRef.current?.scrollLeft ?? 0
-            return measureText(text.slice(0, cursorPos.start)) - scroll
+            return measureText(textValue.slice(0, cursorPos.start)) - scroll
           })()}
         />
       )}
 
-      {text && (
+      {textValue && (
         <IconButton
           icon={XCircle}
           size="sm"
           title="Clear filters"
           className="absolute top-1 right-1 bottom-1"
-          onClick={() => updateText("")}
+          onClick={() => updateFilters("")}
         />
       )}
     </div>

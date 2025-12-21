@@ -1,10 +1,9 @@
-import { Dispatch, useMemo } from "react"
+import { Dispatch, useMemo, useState } from "react"
 
 import { ContextInfo } from "components/ui/context-info"
-import { FilterInput } from "components/ui/filter-input"
+import { FilterInput, FilterInputProps } from "components/ui/filter-input"
 import { groupedCategories } from "data/categories"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
-import { useObjectState } from "hooks/use-object-state"
 import { useAtomValue } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
@@ -13,13 +12,35 @@ import { vstack } from "utils/styles"
 
 import { SearchTable } from "./search-table"
 
+const isYear = (value: string) => /^\d{4}$/.test(value)
+const tagConfigs = {
+  category: { example: "Meeting" },
+  year: { example: dateHelpers.today().slice(0, 4), validate: isYear },
+  until: {
+    example: dateHelpers.today(),
+    validate: dateHelpers.isValid,
+    format: value => {
+      if (value.length < 4) return ""
+      const date = dateHelpers.parse(isYear(value) ? `${value}-12-31` : value)
+      return dateHelpers.stringify(date)
+    },
+  },
+  from: {
+    example: dateHelpers.today(),
+    validate: dateHelpers.isValid,
+    format: value => {
+      if (value.length < 4) return ""
+      const date = dateHelpers.parse(isYear(value) ? `${value}-01-01` : value)
+      return dateHelpers.stringify(date)
+    },
+  },
+} satisfies FilterInputProps<string>["tagConfigs"]
+
 const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
   const stampA = `${a.date}_${a.start}_${a.end}`
   const stampB = `${b.date}_${b.start}_${b.end}`
   return stampB.localeCompare(stampA)
 }
-
-const isYear = (value: string) => /^\d{4}$/.test(value)
 
 interface Filters {
   description?: string
@@ -29,54 +50,34 @@ interface Filters {
   untilDate?: string
 }
 
-const SearchFilters = ({ onChange }: { onChange: Dispatch<Filters> }) => (
+const SearchFilters = ({
+  textValue,
+  onTextChange,
+  onFilterChange,
+}: {
+  textValue: string
+  onTextChange: Dispatch<string>
+  onFilterChange: Dispatch<Filters>
+}) => (
   <FilterInput
     className="block"
     placeholder="Search for time entries"
-    onChange={({ text, tags }) => {
-      onChange({
-        description: text,
-        category: tags.category,
-        year: tags.year,
-        fromDate: tags.from,
-        untilDate: tags.until,
+    value={textValue}
+    tagConfigs={tagConfigs}
+    onChange={(value, filters) => {
+      onTextChange(value)
+      onFilterChange({
+        description: filters.text,
+        category: filters.tags.category,
+        year: filters.tags.year,
+        fromDate: filters.tags.from,
+        untilDate: filters.tags.until,
       })
-    }}
-    tagConfigs={{
-      category: { example: "Meeting" },
-      year: { example: dateHelpers.today().slice(0, 4), validate: isYear },
-      until: {
-        example: dateHelpers.today(),
-        validate: dateHelpers.isValid,
-        format: value => {
-          if (value.length < 4) return ""
-          const date = dateHelpers.parse(
-            isYear(value) ? `${value}-12-31` : value
-          )
-          return dateHelpers.stringify(date)
-        },
-      },
-      from: {
-        example: dateHelpers.today(),
-        validate: dateHelpers.isValid,
-        format: value => {
-          if (value.length < 4) return ""
-          const date = dateHelpers.parse(
-            isYear(value) ? `${value}-01-01` : value
-          )
-          return dateHelpers.stringify(date)
-        },
-      },
     }}
   />
 )
 
-export const SearchRoute = () => {
-  const raw = useAtomValue(timeEntriesData)
-  const allFlat = useMemo(
-    () => Object.values(raw).flat().sort(sortLatestTop),
-    [raw]
-  )
+const useCategoryNames = () => {
   const groups = useAtomValue(groupedCategories)
   const categories = useMemo(
     () =>
@@ -91,11 +92,14 @@ export const SearchRoute = () => {
       ]),
     [groups]
   )
+  return categories
+}
 
-  const [filter, setFilter] = useObjectState<Filters>({})
+const useFilters = (items: TimeEntry[], filter: Filters) => {
+  const categories = useCategoryNames()
 
-  const filtered = useMemo(() => {
-    let filtered = allFlat
+  return useMemo(() => {
+    let filtered = items
 
     if (filter.category) {
       filtered = fuzzyFilter({
@@ -131,7 +135,7 @@ export const SearchRoute = () => {
 
     return filtered
   }, [
-    allFlat,
+    items,
     filter.description,
     filter.category,
     filter.year,
@@ -139,11 +143,27 @@ export const SearchRoute = () => {
     filter.untilDate,
     categories,
   ])
+}
+
+export const SearchRoute = () => {
+  const raw = useAtomValue(timeEntriesData)
+  const allFlat = useMemo(
+    () => Object.values(raw).flat().sort(sortLatestTop),
+    [raw]
+  )
+
+  const [filterText, setFilterText] = useState("")
+  const [filter, setFilter] = useState<Filters>({})
+  const filtered = useFilters(allFlat, filter)
 
   return (
     <div className={cn(vstack({}), "h-full px-10 pt-6")}>
       <div className="mb-4">
-        <SearchFilters onChange={setFilter} />
+        <SearchFilters
+          textValue={filterText}
+          onTextChange={setFilterText}
+          onFilterChange={setFilter}
+        />
       </div>
 
       {filtered.length === 0 ? (
