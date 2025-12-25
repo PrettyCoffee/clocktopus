@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 
 import { getDateAtom } from "./get-date-atom"
 
@@ -11,5 +11,5 @@ export const useDateEntries = (date: string) => {
     setAtom(getDateAtom(date))
   }, [date])
 
-  return { entries: useAtomValue(atom), atom }
+  return { entries: useAtom(atom), atom }
 }

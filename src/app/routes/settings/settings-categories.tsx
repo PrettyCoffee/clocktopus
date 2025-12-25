@@ -20,7 +20,7 @@ import {
   categoriesData,
 } from "data/categories"
 import { useObjectState } from "hooks/use-object-state"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { colored, hstack, interactive, vstack } from "utils/styles"
 
@@ -187,7 +187,7 @@ const groupDeleteColumn = groupHelper.column({
 })
 
 const GroupRows = () => {
-  const groups = useAtomValue(categoryGroupsData)
+  const groups = useAtom(categoryGroupsData)
   return (
     <ScrollArea className="max-h-60">
       <Table
@@ -236,7 +236,7 @@ const AddCategory = () => {
     groupId: "",
   }
   const [data, updateData] = useObjectState(initialData)
-  const groups = useAtomValue(categoryGroupsData)
+  const groups = useAtom(categoryGroupsData)
 
   return (
     <div
@@ -341,8 +341,8 @@ const categoryDeleteColumn = categoryHelper.column({
 })
 
 const CategoryRows = () => {
-  const categories = useAtomValue(categoriesData)
-  const groups = useAtomValue(categoryGroupsData)
+  const categories = useAtom(categoriesData)
+  const groups = useAtom(categoryGroupsData)
   return (
     <ScrollArea className="max-h-60">
       <Table

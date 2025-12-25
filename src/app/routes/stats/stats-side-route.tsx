@@ -3,7 +3,7 @@ import { DateInput } from "components/ui/date-input"
 import { Divider } from "components/ui/divider"
 import { InputLabel } from "components/ui/input-label"
 import { timeEntriesData, useTrackedYears } from "data/time-entries"
-import { createAtom, createSelector, useAtomValue } from "lib/yaasl"
+import { createAtom, createSelector, useAtom } from "lib/yaasl"
 import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
 
@@ -37,17 +37,15 @@ export const filteredStatsEntries = createSelector(
 )
 
 export const StatsSideRoute = () => {
-  const selectedFilter = useAtomValue(statsFilterData)
-  const entries = useAtomValue(timeEntriesData)
+  const selectedFilter = useAtom(statsFilterData)
+  const entries = useAtom(timeEntriesData)
   const dates = Object.keys(entries)
     .sort()
     .map(date => new Date(date))
 
   const years = useTrackedYears()
 
-  const matchingEntries = Object.values(
-    useAtomValue(filteredStatsEntries)
-  ).flat()
+  const matchingEntries = Object.values(useAtom(filteredStatsEntries)).flat()
 
   const firstEntry = !dates[0] ? undefined : dateHelpers.stringify(dates[0])
   const lastEntry = !dates.at(-1)

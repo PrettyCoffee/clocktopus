@@ -12,7 +12,7 @@ import {
 } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
 import { useObjectState } from "hooks/use-object-state"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { createId } from "utils/create-id"
 import { dateHelpers } from "utils/date-helpers"
@@ -45,8 +45,8 @@ const useSearchableTimeEntries = () => {
 }
 
 const useCategory = () => {
-  const categories = useAtomValue(categoriesData)
-  const groups = useAtomValue(categoryGroupsData)
+  const categories = useAtom(categoriesData)
+  const groups = useAtom(categoryGroupsData)
 
   return useMemo(
     () =>

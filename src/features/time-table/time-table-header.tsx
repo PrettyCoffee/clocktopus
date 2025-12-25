@@ -9,7 +9,7 @@ import { categoriesData } from "data/categories"
 import { type TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
@@ -18,7 +18,7 @@ import { CheckedState, useCheckedState } from "./checked-context"
 import { Duration } from "./duration"
 
 const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
-  const categories = useAtomValue(categoriesData)
+  const categories = useAtom(categoriesData)
 
   const totalTimeByCategory = [
     { id: undefined, isPrivate: false },

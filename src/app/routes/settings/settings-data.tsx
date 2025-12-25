@@ -21,7 +21,7 @@ import { TimeEntry, timeEntriesData } from "data/time-entries"
 import { CsvImport } from "features/csv-import"
 import { csvExport } from "features/csv-import/csv-export"
 import { dataBackup } from "features/data-backup"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { sleep } from "utils/sleep"
 import { hstack, vstack } from "utils/styles"
@@ -62,7 +62,7 @@ const BackupReminderData = () => (
   >
     <div className={cn(hstack({ gap: 4, wrap: true }), "mx-auto w-max")}>
       <NumberInput
-        value={useAtomValue(dataBackupData).reminderSchedule}
+        value={useAtom(dataBackupData).reminderSchedule}
         min={1}
         max={356}
         unit="day schedule"
@@ -72,7 +72,7 @@ const BackupReminderData = () => (
       />
       <Toggle
         label="Auto download"
-        checked={useAtomValue(dataBackupData).autoDownload}
+        checked={useAtom(dataBackupData).autoDownload}
         onChange={autoDownload =>
           dataBackupData.set(state => ({ ...state, autoDownload }))
         }

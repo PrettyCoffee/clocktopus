@@ -4,7 +4,7 @@ import { ClockPlus } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
 import { TimeEntry } from "data/time-entries"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 
@@ -125,7 +125,7 @@ const StatsModeHeader = ({
 )
 
 const StatsCharts = ({ mode }: { mode: Mode }) => {
-  const filtered = useAtomValue(filteredStatsEntries)
+  const filtered = useAtom(filteredStatsEntries)
 
   const data = useMemo(() => {
     switch (mode) {

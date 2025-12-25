@@ -4,7 +4,7 @@ import { Card } from "components/ui/card"
 import { ColorInput } from "components/ui/color-input"
 import { Toggle } from "components/ui/toggle"
 import { themeData } from "data/theme"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 
@@ -56,8 +56,8 @@ const slider = css`
 `
 
 const BaseColors = () => {
-  const mode = useAtomValue(themeData.selectors.getMode)
-  const colored = useAtomValue(themeData.selectors.getColored)
+  const mode = useAtom(themeData.selectors.getMode)
+  const colored = useAtom(themeData.selectors.getColored)
   return (
     <Card
       title="Base Colors"
@@ -82,7 +82,7 @@ const BaseColors = () => {
 }
 
 const BorderRadiusSlider = () => {
-  const radius = useAtomValue(themeData.selectors.getRadius)
+  const radius = useAtom(themeData.selectors.getRadius)
   return (
     <Card
       title="Border Radius"
@@ -106,7 +106,7 @@ const BorderRadiusSlider = () => {
 }
 
 const AccentColor = () => {
-  const accent = useAtomValue(themeData.selectors.getAccent)
+  const accent = useAtom(themeData.selectors.getAccent)
   return (
     <Card
       title="Accent color"

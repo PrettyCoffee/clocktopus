@@ -5,7 +5,7 @@ import { Divider } from "components/ui/divider"
 import { IconButton } from "components/ui/icon-button"
 import { InputLabel } from "components/ui/input-label"
 import { useTrackedYears } from "data/time-entries"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 
@@ -13,9 +13,9 @@ import { savedFilters, searchText } from "./search-data"
 
 export const SearchSideRoute = () => {
   const years = useTrackedYears()
-  const currentFilter = useAtomValue(searchText)
+  const currentFilter = useAtom(searchText)
 
-  const filters = useAtomValue(savedFilters)
+  const filters = useAtom(savedFilters)
   return (
     <div>
       <InputLabel label="Predefined Filters" />

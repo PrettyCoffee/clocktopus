@@ -14,9 +14,9 @@
         "@radix-ui/react-tooltip": "1.2.8",
         "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
-        "@yaasl/core": "0.14.0-alpha.2",
-        "@yaasl/devtools": "0.13.1",
-        "@yaasl/react": "0.13.1",
+        "@yaasl/core": "0.15.0-alpha.0",
+        "@yaasl/devtools": "0.15.0-alpha.0",
+        "@yaasl/react": "0.15.0-alpha.0",
         "class-variance-authority": "0.7.1",
         "goober": "2.1.18",
         "lucide-react": "0.555.0",
@@ -490,13 +490,13 @@
 
     "@vitest/eslint-plugin": ["@vitest/eslint-plugin@1.5.2", "", { "dependencies": { "@typescript-eslint/scope-manager": "^8.46.1", "@typescript-eslint/utils": "^8.46.1" }, "peerDependencies": { "eslint": ">=8.57.0", "typescript": ">=5.0.0", "vitest": "*" }, "optionalPeers": ["typescript", "vitest"] }, "sha512-2t1F2iecXB/b1Ox4U137lhD3chihEE3dRVtu3qMD35tc6UqUjg1VGRJoS1AkFKwpT8zv8OQInzPQO06hrRkeqw=="],
 
-    "@yaasl/core": ["@yaasl/core@0.14.0-alpha.2", "", { "peerDependencies": { "@yaasl/utils": "^0.13.1" } }, "sha512-bV75i+vcN500qZt9xKmn9KymAfp78yjbydmcR26yeN/nRHykmJzSQ/0IYrjqMksSqPusn0EFbpPC30LAOJAt6A=="],
+    "@yaasl/core": ["@yaasl/core@0.15.0-alpha.0", "", { "peerDependencies": { "@yaasl/utils": "^0.15.0-alpha.0" } }, "sha512-biAynPmFA8UNxOzyxsiY801+bu6Clhc3V9ojdBaUo5ZND1D+QpJufNBhAvzrK3VMi1OJ+XyojCjUqWgMeBlFKQ=="],
 
-    "@yaasl/devtools": ["@yaasl/devtools@0.13.1", "", { "peerDependencies": { "@yaasl/core": "^0.13.1", "@yaasl/utils": "^0.13.1" } }, "sha512-cqqcUa3Pxo6LXqQK0gLcy9Q+owwbB9c7BTjpDfczvQ0p+nbuxVgn0mwx3xrtlQnNWDb72dWddtdLiYS0LtdlMQ=="],
+    "@yaasl/devtools": ["@yaasl/devtools@0.15.0-alpha.0", "", { "peerDependencies": { "@yaasl/core": "^0.15.0-alpha.0", "@yaasl/utils": "^0.15.0-alpha.0" } }, "sha512-7h2fS6vyE0Oin8QJVG36KAj3c2ET8F9j8C9bK4oWDcefuC6BMqu7lFDYKTTs2xqPbRmvExQ89jaBZh7P+OBbcg=="],
 
-    "@yaasl/react": ["@yaasl/react@0.13.1", "", { "peerDependencies": { "@yaasl/core": "^0.13.1", "@yaasl/utils": "^0.13.1", "react": "^18.0.0 || ^19.0.0" } }, "sha512-Z7cEqO+YSThFonwoXcX7ha6HQFs33bY3a38xbmboDxQG0y4seWpjsn705lpsHbJapLnqccOs5xxwUfC59mKFZA=="],
+    "@yaasl/react": ["@yaasl/react@0.15.0-alpha.0", "", { "peerDependencies": { "@yaasl/core": "^0.15.0-alpha.0", "@yaasl/utils": "^0.15.0-alpha.0", "react": "^18.0.0 || ^19.0.0" } }, "sha512-XyWLVK4WFY/XCkJcLhpnqqDVc1fErz4QpC0OhLasK+s00imzDAzlbiDLECmfEQO9HrupSjT1bMkLu/zwlU/HVQ=="],
 
-    "@yaasl/utils": ["@yaasl/utils@0.13.1", "", {}, "sha512-3ZajrIIjSi7iVJEZA5llc0Z1GYx+ssNHAUHYydHlGdqzwDt639WAZVk8lbldEvC3mACaJf4NENocCuYrk1nKQQ=="],
+    "@yaasl/utils": ["@yaasl/utils@0.15.0-alpha.0", "", {}, "sha512-Vr9mpWzNt41B1XClx7nWk6FUPahQPP/IrSeA3s3v7a0Un4F/0cOPgvXhIgkSWkI7gcCvH+DKkMXuZ7tzTiaMjQ=="],
 
     "acorn": ["acorn@8.15.0", "", { "bin": { "acorn": "bin/acorn" } }, "sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg=="],
 

@@ -4,7 +4,7 @@ import { Card } from "components/ui/card"
 import { Input } from "components/ui/input"
 import { Select } from "components/ui/select"
 import { preferencesData } from "data/preferences"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 
@@ -22,7 +22,7 @@ const locales = {
 }
 
 const Locale = () => {
-  const { locale } = useAtomValue(preferencesData)
+  const { locale } = useAtom(preferencesData)
   return (
     <Card
       title="Locale"
@@ -60,7 +60,7 @@ const Locale = () => {
 }
 
 const SummaryStyle = () => {
-  const { summaryStyle } = useAtomValue(preferencesData)
+  const { summaryStyle } = useAtom(preferencesData)
   return (
     <Card
       title="Summary style"

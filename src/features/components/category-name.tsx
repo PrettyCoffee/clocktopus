@@ -1,5 +1,5 @@
 import { categoryGroupsData, categoriesData } from "data/categories"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { colored } from "utils/styles"
@@ -8,8 +8,8 @@ export const CategoryName = ({
   categoryId,
   className,
 }: ClassNameProp & { categoryId?: string }) => {
-  const categories = useAtomValue(categoriesData)
-  const groups = useAtomValue(categoryGroupsData)
+  const categories = useAtom(categoriesData)
+  const groups = useAtom(categoryGroupsData)
 
   const category = categories.find(({ id }) => id === categoryId)
   const group = groups.find(group => group.id === category?.groupId)

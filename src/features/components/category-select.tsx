@@ -4,7 +4,7 @@ import { Link } from "wouter"
 
 import { Select } from "components/ui/select"
 import { groupedCategories, GroupedCategories, Category } from "data/categories"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { colored } from "utils/styles"
 
@@ -56,7 +56,7 @@ export const CategorySelect = ({
   onChange,
   ...rest
 }: CategorySelectProps) => {
-  const groups = useAtomValue(groupedCategories)
+  const groups = useAtom(groupedCategories)
 
   const exists = groups.some(item =>
     item.categories.some(({ id }) => id === value)

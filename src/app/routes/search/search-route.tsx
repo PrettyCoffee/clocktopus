@@ -6,7 +6,7 @@ import { ContextInfo } from "components/ui/context-info"
 import { IconButton } from "components/ui/icon-button"
 import { groupedCategories } from "data/categories"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
-import { useAtom, useAtomValue, useSelector } from "lib/yaasl"
+import { useAtom, useSelector } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { fuzzyFilter } from "utils/fuzzy-filter"
@@ -114,13 +114,13 @@ const SaveFilterButton = ({ filterText }: { filterText: string }) => {
 }
 
 export const SearchRoute = () => {
-  const raw = useAtomValue(timeEntriesData)
+  const raw = useAtom(timeEntriesData)
   const allFlat = useMemo(
     () => Object.values(raw).flat().sort(sortLatestTop),
     [raw]
   )
 
-  const [filterText, setFilterText] = useAtom(searchText)
+  const filterText = useAtom(searchText)
   const [filter, setFilter] = useState<Filters>({})
   const filtered = useFilters(allFlat, filter)
 
@@ -132,7 +132,7 @@ export const SearchRoute = () => {
         <SearchFilterInput
           value={filterText}
           onChange={(value, filters) => {
-            setFilterText(value)
+            searchText.set(value)
             setFilter({
               description: filters.text,
               category: filters.tags.category,

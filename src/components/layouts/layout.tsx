@@ -3,7 +3,7 @@ import { PropsWithChildren, ReactNode } from "react"
 import { Menu } from "lucide-react"
 
 import { useMountAnimation } from "hooks/use-mount-animation"
-import { createAtom, sessionStorage, useAtomValue } from "lib/yaasl"
+import { createAtom, sessionStorage, useAtom } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
@@ -25,7 +25,7 @@ const sideBarOpen = createAtom({
 })
 
 const Side = ({ children, actions = [], className }: LayoutSideProps) => {
-  const isOpen = useAtomValue(sideBarOpen)
+  const isOpen = useAtom(sideBarOpen)
   const toggle = () => sideBarOpen.set(open => !open)
   const animate = useMountAnimation({ open: isOpen, duration: 300 })
 

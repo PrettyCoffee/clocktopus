@@ -14,7 +14,7 @@ import { preferencesData } from "data/preferences"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { CategorySelect } from "features/components/category-select"
 import { useObjectState } from "hooks/use-object-state"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { hstack } from "utils/styles"
@@ -134,7 +134,7 @@ const BulkEditModal = ({
         <InputLabel label="Date">
           <DateInput
             caption={state.date === mixedData ? mixedData : undefined}
-            locale={useAtomValue(preferencesData).locale}
+            locale={useAtom(preferencesData).locale}
             value={state.date === mixedData ? undefined : state.date}
             onChange={date => updateState({ date })}
             max={dateHelpers.today()}

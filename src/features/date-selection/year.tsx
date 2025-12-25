@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 
 import { selectedWeek } from "./selected-week"
 import { Week, WeekProps } from "./week"
@@ -34,7 +34,7 @@ interface YearProps {
   year: number
 }
 export const Year = ({ year }: YearProps) => {
-  const selected = useAtomValue(selectedWeek)
+  const selected = useAtom(selectedWeek)
   const weeks = useMemo(
     () =>
       getCalendarWeeks(year)

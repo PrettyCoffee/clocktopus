@@ -5,7 +5,7 @@ import { createColumnHelper, Table } from "components/ui/table"
 import { preferencesData } from "data/preferences"
 import { type TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, surface, vstack } from "utils/styles"
@@ -138,7 +138,7 @@ const TimeSummaryGrid = ({ summary }: { summary: TimeSummary[] }) => (
 )
 
 export const TimeSummary = ({ entries }: { entries: TimeEntry[] }) => {
-  const { summaryStyle } = useAtomValue(preferencesData)
+  const { summaryStyle } = useAtom(preferencesData)
   const summary = useMemo(() => summarize(entries), [entries])
 
   return summaryStyle === "table" ? (

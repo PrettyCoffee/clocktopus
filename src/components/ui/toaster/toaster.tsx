@@ -1,5 +1,5 @@
 import { Portal } from "components/utility/portal"
-import { useAtomValue } from "lib/yaasl"
+import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { zIndex } from "utils/z-index"
 
@@ -7,7 +7,7 @@ import { Toast } from "./toast"
 import { toastList } from "./toaster-data"
 
 export const Toaster = () => {
-  const toasts = useAtomValue(toastList)
+  const toasts = useAtom(toastList)
 
   return (
     <Portal>

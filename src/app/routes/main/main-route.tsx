@@ -12,7 +12,7 @@ import {
 } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
-import { useAtomValue, createSlice } from "lib/yaasl"
+import { useAtom, createSlice } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
@@ -49,8 +49,8 @@ const formatDate = (date: string) => {
 }
 
 const TimeTables = ({ dates }: { dates: string[] }) => {
-  const allEntries = useAtomValue(timeEntriesData)
-  const editable = useAtomValue(editableDates)
+  const allEntries = useAtom(timeEntriesData)
+  const editable = useAtom(editableDates)
   return (
     <CheckedStateProvider>
       <TimeEntriesBulkActions />
@@ -110,8 +110,8 @@ const FirstEntry = () => (
 )
 
 export const MainRoute = () => {
-  const selected = useAtomValue(selectedWeek)
-  const trackedDates = useAtomValue(timeEntriesData.selectors.getTrackedDates)
+  const selected = useAtom(selectedWeek)
+  const trackedDates = useAtom(timeEntriesData.selectors.getTrackedDates)
   const visibleDates = useMemo(
     () =>
       selected.days
