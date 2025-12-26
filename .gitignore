@@ -10,6 +10,7 @@
 
 # production
 /dist
+/src/locales/*/messages.js
 
 # local test files
 /.dump

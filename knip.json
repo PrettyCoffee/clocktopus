@@ -3,6 +3,7 @@
   "entry": [
     "src/main.tsx",
     "eslint.config.mjs",
+    "lingui.config.js",
     "tailwind/tailwind.config.ts"
   ],
   "ignore": ["**/*.d.ts", "**/tab-pattern.tsx", "**/auto-animate-height.tsx"],

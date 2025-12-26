@@ -8,7 +8,7 @@ export default defineConfig(
   prettyCozy.baseTs,
   prettyCozy.react,
   prettyCozy.tailwind({ entryPoint: "src/index.css" }),
-  globalIgnores(["dist", "node_modules"]),
+  globalIgnores(["dist", "node_modules", "src/locales/*/messages.js"]),
 
   {
     // For some unknown reason vscode detects this rule as "warn", even when being disabled by prettyCozy.tailwind
@@ -29,6 +29,16 @@ export default defineConfig(
               name: "zod",
               allowImportNames: ["ZodError"],
               message: "Import from zod/mini instead.",
+            },
+            {
+              name: "@lingui/core",
+              allowImportNames: ["i18n", "Messages"],
+              message: "Import from @lingui/core/macro instead.",
+            },
+            {
+              name: "@lingui/react",
+              allowImportNames: ["I18nProvider"],
+              message: "Import from @lingui/react/macro instead.",
             },
           ],
           patterns: [
