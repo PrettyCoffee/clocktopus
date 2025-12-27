@@ -21,7 +21,7 @@ const Trigger = ({ placeholder, caption, className }: TriggerProps) => (
   <Primitive.Trigger asChild>
     <Button
       className={cn(
-        "justify-between gap-2 border border-stroke-gentle data-[placeholder]:text-text-muted",
+        "justify-between gap-2 border border-stroke-gentle data-placeholder:text-text-muted",
         "[&_svg]:transition [&_svg]:duration-400 [&_svg]:ease-bounce data-[state='open']:[&_svg]:rotate-180",
         className
       )}
@@ -60,7 +60,7 @@ const Content = ({ children }: PropsWithChildren) => (
       className={cn(
         zIndex.popover,
         surface({ look: "overlay", size: "lg" }),
-        "relative max-h-(--radix-select-content-available-height) min-w-[8rem] overflow-x-hidden overflow-y-auto p-0",
+        "relative max-h-(--radix-select-content-available-height) min-w-32 overflow-x-hidden overflow-y-auto p-0",
         "origin-(--radix-select-content-transform-origin) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
       )}
     >
@@ -68,7 +68,7 @@ const Content = ({ children }: PropsWithChildren) => (
       <Primitive.Viewport
         className={cn(
           "p-1",
-          "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
+          "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1"
         )}
       >
         {children}
