@@ -1,5 +1,6 @@
 import { Dispatch } from "react"
 
+import { t } from "@lingui/core/macro"
 import { ChevronDown, ChevronUp, Plus, Trash } from "lucide-react"
 
 import { Card } from "components/ui/card"
@@ -34,15 +35,15 @@ const requestDeletion = ({
   onDelete: () => void
 }) =>
   showDialog({
-    title: `Delete ${type}`,
-    description: `Do you really want to delete your "${name}" ${type}? This action cannot be reverted.`,
+    title: t`Delete ${type}`,
+    description: t`Do you really want to delete your "${name}" ${type}? This action cannot be reverted.`,
     confirm: {
-      caption: "Confirm deletion",
+      caption: t`Confirm deletion`,
       look: "destructive",
       onClick: onDelete,
     },
     cancel: {
-      caption: "Cancel",
+      caption: t`Cancel`,
       look: "flat",
     },
   })
@@ -60,7 +61,7 @@ const AddGroup = () => {
     >
       <Input
         type="text"
-        placeholder="Group name"
+        placeholder={t`Group name`}
         value={data.name}
         onChange={name => updateData({ name })}
         className="flex-1"
@@ -72,7 +73,7 @@ const AddGroup = () => {
       />
       <IconButton
         icon={Plus}
-        title="Add group"
+        title={t`Add group`}
         onClick={() => {
           categoryGroupsData.actions.add(data)
           updateData(initialData)

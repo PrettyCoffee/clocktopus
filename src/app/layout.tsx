@@ -1,5 +1,7 @@
 import { ReactNode } from "react"
 
+import { i18n } from "@lingui/core"
+import { msg } from "@lingui/core/macro"
 import { Settings, ClockFading, ChartNoAxesColumn, Search } from "lucide-react"
 import { useHashLocation } from "wouter/use-hash-location"
 
@@ -10,13 +12,13 @@ import { IconButton } from "components/ui/icon-button"
 import { ErrorBoundary } from "components/utility/error-boundary"
 
 const routes = [
-  { to: "/", title: "Time Tracker", icon: ClockFading },
-  { to: "/search", title: "Search", icon: Search },
-  { to: "/stats", title: "Stats", icon: ChartNoAxesColumn },
-  { to: "/settings", title: "Settings", icon: Settings },
+  { to: "/", title: msg`Time Tracker`, icon: ClockFading },
+  { to: "/search", title: msg`Search`, icon: Search },
+  { to: "/stats", title: msg`Stats`, icon: ChartNoAxesColumn },
+  { to: "/settings", title: msg`Settings`, icon: Settings },
   {
     href: "https://github.com/PrettyCoffee/clocktopus",
-    title: "Github",
+    title: msg`Github`,
     icon: Github,
     target: "_blank",
   },
@@ -34,6 +36,7 @@ const SideActions = () => {
         <IconButton
           key={props.to ?? props.href}
           {...props}
+          title={i18n._(props.title)}
           titleSide="right"
           active={isActive(props.to)}
         />

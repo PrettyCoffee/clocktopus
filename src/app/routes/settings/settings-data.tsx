@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import {
   FileJson2,
   HardDriveDownload,
@@ -30,20 +32,22 @@ import { OrChain } from "./fragments/or-chain"
 
 const BackupData = () => (
   <Card
-    title="Backup data"
+    title={t`Backup data`}
     description={
-      "Backup your data and import your backups. " +
-      "This is important since your data is only stored locally in your browser. " +
-      "Resetting your browser's data will also delete all data and settings of Clocktopus."
+      <Trans>
+        Backup your data and import your backups. This is important since your
+        data is only stored locally in your browser. Resetting your browser's
+        data will also delete all data and settings of Clocktopus.
+      </Trans>
     }
   >
     <OrChain>
       <Button look="key" icon={HardDriveDownload} onClick={dataBackup.download}>
-        Export data
+        <Trans>Export data</Trans>
       </Button>
 
       <FileInput
-        label="Import data"
+        label={t`Import data`}
         onChange={file => void dataBackup.import(file)}
         accept=".json"
         icon={FileJson2}
@@ -54,10 +58,13 @@ const BackupData = () => (
 
 const BackupReminderData = () => (
   <Card
-    title="Backup reminder"
+    title={t`Backup reminder`}
     description={
-      "To make sure you don't forget to backup your data, there will be a reminder every few days. " +
-      "Here you can define how often you want to be reminded."
+      <Trans>
+        To make sure you don't forget to backup your data, there will be a
+        reminder every few days. Here you can define how often you want to be
+        reminded.
+      </Trans>
     }
   >
     <div className={cn(hstack({ gap: 4, wrap: true }), "mx-auto w-max")}>
@@ -65,13 +72,13 @@ const BackupReminderData = () => (
         value={useAtom(dataBackupData).reminderSchedule}
         min={1}
         max={356}
-        unit="day schedule"
+        unit={t`day schedule`}
         onChange={(reminderSchedule = 1) =>
           dataBackupData.set(state => ({ ...state, reminderSchedule }))
         }
       />
       <Toggle
-        label="Auto download"
+        label={t`Auto download`}
         checked={useAtom(dataBackupData).autoDownload}
         onChange={autoDownload =>
           dataBackupData.set(state => ({ ...state, autoDownload }))
@@ -116,7 +123,9 @@ const CsvImportProgress = ({
   const percent = Math.round((current / total) * 100)
   return (
     <div className={cn(hstack({ align: "center", gap: 2 }))}>
-      <Spinner size="sm" /> Importing data ({percent}%)
+      <Trans>
+        <Spinner size="sm" /> Importing data ({percent}%)
+      </Trans>
     </div>
   )
 }
@@ -129,7 +138,7 @@ const importCsv = async (data: TimeEntry[]) => {
 
   const toast = showToast({
     kind: "info",
-    title: "CSV Import",
+    title: t`CSV Import`,
     duration: 0,
     message: <CsvImportProgress {...progress} />,
   })
@@ -147,8 +156,8 @@ const importCsv = async (data: TimeEntry[]) => {
 
   toast.edit({
     kind: "success",
-    title: "CSV Import",
-    message: `Imported ${data.length} entries`,
+    title: t`CSV Import`,
+    message: t`Imported ${data.length} entries`,
     duration: 5000,
   })
 }
@@ -157,9 +166,9 @@ const ImportCsvData = () => {
   const [csv, setCsv] = useState<string | null>(null)
   return (
     <Card
-      title="CSV Import / Export"
+      title={t`CSV Import / Export`}
       description={
-        <>
+        <Trans>
           Import or export a .csv file to move your data between clocktopus and
           other time tracking tools.
           <br />
@@ -167,7 +176,7 @@ const ImportCsvData = () => {
           The new data will be added to your existing data! Make sure to create
           a backup before starting the import. If you want a clean start, delete
           your data first.
-        </>
+        </Trans>
       }
     >
       <OrChain>
@@ -176,11 +185,11 @@ const ImportCsvData = () => {
           icon={HardDriveDownload}
           onClick={() => csvExport(timeEntriesData.get())}
         >
-          Export .csv
+          <Trans>Export .csv</Trans>
         </Button>
 
         <FileInput
-          label="Import .csv"
+          label={t`Import .csv`}
           onChange={file => void file.text().then(setCsv)}
           accept=".csv"
           icon={FileSpreadsheet}
@@ -200,41 +209,40 @@ const ImportCsvData = () => {
 
 const requestDeletion = () =>
   showDialog({
-    title: "Delete all data",
-    description:
-      "Do you want to delete all data and reset Clocktopus to its initial state?",
+    title: t`Delete all data`,
+    description: t`Do you want to delete all data and reset Clocktopus to its initial state?`,
     confirm: {
-      caption: "Confirm deletion",
+      caption: t`Confirm deletion`,
       look: "destructive",
       onClick: () => {
         allData.reset()
         showToast({
           kind: "success",
-          title: "Deleted data",
+          title: t`Deleted data`,
         })
       },
     },
     cancel: {
-      caption: "Cancel",
+      caption: t`Cancel`,
       look: "flat",
     },
   })
 
 const DeleteData = () => (
   <Card
-    title="Delete data"
+    title={t`Delete data`}
     description={
-      <>
+      <Trans>
         Delete all data and reset Clocktopus to its initial state.
         <br />
         <span className="font-bold text-text">Note: </span>
         Make sure to create a backup before deleting your data, this cannot be
         undone!
-      </>
+      </Trans>
     }
   >
     <Button look="destructive" icon={Trash} onClick={requestDeletion}>
-      Delete all data
+      <Trans>Delete all data</Trans>
     </Button>
   </Card>
 )
@@ -243,7 +251,7 @@ const Privacy = () => (
   <Card
     title="Data Privacy"
     description={
-      <>
+      <Trans>
         This website is hosted on GitHub Pages. GitHub may collect personal data
         from visitors to this website. For further information, please consult
         the{" "}
@@ -261,7 +269,7 @@ const Privacy = () => (
         server. Please note that clearing your browser's data may reset this
         website to its initial state and result in the loss of any data you have
         entered.
-      </>
+      </Trans>
     }
   />
 )

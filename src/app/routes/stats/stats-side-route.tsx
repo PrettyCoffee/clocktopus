@@ -1,3 +1,5 @@
+import { t } from "@lingui/core/macro"
+
 import { Button } from "components/ui/button"
 import { DateInput } from "components/ui/date-input"
 import { Divider } from "components/ui/divider"
@@ -59,7 +61,7 @@ export const StatsSideRoute = () => {
 
   return (
     <div>
-      <InputLabel label="Predefined Filters" />
+      <InputLabel label={t`Predefined Filters`} />
       {predefinedFilters.map(filter => (
         <Button
           key={filter.name}
@@ -75,23 +77,23 @@ export const StatsSideRoute = () => {
 
       <Divider color="gentle" className="my-4" />
 
-      <InputLabel label="Start date">
+      <InputLabel label={t`Start date`}>
         <DateInput
           locale={getLocale()}
           value={selectedFilter.start ?? firstEntry}
           onChange={start =>
-            statsFilterData.set(state => ({ ...state, start, name: "Custom" }))
+            statsFilterData.set(state => ({ ...state, start, name: t`Custom` }))
           }
           max={dateHelpers.today()}
         />
       </InputLabel>
 
-      <InputLabel label="End date">
+      <InputLabel label={t`End date`}>
         <DateInput
           locale={getLocale()}
           value={selectedFilter.end ?? lastEntry}
           onChange={end =>
-            statsFilterData.set(state => ({ ...state, end, name: "Custom" }))
+            statsFilterData.set(state => ({ ...state, end, name: t`Custom` }))
           }
           max={dateHelpers.today()}
         />
@@ -99,7 +101,7 @@ export const StatsSideRoute = () => {
 
       <Divider color="gentle" className="my-4" />
 
-      <InputLabel label={`${matchingEntries.length} Matching time entries`} />
+      <InputLabel label={t`${matchingEntries.length} Matching time entries`} />
     </div>
   )
 }

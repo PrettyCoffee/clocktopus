@@ -1,3 +1,5 @@
+import { i18n } from "@lingui/core"
+import { msg } from "@lingui/core/macro"
 import { useHashLocation } from "wouter/use-hash-location"
 
 import { Button } from "components/ui/button"
@@ -7,7 +9,7 @@ import { vstack } from "utils/styles"
 import { settingPages } from "./settings-route"
 
 const routes = {
-  main: { path: "/settings", title: "Settings" },
+  main: { path: "/settings", title: msg`Settings` },
   subRoutes: settingPages.map(({ path, title }) => ({
     path: `/settings${path}`,
     title,
@@ -20,7 +22,7 @@ export const SettingsSideRoute = () => {
   return (
     <div className={cn(vstack({}), "[&_:where(button,a)]:justify-start")}>
       <Button to={routes.main.path} active={path === routes.main.path}>
-        {routes.main.title}
+        {i18n._(routes.main.title)}
       </Button>
 
       <div
@@ -31,7 +33,7 @@ export const SettingsSideRoute = () => {
       >
         {routes.subRoutes.map(route => (
           <Button key={route.path} to={route.path} active={path === route.path}>
-            {route.title}
+            {i18n._(route.title)}
           </Button>
         ))}
       </div>

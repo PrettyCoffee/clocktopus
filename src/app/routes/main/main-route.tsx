@@ -1,5 +1,7 @@
 import { useMemo } from "react"
 
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { Ghost } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
@@ -97,10 +99,12 @@ const FirstEntry = () => (
 
     <div className="pt-8" />
 
-    <h1 className="mb-2 text-3xl">Welcome to Clocktopus!</h1>
-    <p className="text-text-gentle">
-      Seems like you didn't clock your time yet. Time to change that!
-    </p>
+    <Trans>
+      <h1 className="mb-2 text-3xl">Welcome to Clocktopus!</h1>
+      <p className="text-text-gentle">
+        Seems like you didn't clock your time yet. Time to change that!
+      </p>
+    </Trans>
 
     <div className="pt-8" />
     <div className="mx-auto w-full max-w-2xl">
@@ -144,7 +148,7 @@ export const MainRoute = () => {
         <div className="grid w-full flex-1 place-items-center">
           <ContextInfo
             icon={Ghost}
-            label="There are no entries in the selected date range yet. Time to add some!"
+            label={t`There are no entries in the selected date range yet. Time to add some!`}
           />
         </div>
       ) : (

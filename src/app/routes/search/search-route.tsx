@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 
+import { t } from "@lingui/core/macro"
 import { Save } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
@@ -26,7 +27,7 @@ const sortLatestTop = (a: TimeEntry, b: TimeEntry) => {
 const useCategoryNames = () =>
   useSelector(groupedCategories, groups =>
     Object.fromEntries([
-      ["", "No category"],
+      ["", t`No category`],
       ...groups.flatMap(({ name: groupName, categories }) =>
         categories.map(
           ({ id, name }) =>
@@ -100,7 +101,7 @@ const SaveFilterButton = ({ filterText }: { filterText: string }) => {
     <>
       <IconButton
         icon={Save}
-        title="Save filter"
+        title={t`Save filter`}
         onClick={() => setSaveFilter(filterText)}
       />
       {saveFilter != null && (
@@ -147,7 +148,7 @@ export const SearchRoute = () => {
 
       {filtered.length === 0 ? (
         <div className="grid h-full place-items-center">
-          <ContextInfo label="No matches found" />
+          <ContextInfo label={t`No matches found`} />
         </div>
       ) : (
         <SearchTable filtered={filtered} />

@@ -13,13 +13,92 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: matchingEntries.length
+#: src/app/routes/stats/stats-side-route.tsx:104
+msgid "{0} Matching time entries"
+msgstr "{0} Matching time entries"
+
+#: src/app/routes/settings/settings-data.tsx:126
+msgid "<0/> Importing data ({percent}%)"
+msgstr "<0/> Importing data ({percent}%)"
+
 #: src/components/utility/error-boundary.tsx:7
 msgid "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
 msgstr "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
 
+#: src/app/routes/main/main-route.tsx:102
+msgid "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
+msgstr "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
+
+#: src/app/routes/settings/settings-theming.tsx:113
+msgid "Accent color"
+msgstr "Accent color"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:25
+msgid "Add a name to your filter and save it for quick access in the side menu."
+msgstr "Add a name to your filter and save it for quick access in the side menu."
+
+#: src/app/routes/settings/settings-categories.tsx:76
+msgid "Add group"
+msgstr "Add group"
+
+#: src/app/routes/settings/settings-theming.tsx:90
+msgid "Adjust the border radius size of all elements."
+msgstr "Adjust the border radius size of all elements."
+
+#: src/app/routes/settings/settings-general.tsx:31
+msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
+msgstr "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
+
+#: src/app/routes/stats/stats-route.tsx:97
+msgid "April"
+msgstr "April"
+
+#: src/app/routes/stats/stats-route.tsx:101
+msgid "August"
+msgstr "August"
+
+#: src/app/routes/settings/settings-data.tsx:81
+msgid "Auto download"
+msgstr "Auto download"
+
+#: src/app/routes/settings/settings-data.tsx:35
+msgid "Backup data"
+msgstr "Backup data"
+
+#: src/app/routes/settings/settings-data.tsx:61
+msgid "Backup reminder"
+msgstr "Backup reminder"
+
+#: src/app/routes/settings/settings-data.tsx:37
+msgid "Backup your data and import your backups. This is important since your data is only stored locally in your browser. Resetting your browser's data will also delete all data and settings of Clocktopus."
+msgstr "Backup your data and import your backups. This is important since your data is only stored locally in your browser. Resetting your browser's data will also delete all data and settings of Clocktopus."
+
+#: src/app/routes/settings/settings-theming.tsx:64
+msgid "Base Colors"
+msgstr "Base Colors"
+
+#: src/app/routes/settings/settings-theming.tsx:89
+msgid "Border Radius"
+msgstr "Border Radius"
+
+#: src/app/routes/settings/settings-categories.tsx:46
+#: src/app/routes/settings/settings-data.tsx:226
 #: src/components/ui/dialog/dialog.tsx:75
 msgid "Cancel"
 msgstr "Cancel"
+
+#: src/app/routes/settings/settings-route.tsx:53
+msgid "Categories"
+msgstr "Categories"
+
+#: src/app/routes/settings/settings-theming.tsx:114
+msgid "Change the accent color which highlights focused and active elements."
+msgstr "Change the accent color which highlights focused and active elements."
+
+#: src/app/routes/settings/settings-theming.tsx:65
+msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
+msgstr "Choose between dark and light mode, and decide if neutral colors should have a hue."
 
 #: src/components/ui/filter-input/filter-input.tsx:324
 msgid "Clear filters"
@@ -37,29 +116,229 @@ msgstr "Close message"
 msgid "Collapse side menu"
 msgstr "Collapse side menu"
 
+#: src/app/routes/settings/settings-theming.tsx:76
+msgid "Colored base colors"
+msgstr "Colored base colors"
+
 #: src/components/ui/dialog/dialog.tsx:63
 msgid "Confirm"
 msgstr "Confirm"
+
+#: src/app/routes/settings/settings-categories.tsx:41
+#: src/app/routes/settings/settings-data.tsx:215
+msgid "Confirm deletion"
+msgstr "Confirm deletion"
+
+#: src/app/routes/settings/settings-data.tsx:141
+#: src/app/routes/settings/settings-data.tsx:159
+msgid "CSV Import"
+msgstr "CSV Import"
+
+#: src/app/routes/settings/settings-data.tsx:169
+msgid "CSV Import / Export"
+msgstr "CSV Import / Export"
+
+#: src/app/routes/stats/stats-side-route.tsx:85
+#: src/app/routes/stats/stats-side-route.tsx:96
+msgid "Custom"
+msgstr "Custom"
+
+#: src/app/routes/settings/settings-general.tsx:61
+msgid "Custom locale (e.g. ja-JP)"
+msgstr "Custom locale (e.g. ja-JP)"
+
+#: src/app/routes/settings/settings-theming.tsx:69
+msgid "Dark base colors"
+msgstr "Dark base colors"
+
+#: src/app/routes/settings/settings-route.tsx:56
+msgid "Data"
+msgstr "Data"
+
+#: src/app/routes/settings/settings-data.tsx:75
+msgid "day schedule"
+msgstr "day schedule"
+
+#: src/app/routes/stats/stats-route.tsx:105
+msgid "December"
+msgstr "December"
+
+#: src/app/routes/settings/settings-general.tsx:73
+msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
+msgstr "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
+
+#: src/app/routes/settings/settings-categories.tsx:38
+msgid "Delete {type}"
+msgstr "Delete {type}"
+
+#: src/app/routes/settings/settings-data.tsx:212
+#: src/app/routes/settings/settings-data.tsx:245
+msgid "Delete all data"
+msgstr "Delete all data"
+
+#: src/app/routes/settings/settings-data.tsx:235
+msgid "Delete all data and reset Clocktopus to its initial state.<0/><1>Note: </1>Make sure to create a backup before deleting your data, this cannot be undone!"
+msgstr "Delete all data and reset Clocktopus to its initial state.<0/><1>Note: </1>Make sure to create a backup before deleting your data, this cannot be undone!"
+
+#: src/app/routes/settings/settings-data.tsx:233
+msgid "Delete data"
+msgstr "Delete data"
+
+#: src/app/routes/search/search-side-route.tsx:61
+msgid "Delete filter"
+msgstr "Delete filter"
+
+#: src/app/routes/settings/settings-data.tsx:221
+msgid "Deleted data"
+msgstr "Deleted data"
+
+#: src/app/routes/settings/settings-categories.tsx:39
+msgid "Do you really want to delete your \"{name}\" {type}? This action cannot be reverted."
+msgstr "Do you really want to delete your \"{name}\" {type}? This action cannot be reverted."
+
+#: src/app/routes/settings/settings-data.tsx:213
+msgid "Do you want to delete all data and reset Clocktopus to its initial state?"
+msgstr "Do you want to delete all data and reset Clocktopus to its initial state?"
+
+#: src/app/routes/stats/stats-side-route.tsx:91
+msgid "End date"
+msgstr "End date"
 
 #: src/components/layouts/layout.tsx:67
 msgid "Expand side menu"
 msgstr "Expand side menu"
 
+#: src/app/routes/settings/settings-data.tsx:188
+msgid "Export .csv"
+msgstr "Export .csv"
+
+#: src/app/routes/settings/settings-data.tsx:46
+msgid "Export data"
+msgstr "Export data"
+
+#: src/app/routes/stats/stats-route.tsx:95
+msgid "February"
+msgstr "February"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:42
+msgid "Filter"
+msgstr "Filter"
+
+#: src/app/routes/stats/stats-route.tsx:83
 #: src/components/ui/calendar/calendar.tsx:41
 msgid "Friday"
 msgstr "Friday"
 
+#: src/app/routes/settings/settings-route.tsx:49
+msgid "General"
+msgstr "General"
+
+#: src/app/layout.tsx:21
+msgid "Github"
+msgstr "Github"
+
+#: src/app/routes/not-found.tsx:15
+msgid "Go to main page"
+msgstr "Go to main page"
+
+#: src/app/routes/settings/settings-general.tsx:85
+msgid "Grid"
+msgstr "Grid"
+
+#: src/app/routes/settings/settings-categories.tsx:64
+msgid "Group name"
+msgstr "Group name"
+
+#: src/app/routes/settings/settings-data.tsx:192
+msgid "Import .csv"
+msgstr "Import .csv"
+
+#: src/app/routes/settings/settings-data.tsx:50
+msgid "Import data"
+msgstr "Import data"
+
+#: src/app/routes/settings/settings-data.tsx:171
+msgid "Import or export a .csv file to move your data between clocktopus and other time tracking tools.<0/><1>Note: </1>The new data will be added to your existing data! Make sure to create a backup before starting the import. If you want a clean start, delete your data first."
+msgstr "Import or export a .csv file to move your data between clocktopus and other time tracking tools.<0/><1>Note: </1>The new data will be added to your existing data! Make sure to create a backup before starting the import. If you want a clean start, delete your data first."
+
+#. placeholder {0}: data.length
+#: src/app/routes/settings/settings-data.tsx:160
+msgid "Imported {0} entries"
+msgstr "Imported {0} entries"
+
+#: src/app/routes/stats/stats-route.tsx:171
+msgid "Insufficient data"
+msgstr "Insufficient data"
+
+#: src/app/routes/settings/settings-general.tsx:45
+msgid "ISO Standard"
+msgstr "ISO Standard"
+
+#: src/app/routes/stats/stats-route.tsx:94
+msgid "January"
+msgstr "January"
+
+#: src/app/routes/stats/stats-route.tsx:100
+msgid "July"
+msgstr "July"
+
+#: src/app/routes/stats/stats-route.tsx:99
+msgid "June"
+msgstr "June"
+
+#: src/app/routes/settings/settings-general.tsx:29
+#: src/app/routes/settings/settings-general.tsx:42
+msgid "Locale"
+msgstr "Locale"
+
+#: src/app/routes/stats/stats-route.tsx:96
+msgid "March"
+msgstr "March"
+
+#: src/app/routes/stats/stats-route.tsx:98
+msgid "May"
+msgstr "May"
+
+#: src/app/routes/stats/stats-route.tsx:79
 #: src/components/ui/calendar/calendar.tsx:37
 msgid "Monday"
 msgstr "Monday"
+
+#: src/app/routes/stats/stats-route.tsx:132
+msgid "month"
+msgstr "month"
 
 #: src/components/ui/calendar/calendar.tsx:105
 msgid "Month"
 msgstr "Month"
 
+#: src/app/routes/stats/stats-route.tsx:176
+msgid "months"
+msgstr "months"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:34
+msgid "Name"
+msgstr "Name"
+
 #: src/components/ui/calendar/calendar.tsx:145
 msgid "Next {magnitudeCaption}"
 msgstr "Next {magnitudeCaption}"
+
+#: src/app/routes/search/search-route.tsx:30
+msgid "No category"
+msgstr "No category"
+
+#: src/app/routes/search/search-route.tsx:151
+msgid "No matches found"
+msgstr "No matches found"
+
+#: src/app/routes/stats/stats-route.tsx:104
+msgid "November"
+msgstr "November"
+
+#: src/app/routes/stats/stats-route.tsx:103
+msgid "October"
+msgstr "October"
 
 #: src/components/errors/main.tsx:11
 msgid "Ooops, something went wrong :("
@@ -69,6 +348,11 @@ msgstr "Ooops, something went wrong :("
 msgid "Page size:"
 msgstr "Page size:"
 
+#: src/app/routes/search/search-side-route.tsx:23
+#: src/app/routes/stats/stats-side-route.tsx:64
+msgid "Predefined Filters"
+msgstr "Predefined Filters"
+
 #: src/components/ui/calendar/calendar.tsx:137
 msgid "Previous {magnitudeCaption}"
 msgstr "Previous {magnitudeCaption}"
@@ -77,22 +361,114 @@ msgstr "Previous {magnitudeCaption}"
 msgid "Refresh"
 msgstr "Refresh"
 
+#: src/app/routes/stats/stats-route.tsx:84
 #: src/components/ui/calendar/calendar.tsx:42
 msgid "Saturday"
 msgstr "Saturday"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:27
+msgid "Save"
+msgstr "Save"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:24
+#: src/app/routes/search/search-route.tsx:104
+msgid "Save filter"
+msgstr "Save filter"
+
+#: src/app/routes/search/search-side-route.tsx:39
+msgid "Saved Filters"
+msgstr "Saved Filters"
+
+#: src/app/layout.tsx:16
+msgid "Search"
+msgstr "Search"
+
+#: src/app/routes/search/fragments/search-filter-input.tsx:38
+msgid "Search for time entries"
+msgstr "Search for time entries"
+
+#. placeholder {0}: filtered.length
+#: src/app/routes/search/fragments/search-table.tsx:36
+msgid "Search Results ({0})"
+msgstr "Search Results ({0})"
+
+#: src/app/routes/page-changed.tsx:16
+msgid "Seems like clocktopus got an update since the last time you used this tab. Please reload the page to apply the changes."
+msgstr "Seems like clocktopus got an update since the last time you used this tab. Please reload the page to apply the changes."
+
+#: src/app/routes/stats/stats-route.tsx:102
+msgid "September"
+msgstr "September"
+
+#: src/app/layout.tsx:18
+#: src/app/routes/settings/settings-route.tsx:30
+#: src/app/routes/settings/settings-side-route.tsx:12
+msgid "Settings"
+msgstr "Settings"
 
 #: src/components/ui/pagination.tsx:26
 msgid "Size"
 msgstr "Size"
 
+#: src/app/routes/page-changed.tsx:12
+msgid "Something changed!"
+msgstr "Something changed!"
+
+#: src/app/routes/not-found.tsx:11
+msgid "Sorry, the page you are looking for does not exist."
+msgstr "Sorry, the page you are looking for does not exist."
+
+#: src/app/routes/stats/stats-side-route.tsx:80
+msgid "Start date"
+msgstr "Start date"
+
+#: src/app/layout.tsx:17
+msgid "Stats"
+msgstr "Stats"
+
+#: src/app/routes/stats/stats-route.tsx:119
+msgid "Stats by"
+msgstr "Stats by"
+
+#: src/app/routes/settings/settings-general.tsx:72
+msgid "Summary style"
+msgstr "Summary style"
+
+#: src/app/routes/stats/stats-route.tsx:85
 #: src/components/ui/calendar/calendar.tsx:43
 msgid "Sunday"
 msgstr "Sunday"
 
+#: src/app/routes/settings/settings-general.tsx:79
+msgid "Table"
+msgstr "Table"
+
+#: src/app/routes/settings/settings-route.tsx:50
+msgid "Theming"
+msgstr "Theming"
+
+#: src/app/routes/main/main-route.tsx:151
+msgid "There are no entries in the selected date range yet. Time to add some!"
+msgstr "There are no entries in the selected date range yet. Time to add some!"
+
+#: src/app/routes/settings/settings-data.tsx:254
+msgid "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
+msgstr "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
+
+#: src/app/routes/stats/stats-route.tsx:82
 #: src/components/ui/calendar/calendar.tsx:40
 msgid "Thursday"
 msgstr "Thursday"
 
+#: src/app/layout.tsx:15
+msgid "Time Tracker"
+msgstr "Time Tracker"
+
+#: src/app/routes/settings/settings-data.tsx:63
+msgid "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
+msgstr "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
+
+#: src/app/routes/stats/stats-route.tsx:80
 #: src/components/ui/calendar/calendar.tsx:38
 msgid "Tuesday"
 msgstr "Tuesday"
@@ -101,6 +477,43 @@ msgstr "Tuesday"
 msgid "Wednesday"
 msgstr "Wednesday"
 
+#: src/app/routes/stats/stats-route.tsx:81
+msgid "Wednseday"
+msgstr "Wednseday"
+
+#: src/app/routes/stats/stats-route.tsx:132
+msgid "weekday"
+msgstr "weekday"
+
+#: src/app/routes/stats/stats-route.tsx:176
+msgid "weekdays"
+msgstr "weekdays"
+
+#: src/app/routes/stats/time-charts.tsx:82
+msgid "Working Hours (avg)"
+msgstr "Working Hours (avg)"
+
+#: src/app/routes/stats/time-charts.tsx:114
+msgid "Working Time (avg)"
+msgstr "Working Time (avg)"
+
+#: src/app/routes/stats/stats-route.tsx:132
+msgid "year"
+msgstr "year"
+
 #: src/components/ui/calendar/calendar.tsx:105
 msgid "Year"
 msgstr "Year"
+
+#: src/app/routes/stats/stats-route.tsx:176
+msgid "years"
+msgstr "years"
+
+#: src/app/routes/search/search-side-route.tsx:42
+msgid "You didn't save any filters yet"
+msgstr "You didn't save any filters yet"
+
+#. placeholder {0}: { weekday: t`weekdays`, month: t`months`, year: t`years` }[mode]
+#: src/app/routes/stats/stats-route.tsx:173
+msgid "You will need to provide more data, to be able to see stats here. (at least 2 {0})"
+msgstr "You will need to provide more data, to be able to see stats here. (at least 2 {0})"

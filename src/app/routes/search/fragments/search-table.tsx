@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 
+import { t } from "@lingui/core/macro"
+
 import { PageRange, Pagination } from "components/ui/pagination"
 import { TimeEntry } from "data/time-entries"
 import {
@@ -31,7 +33,7 @@ const SearchTableInner = ({ filtered }: { filtered: TimeEntry[] }) => {
 
       <div className="h-max max-h-max flex-1 overflow-y-auto">
         <TimeTable
-          title={`Search Results (${filtered.length})`}
+          title={t`Search Results (${filtered.length})`}
           entries={pageEntries}
           stickyHeader="top-0"
         />

@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/react/macro"
+
 import { Chart, Coordinate } from "components/ui/chart"
 import { timeHelpers } from "utils/time-helpers"
 
@@ -76,7 +78,9 @@ export const WorkingHoursChart = ({
       maxY={maxY}
       padding={getPadding(startPoints.length)}
     >
-      <Chart.Caption>Working Hours (avg)</Chart.Caption>
+      <Chart.Caption>
+        <Trans>Working Hours (avg)</Trans>
+      </Chart.Caption>
 
       <Chart.Line points={startPoints} />
       <Chart.Dots points={startPoints} printValue={timeDotLabel} />
@@ -106,7 +110,9 @@ export const TotalTimeChart = ({
       maxY={maxY}
       padding={getPadding(points.length)}
     >
-      <Chart.Caption>Working Time (avg)</Chart.Caption>
+      <Chart.Caption>
+        <Trans>Working Time (avg)</Trans>
+      </Chart.Caption>
       <Chart.Bars
         barWidth={getBarWidth(points.length)}
         points={points}

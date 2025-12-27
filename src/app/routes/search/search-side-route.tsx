@@ -1,3 +1,5 @@
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { Trash } from "lucide-react"
 
 import { Button } from "components/ui/button"
@@ -18,7 +20,7 @@ export const SearchSideRoute = () => {
   const filters = useAtom(savedFilters)
   return (
     <div>
-      <InputLabel label="Predefined Filters" />
+      <InputLabel label={t`Predefined Filters`} />
       {years.map(year => {
         const filter = `year:${year}`
         return (
@@ -34,10 +36,10 @@ export const SearchSideRoute = () => {
 
       <Divider color="gentle" className="my-4" />
 
-      <InputLabel label="Saved Filters" />
+      <InputLabel label={t`Saved Filters`} />
       {filters.length === 0 && (
         <span className="text-sm text-text-gentle">
-          You didn't save any filters yet
+          <Trans>You didn't save any filters yet</Trans>
         </span>
       )}
 
@@ -56,7 +58,7 @@ export const SearchSideRoute = () => {
             </Button>
             <IconButton
               icon={Trash}
-              title="Delete filter"
+              title={t`Delete filter`}
               hideTitle
               onClick={() => savedFilters.actions.delete(filter.id)}
               className="[*:not(:hover,:has(*:focus-visible))>&]:opacity-0"

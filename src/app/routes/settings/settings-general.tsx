@@ -1,3 +1,5 @@
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { LayoutGrid, TableProperties } from "lucide-react"
 
 import { Card } from "components/ui/card"
@@ -15,29 +17,33 @@ import {
 } from "./fragments/style-radio-button"
 
 const locales = {
-  "de-DE": "German",
+  "de-DE": "Deutsch",
   "en-GB": "English (GB)",
   "en-US": "English (US)",
-  "fr-FR": "French",
 }
 
 const Locale = () => {
   const { locale } = useAtom(preferencesData)
   return (
     <Card
-      title="Locale"
+      title={t`Locale`}
       description={
-        "Adjust the locale to influcene how dates are displayed. " +
-        "You can either select one in the dropdown or provide your own by using the text field."
+        <Trans>
+          Adjust the locale to influcene how dates are displayed. You can either
+          select one in the dropdown or provide your own by using the text
+          field.
+        </Trans>
       }
     >
       <OrChain>
         <Select.Root
           value={locale}
           onChange={locale => preferencesData.actions.setLocale(locale)}
-          placeholder="Locale"
+          placeholder={t`Locale`}
         >
-          <Select.Option value="iso">ISO Standard</Select.Option>
+          <Select.Option value="iso">
+            <Trans>ISO Standard</Trans>
+          </Select.Option>
           <Select.Separator />
           {Object.entries(locales)
             .sort(([, a], [, b]) => a.localeCompare(b))
@@ -52,7 +58,7 @@ const Locale = () => {
             ["iso", ...Object.keys(locales)].includes(locale) ? "" : locale
           }
           onChange={locale => preferencesData.actions.setLocale(locale)}
-          placeholder="Custom locale (e.g. ja-JP)"
+          placeholder={t`Custom locale (e.g. ja-JP)`}
         />
       </OrChain>
     </Card>
@@ -63,20 +69,20 @@ const SummaryStyle = () => {
   const { summaryStyle } = useAtom(preferencesData)
   return (
     <Card
-      title="Summary style"
-      description="Decide how the time summary of past dates is displayed — as table rows or in grid items?"
+      title={t`Summary style`}
+      description={t`Decide how the time summary of past dates is displayed — as table rows or in grid items?`}
     >
       <OrChain role="radiogroup" onKeyDown={styleRadioButtonFocusManager}>
         <StyleRadioButton
           active={summaryStyle === "table"}
           icon={TableProperties}
-          label="Table"
+          label={t`Table`}
           onClick={() => preferencesData.actions.setSummaryStye("table")}
         />
         <StyleRadioButton
           active={summaryStyle === "grid"}
           icon={LayoutGrid}
-          label="Grid"
+          label={t`Grid`}
           onClick={() => preferencesData.actions.setSummaryStye("grid")}
         />
       </OrChain>

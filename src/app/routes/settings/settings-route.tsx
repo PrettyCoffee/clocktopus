@@ -1,3 +1,6 @@
+import { i18n } from "@lingui/core"
+import { msg } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { Fragment } from "react/jsx-runtime"
 import { Route, Switch } from "wouter"
 
@@ -24,7 +27,7 @@ const SectionHeader = ({ title }: { title: string }) => (
 const SettingsHeader = () => (
   <div className="@container mx-auto flex w-full max-w-2xl items-center justify-between px-10 pt-10 pb-6">
     <h1 className="text-[min(calc(15cqw),5rem)] font-bold text-highlight/15">
-      Settings
+      <Trans>Settings</Trans>
     </h1>
     <div className="relative size-[min(5rem,25cqw)] shrink-0">
       <img
@@ -43,10 +46,14 @@ const SettingsHeader = () => (
 )
 
 export const settingPages = [
-  { path: "/general", title: "General", Component: SettingsGeneral },
-  { path: "/theming", title: "Theming", Component: SettingsTheming },
-  { path: "/categories", title: "Categories", Component: SettingsCategories },
-  { path: "/data", title: "Data", Component: SettingsData },
+  { path: "/general", title: msg`General`, Component: SettingsGeneral },
+  { path: "/theming", title: msg`Theming`, Component: SettingsTheming },
+  {
+    path: "/categories",
+    title: msg`Categories`,
+    Component: SettingsCategories,
+  },
+  { path: "/data", title: msg`Data`, Component: SettingsData },
 ]
 
 export const SettingsRoute = () => (
@@ -56,7 +63,7 @@ export const SettingsRoute = () => (
     <Switch>
       {settingPages.map(({ path, title, Component }) => (
         <Route key={path} path={path}>
-          <SectionHeader title={title} />
+          <SectionHeader title={i18n._(title)} />
           <Component />
         </Route>
       ))}
@@ -64,7 +71,7 @@ export const SettingsRoute = () => (
       <Route path="">
         {settingPages.map(({ path, title, Component }) => (
           <Fragment key={path}>
-            <SectionHeader title={title} />
+            <SectionHeader title={i18n._(title)} />
             <Component />
           </Fragment>
         ))}

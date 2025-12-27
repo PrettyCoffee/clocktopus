@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro"
 import { css } from "goober"
 
 import { Card } from "components/ui/card"
@@ -60,19 +61,19 @@ const BaseColors = () => {
   const colored = useAtom(themeData.selectors.getColored)
   return (
     <Card
-      title="Base Colors"
-      description="Choose between dark and light mode, and decide if neutral colors should have a hue."
+      title={t`Base Colors`}
+      description={t`Choose between dark and light mode, and decide if neutral colors should have a hue.`}
     >
       <div className={hstack({ justify: "evenly", gap: 4, wrap: true })}>
         <Toggle
-          label="Dark base colors"
+          label={t`Dark base colors`}
           checked={mode === "dark"}
           onChange={() =>
             themeData.actions.setMode(mode === "dark" ? "light" : "dark")
           }
         />
         <Toggle
-          label="Colored base colors"
+          label={t`Colored base colors`}
           checked={colored}
           onChange={() => themeData.actions.toggleColored()}
         />
@@ -85,8 +86,8 @@ const BorderRadiusSlider = () => {
   const radius = useAtom(themeData.selectors.getRadius)
   return (
     <Card
-      title="Border Radius"
-      description="Adjust the border radius size of all elements."
+      title={t`Border Radius`}
+      description={t`Adjust the border radius size of all elements.`}
     >
       <div className={vstack({})}>
         <input
@@ -109,8 +110,8 @@ const AccentColor = () => {
   const accent = useAtom(themeData.selectors.getAccent)
   return (
     <Card
-      title="Accent color"
-      description="Change the accent color which highlights focused and active elements."
+      title={t`Accent color`}
+      description={t`Change the accent color which highlights focused and active elements.`}
     >
       <div className="mx-auto max-w-80">
         <ColorInput

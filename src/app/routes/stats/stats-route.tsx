@@ -1,5 +1,7 @@
 import { Dispatch, Fragment, useMemo, useState } from "react"
 
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { ClockPlus } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
@@ -73,7 +75,15 @@ const getDayStats = (timeEntries: Record<string, TimeEntry[]>) => {
 }
 
 const weekdayTick = (value: number) =>
-  ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"][value] ?? "N/A"
+  [
+    t`Monday`.slice(0, 2),
+    t`Tuesday`.slice(0, 2),
+    t`Wednseday`.slice(0, 2),
+    t`Thursday`.slice(0, 2),
+    t`Friday`.slice(0, 2),
+    t`Saturday`.slice(0, 2),
+    t`Sunday`.slice(0, 2),
+  ][value] ?? "N/A"
 
 const transformWeekday = (x: number) =>
   // start week with monday
@@ -81,18 +91,18 @@ const transformWeekday = (x: number) =>
 
 const monthTick = (value: number) =>
   [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    t`January`.slice(0, 3),
+    t`February`.slice(0, 3),
+    t`March`.slice(0, 3),
+    t`April`.slice(0, 3),
+    t`May`.slice(0, 3),
+    t`June`.slice(0, 3),
+    t`July`.slice(0, 3),
+    t`August`.slice(0, 3),
+    t`September`.slice(0, 3),
+    t`October`.slice(0, 3),
+    t`November`.slice(0, 3),
+    t`December`.slice(0, 3),
   ][value] ?? "N/A"
 
 type Mode = "weekday" | "month" | "year"
@@ -105,7 +115,9 @@ const StatsModeHeader = ({
   onChange: Dispatch<Mode>
 }) => (
   <h2 className="mb-2 text-xl">
-    <span className="text-text-muted">Stats by </span>
+    <span className="text-text-muted">
+      <Trans>Stats by</Trans>
+    </span>
     {(["weekday", "month", "year"] as const).map((value, index) => (
       <Fragment key={value}>
         {index !== 0 && <span className="font-bold text-text-muted"> | </span>}
@@ -117,7 +129,7 @@ const StatsModeHeader = ({
             value === mode && "text-text-priority"
           )}
         >
-          {value}
+          {{ weekday: t`weekday`, month: t`month`, year: t`year` }[value]}
         </button>
       </Fragment>
     ))}
@@ -156,10 +168,13 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
         <ContextInfo
           animateIcon="rotate"
           icon={ClockPlus}
-          label="Insufficient data"
+          label={t`Insufficient data`}
         >
-          You will need to provide more data, to be able to see stats here. (at
-          least 2 {mode}s)
+          <Trans>
+            You will need to provide more data, to be able to see stats here.
+            (at least 2{" "}
+            {{ weekday: t`weekdays`, month: t`months`, year: t`years` }[mode]})
+          </Trans>
         </ContextInfo>
       </div>
     )
