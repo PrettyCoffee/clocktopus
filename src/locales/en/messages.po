@@ -13,6 +13,94 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/routes/main/main-route.tsx:102
-msgid "Welcome to Clocktopus!"
-msgstr "Welcome to Clocktopus!"
+#: src/components/utility/error-boundary.tsx:7
+msgid "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
+msgstr "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
+
+#: src/components/ui/dialog/dialog.tsx:75
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/components/ui/filter-input/filter-input.tsx:324
+msgid "Clear filters"
+msgstr "Clear filters"
+
+#: src/components/ui/dialog/dialog.tsx:146
+msgid "Close"
+msgstr "Close"
+
+#: src/components/ui/toaster/toast.tsx:104
+msgid "Close message"
+msgstr "Close message"
+
+#: src/components/layouts/layout.tsx:67
+msgid "Collapse side menu"
+msgstr "Collapse side menu"
+
+#: src/components/ui/dialog/dialog.tsx:63
+msgid "Confirm"
+msgstr "Confirm"
+
+#: src/components/layouts/layout.tsx:67
+msgid "Expand side menu"
+msgstr "Expand side menu"
+
+#: src/components/ui/calendar/calendar.tsx:41
+msgid "Friday"
+msgstr "Friday"
+
+#: src/components/ui/calendar/calendar.tsx:37
+msgid "Monday"
+msgstr "Monday"
+
+#: src/components/ui/calendar/calendar.tsx:105
+msgid "Month"
+msgstr "Month"
+
+#: src/components/ui/calendar/calendar.tsx:145
+msgid "Next {magnitudeCaption}"
+msgstr "Next {magnitudeCaption}"
+
+#: src/components/errors/main.tsx:11
+msgid "Ooops, something went wrong :("
+msgstr "Ooops, something went wrong :("
+
+#: src/components/ui/pagination.tsx:153
+msgid "Page size:"
+msgstr "Page size:"
+
+#: src/components/ui/calendar/calendar.tsx:137
+msgid "Previous {magnitudeCaption}"
+msgstr "Previous {magnitudeCaption}"
+
+#: src/components/errors/main.tsx:21
+msgid "Refresh"
+msgstr "Refresh"
+
+#: src/components/ui/calendar/calendar.tsx:42
+msgid "Saturday"
+msgstr "Saturday"
+
+#: src/components/ui/pagination.tsx:26
+msgid "Size"
+msgstr "Size"
+
+#: src/components/ui/calendar/calendar.tsx:43
+msgid "Sunday"
+msgstr "Sunday"
+
+#: src/components/ui/calendar/calendar.tsx:40
+msgid "Thursday"
+msgstr "Thursday"
+
+#: src/components/ui/calendar/calendar.tsx:38
+msgid "Tuesday"
+msgstr "Tuesday"
+
+#: src/components/ui/calendar/calendar.tsx:39
+msgid "Wednesday"
+msgstr "Wednesday"
+
+#: src/components/ui/calendar/calendar.tsx:105
+msgid "Year"
+msgstr "Year"

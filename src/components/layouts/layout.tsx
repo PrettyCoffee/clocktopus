@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react"
 
+import { t } from "@lingui/core/macro"
 import { Menu } from "lucide-react"
 
 import { useMountAnimation } from "hooks/use-mount-animation"
@@ -63,7 +64,7 @@ const Side = ({ children, actions = [], className }: LayoutSideProps) => {
         >
           <IconButton
             icon={Menu}
-            title={isOpen ? "Collapse side menu" : "Expand side menu"}
+            title={isOpen ? t`Collapse side menu` : t`Expand side menu`}
             titleSide="right"
             onClick={toggle}
           />

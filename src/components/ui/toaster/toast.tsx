@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react"
 
+import { t } from "@lingui/core/macro"
 import { keyframes } from "goober"
 import { X } from "lucide-react"
 import { AnimationSequence } from "motion"
@@ -100,7 +101,7 @@ export const Toast = ({
         </div>
         <IconButton
           icon={X}
-          title="Close toast"
+          title={t`Close message`}
           look="flat"
           onClick={() => void exit()}
         />

@@ -1,11 +1,15 @@
 import { Component, FunctionComponent, ReactNode } from "react"
 
+import { Trans } from "@lingui/react/macro"
+
 const DefaultFallback = () => (
   <div className="flex size-full flex-col items-center justify-center">
-    <div>💥KABOOM💥</div>
-    <div className="text-sm text-text-gentle">
-      Something went terribly wrong and everything is burning now.
-    </div>
+    <Trans>
+      <div>💥KABOOM💥</div>
+      <div className="text-sm text-text-gentle">
+        Something went terribly wrong and everything is burning now.
+      </div>
+    </Trans>
   </div>
 )
 

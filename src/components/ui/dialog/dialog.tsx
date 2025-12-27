@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactNode, useState } from "react"
 
+import { t } from "@lingui/core/macro"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
@@ -59,7 +60,7 @@ const DialogActions = ({
             confirm.onClick?.()
           }}
         >
-          {confirm.caption ?? "Confirm"}
+          {confirm.caption ?? t`Confirm`}
         </Button>
       )}
       {cancel && (
@@ -71,7 +72,7 @@ const DialogActions = ({
             cancel.onClick?.()
           }}
         >
-          {cancel.caption ?? "Cancel"}
+          {cancel.caption ?? t`Cancel`}
         </Button>
       )}
     </div>
@@ -142,7 +143,7 @@ export const Dialog = ({
 
           <DialogPrimitive.Close asChild className="absolute top-1 right-1">
             <IconButton
-              title="Close"
+              title={t`Close`}
               hideTitle
               icon={X}
               onClick={() => {

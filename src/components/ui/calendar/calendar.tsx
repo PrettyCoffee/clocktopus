@@ -1,5 +1,6 @@
 import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react"
 
+import { t } from "@lingui/core/macro"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { cn } from "utils/cn"
@@ -33,13 +34,13 @@ const GridHeaderCell = ({ children, size }: PropsWithChildren<SizeProp>) => (
 
 const GridHeader = ({ size }: SizeProp) => (
   <>
-    <GridHeaderCell size={size}>M</GridHeaderCell>
-    <GridHeaderCell size={size}>D</GridHeaderCell>
-    <GridHeaderCell size={size}>M</GridHeaderCell>
-    <GridHeaderCell size={size}>D</GridHeaderCell>
-    <GridHeaderCell size={size}>F</GridHeaderCell>
-    <GridHeaderCell size={size}>S</GridHeaderCell>
-    <GridHeaderCell size={size}>S</GridHeaderCell>
+    <GridHeaderCell size={size}>{t`Monday`[0]}</GridHeaderCell>
+    <GridHeaderCell size={size}>{t`Tuesday`[0]}</GridHeaderCell>
+    <GridHeaderCell size={size}>{t`Wednesday`[0]}</GridHeaderCell>
+    <GridHeaderCell size={size}>{t`Thursday`[0]}</GridHeaderCell>
+    <GridHeaderCell size={size}>{t`Friday`[0]}</GridHeaderCell>
+    <GridHeaderCell size={size}>{t`Saturday`[0]}</GridHeaderCell>
+    <GridHeaderCell size={size}>{t`Sunday`[0]}</GridHeaderCell>
   </>
 )
 
@@ -101,6 +102,8 @@ const ViewSwitch = ({ month, size, min, max, setMonth }: ViewSwitchProps) => {
   const prevDisabled = month.valueOf() <= minMonth.valueOf()
   const nextDisabled = month.valueOf() >= maxMonth.valueOf()
 
+  const magnitudeCaption = { month: t`Month`, year: t`Year` }[magnitude]
+
   return (
     <div className="flex">
       <Button
@@ -131,7 +134,7 @@ const ViewSwitch = ({ month, size, min, max, setMonth }: ViewSwitchProps) => {
         size={size}
         icon={ChevronLeft}
         hideTitle
-        title={`Previous ${magnitude}`}
+        title={t`Previous ${magnitudeCaption}`}
         onClick={() => setMonth(prev)}
         disabled={prevDisabled}
       />
@@ -139,7 +142,7 @@ const ViewSwitch = ({ month, size, min, max, setMonth }: ViewSwitchProps) => {
         size={size}
         icon={ChevronRight}
         hideTitle
-        title={`Next ${magnitude}`}
+        title={t`Next ${magnitudeCaption}`}
         onClick={() => setMonth(next)}
         disabled={nextDisabled}
       />

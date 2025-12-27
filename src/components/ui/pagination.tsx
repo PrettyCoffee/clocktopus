@@ -1,5 +1,8 @@
 import { Dispatch, useState } from "react"
 
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
+
 import { ClassNameProp } from "types/base-props"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
@@ -20,7 +23,7 @@ const PageSizeSelect = ({
 }: PageSizeSelectProps) => (
   <Select.Root
     value={String(value)}
-    placeholder="Size"
+    placeholder={t`Size`}
     onChange={value => onChange(Number(value))}
   >
     {pageSizes.map(size => (
@@ -146,7 +149,9 @@ export const Pagination = <
         onPageChange={changePage}
       />
       <div className="flex-1" />
-      <span className="mr-2">Page size:</span>
+      <span className="mr-2">
+        <Trans>Page size:</Trans>
+      </span>
       <PageSizeSelect
         pageSizes={pageSizes}
         value={size}

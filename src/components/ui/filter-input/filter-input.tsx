@@ -9,6 +9,7 @@ import {
   useState,
 } from "react"
 
+import { t } from "@lingui/core/macro"
 import { css } from "goober"
 import { Search, XCircle } from "lucide-react"
 
@@ -320,7 +321,7 @@ export const FilterInput = <TTagName extends string>({
         <IconButton
           icon={XCircle}
           size="sm"
-          title="Clear filters"
+          title={t`Clear filters`}
           className="absolute top-1 right-1 bottom-1"
           onClick={() => updateFilters("")}
         />
