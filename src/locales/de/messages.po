@@ -1,0 +1,699 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: matchingEntries.length
+#: src/app/routes/stats/stats-side-route.tsx:104
+msgid "{0} Matching time entries"
+msgstr "{0} passende Zeiteinträge"
+
+#: src/app/routes/settings/settings-data.tsx:126
+msgid "<0/> Importing data ({percent}%)"
+msgstr "<0/> Daten werden importiert ({percent}%)"
+
+#: src/components/utility/error-boundary.tsx:7
+msgid "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
+msgstr "<0>💥KABOOM💥</0><1>Etwas ist gewaltig schiefgelaufen und jetzt brennt alles.</1>"
+
+#: src/app/routes/main/main-route.tsx:102
+msgid "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
+msgstr "<0>Willkommen bei Clocktopus!</0><1>Sieht so aus, als hättest du deine Zeit noch nicht erfasst. Zeit, das zu ändern!</1>"
+
+#: src/app/routes/settings/settings-theming.tsx:113
+msgid "Accent color"
+msgstr "Akzentfarbe"
+
+#: src/features/time-table/time-table-editable.tsx:112
+msgid "Actions"
+msgstr "Aktionen"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:25
+msgid "Add a name to your filter and save it for quick access in the side menu."
+msgstr "Gib deinem Filter einen Namen und speichere ihn für den schnellen Zugriff im Seitenmenü."
+
+#: src/features/time-table/create-time-entry.tsx:159
+msgid "Add entry"
+msgstr "Eintrag hinzufügen"
+
+#: src/app/routes/settings/settings-categories.tsx:76
+msgid "Add group"
+msgstr "Gruppe hinzufügen"
+
+#: src/app/routes/settings/settings-theming.tsx:90
+msgid "Adjust the border radius size of all elements."
+msgstr "Passe die Abrundung der Ecken aller Elemente an."
+
+#: src/app/routes/settings/settings-general.tsx:31
+msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
+msgstr "Passe das Locale an, um die Darstellung von Datumsangaben zu beeinflussen. Du kannst eines aus der Liste wählen oder ein eigenes im Textfeld angeben."
+
+#: src/features/data-backup/data-backup.ts:62
+msgid "An unexpected error occurred during the import."
+msgstr "Beim Import ist ein unerwarteter Fehler aufgetreten."
+
+#: src/app/routes/stats/stats-route.tsx:97
+msgid "April"
+msgstr "April"
+
+#: src/app/routes/stats/stats-route.tsx:101
+msgid "August"
+msgstr "August"
+
+#: src/app/routes/settings/settings-data.tsx:81
+msgid "Auto download"
+msgstr "Automatischer Download"
+
+#: src/app/routes/settings/settings-data.tsx:35
+msgid "Backup data"
+msgstr "Daten sichern"
+
+#: src/app/routes/settings/settings-data.tsx:61
+msgid "Backup reminder"
+msgstr "Backup-Erinnerung"
+
+#: src/app/routes/settings/settings-data.tsx:37
+msgid "Backup your data and import your backups. This is important since your data is only stored locally in your browser. Resetting your browser's data will also delete all data and settings of Clocktopus."
+msgstr "Sichere deine Daten und importiere deine Backups. Das ist wichtig, da deine Daten ausschließlich lokal im Browser gespeichert werden. Das Zurücksetzen der Browserdaten löscht auch alle Daten und Einstellungen von Clocktopus."
+
+#: src/app/routes/settings/settings-theming.tsx:64
+msgid "Base Colors"
+msgstr "Basisfarben"
+
+#: src/app/routes/settings/settings-theming.tsx:89
+msgid "Border Radius"
+msgstr "Eckenradius"
+
+#: src/app/routes/settings/settings-categories.tsx:46
+#: src/app/routes/settings/settings-data.tsx:226
+#: src/components/ui/dialog/dialog.tsx:75
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/app/routes/settings/settings-route.tsx:53
+msgid "Categories"
+msgstr "Kategorien"
+
+#: src/features/components/category-select.tsx:69
+#: src/features/csv-import/fragments/preview.tsx:42
+#: src/features/time-table/bulk-actions.tsx:128
+#: src/features/time-table/time-summary.tsx:89
+#: src/features/time-table/time-table-editable.tsx:53
+msgid "Category"
+msgstr "Kategorie"
+
+#: src/app/routes/settings/settings-theming.tsx:114
+msgid "Change the accent color which highlights focused and active elements."
+msgstr "Ändere die Akzentfarbe, mit der aktive und fokussierte Elemente hervorgehoben werden."
+
+#: src/app/routes/settings/settings-theming.tsx:65
+msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
+msgstr "Wähle zwischen hellem und dunklem Modus und entscheide, ob neutrale Farben eine Tönung haben sollen."
+
+#: src/components/ui/filter-input/filter-input.tsx:324
+msgid "Clear filters"
+msgstr "Filter zurücksetzen"
+
+#: src/components/ui/dialog/dialog.tsx:146
+msgid "Close"
+msgstr "Schließen"
+
+#: src/components/ui/toaster/toast.tsx:104
+msgid "Close message"
+msgstr "Nachricht schließen"
+
+#: src/components/layouts/layout.tsx:67
+msgid "Collapse side menu"
+msgstr "Seitenmenü einklappen"
+
+#: src/app/routes/settings/settings-theming.tsx:76
+msgid "Colored base colors"
+msgstr "Eingefärbte Basisfarben"
+
+#: src/components/ui/dialog/dialog.tsx:63
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: src/app/routes/settings/settings-categories.tsx:41
+#: src/app/routes/settings/settings-data.tsx:215
+msgid "Confirm deletion"
+msgstr "Löschen bestätigen"
+
+#: src/app/routes/settings/settings-data.tsx:141
+#: src/app/routes/settings/settings-data.tsx:159
+#: src/features/csv-import/csv-import.tsx:64
+msgid "CSV Import"
+msgstr "CSV-Import"
+
+#: src/app/routes/settings/settings-data.tsx:169
+msgid "CSV Import / Export"
+msgstr "CSV Import / Export"
+
+#: src/app/routes/stats/stats-side-route.tsx:85
+#: src/app/routes/stats/stats-side-route.tsx:96
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+#: src/app/routes/settings/settings-general.tsx:61
+msgid "Custom locale (e.g. ja-JP)"
+msgstr "Benutzerdefiniertes Locale (z. B. ja-JP)"
+
+#: src/app/routes/settings/settings-theming.tsx:69
+msgid "Dark base colors"
+msgstr "Dunkle Basisfarben"
+
+#: src/app/routes/settings/settings-route.tsx:56
+msgid "Data"
+msgstr "Daten"
+
+#: src/features/data-backup/data-backup.ts:56
+msgid "Data imported"
+msgstr "Daten importiert"
+
+#: src/features/csv-import/fragments/preview.tsx:34
+#: src/features/time-table/bulk-actions.tsx:136
+#: src/features/time-table/time-table-editable.tsx:66
+msgid "Date"
+msgstr "Datum"
+
+#: src/app/routes/settings/settings-data.tsx:75
+msgid "day schedule"
+msgstr "Tagesansicht"
+
+#: src/app/routes/stats/stats-route.tsx:105
+msgid "December"
+msgstr "Dezember"
+
+#: src/app/routes/settings/settings-general.tsx:73
+msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
+msgstr "Lege fest, wie die Zeitübersicht vergangener Tage angezeigt wird – als Tabellenzeilen oder als Kacheln?"
+
+#: src/features/time-table/bulk-actions.tsx:197
+#: src/features/time-table/time-table-editable.tsx:134
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/features/time-table/bulk-actions.tsx:48
+msgid "Delete {selectedAmount} entries"
+msgstr "{selectedAmount} Einträge löschen"
+
+#: src/app/routes/settings/settings-categories.tsx:38
+msgid "Delete {type}"
+msgstr "{type} löschen"
+
+#: src/app/routes/settings/settings-data.tsx:212
+#: src/app/routes/settings/settings-data.tsx:245
+msgid "Delete all data"
+msgstr "Alle Daten löschen"
+
+#: src/app/routes/settings/settings-data.tsx:235
+msgid "Delete all data and reset Clocktopus to its initial state.<0/><1>Note: </1>Make sure to create a backup before deleting your data, this cannot be undone!"
+msgstr "Alle Daten löschen und Clocktopus in den Ursprungszustand zurücksetzen.<0/><1>Hinweis: </1>Erstelle vorher unbedingt ein Backup – dieser Vorgang kann nicht rückgängig gemacht werden!"
+
+#: src/app/routes/settings/settings-data.tsx:233
+msgid "Delete data"
+msgstr "Daten löschen"
+
+#: src/app/routes/search/search-side-route.tsx:61
+msgid "Delete filter"
+msgstr "Filter löschen"
+
+#: src/features/time-table/bulk-actions.tsx:43
+msgid "Delete time entries?"
+msgstr "Zeiteinträge löschen?"
+
+#: src/features/time-table/time-table-editable.tsx:131
+msgid "Delete time entry?"
+msgstr "Zeiteintrag löschen?"
+
+#: src/app/routes/settings/settings-data.tsx:221
+msgid "Deleted data"
+msgstr "Daten gelöscht"
+
+#: src/features/time-table/bulk-actions.tsx:165
+msgid "Deleted selected entries"
+msgstr "Ausgewählte Einträge gelöscht"
+
+#: src/features/csv-import/fragments/preview.tsx:38
+#: src/features/time-table/bulk-actions.tsx:118
+#: src/features/time-table/bulk-actions.tsx:121
+#: src/features/time-table/inputs.tsx:24
+#: src/features/time-table/time-summary.tsx:79
+#: src/features/time-table/time-table-editable.tsx:40
+msgid "Description"
+msgstr "Beschreibung"
+
+#: src/features/time-table/bulk-actions.tsx:44
+msgid "Do you really want to delete the selected time entries? This action cannot be reverted."
+msgstr "Möchtest du die ausgewählten Zeiteinträge wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+
+#: src/features/time-table/time-table-editable.tsx:132
+msgid "Do you really want to delete this time entry? This action cannot be reverted."
+msgstr "Möchtest du diesen Zeiteintrag wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+
+#: src/app/routes/settings/settings-categories.tsx:39
+msgid "Do you really want to delete your \"{name}\" {type}? This action cannot be reverted."
+msgstr "Möchtest du \"{name}\" ({type}) wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+
+#: src/app/routes/settings/settings-data.tsx:213
+msgid "Do you want to delete all data and reset Clocktopus to its initial state?"
+msgstr "Möchtest du alle Daten löschen und Clocktopus zurücksetzen?"
+
+#: src/features/time-table/time-summary.tsx:94
+#: src/features/time-table/time-table-editable.tsx:106
+msgid "Duration"
+msgstr "Dauer"
+
+#: src/features/time-table/bulk-actions.tsx:194
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: src/features/time-table/bulk-actions.tsx:108
+msgid "Edit the fields you want to change and click on save to apply your changes."
+msgstr "Bearbeite die gewünschten Felder und klicke auf Speichern, um die Änderungen zu übernehmen."
+
+#: src/features/time-table/bulk-actions.tsx:107
+msgid "Edit time entries"
+msgstr "Zeiteinträge bearbeiten"
+
+#: src/app/routes/stats/stats-side-route.tsx:91
+msgid "End date"
+msgstr "Enddatum"
+
+#: src/components/layouts/layout.tsx:67
+msgid "Expand side menu"
+msgstr "Seitenmenü ausklappen"
+
+#: src/app/routes/settings/settings-data.tsx:188
+msgid "Export .csv"
+msgstr ".csv exportieren"
+
+#: src/app/routes/settings/settings-data.tsx:46
+msgid "Export data"
+msgstr "Daten exportieren"
+
+#: src/app/routes/stats/stats-route.tsx:95
+msgid "February"
+msgstr "Februar"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:42
+msgid "Filter"
+msgstr "Filter"
+
+#: src/features/csv-import/csv-import.tsx:69
+msgid "Finish import"
+msgstr "Import abschließen"
+
+#: src/app/routes/stats/stats-route.tsx:83
+#: src/components/ui/calendar/calendar.tsx:41
+msgid "Friday"
+msgstr "Freitag"
+
+#: src/app/routes/settings/settings-route.tsx:49
+msgid "General"
+msgstr "Allgemein"
+
+#: src/app/layout.tsx:21
+msgid "Github"
+msgstr "GitHub"
+
+#: src/features/components/category-select.tsx:89
+msgid "Go to category settings"
+msgstr "Zu den Kategorieeinstellungen"
+
+#: src/app/routes/not-found.tsx:15
+msgid "Go to main page"
+msgstr "Zur Hauptseite"
+
+#: src/app/routes/settings/settings-general.tsx:85
+msgid "Grid"
+msgstr "Raster"
+
+#: src/app/routes/settings/settings-categories.tsx:64
+msgid "Group name"
+msgstr "Gruppenname"
+
+#: src/app/routes/settings/settings-data.tsx:192
+msgid "Import .csv"
+msgstr ".csv importieren"
+
+#: src/app/routes/settings/settings-data.tsx:50
+msgid "Import data"
+msgstr "Daten importieren"
+
+#: src/features/data-backup/data-backup.ts:63
+msgid "Import error"
+msgstr "Importfehler"
+
+#: src/app/routes/settings/settings-data.tsx:171
+msgid "Import or export a .csv file to move your data between clocktopus and other time tracking tools.<0/><1>Note: </1>The new data will be added to your existing data! Make sure to create a backup before starting the import. If you want a clean start, delete your data first."
+msgstr "Importiere oder exportiere eine .csv-Datei, um deine Daten zwischen Clocktopus und anderen Zeiterfassungstools zu übertragen.<0/><1>Hinweis: </1>Neue Daten werden zu bestehenden hinzugefügt! Erstelle vor dem Import ein Backup. Für einen Neustart lösche zuerst deine Daten."
+
+#. placeholder {0}: data.length
+#: src/app/routes/settings/settings-data.tsx:160
+msgid "Imported {0} entries"
+msgstr "{0} Einträge importiert"
+
+#: src/app/routes/stats/stats-route.tsx:171
+msgid "Insufficient data"
+msgstr "Unzureichende Daten"
+
+#: src/app/routes/settings/settings-general.tsx:45
+msgid "ISO Standard"
+msgstr "ISO-Standard"
+
+#: src/app/routes/stats/stats-route.tsx:94
+msgid "January"
+msgstr "Januar"
+
+#: src/app/routes/stats/stats-route.tsx:100
+msgid "July"
+msgstr "Juli"
+
+#: src/app/routes/stats/stats-route.tsx:99
+msgid "June"
+msgstr "Juni"
+
+#: src/app/routes/settings/settings-general.tsx:29
+#: src/app/routes/settings/settings-general.tsx:42
+msgid "Locale"
+msgstr "Locale"
+
+#: src/app/routes/stats/stats-route.tsx:96
+msgid "March"
+msgstr "März"
+
+#: src/app/routes/stats/stats-route.tsx:98
+msgid "May"
+msgstr "Mai"
+
+#: src/features/csv-import/fragments/preview.tsx:22
+msgid "Missing"
+msgstr "Fehlend"
+
+#: src/app/routes/stats/stats-route.tsx:79
+#: src/components/ui/calendar/calendar.tsx:37
+msgid "Monday"
+msgstr "Montag"
+
+#: src/app/routes/stats/stats-route.tsx:132
+msgid "month"
+msgstr "Monat"
+
+#: src/components/ui/calendar/calendar.tsx:105
+msgid "Month"
+msgstr "Monat"
+
+#: src/app/routes/stats/stats-route.tsx:176
+msgid "months"
+msgstr "Monate"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:34
+msgid "Name"
+msgstr "Name"
+
+#: src/components/ui/calendar/calendar.tsx:145
+msgid "Next {magnitudeCaption}"
+msgstr "Nächste {magnitudeCaption}"
+
+#: src/features/date-selection/date-selection.tsx:53
+msgid "Next year"
+msgstr "Nächstes Jahr"
+
+#: src/features/csv-import/fragments/select-categories.tsx:25
+msgid "No categories found"
+msgstr "Keine Kategorien gefunden"
+
+#: src/app/routes/search/search-route.tsx:30
+#: src/features/components/category-select.tsx:76
+msgid "No category"
+msgstr "Keine Kategorie"
+
+#: src/features/components/category-name.tsx:30
+msgid "No Category"
+msgstr "Keine Kategorie"
+
+#: src/features/csv-import/fragments/select-columns.tsx:33
+msgid "No column"
+msgstr "Keine Spalte"
+
+#: src/features/time-table/time-summary.tsx:84
+#: src/features/time-table/time-summary.tsx:119
+msgid "No description"
+msgstr "Keine Beschreibung"
+
+#: src/app/routes/search/search-route.tsx:151
+msgid "No matches found"
+msgstr "Keine Treffer gefunden"
+
+#: src/app/routes/stats/stats-route.tsx:104
+msgid "November"
+msgstr "November"
+
+#: src/app/routes/stats/stats-route.tsx:103
+msgid "October"
+msgstr "Oktober"
+
+#: src/components/errors/main.tsx:11
+msgid "Ooops, something went wrong :("
+msgstr "Ups, etwas ist schiefgelaufen :("
+
+#: src/components/ui/pagination.tsx:153
+msgid "Page size:"
+msgstr "Seitengröße:"
+
+#: src/app/routes/search/search-side-route.tsx:23
+#: src/app/routes/stats/stats-side-route.tsx:64
+msgid "Predefined Filters"
+msgstr "Vordefinierte Filter"
+
+#: src/features/csv-import/fragments/preview.tsx:78
+msgid "Preview Sample"
+msgstr "Beispielvorschau"
+
+#: src/components/ui/calendar/calendar.tsx:137
+msgid "Previous {magnitudeCaption}"
+msgstr "Vorherige {magnitudeCaption}"
+
+#: src/features/date-selection/date-selection.tsx:40
+msgid "Previous year"
+msgstr "Vorheriges Jahr"
+
+#: src/features/csv-import/csv-import.tsx:65
+msgid "Provide information about the .csv file to be used for the import."
+msgstr "Gib Informationen zur .csv-Datei an, die für den Import verwendet werden soll."
+
+#: src/components/errors/main.tsx:21
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: src/app/routes/stats/stats-route.tsx:84
+#: src/components/ui/calendar/calendar.tsx:42
+msgid "Saturday"
+msgstr "Samstag"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:27
+msgid "Save"
+msgstr "Speichern"
+
+#: src/features/time-table/bulk-actions.tsx:112
+msgid "Save {selectedAmount} entries"
+msgstr "{selectedAmount} Einträge speichern"
+
+#: src/app/routes/search/fragments/save-filter-dialog.tsx:24
+#: src/app/routes/search/search-route.tsx:104
+msgid "Save filter"
+msgstr "Filter speichern"
+
+#: src/app/routes/search/search-side-route.tsx:39
+msgid "Saved Filters"
+msgstr "Gespeicherte Filter"
+
+#: src/app/layout.tsx:16
+msgid "Search"
+msgstr "Suche"
+
+#: src/app/routes/search/fragments/search-filter-input.tsx:38
+msgid "Search for time entries"
+msgstr "Zeiteinträge durchsuchen"
+
+#. placeholder {0}: filtered.length
+#: src/app/routes/search/fragments/search-table.tsx:36
+msgid "Search Results ({0})"
+msgstr "Suchergebnisse ({0})"
+
+#: src/app/routes/page-changed.tsx:16
+msgid "Seems like clocktopus got an update since the last time you used this tab. Please reload the page to apply the changes."
+msgstr "Clocktopus wurde seit deinem letzten Besuch aktualisiert. Bitte lade die Seite neu, um die Änderungen zu übernehmen."
+
+#: src/features/time-table/time-table-editable.tsx:31
+msgid "Selected"
+msgstr "Ausgewählt"
+
+#: src/app/routes/stats/stats-route.tsx:102
+msgid "September"
+msgstr "September"
+
+#: src/app/layout.tsx:18
+#: src/app/routes/settings/settings-route.tsx:30
+#: src/app/routes/settings/settings-side-route.tsx:12
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: src/components/ui/pagination.tsx:26
+msgid "Size"
+msgstr "Größe"
+
+#: src/app/routes/page-changed.tsx:12
+msgid "Something changed!"
+msgstr "Etwas hat sich geändert!"
+
+#: src/app/routes/not-found.tsx:11
+msgid "Sorry, the page you are looking for does not exist."
+msgstr "Die gesuchte Seite existiert leider nicht."
+
+#: src/app/routes/stats/stats-side-route.tsx:80
+msgid "Start date"
+msgstr "Startdatum"
+
+#: src/app/layout.tsx:17
+msgid "Stats"
+msgstr "Statistiken"
+
+#: src/app/routes/stats/stats-route.tsx:119
+msgid "Stats by"
+msgstr "Statistiken nach"
+
+#: src/app/routes/settings/settings-general.tsx:72
+msgid "Summary style"
+msgstr "Zusammenfassungsstil"
+
+#: src/app/routes/stats/stats-route.tsx:85
+#: src/components/ui/calendar/calendar.tsx:43
+msgid "Sunday"
+msgstr "Sonntag"
+
+#: src/features/time-table/time-table-header.tsx:167
+msgid "Switch to editable mode"
+msgstr "In den Bearbeitungsmodus wechseln"
+
+#: src/features/time-table/time-table-header.tsx:168
+msgid "Switch to summary mode"
+msgstr "In den Übersichtsmodus wechseln"
+
+#: src/app/routes/settings/settings-general.tsx:79
+msgid "Table"
+msgstr "Tabelle"
+
+#: src/features/csv-import/fragments/preview.tsx:80
+msgid "Take another sample"
+msgstr "Neues Beispiel laden"
+
+#: src/features/data-backup/data-backup.ts:40
+msgid "The file you selected contains no usable data."
+msgstr "Die ausgewählte Datei enthält keine verwendbaren Daten."
+
+#: src/features/data-backup/data-backup.ts:33
+msgid "The following data fields seem to be corrupted: {errorPaths}"
+msgstr "Die folgenden Datenfelder scheinen beschädigt zu sein: {errorPaths}"
+
+#: src/app/routes/settings/settings-route.tsx:50
+msgid "Theming"
+msgstr "Design"
+
+#: src/app/routes/main/main-route.tsx:151
+msgid "There are no entries in the selected date range yet. Time to add some!"
+msgstr "Im ausgewählten Zeitraum gibt es noch keine Einträge. Zeit, welche hinzuzufügen!"
+
+#: src/app/routes/settings/settings-data.tsx:254
+msgid "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
+msgstr "Diese Website wird über GitHub Pages gehostet. GitHub kann personenbezogene Daten von Besuchern dieser Website erheben. Weitere Informationen findest du in der <0>GitHub-Datenschutzerklärung</0>.<1/>Abgesehen von der in der GitHub-Datenschutzerklärung beschriebenen Verarbeitung erhebt oder verfolgt diese Website keine personenbezogenen Daten. Alle von dir eingegebenen Daten werden ausschließlich lokal in deinem Browser gespeichert und nicht an einen Server übertragen. Bitte beachte, dass das Löschen der Browserdaten diese Website in den Ausgangszustand zurücksetzen und zum Verlust aller eingegebenen Daten führen kann."
+
+#: src/app/routes/stats/stats-route.tsx:82
+#: src/components/ui/calendar/calendar.tsx:40
+msgid "Thursday"
+msgstr "Donnerstag"
+
+#: src/features/csv-import/fragments/preview.tsx:54
+#: src/features/time-table/time-table-editable.tsx:95
+msgid "Time End"
+msgstr "Endzeit"
+
+#: src/features/csv-import/fragments/preview.tsx:50
+#: src/features/time-table/time-table-editable.tsx:79
+msgid "Time Start"
+msgstr "Startzeit"
+
+#: src/app/layout.tsx:15
+msgid "Time Tracker"
+msgstr "Zeiterfassung"
+
+#: src/app/routes/settings/settings-data.tsx:63
+msgid "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
+msgstr "Damit du dein Backup nicht vergisst, wirst du regelmäßig erinnert. Hier kannst du festlegen, wie oft."
+
+#: src/features/time-table/time-table-header.tsx:53
+msgid "Total: "
+msgstr "Gesamt: "
+
+#: src/app/routes/stats/stats-route.tsx:80
+#: src/components/ui/calendar/calendar.tsx:38
+msgid "Tuesday"
+msgstr "Dienstag"
+
+#: src/features/time-table/bulk-actions.tsx:174
+msgid "Updated selected entries"
+msgstr "Ausgewählte Einträge aktualisiert"
+
+#: src/components/ui/calendar/calendar.tsx:39
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+#: src/app/routes/stats/stats-route.tsx:81
+msgid "Wednseday"
+msgstr "Mittwoch"
+
+#: src/app/routes/stats/stats-route.tsx:132
+msgid "weekday"
+msgstr "Wochentag"
+
+#: src/app/routes/stats/stats-route.tsx:176
+msgid "weekdays"
+msgstr "Wochentage"
+
+#: src/app/routes/stats/time-charts.tsx:82
+msgid "Working Hours (avg)"
+msgstr "Arbeitsstunden (Ø)"
+
+#: src/app/routes/stats/time-charts.tsx:114
+msgid "Working Time (avg)"
+msgstr "Arbeitszeit (Ø)"
+
+#: src/app/routes/stats/stats-route.tsx:132
+msgid "year"
+msgstr "Jahr"
+
+#: src/components/ui/calendar/calendar.tsx:105
+msgid "Year"
+msgstr "Jahr"
+
+#: src/app/routes/stats/stats-route.tsx:176
+msgid "years"
+msgstr "Jahre"
+
+#: src/app/routes/search/search-side-route.tsx:42
+msgid "You didn't save any filters yet"
+msgstr "Du hast noch keine Filter gespeichert"
+
+#. placeholder {0}: { weekday: t`weekdays`, month: t`months`, year: t`years` }[mode]
+#: src/app/routes/stats/stats-route.tsx:173
+msgid "You will need to provide more data, to be able to see stats here. (at least 2 {0})"
+msgstr "Du musst mehr Daten erfassen, um hier Statistiken zu sehen. (mindestens 2 {0})"

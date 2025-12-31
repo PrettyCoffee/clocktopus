@@ -6,7 +6,7 @@ import { I18nProvider } from "@lingui/react"
 import { preferencesData } from "data/preferences"
 import { useSelector } from "lib/yaasl"
 
-const availableLocales = new Set(["en"])
+const availableLocales = new Set(["en", "de"])
 
 const getMessages = (locale: string) =>
   import(`./${locale}/messages.po`) as Promise<{ messages: Messages }>
