@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/app/routes/settings/fragments/or-chain.tsx:31
+msgid "- or -"
+msgstr "- or -"
+
 #. placeholder {0}: matchingEntries.length
 #: src/app/routes/stats/stats-side-route.tsx:104
 msgid "{0} Matching time entries"
@@ -42,11 +46,15 @@ msgstr "Actions"
 msgid "Add a name to your filter and save it for quick access in the side menu."
 msgstr "Add a name to your filter and save it for quick access in the side menu."
 
+#: src/app/routes/settings/settings-categories.tsx:266
+msgid "Add category"
+msgstr "Add category"
+
 #: src/features/time-table/create-time-entry.tsx:159
 msgid "Add entry"
 msgstr "Add entry"
 
-#: src/app/routes/settings/settings-categories.tsx:76
+#: src/app/routes/settings/settings-categories.tsx:80
 msgid "Add group"
 msgstr "Add group"
 
@@ -63,10 +71,12 @@ msgid "An unexpected error occurred during the import."
 msgstr "An unexpected error occurred during the import."
 
 #: src/app/routes/stats/stats-route.tsx:97
+#: src/features/date-selection/week.tsx:16
 msgid "April"
 msgstr "April"
 
 #: src/app/routes/stats/stats-route.tsx:101
+#: src/features/date-selection/week.tsx:20
 msgid "August"
 msgstr "August"
 
@@ -94,8 +104,6 @@ msgstr "Base Colors"
 msgid "Border Radius"
 msgstr "Border Radius"
 
-#: src/app/routes/settings/settings-categories.tsx:46
-#: src/app/routes/settings/settings-data.tsx:226
 #: src/components/ui/dialog/dialog.tsx:75
 msgid "Cancel"
 msgstr "Cancel"
@@ -104,6 +112,10 @@ msgstr "Cancel"
 msgid "Categories"
 msgstr "Categories"
 
+#: src/app/routes/settings/settings-categories.tsx:39
+msgid "category"
+msgstr "category"
+
 #: src/features/components/category-select.tsx:69
 #: src/features/csv-import/fragments/preview.tsx:42
 #: src/features/time-table/bulk-actions.tsx:128
@@ -111,6 +123,25 @@ msgstr "Categories"
 #: src/features/time-table/time-table-editable.tsx:53
 msgid "Category"
 msgstr "Category"
+
+#: src/app/routes/settings/settings-categories.tsx:317
+#: src/app/routes/settings/settings-categories.tsx:333
+msgid "Category actions"
+msgstr "Category actions"
+
+#: src/app/routes/settings/settings-categories.tsx:304
+msgid "Category is private"
+msgstr "Category is private"
+
+#: src/app/routes/settings/settings-categories.tsx:254
+#: src/app/routes/settings/settings-categories.tsx:291
+#: src/app/routes/settings/settings-categories.tsx:296
+msgid "Category name"
+msgstr "Category name"
+
+#: src/app/routes/settings/settings-categories.tsx:281
+msgid "Category order"
+msgstr "Category order"
 
 #: src/app/routes/settings/settings-theming.tsx:114
 msgid "Change the accent color which highlights focused and active elements."
@@ -144,7 +175,7 @@ msgstr "Colored base colors"
 msgid "Confirm"
 msgstr "Confirm"
 
-#: src/app/routes/settings/settings-categories.tsx:41
+#: src/app/routes/settings/settings-categories.tsx:47
 #: src/app/routes/settings/settings-data.tsx:215
 msgid "Confirm deletion"
 msgstr "Confirm deletion"
@@ -191,6 +222,7 @@ msgid "day schedule"
 msgstr "day schedule"
 
 #: src/app/routes/stats/stats-route.tsx:105
+#: src/features/date-selection/week.tsx:24
 msgid "December"
 msgstr "December"
 
@@ -207,26 +239,34 @@ msgstr "Delete"
 msgid "Delete {selectedAmount} entries"
 msgstr "Delete {selectedAmount} entries"
 
-#: src/app/routes/settings/settings-categories.tsx:38
+#: src/app/routes/settings/settings-categories.tsx:44
 msgid "Delete {type}"
 msgstr "Delete {type}"
 
 #: src/app/routes/settings/settings-data.tsx:212
-#: src/app/routes/settings/settings-data.tsx:245
+#: src/app/routes/settings/settings-data.tsx:242
 msgid "Delete all data"
 msgstr "Delete all data"
 
-#: src/app/routes/settings/settings-data.tsx:235
+#: src/app/routes/settings/settings-data.tsx:232
 msgid "Delete all data and reset Clocktopus to its initial state.<0/><1>Note: </1>Make sure to create a backup before deleting your data, this cannot be undone!"
 msgstr "Delete all data and reset Clocktopus to its initial state.<0/><1>Note: </1>Make sure to create a backup before deleting your data, this cannot be undone!"
 
-#: src/app/routes/settings/settings-data.tsx:233
+#: src/app/routes/settings/settings-categories.tsx:337
+msgid "Delete category"
+msgstr "Delete category"
+
+#: src/app/routes/settings/settings-data.tsx:230
 msgid "Delete data"
 msgstr "Delete data"
 
 #: src/app/routes/search/search-side-route.tsx:61
 msgid "Delete filter"
 msgstr "Delete filter"
+
+#: src/app/routes/settings/settings-categories.tsx:181
+msgid "Delete group"
+msgstr "Delete group"
 
 #: src/features/time-table/bulk-actions.tsx:43
 msgid "Delete time entries?"
@@ -261,9 +301,9 @@ msgstr "Do you really want to delete the selected time entries? This action cann
 msgid "Do you really want to delete this time entry? This action cannot be reverted."
 msgstr "Do you really want to delete this time entry? This action cannot be reverted."
 
-#: src/app/routes/settings/settings-categories.tsx:39
-msgid "Do you really want to delete your \"{name}\" {type}? This action cannot be reverted."
-msgstr "Do you really want to delete your \"{name}\" {type}? This action cannot be reverted."
+#: src/app/routes/settings/settings-categories.tsx:45
+msgid "Do you really want to delete your \"{name}\" {typeName}? This action cannot be reverted."
+msgstr "Do you really want to delete your \"{name}\" {typeName}? This action cannot be reverted."
 
 #: src/app/routes/settings/settings-data.tsx:213
 msgid "Do you want to delete all data and reset Clocktopus to its initial state?"
@@ -303,6 +343,7 @@ msgid "Export data"
 msgstr "Export data"
 
 #: src/app/routes/stats/stats-route.tsx:95
+#: src/features/date-selection/week.tsx:14
 msgid "February"
 msgstr "February"
 
@@ -339,9 +380,27 @@ msgstr "Go to main page"
 msgid "Grid"
 msgstr "Grid"
 
-#: src/app/routes/settings/settings-categories.tsx:64
+#: src/app/routes/settings/settings-categories.tsx:40
+msgid "group"
+msgstr "group"
+
+#: src/app/routes/settings/settings-categories.tsx:177
+msgid "Group actions"
+msgstr "Group actions"
+
+#: src/app/routes/settings/settings-categories.tsx:166
+msgid "Group color"
+msgstr "Group color"
+
+#: src/app/routes/settings/settings-categories.tsx:68
+#: src/app/routes/settings/settings-categories.tsx:153
+#: src/app/routes/settings/settings-categories.tsx:158
 msgid "Group name"
 msgstr "Group name"
+
+#: src/app/routes/settings/settings-categories.tsx:143
+msgid "Group order"
+msgstr "Group order"
 
 #: src/app/routes/settings/settings-data.tsx:192
 msgid "Import .csv"
@@ -373,14 +432,17 @@ msgid "ISO Standard"
 msgstr "ISO Standard"
 
 #: src/app/routes/stats/stats-route.tsx:94
+#: src/features/date-selection/week.tsx:13
 msgid "January"
 msgstr "January"
 
 #: src/app/routes/stats/stats-route.tsx:100
+#: src/features/date-selection/week.tsx:19
 msgid "July"
 msgstr "July"
 
 #: src/app/routes/stats/stats-route.tsx:99
+#: src/features/date-selection/week.tsx:18
 msgid "June"
 msgstr "June"
 
@@ -389,11 +451,25 @@ msgstr "June"
 msgid "Locale"
 msgstr "Locale"
 
+#: src/app/routes/settings/settings-categories.tsx:390
+msgid "Manage Categories"
+msgstr "Manage Categories"
+
+#: src/app/routes/settings/settings-categories.tsx:375
+msgid "Manage Category Groups"
+msgstr "Manage Category Groups"
+
+#: src/app/routes/settings/settings-categories.tsx:377
+msgid "Manage groups that you can use to cluster your categories. For example, you could group the categories \"Feature Development\" and \"Code Maintenance\" in a \"Development\" group."
+msgstr "Manage groups that you can use to cluster your categories. For example, you could group the categories \"Feature Development\" and \"Code Maintenance\" in a \"Development\" group."
+
 #: src/app/routes/stats/stats-route.tsx:96
+#: src/features/date-selection/week.tsx:15
 msgid "March"
 msgstr "March"
 
 #: src/app/routes/stats/stats-route.tsx:98
+#: src/features/date-selection/week.tsx:17
 msgid "May"
 msgstr "May"
 
@@ -410,22 +486,27 @@ msgstr "Monday"
 msgid "month"
 msgstr "month"
 
-#: src/components/ui/calendar/calendar.tsx:105
-msgid "Month"
-msgstr "Month"
-
 #: src/app/routes/stats/stats-route.tsx:176
 msgid "months"
 msgstr "months"
+
+#: src/app/routes/settings/settings-categories.tsx:98
+msgid "Move down"
+msgstr "Move down"
+
+#: src/app/routes/settings/settings-categories.tsx:98
+msgid "Move up"
+msgstr "Move up"
 
 #: src/app/routes/search/fragments/save-filter-dialog.tsx:34
 msgid "Name"
 msgstr "Name"
 
-#: src/components/ui/calendar/calendar.tsx:145
-msgid "Next {magnitudeCaption}"
-msgstr "Next {magnitudeCaption}"
+#: src/components/ui/calendar/calendar.tsx:106
+msgid "Next month"
+msgstr "Next month"
 
+#: src/components/ui/calendar/calendar.tsx:107
 #: src/features/date-selection/date-selection.tsx:53
 msgid "Next year"
 msgstr "Next year"
@@ -449,21 +530,33 @@ msgstr "No column"
 msgid "No description"
 msgstr "No description"
 
+#: src/app/routes/settings/settings-categories.tsx:223
+#: src/app/routes/settings/settings-categories.tsx:224
+#: src/app/routes/settings/settings-categories.tsx:226
+msgid "No group"
+msgstr "No group"
+
 #: src/app/routes/search/search-route.tsx:151
 msgid "No matches found"
 msgstr "No matches found"
 
 #: src/app/routes/stats/stats-route.tsx:104
+#: src/features/date-selection/week.tsx:23
 msgid "November"
 msgstr "November"
 
 #: src/app/routes/stats/stats-route.tsx:103
+#: src/features/date-selection/week.tsx:22
 msgid "October"
 msgstr "October"
 
 #: src/components/errors/main.tsx:11
 msgid "Ooops, something went wrong :("
 msgstr "Ooops, something went wrong :("
+
+#: src/app/routes/settings/settings-categories.tsx:392
+msgid "Organize categories to label your time entries. You can mark a category as private to remove it from statistics."
+msgstr "Organize categories to label your time entries. You can mark a category as private to remove it from statistics."
 
 #: src/components/ui/pagination.tsx:153
 msgid "Page size:"
@@ -478,13 +571,18 @@ msgstr "Predefined Filters"
 msgid "Preview Sample"
 msgstr "Preview Sample"
 
-#: src/components/ui/calendar/calendar.tsx:137
-msgid "Previous {magnitudeCaption}"
-msgstr "Previous {magnitudeCaption}"
+#: src/components/ui/calendar/calendar.tsx:106
+msgid "Previous month"
+msgstr "Previous month"
 
+#: src/components/ui/calendar/calendar.tsx:107
 #: src/features/date-selection/date-selection.tsx:40
 msgid "Previous year"
 msgstr "Previous year"
+
+#: src/app/routes/settings/settings-categories.tsx:308
+msgid "Private"
+msgstr "Private"
 
 #: src/features/csv-import/csv-import.tsx:65
 msgid "Provide information about the .csv file to be used for the import."
@@ -538,6 +636,7 @@ msgid "Selected"
 msgstr "Selected"
 
 #: src/app/routes/stats/stats-route.tsx:102
+#: src/features/date-selection/week.tsx:21
 msgid "September"
 msgstr "September"
 
@@ -612,7 +711,7 @@ msgstr "Theming"
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "There are no entries in the selected date range yet. Time to add some!"
 
-#: src/app/routes/settings/settings-data.tsx:254
+#: src/app/routes/settings/settings-data.tsx:251
 msgid "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
 msgstr "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
 
@@ -639,6 +738,10 @@ msgstr "Time Tracker"
 msgid "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
 msgstr "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
 
+#: src/components/ui/date-input/date-input.tsx:13
+msgid "Today"
+msgstr "Today"
+
 #: src/features/time-table/time-table-header.tsx:53
 msgid "Total: "
 msgstr "Total: "
@@ -652,13 +755,10 @@ msgstr "Tuesday"
 msgid "Updated selected entries"
 msgstr "Updated selected entries"
 
+#: src/app/routes/stats/stats-route.tsx:81
 #: src/components/ui/calendar/calendar.tsx:39
 msgid "Wednesday"
 msgstr "Wednesday"
-
-#: src/app/routes/stats/stats-route.tsx:81
-msgid "Wednseday"
-msgstr "Wednseday"
 
 #: src/app/routes/stats/stats-route.tsx:132
 msgid "weekday"
@@ -679,10 +779,6 @@ msgstr "Working Time (avg)"
 #: src/app/routes/stats/stats-route.tsx:132
 msgid "year"
 msgstr "year"
-
-#: src/components/ui/calendar/calendar.tsx:105
-msgid "Year"
-msgstr "Year"
 
 #: src/app/routes/stats/stats-route.tsx:176
 msgid "years"

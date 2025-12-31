@@ -1,5 +1,6 @@
 import { Dispatch, useState } from "react"
 
+import { t } from "@lingui/core/macro"
 import { CalendarDays } from "lucide-react"
 
 import { dateHelpers } from "utils/date-helpers"
@@ -9,7 +10,7 @@ import { Calendar, CalendarProps } from "../calendar"
 import { Popover } from "../popover"
 
 const printDate = (date: string, locale: string) => {
-  if (date === dateHelpers.today()) return "Today"
+  if (date === dateHelpers.today()) return t`Today`
   if (locale === "iso") return date
   return new Date(date).toLocaleDateString(locale, {
     year: "numeric",

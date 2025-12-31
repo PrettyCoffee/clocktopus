@@ -78,7 +78,7 @@ const weekdayTick = (value: number) =>
   [
     t`Monday`.slice(0, 2),
     t`Tuesday`.slice(0, 2),
-    t`Wednseday`.slice(0, 2),
+    t`Wednesday`.slice(0, 2),
     t`Thursday`.slice(0, 2),
     t`Friday`.slice(0, 2),
     t`Saturday`.slice(0, 2),

@@ -222,10 +222,7 @@ const requestDeletion = () =>
         })
       },
     },
-    cancel: {
-      caption: t`Cancel`,
-      look: "flat",
-    },
+    cancel: {},
   })
 
 const DeleteData = () => (

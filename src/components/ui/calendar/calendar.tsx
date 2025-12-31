@@ -102,7 +102,10 @@ const ViewSwitch = ({ month, size, min, max, setMonth }: ViewSwitchProps) => {
   const prevDisabled = month.valueOf() <= minMonth.valueOf()
   const nextDisabled = month.valueOf() >= maxMonth.valueOf()
 
-  const magnitudeCaption = { month: t`Month`, year: t`Year` }[magnitude]
+  const magnitudeCaptions = {
+    month: { next: t`Next month`, prev: t`Previous month` },
+    year: { next: t`Next year`, prev: t`Previous year` },
+  }[magnitude]
 
   return (
     <div className="flex">
@@ -134,7 +137,7 @@ const ViewSwitch = ({ month, size, min, max, setMonth }: ViewSwitchProps) => {
         size={size}
         icon={ChevronLeft}
         hideTitle
-        title={t`Previous ${magnitudeCaption}`}
+        title={magnitudeCaptions.prev}
         onClick={() => setMonth(prev)}
         disabled={prevDisabled}
       />
@@ -142,7 +145,7 @@ const ViewSwitch = ({ month, size, min, max, setMonth }: ViewSwitchProps) => {
         size={size}
         icon={ChevronRight}
         hideTitle
-        title={t`Next ${magnitudeCaption}`}
+        title={magnitudeCaptions.next}
         onClick={() => setMonth(next)}
         disabled={nextDisabled}
       />

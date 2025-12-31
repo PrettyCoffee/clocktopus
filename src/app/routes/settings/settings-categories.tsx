@@ -1,6 +1,7 @@
 import { Dispatch } from "react"
 
-import { t } from "@lingui/core/macro"
+import { msg, t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { ChevronDown, ChevronUp, Plus, Trash } from "lucide-react"
 
 import { Card } from "components/ui/card"
@@ -30,23 +31,26 @@ const requestDeletion = ({
   name,
   onDelete,
 }: {
-  type: "category" | "category group"
+  type: "category" | "group"
   name: string
   onDelete: () => void
-}) =>
+}) => {
+  const typeName = {
+    category: t`category`,
+    group: t`group`,
+  }[type]
+
   showDialog({
     title: t`Delete ${type}`,
-    description: t`Do you really want to delete your "${name}" ${type}? This action cannot be reverted.`,
+    description: t`Do you really want to delete your "${name}" ${typeName}? This action cannot be reverted.`,
     confirm: {
       caption: t`Confirm deletion`,
       look: "destructive",
       onClick: onDelete,
     },
-    cancel: {
-      caption: t`Cancel`,
-      look: "flat",
-    },
+    cancel: {},
   })
+}
 
 const AddGroup = () => {
   const initialData: Omit<CategoryGroup, "id"> = {
@@ -91,7 +95,7 @@ interface MoveButtonProps {
 const MoveButton = ({ direction, disabled, ...props }: MoveButtonProps) => {
   const isUp = direction === "up"
   const icon = isUp ? ChevronUp : ChevronDown
-  const caption = isUp ? "Move up" : "Move down"
+  const caption = isUp ? t`Move up` : t`Move down`
 
   return (
     <button
@@ -136,7 +140,7 @@ const MoveButtons = ({ canMoveDown, canMoveUp, onClick }: MoveButtonsProps) => (
 
 const groupHelper = createColumnHelper<{ rowData: CategoryGroup }>()
 const groupOrderColumn = groupHelper.column({
-  name: "Group order",
+  name: msg`Group order`,
   render: ({ rowData, allData, rowIndex }) => (
     <MoveButtons
       onClick={change => categoryGroupsData.actions.move(rowData.id, change)}
@@ -146,12 +150,12 @@ const groupOrderColumn = groupHelper.column({
   ),
 })
 const groupNameColumn = groupHelper.column({
-  name: "Group name",
+  name: msg`Group name`,
   className: "flex",
   render: ({ rowData }) => (
     <Input
       type="text"
-      placeholder="Group name"
+      placeholder={t`Group name`}
       value={rowData.name}
       onChange={name => categoryGroupsData.actions.edit(rowData.id, { name })}
       className="flex-1"
@@ -159,7 +163,7 @@ const groupNameColumn = groupHelper.column({
   ),
 })
 const groupColorColumn = groupHelper.column({
-  name: "Group color",
+  name: msg`Group color`,
   className: "*:w-full",
   render: ({ rowData }) => (
     <ColorInput
@@ -170,15 +174,15 @@ const groupColorColumn = groupHelper.column({
   ),
 })
 const groupDeleteColumn = groupHelper.column({
-  name: "Group actions",
+  name: msg`Group actions`,
   render: ({ rowData }) => (
     <IconButton
       icon={Trash}
-      title="Delete group"
+      title={t`Delete group`}
       className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
       onClick={() =>
         requestDeletion({
-          type: "category group",
+          type: "group",
           name: rowData.name,
           onDelete: () => categoryGroupsData.actions.delete(rowData.id),
         })
@@ -216,9 +220,11 @@ const GroupSelect = ({
   onChange: Dispatch<string>
   groups: CategoryGroup[]
 }) => (
-  <Select.Root placeholder="None" value={value} onChange={onChange}>
-    <Select.Option value="none" label="No group">
-      <span className="text-text-muted">No group</span>
+  <Select.Root placeholder={t`No group`} value={value} onChange={onChange}>
+    <Select.Option value="none" label={t`No group`}>
+      <span className="text-text-muted">
+        <Trans>No group</Trans>
+      </span>
     </Select.Option>
     <Select.Separator />
     {groups.map(group => (
@@ -245,7 +251,7 @@ const AddCategory = () => {
     >
       <Input
         type="text"
-        placeholder="Category name"
+        placeholder={t`Category name`}
         value={data.name}
         onChange={name => updateData({ name })}
         className="flex-1"
@@ -257,7 +263,7 @@ const AddCategory = () => {
       />
       <IconButton
         icon={Plus}
-        title="Add category"
+        title={t`Add category`}
         onClick={() => {
           categoriesData.actions.add(data)
           updateData(initialData)
@@ -272,7 +278,7 @@ const categoryHelper = createColumnHelper<{
   rowMeta: { groups: CategoryGroup[] }
 }>()
 const categoryOrderColumn = categoryHelper.column({
-  name: "Category order",
+  name: msg`Category order`,
   render: ({ rowData, allData, rowIndex }) => (
     <MoveButtons
       onClick={change => categoriesData.actions.move(rowData.id, change)}
@@ -282,12 +288,12 @@ const categoryOrderColumn = categoryHelper.column({
   ),
 })
 const categoryNameColumn = categoryHelper.column({
-  name: "Category name",
+  name: msg`Category name`,
   className: "flex",
   render: ({ rowData }) => (
     <Input
       type="text"
-      placeholder="Category name"
+      placeholder={t`Category name`}
       value={rowData.name}
       onChange={name => categoriesData.actions.edit(rowData.id, { name })}
       className="flex-1"
@@ -295,11 +301,11 @@ const categoryNameColumn = categoryHelper.column({
   ),
 })
 const categoryPrivateColumn = categoryHelper.column({
-  name: "Category is private",
+  name: msg`Category is private`,
   className: "flex",
   render: ({ rowData }) => (
     <Toggle
-      label="Private"
+      label={t`Private`}
       checked={!!rowData.isPrivate}
       onChange={isPrivate =>
         categoriesData.actions.edit(rowData.id, { isPrivate })
@@ -308,7 +314,7 @@ const categoryPrivateColumn = categoryHelper.column({
   ),
 })
 const categoryGroupColumn = categoryHelper.column({
-  name: "Category actions",
+  name: msg`Category actions`,
   className: "*:w-full",
   render: ({ rowData, groups }) => {
     const current = groups.find(group => group.id === rowData.groupId)
@@ -324,11 +330,11 @@ const categoryGroupColumn = categoryHelper.column({
   },
 })
 const categoryDeleteColumn = categoryHelper.column({
-  name: "Category actions",
+  name: msg`Category actions`,
   render: ({ rowData }) => (
     <IconButton
       icon={Trash}
-      title="Delete category"
+      title={t`Delete category`}
       className="[[role='row']:not(:hover,:focus-within)_&]:opacity-0"
       onClick={() =>
         requestDeletion({
@@ -366,10 +372,13 @@ const CategoryRows = () => {
 export const SettingsCategories = () => (
   <>
     <Card
-      title="Manage Category Groups"
+      title={t`Manage Category Groups`}
       description={
-        "Manage groups that you can use to cluster your categories. " +
-        'For example, you could group the categories "Feature Development" and "Code Maintenance" in a "Development" group. '
+        <Trans>
+          Manage groups that you can use to cluster your categories. For
+          example, you could group the categories "Feature Development" and
+          "Code Maintenance" in a "Development" group.
+        </Trans>
       }
     >
       <AddGroup />
@@ -378,10 +387,12 @@ export const SettingsCategories = () => (
     </Card>
 
     <Card
-      title="Manage Categories"
+      title={t`Manage Categories`}
       description={
-        "Organize categories to label your time entries. " +
-        "You can mark a category as private to remove it from statistics."
+        <Trans>
+          Organize categories to label your time entries. You can mark a
+          category as private to remove it from statistics.
+        </Trans>
       }
     >
       <AddCategory />
