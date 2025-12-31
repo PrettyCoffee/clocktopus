@@ -14,7 +14,7 @@ msgstr ""
 #. placeholder {0}: matchingEntries.length
 #: src/app/routes/stats/stats-side-route.tsx:104
 msgid "{0} Matching time entries"
-msgstr "{0} passende Zeiteinträge"
+msgstr "{0} gefundene Zeiteinträge"
 
 #: src/app/routes/settings/settings-data.tsx:126
 msgid "<0/> Importing data ({percent}%)"
@@ -38,7 +38,7 @@ msgstr "Aktionen"
 
 #: src/app/routes/search/fragments/save-filter-dialog.tsx:25
 msgid "Add a name to your filter and save it for quick access in the side menu."
-msgstr "Gib deinem Filter einen Namen und speichere ihn für den schnellen Zugriff im Seitenmenü."
+msgstr "Gib deinem Filter einen Namen und speichere ihn zur schnellen Verwendung im Seitenmenü."
 
 #: src/features/time-table/create-time-entry.tsx:159
 msgid "Add entry"
@@ -90,7 +90,7 @@ msgstr "Basisfarben"
 
 #: src/app/routes/settings/settings-theming.tsx:89
 msgid "Border Radius"
-msgstr "Eckenradius"
+msgstr "Eckenabrundung"
 
 #: src/app/routes/settings/settings-categories.tsx:46
 #: src/app/routes/settings/settings-data.tsx:226
@@ -116,7 +116,7 @@ msgstr "Ändere die Akzentfarbe, mit der aktive und fokussierte Elemente hervorg
 
 #: src/app/routes/settings/settings-theming.tsx:65
 msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
-msgstr "Wähle zwischen hellem und dunklem Modus und entscheide, ob neutrale Farben eine Tönung haben sollen."
+msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Farben eine Tönung haben sollen."
 
 #: src/components/ui/filter-input/filter-input.tsx:324
 msgid "Clear filters"
@@ -164,11 +164,11 @@ msgstr "Benutzerdefiniert"
 
 #: src/app/routes/settings/settings-general.tsx:61
 msgid "Custom locale (e.g. ja-JP)"
-msgstr "Benutzerdefiniertes Locale (z. B. ja-JP)"
+msgstr "Anderes Locale (z.B. ja-JP)"
 
 #: src/app/routes/settings/settings-theming.tsx:69
-msgid "Dark base colors"
-msgstr "Dunkle Basisfarben"
+msgid "Dark mode"
+msgstr "Dunkler Modus"
 
 #: src/app/routes/settings/settings-route.tsx:56
 msgid "Data"
@@ -186,7 +186,7 @@ msgstr "Datum"
 
 #: src/app/routes/settings/settings-data.tsx:75
 msgid "day schedule"
-msgstr "Tagesansicht"
+msgstr "Tage Rhythmus"
 
 #: src/app/routes/stats/stats-route.tsx:105
 msgid "December"
@@ -194,7 +194,7 @@ msgstr "Dezember"
 
 #: src/app/routes/settings/settings-general.tsx:73
 msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
-msgstr "Lege fest, wie die Zeitübersicht vergangener Tage angezeigt wird – als Tabellenzeilen oder als Kacheln?"
+msgstr "Lege fest, wie die Übersicht vergangener Tage angezeigt wird – als Tabellenzeilen oder als Kacheln?"
 
 #: src/features/time-table/bulk-actions.tsx:197
 #: src/features/time-table/time-table-editable.tsx:134
@@ -261,7 +261,7 @@ msgstr "Möchtest du diesen Zeiteintrag wirklich löschen? Diese Aktion kann nic
 
 #: src/app/routes/settings/settings-categories.tsx:39
 msgid "Do you really want to delete your \"{name}\" {type}? This action cannot be reverted."
-msgstr "Möchtest du \"{name}\" ({type}) wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+msgstr "Möchtest du die \"{name}\" {type} wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
 
 #: src/app/routes/settings/settings-data.tsx:213
 msgid "Do you want to delete all data and reset Clocktopus to its initial state?"
@@ -331,7 +331,7 @@ msgstr "Zu den Kategorieeinstellungen"
 
 #: src/app/routes/not-found.tsx:15
 msgid "Go to main page"
-msgstr "Zur Hauptseite"
+msgstr "Zurück zur Hauptseite"
 
 #: src/app/routes/settings/settings-general.tsx:85
 msgid "Grid"
@@ -355,7 +355,7 @@ msgstr "Importfehler"
 
 #: src/app/routes/settings/settings-data.tsx:171
 msgid "Import or export a .csv file to move your data between clocktopus and other time tracking tools.<0/><1>Note: </1>The new data will be added to your existing data! Make sure to create a backup before starting the import. If you want a clean start, delete your data first."
-msgstr "Importiere oder exportiere eine .csv-Datei, um deine Daten zwischen Clocktopus und anderen Zeiterfassungstools zu übertragen.<0/><1>Hinweis: </1>Neue Daten werden zu bestehenden hinzugefügt! Erstelle vor dem Import ein Backup. Für einen Neustart lösche zuerst deine Daten."
+msgstr "Importiere oder exportiere eine .csv-Datei, um deine Daten zwischen Clocktopus und anderen Zeiterfassungstools zu übertragen.<0/><1>Hinweis: </1>Neue Daten werden zu bestehenden hinzugefügt! Erstelle vor dem Import ein Backup. Für einen Neustart kannst du auch vorher alle Daten löschen."
 
 #. placeholder {0}: data.length
 #: src/app/routes/settings/settings-data.tsx:160
@@ -433,12 +433,9 @@ msgid "No categories found"
 msgstr "Keine Kategorien gefunden"
 
 #: src/app/routes/search/search-route.tsx:30
+#: src/features/components/category-name.tsx:30
 #: src/features/components/category-select.tsx:76
 msgid "No category"
-msgstr "Keine Kategorie"
-
-#: src/features/components/category-name.tsx:30
-msgid "No Category"
 msgstr "Keine Kategorie"
 
 #: src/features/csv-import/fragments/select-columns.tsx:33
@@ -464,7 +461,7 @@ msgstr "Oktober"
 
 #: src/components/errors/main.tsx:11
 msgid "Ooops, something went wrong :("
-msgstr "Ups, etwas ist schiefgelaufen :("
+msgstr "Uuups, etwas ist schiefgelaufen :("
 
 #: src/components/ui/pagination.tsx:153
 msgid "Page size:"
@@ -489,7 +486,7 @@ msgstr "Vorheriges Jahr"
 
 #: src/features/csv-import/csv-import.tsx:65
 msgid "Provide information about the .csv file to be used for the import."
-msgstr "Gib Informationen zur .csv-Datei an, die für den Import verwendet werden soll."
+msgstr "Gib Informationen zur .csv-Datei an, die für den Import verwendet wird."
 
 #: src/components/errors/main.tsx:21
 msgid "Refresh"
@@ -574,7 +571,7 @@ msgstr "Statistiken nach"
 
 #: src/app/routes/settings/settings-general.tsx:72
 msgid "Summary style"
-msgstr "Zusammenfassungsstil"
+msgstr "Stil des Übersichtsmodus"
 
 #: src/app/routes/stats/stats-route.tsx:85
 #: src/components/ui/calendar/calendar.tsx:43
@@ -583,7 +580,7 @@ msgstr "Sonntag"
 
 #: src/features/time-table/time-table-header.tsx:167
 msgid "Switch to editable mode"
-msgstr "In den Bearbeitungsmodus wechseln"
+msgstr "In Bearbeitungsmodus wechselnden"
 
 #: src/features/time-table/time-table-header.tsx:168
 msgid "Switch to summary mode"
@@ -638,7 +635,7 @@ msgstr "Zeiterfassung"
 
 #: src/app/routes/settings/settings-data.tsx:63
 msgid "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
-msgstr "Damit du dein Backup nicht vergisst, wirst du regelmäßig erinnert. Hier kannst du festlegen, wie oft."
+msgstr "Damit du das Erstellen von Backups nicht vergisst, wirst du regelmäßig erinnert. Hier kannst du festlegen, wie häufig."
 
 #: src/features/time-table/time-table-header.tsx:53
 msgid "Total: "

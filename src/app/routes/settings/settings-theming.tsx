@@ -66,7 +66,7 @@ const BaseColors = () => {
     >
       <div className={hstack({ justify: "evenly", gap: 4, wrap: true })}>
         <Toggle
-          label={t`Dark base colors`}
+          label={t`Dark mode`}
           checked={mode === "dark"}
           onChange={() =>
             themeData.actions.setMode(mode === "dark" ? "light" : "dark")

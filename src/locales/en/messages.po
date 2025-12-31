@@ -169,8 +169,8 @@ msgid "Custom locale (e.g. ja-JP)"
 msgstr "Custom locale (e.g. ja-JP)"
 
 #: src/app/routes/settings/settings-theming.tsx:69
-msgid "Dark base colors"
-msgstr "Dark base colors"
+msgid "Dark mode"
+msgstr "Dark mode"
 
 #: src/app/routes/settings/settings-route.tsx:56
 msgid "Data"
@@ -435,13 +435,10 @@ msgid "No categories found"
 msgstr "No categories found"
 
 #: src/app/routes/search/search-route.tsx:30
+#: src/features/components/category-name.tsx:30
 #: src/features/components/category-select.tsx:76
 msgid "No category"
 msgstr "No category"
-
-#: src/features/components/category-name.tsx:30
-msgid "No Category"
-msgstr "No Category"
 
 #: src/features/csv-import/fragments/select-columns.tsx:33
 msgid "No column"

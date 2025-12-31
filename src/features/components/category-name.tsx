@@ -27,7 +27,7 @@ export const CategoryName = ({
 
   return !category ? (
     <span className={cn("text-text-muted", className)}>
-      <Trans>No Category</Trans>
+      <Trans>No category</Trans>
     </span>
   ) : (
     <span className={className}>
