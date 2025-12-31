@@ -1,5 +1,7 @@
 import { Dispatch, Fragment } from "react"
 
+import { Trans } from "@lingui/react/macro"
+
 import { Select } from "components/ui/select"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
@@ -27,7 +29,9 @@ const ColumnSelect = ({
     className={cn("w-full", className)}
   >
     <Select.Option value="undefined" label="No column">
-      <span className="text-text-muted">No column</span>
+      <span className="text-text-muted">
+        <Trans>No column</Trans>
+      </span>
     </Select.Option>
     <Select.Separator />
 

@@ -1,5 +1,7 @@
 import { PropsWithChildren, useState } from "react"
 
+import { msg, t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { Dices } from "lucide-react"
 
 import { IconButton } from "components/ui/icon-button"
@@ -17,7 +19,7 @@ const Cell = ({ children }: PropsWithChildren<{ empty?: boolean }>) => (
       !children && "text-text-muted"
     )}
   >
-    {children || "Missing"}
+    {children || t`Missing`}
   </div>
 )
 
@@ -29,15 +31,15 @@ interface TableConfig {
 const helper = createColumnHelper<TableConfig>()
 const columns = [
   helper.column({
-    name: "Date",
+    name: msg`Date`,
     render: ({ rowData }) => <Cell>{rowData.date}</Cell>,
   }),
   helper.column({
-    name: "Description",
+    name: msg`Description`,
     render: ({ rowData }) => <Cell>{rowData.description}</Cell>,
   }),
   helper.column({
-    name: "Category",
+    name: msg`Category`,
     render: ({ rowData, ...meta }) => (
       <Cell>
         <CategoryName categoryId={rowData.categoryId} {...meta} />
@@ -45,11 +47,11 @@ const columns = [
     ),
   }),
   helper.column({
-    name: "Time Start",
+    name: msg`Time Start`,
     render: ({ rowData }) => <Cell>{rowData.start}</Cell>,
   }),
   helper.column({
-    name: "Time End",
+    name: msg`Time End`,
     render: ({ rowData }) => <Cell>{rowData.end}</Cell>,
   }),
 ]
@@ -73,9 +75,9 @@ export const Preview = ({ data }: { data: TimeEntry[] }) => {
     <Container
       title={
         <>
-          Preview Sample
+          <Trans>Preview Sample</Trans>
           <IconButton
-            title="Take another sample"
+            title={t`Take another sample`}
             size="sm"
             icon={Dices}
             onClick={() => setRerender(count => count + 1)}

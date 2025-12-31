@@ -1,5 +1,6 @@
 import { Dispatch, PropsWithChildren, useMemo } from "react"
 
+import { t } from "@lingui/core/macro"
 import { Plus } from "lucide-react"
 
 import { AutoComplete } from "components/ui/auto-complete"
@@ -155,7 +156,7 @@ export const CreateTimeEntry = () => {
         <div className="col-4 @xl:col-auto">
           <IconButton
             icon={Plus}
-            title="Add item"
+            title={t`Add entry`}
             hideTitle
             onClick={() => {
               atom.actions.add(data)

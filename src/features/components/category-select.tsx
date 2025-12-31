@@ -1,5 +1,7 @@
 import { Dispatch, PropsWithChildren } from "react"
 
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { Link } from "wouter"
 
 import { Select } from "components/ui/select"
@@ -64,13 +66,15 @@ export const CategorySelect = ({
 
   return (
     <Select.Root
-      placeholder="Category"
+      placeholder={t`Category`}
       value={exists ? value : "none"}
       onChange={category => onChange(category === "none" ? "" : category)}
       {...rest}
     >
       <Select.Option value="none">
-        <span className="text-text-muted">No category</span>
+        <span className="text-text-muted">
+          <Trans>No category</Trans>
+        </span>
       </Select.Option>
       <Select.Separator />
 
@@ -82,7 +86,7 @@ export const CategorySelect = ({
         to="/settings/categories"
         className="m-2 h-8 text-sm text-text-gentle hover:text-text"
       >
-        Go to category settings
+        <Trans>Go to category settings</Trans>
       </Link>
     </Select.Root>
   )

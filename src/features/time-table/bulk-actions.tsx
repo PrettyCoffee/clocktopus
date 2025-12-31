@@ -1,5 +1,7 @@
 import { Dispatch, useState } from "react"
 
+import { t } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { CheckCheck, SquarePen, Trash } from "lucide-react"
 
 import { Button } from "components/ui/button"
@@ -38,15 +40,15 @@ const BulkDeleteModal = ({
   onCancel,
 }: BulkDeleteModalProps) => (
   <Dialog
-    title="Delete time entries?"
-    description="Do you really want to delete the selected time entries? This action cannot be reverted."
+    title={t`Delete time entries?`}
+    description={t`Do you really want to delete the selected time entries? This action cannot be reverted.`}
     onClose={onCancel}
     confirm={{
       look: "destructive",
-      caption: `Delete ${selectedAmount} entries`,
+      caption: t`Delete ${selectedAmount} entries`,
       onClick: onDelete,
     }}
-    cancel={{ caption: "Cancel", onClick: onCancel }}
+    cancel={{ onClick: onCancel }}
   />
 )
 
@@ -102,28 +104,28 @@ const BulkEditModal = ({
 
   return (
     <Dialog
-      title="Edit time entries"
-      description="Edit the fields you want to change and click on save to apply your changes."
+      title={t`Edit time entries`}
+      description={t`Edit the fields you want to change and click on save to apply your changes.`}
       onClose={onCancel}
       confirm={{
         look: "ghost",
-        caption: `Save ${selectedAmount} entries`,
+        caption: t`Save ${selectedAmount} entries`,
         onClick: commitChanges,
       }}
-      cancel={{ caption: "Cancel", onClick: onCancel }}
+      cancel={{ onClick: onCancel }}
       className="w-[calc(100vw-2rem)] max-w-96"
     >
-      <InputLabel label="Description">
+      <InputLabel label={t`Description`}>
         <Input
           type="text"
-          placeholder="Description"
+          placeholder={t`Description`}
           value={state.description}
           onChange={description => updateState({ description })}
         />
       </InputLabel>
 
       <div className={cn(hstack({ gap: 2 }))}>
-        <InputLabel label="Category" className="flex-1">
+        <InputLabel label={t`Category`} className="flex-1">
           <CategorySelect
             caption={state.categoryId === mixedData ? mixedData : undefined}
             value={state.categoryId ?? ""}
@@ -131,7 +133,7 @@ const BulkEditModal = ({
           />
         </InputLabel>
 
-        <InputLabel label="Date">
+        <InputLabel label={t`Date`}>
           <DateInput
             caption={state.date === mixedData ? mixedData : undefined}
             locale={useAtom(preferencesData).locale}
@@ -160,7 +162,7 @@ export const TimeEntriesBulkActions = () => {
 
   const handleDelete = () => {
     timeEntriesData.actions.delete(...checkedItems)
-    showToast({ kind: "success", title: "Deleted selected entries" })
+    showToast({ kind: "success", title: t`Deleted selected entries` })
     resetChecked()
     close()
   }
@@ -169,7 +171,7 @@ export const TimeEntriesBulkActions = () => {
     timeEntriesData.actions.edit(
       ...checkedItems.map(item => ({ ...item, data }))
     )
-    showToast({ kind: "success", title: "Updated selected entries" })
+    showToast({ kind: "success", title: t`Updated selected entries` })
     resetChecked()
     close()
   }
@@ -189,10 +191,10 @@ export const TimeEntriesBulkActions = () => {
             <span className="mx-2 h-6 w-px bg-stroke-gentle" />
 
             <Button icon={SquarePen} onClick={() => setStatus("edit")}>
-              Edit
+              <Trans>Edit</Trans>
             </Button>
             <Button icon={Trash} onClick={() => setStatus("delete")}>
-              Delete
+              <Trans>Delete</Trans>
             </Button>
           </div>
         </MovableSnackBar>

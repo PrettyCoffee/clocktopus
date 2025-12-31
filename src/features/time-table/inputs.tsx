@@ -1,5 +1,7 @@
 import { Dispatch, useState } from "react"
 
+import { t } from "@lingui/core/macro"
+
 import { DateInput } from "components/ui/date-input"
 import { Input } from "components/ui/input"
 import { TimeInput } from "components/ui/time-input"
@@ -19,7 +21,7 @@ const Description = ({ entry, className, onChange, ...rest }: InputProps) => (
   <Input
     {...rest}
     type="text"
-    placeholder="Description"
+    placeholder={t`Description`}
     className={cn("flex-1", className)}
     value={entry.description}
     onChange={description => onChange({ description })}

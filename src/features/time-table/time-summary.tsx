@@ -1,5 +1,7 @@
 import { PropsWithChildren, useMemo } from "react"
 
+import { msg, t } from "@lingui/core/macro"
+
 import { Divider } from "components/ui/divider"
 import { createColumnHelper, Table } from "components/ui/table"
 import { preferencesData } from "data/preferences"
@@ -74,22 +76,22 @@ const Cell = ({
 
 const helper = createColumnHelper<TableConfig>()
 const descriptionColumn = helper.column({
-  name: "Description",
+  name: msg`Description`,
   colSize: "col-[1_/_-1] @xl:col-[span_1]",
   className: "flex",
   render: ({ rowData }) => (
     <Cell muted={!rowData.description}>
-      {rowData.description || "No description"}
+      {rowData.description || t`No description`}
     </Cell>
   ),
 })
 const categoryColumn = helper.column({
-  name: "Category",
+  name: msg`Category`,
   className: "@4xl:*:w-full",
   render: ({ rowData }) => <CategoryName categoryId={rowData.categoryId} />,
 })
 const durationColumn = helper.column({
-  name: "Duration",
+  name: msg`Duration`,
   render: ({ rowData }) => (
     <Duration
       minutes={rowData.minutes}
@@ -114,7 +116,7 @@ const TimeSummaryTable = ({ summary }: { summary: TimeSummary[] }) => (
 const SummaryBlock = ({ description, categoryId, minutes }: TimeSummary) => (
   <div className={cn(surface({ look: "card", size: "md" }), vstack({}))}>
     <div className={cn("line-clamp-2", !description && "text-text-muted")}>
-      {description || "No description"}
+      {description || t`No description`}
     </div>
 
     <div className="flex-1" />

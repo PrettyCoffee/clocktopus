@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/react/macro"
+
 import { categoryGroupsData, categoriesData } from "data/categories"
 import { useAtom } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
@@ -24,7 +26,9 @@ export const CategoryName = ({
   )
 
   return !category ? (
-    <span className={cn("text-text-muted", className)}>No Category</span>
+    <span className={cn("text-text-muted", className)}>
+      <Trans>No Category</Trans>
+    </span>
   ) : (
     <span className={className}>
       {groupName}

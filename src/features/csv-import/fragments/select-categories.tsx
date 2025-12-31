@@ -1,5 +1,7 @@
 import { Dispatch, Fragment } from "react"
 
+import { Trans } from "@lingui/react/macro"
+
 import { CategorySelect } from "features/components/category-select"
 
 import { Container } from "./container"
@@ -19,7 +21,9 @@ export const SelectCategory = ({
   <Container title="Category mapping">
     <div className="grid max-h-58 grid-cols-[auto_1fr] items-center gap-2 overflow-auto">
       {importedCategory.length === 0 ? (
-        <span className="text-text-gentle">No categories found</span>
+        <span className="text-text-gentle">
+          <Trans>No categories found</Trans>
+        </span>
       ) : (
         importedCategory.map(category => (
           <Fragment key={category}>

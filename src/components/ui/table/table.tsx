@@ -1,5 +1,7 @@
 import { Fragment, ReactNode } from "react"
 
+import { i18n, type MessageDescriptor } from "@lingui/core"
+
 import { cn } from "utils/cn"
 import { createContext } from "utils/create-context"
 import { createId } from "utils/create-id"
@@ -23,7 +25,7 @@ type TwColSize = `col-[${string}]` | `@${string}:col-[${string}]`
 interface ColumnDef<TConfig extends TableConfig> {
   id: string | number
   type: "data" | "decorator"
-  name: string
+  name: MessageDescriptor | string
   colSize?: Repeat<TwColSize>
   className?: string
   render: (
@@ -121,7 +123,7 @@ const TableHeader = () => {
     >
       {columns.map(column => (
         <div key={column.id} role="columnheader" className="p-2">
-          {column.name}
+          {typeof column.name === "string" ? column.name : i18n._(column.name)}
         </div>
       ))}
     </div>

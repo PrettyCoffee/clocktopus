@@ -1,5 +1,7 @@
 import { Dispatch, useMemo } from "react"
 
+import { t } from "@lingui/core/macro"
+
 import { Dialog } from "components/ui/dialog"
 import { TimeEntry } from "data/time-entries"
 import { useObjectState } from "hooks/use-object-state"
@@ -59,12 +61,12 @@ export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
 
   return (
     <Dialog
-      title="CSV Import"
-      description="Provide information about the .csv file to be used for the import."
+      title={t`CSV Import`}
+      description={t`Provide information about the .csv file to be used for the import.`}
       onClose={onClose}
       className="h-[calc(100vh-3rem)] w-[calc(100vw-3rem)]"
       confirm={{
-        caption: "Finish import",
+        caption: t`Finish import`,
         look: "ghost",
         onClick: () => onImport(data),
       }}

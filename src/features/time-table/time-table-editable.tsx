@@ -1,5 +1,6 @@
 import { Dispatch } from "react"
 
+import { msg, t } from "@lingui/core/macro"
 import { Trash } from "lucide-react"
 
 import { Checkbox } from "components/ui/checkbox"
@@ -27,7 +28,7 @@ interface TableConfig {
 
 const helper = createColumnHelper<TableConfig>()
 const checkedColumn = helper.column({
-  name: "Selected",
+  name: msg`Selected`,
   render: ({ rowData, checked, toggleChecked }) => (
     <Checkbox
       checked={checked[rowData.date]?.[rowData.id] ?? false}
@@ -36,7 +37,7 @@ const checkedColumn = helper.column({
   ),
 })
 const descriptionColumn = helper.column({
-  name: "Description",
+  name: msg`Description`,
   colSize: "col-[2_/_-1] @xl:col-[2_/_-1] @4xl:col-[span_1]",
   className: "flex",
   render: ({ rowData, onChange }) => (
@@ -49,7 +50,7 @@ const descriptionColumn = helper.column({
   ),
 })
 const categoryColumn = helper.column({
-  name: "Category",
+  name: msg`Category`,
   colSize: "col-[2_/_6] @xl:col-[2] @4xl:col-[span_1]",
   className: "@4xl:*:w-full",
   render: ({ rowData, onChange }) => (
@@ -62,7 +63,7 @@ const categoryColumn = helper.column({
   ),
 })
 const dateColumn = helper.column({
-  name: "Date",
+  name: msg`Date`,
   colSize:
     "col-[6_/_-1] justify-self-end @xl:justify-self-start @xl:col-[auto]",
   render: ({ rowData, onChange }) => (
@@ -75,7 +76,7 @@ const dateColumn = helper.column({
   ),
 })
 const timeStartColumn = helper.column({
-  name: "Time Start",
+  name: msg`Time Start`,
   colSize: "col-[2] @xl:col-[auto]",
   render: ({ rowData, onChange }) => (
     <inputs.TimeStart
@@ -91,7 +92,7 @@ const timeSeparatorColumn = helper.decorator({
   render: inputs.TimeSeparator,
 })
 const timeEndColumn = helper.column({
-  name: "Time End",
+  name: msg`Time End`,
   render: ({ rowData, onChange }) => (
     <inputs.TimeEnd
       entry={rowData}
@@ -102,13 +103,13 @@ const timeEndColumn = helper.column({
   ),
 })
 const durationColumn = helper.column({
-  name: "Duration",
+  name: msg`Duration`,
   render: ({ rowData }) => (
     <Duration entries={[rowData]} className="inline-block w-15 text-center" />
   ),
 })
 const actionColumn = helper.column({
-  name: "Actions",
+  name: msg`Actions`,
   colSize: "col-[7] @xl:col-[auto]",
   render: ({ rowData, onRemove }) => (
     <IconButton
@@ -127,11 +128,10 @@ const handleChange = (date: string, id: string, data: TimeEntry) => {
 
 const handleRemove = (date: string, id: string) =>
   showDialog({
-    title: "Delete time entry?",
-    description:
-      "Do you really want to delete this time entry? This action cannot be reverted.",
+    title: t`Delete time entry?`,
+    description: t`Do you really want to delete this time entry? This action cannot be reverted.`,
     confirm: {
-      caption: "Delete",
+      caption: t`Delete`,
       look: "destructive",
       onClick: () => timeEntriesData.actions.delete({ date, id }),
     },

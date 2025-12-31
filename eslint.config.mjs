@@ -32,7 +32,7 @@ export default defineConfig(
             },
             {
               name: "@lingui/core",
-              allowImportNames: ["i18n", "Messages"],
+              allowImportNames: ["i18n", "Messages", "MessageDescriptor"],
               message: "Import from @lingui/core/macro instead.",
             },
             {

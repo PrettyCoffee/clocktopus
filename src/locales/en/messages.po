@@ -34,9 +34,17 @@ msgstr "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time ye
 msgid "Accent color"
 msgstr "Accent color"
 
+#: src/features/time-table/time-table-editable.tsx:112
+msgid "Actions"
+msgstr "Actions"
+
 #: src/app/routes/search/fragments/save-filter-dialog.tsx:25
 msgid "Add a name to your filter and save it for quick access in the side menu."
 msgstr "Add a name to your filter and save it for quick access in the side menu."
+
+#: src/features/time-table/create-time-entry.tsx:159
+msgid "Add entry"
+msgstr "Add entry"
 
 #: src/app/routes/settings/settings-categories.tsx:76
 msgid "Add group"
@@ -49,6 +57,10 @@ msgstr "Adjust the border radius size of all elements."
 #: src/app/routes/settings/settings-general.tsx:31
 msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
 msgstr "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
+
+#: src/features/data-backup/data-backup.ts:62
+msgid "An unexpected error occurred during the import."
+msgstr "An unexpected error occurred during the import."
 
 #: src/app/routes/stats/stats-route.tsx:97
 msgid "April"
@@ -92,6 +104,14 @@ msgstr "Cancel"
 msgid "Categories"
 msgstr "Categories"
 
+#: src/features/components/category-select.tsx:69
+#: src/features/csv-import/fragments/preview.tsx:42
+#: src/features/time-table/bulk-actions.tsx:128
+#: src/features/time-table/time-summary.tsx:89
+#: src/features/time-table/time-table-editable.tsx:53
+msgid "Category"
+msgstr "Category"
+
 #: src/app/routes/settings/settings-theming.tsx:114
 msgid "Change the accent color which highlights focused and active elements."
 msgstr "Change the accent color which highlights focused and active elements."
@@ -131,6 +151,7 @@ msgstr "Confirm deletion"
 
 #: src/app/routes/settings/settings-data.tsx:141
 #: src/app/routes/settings/settings-data.tsx:159
+#: src/features/csv-import/csv-import.tsx:64
 msgid "CSV Import"
 msgstr "CSV Import"
 
@@ -155,6 +176,16 @@ msgstr "Dark base colors"
 msgid "Data"
 msgstr "Data"
 
+#: src/features/data-backup/data-backup.ts:56
+msgid "Data imported"
+msgstr "Data imported"
+
+#: src/features/csv-import/fragments/preview.tsx:34
+#: src/features/time-table/bulk-actions.tsx:136
+#: src/features/time-table/time-table-editable.tsx:66
+msgid "Date"
+msgstr "Date"
+
 #: src/app/routes/settings/settings-data.tsx:75
 msgid "day schedule"
 msgstr "day schedule"
@@ -166,6 +197,15 @@ msgstr "December"
 #: src/app/routes/settings/settings-general.tsx:73
 msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
 msgstr "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
+
+#: src/features/time-table/bulk-actions.tsx:197
+#: src/features/time-table/time-table-editable.tsx:134
+msgid "Delete"
+msgstr "Delete"
+
+#: src/features/time-table/bulk-actions.tsx:48
+msgid "Delete {selectedAmount} entries"
+msgstr "Delete {selectedAmount} entries"
 
 #: src/app/routes/settings/settings-categories.tsx:38
 msgid "Delete {type}"
@@ -188,9 +228,38 @@ msgstr "Delete data"
 msgid "Delete filter"
 msgstr "Delete filter"
 
+#: src/features/time-table/bulk-actions.tsx:43
+msgid "Delete time entries?"
+msgstr "Delete time entries?"
+
+#: src/features/time-table/time-table-editable.tsx:131
+msgid "Delete time entry?"
+msgstr "Delete time entry?"
+
 #: src/app/routes/settings/settings-data.tsx:221
 msgid "Deleted data"
 msgstr "Deleted data"
+
+#: src/features/time-table/bulk-actions.tsx:165
+msgid "Deleted selected entries"
+msgstr "Deleted selected entries"
+
+#: src/features/csv-import/fragments/preview.tsx:38
+#: src/features/time-table/bulk-actions.tsx:118
+#: src/features/time-table/bulk-actions.tsx:121
+#: src/features/time-table/inputs.tsx:24
+#: src/features/time-table/time-summary.tsx:79
+#: src/features/time-table/time-table-editable.tsx:40
+msgid "Description"
+msgstr "Description"
+
+#: src/features/time-table/bulk-actions.tsx:44
+msgid "Do you really want to delete the selected time entries? This action cannot be reverted."
+msgstr "Do you really want to delete the selected time entries? This action cannot be reverted."
+
+#: src/features/time-table/time-table-editable.tsx:132
+msgid "Do you really want to delete this time entry? This action cannot be reverted."
+msgstr "Do you really want to delete this time entry? This action cannot be reverted."
 
 #: src/app/routes/settings/settings-categories.tsx:39
 msgid "Do you really want to delete your \"{name}\" {type}? This action cannot be reverted."
@@ -199,6 +268,23 @@ msgstr "Do you really want to delete your \"{name}\" {type}? This action cannot 
 #: src/app/routes/settings/settings-data.tsx:213
 msgid "Do you want to delete all data and reset Clocktopus to its initial state?"
 msgstr "Do you want to delete all data and reset Clocktopus to its initial state?"
+
+#: src/features/time-table/time-summary.tsx:94
+#: src/features/time-table/time-table-editable.tsx:106
+msgid "Duration"
+msgstr "Duration"
+
+#: src/features/time-table/bulk-actions.tsx:194
+msgid "Edit"
+msgstr "Edit"
+
+#: src/features/time-table/bulk-actions.tsx:108
+msgid "Edit the fields you want to change and click on save to apply your changes."
+msgstr "Edit the fields you want to change and click on save to apply your changes."
+
+#: src/features/time-table/bulk-actions.tsx:107
+msgid "Edit time entries"
+msgstr "Edit time entries"
 
 #: src/app/routes/stats/stats-side-route.tsx:91
 msgid "End date"
@@ -224,6 +310,10 @@ msgstr "February"
 msgid "Filter"
 msgstr "Filter"
 
+#: src/features/csv-import/csv-import.tsx:69
+msgid "Finish import"
+msgstr "Finish import"
+
 #: src/app/routes/stats/stats-route.tsx:83
 #: src/components/ui/calendar/calendar.tsx:41
 msgid "Friday"
@@ -236,6 +326,10 @@ msgstr "General"
 #: src/app/layout.tsx:21
 msgid "Github"
 msgstr "Github"
+
+#: src/features/components/category-select.tsx:89
+msgid "Go to category settings"
+msgstr "Go to category settings"
 
 #: src/app/routes/not-found.tsx:15
 msgid "Go to main page"
@@ -256,6 +350,10 @@ msgstr "Import .csv"
 #: src/app/routes/settings/settings-data.tsx:50
 msgid "Import data"
 msgstr "Import data"
+
+#: src/features/data-backup/data-backup.ts:63
+msgid "Import error"
+msgstr "Import error"
 
 #: src/app/routes/settings/settings-data.tsx:171
 msgid "Import or export a .csv file to move your data between clocktopus and other time tracking tools.<0/><1>Note: </1>The new data will be added to your existing data! Make sure to create a backup before starting the import. If you want a clean start, delete your data first."
@@ -299,6 +397,10 @@ msgstr "March"
 msgid "May"
 msgstr "May"
 
+#: src/features/csv-import/fragments/preview.tsx:22
+msgid "Missing"
+msgstr "Missing"
+
 #: src/app/routes/stats/stats-route.tsx:79
 #: src/components/ui/calendar/calendar.tsx:37
 msgid "Monday"
@@ -324,9 +426,31 @@ msgstr "Name"
 msgid "Next {magnitudeCaption}"
 msgstr "Next {magnitudeCaption}"
 
+#: src/features/date-selection/date-selection.tsx:53
+msgid "Next year"
+msgstr "Next year"
+
+#: src/features/csv-import/fragments/select-categories.tsx:25
+msgid "No categories found"
+msgstr "No categories found"
+
 #: src/app/routes/search/search-route.tsx:30
+#: src/features/components/category-select.tsx:76
 msgid "No category"
 msgstr "No category"
+
+#: src/features/components/category-name.tsx:30
+msgid "No Category"
+msgstr "No Category"
+
+#: src/features/csv-import/fragments/select-columns.tsx:33
+msgid "No column"
+msgstr "No column"
+
+#: src/features/time-table/time-summary.tsx:84
+#: src/features/time-table/time-summary.tsx:119
+msgid "No description"
+msgstr "No description"
 
 #: src/app/routes/search/search-route.tsx:151
 msgid "No matches found"
@@ -353,9 +477,21 @@ msgstr "Page size:"
 msgid "Predefined Filters"
 msgstr "Predefined Filters"
 
+#: src/features/csv-import/fragments/preview.tsx:78
+msgid "Preview Sample"
+msgstr "Preview Sample"
+
 #: src/components/ui/calendar/calendar.tsx:137
 msgid "Previous {magnitudeCaption}"
 msgstr "Previous {magnitudeCaption}"
+
+#: src/features/date-selection/date-selection.tsx:40
+msgid "Previous year"
+msgstr "Previous year"
+
+#: src/features/csv-import/csv-import.tsx:65
+msgid "Provide information about the .csv file to be used for the import."
+msgstr "Provide information about the .csv file to be used for the import."
 
 #: src/components/errors/main.tsx:21
 msgid "Refresh"
@@ -369,6 +505,10 @@ msgstr "Saturday"
 #: src/app/routes/search/fragments/save-filter-dialog.tsx:27
 msgid "Save"
 msgstr "Save"
+
+#: src/features/time-table/bulk-actions.tsx:112
+msgid "Save {selectedAmount} entries"
+msgstr "Save {selectedAmount} entries"
 
 #: src/app/routes/search/fragments/save-filter-dialog.tsx:24
 #: src/app/routes/search/search-route.tsx:104
@@ -395,6 +535,10 @@ msgstr "Search Results ({0})"
 #: src/app/routes/page-changed.tsx:16
 msgid "Seems like clocktopus got an update since the last time you used this tab. Please reload the page to apply the changes."
 msgstr "Seems like clocktopus got an update since the last time you used this tab. Please reload the page to apply the changes."
+
+#: src/features/time-table/time-table-editable.tsx:31
+msgid "Selected"
+msgstr "Selected"
 
 #: src/app/routes/stats/stats-route.tsx:102
 msgid "September"
@@ -439,9 +583,29 @@ msgstr "Summary style"
 msgid "Sunday"
 msgstr "Sunday"
 
+#: src/features/time-table/time-table-header.tsx:167
+msgid "Switch to editable mode"
+msgstr "Switch to editable mode"
+
+#: src/features/time-table/time-table-header.tsx:168
+msgid "Switch to summary mode"
+msgstr "Switch to summary mode"
+
 #: src/app/routes/settings/settings-general.tsx:79
 msgid "Table"
 msgstr "Table"
+
+#: src/features/csv-import/fragments/preview.tsx:80
+msgid "Take another sample"
+msgstr "Take another sample"
+
+#: src/features/data-backup/data-backup.ts:40
+msgid "The file you selected contains no usable data."
+msgstr "The file you selected contains no usable data."
+
+#: src/features/data-backup/data-backup.ts:33
+msgid "The following data fields seem to be corrupted: {errorPaths}"
+msgstr "The following data fields seem to be corrupted: {errorPaths}"
 
 #: src/app/routes/settings/settings-route.tsx:50
 msgid "Theming"
@@ -460,6 +624,16 @@ msgstr "This website is hosted on GitHub Pages. GitHub may collect personal data
 msgid "Thursday"
 msgstr "Thursday"
 
+#: src/features/csv-import/fragments/preview.tsx:54
+#: src/features/time-table/time-table-editable.tsx:95
+msgid "Time End"
+msgstr "Time End"
+
+#: src/features/csv-import/fragments/preview.tsx:50
+#: src/features/time-table/time-table-editable.tsx:79
+msgid "Time Start"
+msgstr "Time Start"
+
 #: src/app/layout.tsx:15
 msgid "Time Tracker"
 msgstr "Time Tracker"
@@ -468,10 +642,18 @@ msgstr "Time Tracker"
 msgid "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
 msgstr "To make sure you don't forget to backup your data, there will be a reminder every few days. Here you can define how often you want to be reminded."
 
+#: src/features/time-table/time-table-header.tsx:53
+msgid "Total: "
+msgstr "Total: "
+
 #: src/app/routes/stats/stats-route.tsx:80
 #: src/components/ui/calendar/calendar.tsx:38
 msgid "Tuesday"
 msgstr "Tuesday"
+
+#: src/features/time-table/bulk-actions.tsx:174
+msgid "Updated selected entries"
+msgstr "Updated selected entries"
 
 #: src/components/ui/calendar/calendar.tsx:39
 msgid "Wednesday"

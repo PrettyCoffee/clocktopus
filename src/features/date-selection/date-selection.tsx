@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react"
 
+import { t } from "@lingui/core/macro"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { IconButton } from "components/ui/icon-button"
@@ -36,7 +37,7 @@ const YearCarousel = ({
     <div className={hstack({ justify: "between", align: "center" })}>
       <IconButton
         icon={ChevronLeft}
-        title="Previous year"
+        title={t`Previous year`}
         size="sm"
         onClick={() => setYear(year => year - 1)}
       />
@@ -49,7 +50,7 @@ const YearCarousel = ({
 
       <IconButton
         icon={ChevronRight}
-        title="Next year"
+        title={t`Next year`}
         size="sm"
         onClick={() => setYear(year => year + 1)}
         disabled={year === currentYear}

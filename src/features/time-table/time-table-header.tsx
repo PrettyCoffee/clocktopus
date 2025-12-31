@@ -1,5 +1,6 @@
 import { Dispatch, useMemo, useState } from "react"
 
+import { t } from "@lingui/core/macro"
 import { Lock, Unlock } from "lucide-react"
 
 import { Checkbox } from "components/ui/checkbox"
@@ -49,7 +50,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
   )
   const totalDuration = (
     <span className="px-4 text-base">
-      <span className="text-text-gentle">Total: </span>
+      <span className="text-text-gentle">{t`Total: `}</span>
       <Duration minutes={total} />
     </span>
   )
@@ -163,8 +164,8 @@ export const TimeTableHeader = ({
             icon={locked.value ? Lock : Unlock}
             title={
               locked.value
-                ? "Switch to editable mode"
-                : "Switch to summary mode"
+                ? t`Switch to editable mode`
+                : t`Switch to summary mode`
             }
             titleSide="right"
             iconColor="muted"

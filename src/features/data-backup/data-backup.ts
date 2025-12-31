@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro"
 import { ZodError } from "zod"
 
 import { showToast } from "components/ui/toaster"
@@ -29,14 +30,14 @@ const validateData = (data: unknown) => {
     }
     const errorPaths = error.issues.flatMap(({ path }) => path).join(", ")
     throw new ImportError(
-      `The following data fields seem to be corrupted: ${errorPaths}`
+      t`The following data fields seem to be corrupted: ${errorPaths}`
     )
   }
 }
 
 const atLeastOneKey = (data: AllData) => {
   if (Object.keys(data).length === 0) {
-    throw new ImportError("The file you selected contains no usable data.")
+    throw new ImportError(t`The file you selected contains no usable data.`)
   }
   return data
 }
@@ -52,14 +53,14 @@ const importBackup = async (file: File) => {
     allData.patch(data)
     showToast({
       kind: "success",
-      title: "Data imported",
+      title: t`Data imported`,
     })
   } catch (error) {
     const message =
       error instanceof ImportError
         ? error.message
-        : "An unexpected error occurred during the import."
-    showToast({ kind: "error", title: "Import error", message })
+        : t`An unexpected error occurred during the import.`
+    showToast({ kind: "error", title: t`Import error`, message })
     console.error(error)
     return
   }
