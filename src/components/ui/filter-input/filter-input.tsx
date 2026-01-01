@@ -93,6 +93,7 @@ const useCursorPos = (ref: RefObject<HTMLInputElement | null>) => {
 interface FilterTextInputProps {
   ref: Ref<HTMLInputElement>
   value: string
+  placeholder?: string
   onChange: Dispatch<string>
   id?: string
 }
@@ -190,7 +191,7 @@ const FilterSuggestions = ({
 
 export interface FilterInputProps<TTagName extends string> extends Pick<
   InputProps,
-  "placeholder" | "ref" | "style" | "className"
+  "placeholder" | "style" | "className"
 > {
   id?: string
   value: string
@@ -206,6 +207,7 @@ export const FilterInput = <TTagName extends string>({
   className,
   hideSuggestions,
   id,
+  placeholder,
   ...props
 }: FilterInputProps<TTagName>) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -299,6 +301,7 @@ export const FilterInput = <TTagName extends string>({
       <FilterTextInput
         ref={inputRef}
         value={textValue}
+        placeholder={placeholder}
         onChange={updateFilters}
         id={id}
       />
