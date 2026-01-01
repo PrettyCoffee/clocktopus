@@ -28,7 +28,7 @@ const useBoundingRect = () => {
     if (!element) return
     const box = element.getBoundingClientRect()
     if (
-      boundingRect &&
+      !!boundingRect &&
       box.left === boundingRect.left &&
       box.bottom === boundingRect.bottom &&
       box.width === boundingRect.width
