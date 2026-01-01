@@ -115,7 +115,7 @@ const StatsModeHeader = ({
   onChange: Dispatch<Mode>
 }) => (
   <h2 className="mb-2 text-xl">
-    <span className="text-text-muted">
+    <span className="mr-2 text-text-muted">
       <Trans>Stats by</Trans>
     </span>
     {(["weekday", "month", "year"] as const).map((value, index) => (
