@@ -60,7 +60,7 @@ msgstr "Gruppe hinzufügen"
 msgid "Adjust the border radius size of all elements."
 msgstr "Passe die Abrundung der Ecken aller Elemente an."
 
-#: src/app/routes/settings/settings-general.tsx:31
+#: src/app/routes/settings/settings-general.tsx:60
 msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
 msgstr "Passe das Locale an, um die Darstellung von Datumsangaben zu beeinflussen. Du kannst eines aus der Liste wählen oder ein eigenes im Textfeld angeben."
 
@@ -149,6 +149,10 @@ msgstr "Ändere die Akzentfarbe, mit der aktive und fokussierte Elemente hervorg
 msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
 msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Farben eine Tönung haben sollen."
 
+#: src/app/routes/settings/settings-general.tsx:30
+msgid "Choose the language used for texts in Clocktopus."
+msgstr "Wähle eine Sprache aus, welche für die Texte in Clocktopus verwendet wird."
+
 #: src/components/ui/filter-input/filter-input.tsx:324
 msgid "Clear filters"
 msgstr "Filter zurücksetzen"
@@ -193,7 +197,7 @@ msgstr "CSV Import / Export"
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: src/app/routes/settings/settings-general.tsx:61
+#: src/app/routes/settings/settings-general.tsx:90
 msgid "Custom locale (e.g. ja-JP)"
 msgstr "Anderes Locale (z.B. ja-JP)"
 
@@ -224,7 +228,7 @@ msgstr "Tage Rhythmus"
 msgid "December"
 msgstr "Dezember"
 
-#: src/app/routes/settings/settings-general.tsx:73
+#: src/app/routes/settings/settings-general.tsx:102
 msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
 msgstr "Lege fest, wie die Übersicht vergangener Tage angezeigt wird – als Tabellenzeilen oder als Kacheln?"
 
@@ -374,7 +378,7 @@ msgstr "Zu den Einstellungen"
 msgid "Go to main page"
 msgstr "Zurück zur Hauptseite"
 
-#: src/app/routes/settings/settings-general.tsx:85
+#: src/app/routes/settings/settings-general.tsx:114
 msgid "Grid"
 msgstr "Raster"
 
@@ -425,7 +429,7 @@ msgstr "{0} Einträge importiert"
 msgid "Insufficient data"
 msgstr "Unzureichende Daten"
 
-#: src/app/routes/settings/settings-general.tsx:45
+#: src/app/routes/settings/settings-general.tsx:74
 msgid "ISO Standard"
 msgstr "ISO-Standard"
 
@@ -444,8 +448,13 @@ msgstr "Juli"
 msgid "June"
 msgstr "Juni"
 
-#: src/app/routes/settings/settings-general.tsx:29
-#: src/app/routes/settings/settings-general.tsx:42
+#: src/app/routes/settings/settings-general.tsx:28
+#: src/app/routes/settings/settings-general.tsx:36
+msgid "Language"
+msgstr "Sprache"
+
+#: src/app/routes/settings/settings-general.tsx:58
+#: src/app/routes/settings/settings-general.tsx:71
 msgid "Locale"
 msgstr "Locale"
 
@@ -660,7 +669,7 @@ msgstr "Statistiken"
 msgid "Stats by"
 msgstr "Statistiken nach"
 
-#: src/app/routes/settings/settings-general.tsx:72
+#: src/app/routes/settings/settings-general.tsx:101
 msgid "Summary style"
 msgstr "Stil des Übersichtsmodus"
 
@@ -677,7 +686,7 @@ msgstr "Zum Bearbeitungsmodus"
 msgid "Switch to summary mode"
 msgstr "Zum Übersichtsmodus"
 
-#: src/app/routes/settings/settings-general.tsx:79
+#: src/app/routes/settings/settings-general.tsx:108
 msgid "Table"
 msgstr "Tabelle"
 

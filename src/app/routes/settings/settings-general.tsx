@@ -16,6 +16,35 @@ import {
   styleRadioButtonFocusManager,
 } from "./fragments/style-radio-button"
 
+const languages = {
+  de: "🇩🇪 Deutsch",
+  en: "🇬🇧 English",
+}
+
+const Language = () => {
+  const { language } = useAtom(preferencesData)
+  return (
+    <Card
+      title={t`Language`}
+      description={
+        <Trans>Choose the language used for texts in Clocktopus.</Trans>
+      }
+    >
+      <Select.Root
+        value={language}
+        onChange={language => preferencesData.actions.setLanguage(language)}
+        placeholder={t`Language`}
+      >
+        {Object.entries(languages)
+          .sort(([, a], [, b]) => a.localeCompare(b))
+          .map(([value, label]) => (
+            <Select.Option key={value} value={value} label={label} />
+          ))}
+      </Select.Root>
+    </Card>
+  )
+}
+
 const locales = {
   "de-DE": "Deutsch",
   "en-GB": "English (GB)",
@@ -92,6 +121,7 @@ const SummaryStyle = () => {
 
 export const SettingsGeneral = () => (
   <div className={cn(vstack({ gap: 2 }))}>
+    <Language />
     <Locale />
     <SummaryStyle />
   </div>
