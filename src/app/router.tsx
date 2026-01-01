@@ -11,7 +11,7 @@ import { SettingsSideRoute } from "./routes/settings/settings-side-route"
 import { StatsRoute } from "./routes/stats/stats-route"
 import { StatsSideRoute } from "./routes/stats/stats-side-route"
 
-const AppRouter = () => (
+export const AppRouter = () => (
   <AppLayout
     sideContent={
       <Switch>
@@ -33,5 +33,3 @@ const AppRouter = () => (
     }
   />
 )
-
-export default AppRouter

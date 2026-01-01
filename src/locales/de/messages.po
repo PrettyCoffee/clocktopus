@@ -625,10 +625,6 @@ msgstr "Zeiteinträge durchsuchen"
 msgid "Search Results ({0})"
 msgstr "Suchergebnisse ({0})"
 
-#: src/app/routes/page-changed.tsx:16
-msgid "Seems like clocktopus got an update since the last time you used this tab. Please reload the page to apply the changes."
-msgstr "Clocktopus wurde seit deinem letzten Besuch aktualisiert. Bitte lade die Seite neu, um die Änderungen zu übernehmen."
-
 #: src/features/time-table/time-table-editable.tsx:31
 msgid "Selected"
 msgstr "Ausgewählt"
@@ -647,10 +643,6 @@ msgstr "Einstellungen"
 #: src/components/ui/pagination.tsx:26
 msgid "Size"
 msgstr "Größe"
-
-#: src/app/routes/page-changed.tsx:12
-msgid "Something changed!"
-msgstr "Etwas hat sich geändert!"
 
 #: src/app/routes/not-found.tsx:11
 msgid "Sorry, the page you are looking for does not exist."
