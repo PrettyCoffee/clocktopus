@@ -14,8 +14,70 @@
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  
+  <div id="root">
+    <!-- Spinner to be displayed while javascript is loading, content will be removed when react mounts the app -->
+    <div class="spinner">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <circle
+            cx="12"
+            cy="12"
+            r="9.5"
+            fill="none"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <style>
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      @keyframes stroke-offset {
+        0% { stroke-dasharray: 0 150; stroke-dashoffset: 0; }
+        47.5% { stroke-dasharray: 42 150; stroke-dashoffset: -16; }
+        95%,100% { stroke-dasharray: 42 150; stroke-dashoffset: -59; }
+      }
+      :root {
+        --light: oklch(0.923 0.003 11.638);
+        --dark: oklch(0.147 0.004 11.638);
+        @media (prefers-color-scheme: light) {
+          color: var(--dark);
+          background: var(--light);
+        }
+        @media (prefers-color-scheme: dark) {
+          color: var(--light);
+          background: var(--dark);
+        }
+      }
+      #root > .spinner {
+        display: grid;
+        place-items: center;
+        height: 100dvh;
+        width: 100dvw;
+
+        > svg {
+          stroke: currentColor;
+          height: 6rem;
+          width: 6rem;
+
+          > g {
+            transform-origin: center;
+            animation: spin 1s linear infinite;
+
+            > circle {
+              animation: stroke-offset 2s ease-in-out infinite;
+            }
+          }
+        }
+      }
+    </style>
+  </div>
+
 </body>
 
 </html>
