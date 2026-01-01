@@ -1,8 +1,8 @@
 import { Trans } from "@lingui/react/macro"
 
-import { Button } from "../ui/button"
+import { Button } from "components/ui/button"
 
-export const MainErrorFallback = () => (
+export const PageCrashedRoute = () => (
   <div
     className="flex size-full flex-col items-center justify-center text-alert-error"
     role="alert"

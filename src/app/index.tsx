@@ -1,11 +1,11 @@
-import { MainErrorFallback } from "components/errors/main"
+import { PageCrashedRoute } from "app/routes/page-crashed"
 import { ErrorBoundary } from "components/utility/error-boundary"
 
 import { AppProviders } from "./providers"
 import { AppRouter } from "./router"
 
 export const App = () => (
-  <ErrorBoundary Fallback={MainErrorFallback}>
+  <ErrorBoundary Fallback={PageCrashedRoute}>
     <AppProviders>
       <AppRouter />
     </AppProviders>

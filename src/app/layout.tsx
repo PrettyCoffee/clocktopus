@@ -5,7 +5,7 @@ import { msg } from "@lingui/core/macro"
 import { Settings, ClockFading, ChartNoAxesColumn, Search } from "lucide-react"
 import { useHashLocation } from "wouter/use-hash-location"
 
-import { MainErrorFallback } from "components/errors/main"
+import { PageCrashedRoute } from "app/routes/page-crashed"
 import { Layout } from "components/layouts/layout"
 import { Github } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
@@ -52,11 +52,11 @@ interface AppLayoutProps {
 export const AppLayout = ({ mainContent, sideContent }: AppLayoutProps) => (
   <Layout.Root>
     <Layout.Side actions={<SideActions />}>
-      <ErrorBoundary Fallback={MainErrorFallback}>{sideContent}</ErrorBoundary>
+      <ErrorBoundary Fallback={PageCrashedRoute}>{sideContent}</ErrorBoundary>
     </Layout.Side>
 
     <Layout.Main>
-      <ErrorBoundary Fallback={MainErrorFallback}>{mainContent}</ErrorBoundary>
+      <ErrorBoundary Fallback={PageCrashedRoute}>{mainContent}</ErrorBoundary>
     </Layout.Main>
   </Layout.Root>
 )

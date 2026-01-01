@@ -550,7 +550,7 @@ msgstr "November"
 msgid "October"
 msgstr "October"
 
-#: src/components/errors/main.tsx:11
+#: src/app/routes/page-crashed.tsx:11
 msgid "Ooops, something went wrong :("
 msgstr "Ooops, something went wrong :("
 
@@ -588,7 +588,7 @@ msgstr "Private"
 msgid "Provide information about the .csv file to be used for the import."
 msgstr "Provide information about the .csv file to be used for the import."
 
-#: src/components/errors/main.tsx:21
+#: src/app/routes/page-crashed.tsx:21
 msgid "Refresh"
 msgstr "Refresh"
 
