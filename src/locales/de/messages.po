@@ -32,6 +32,10 @@ msgstr "<0>💥KABOOM💥</0><1>Etwas ist gewaltig schiefgelaufen und jetzt bren
 msgid "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 msgstr "<0>Willkommen bei Clocktopus!</0><1>Sieht so aus, als hättest du deine Zeit noch nicht erfasst. Zeit, das zu ändern!</1>"
 
+#: src/features/data-backup/check-backup-reminder.tsx:58
+msgid "A backup of your data will be created automatically in a moment."
+msgstr "In wenigen Sekunden wird ein automatisiertes Backup von deinen Daten erstellt."
+
 #: src/app/routes/settings/settings-theming.tsx:113
 msgid "Accent color"
 msgstr "Akzentfarbe"
@@ -82,6 +86,14 @@ msgstr "August"
 msgid "Auto download"
 msgstr "Automatischer Download"
 
+#: src/features/data-backup/check-backup-reminder.tsx:55
+msgid "Automated backup"
+msgstr "Automatisiertes Backup"
+
+#: src/features/data-backup/check-backup-reminder.tsx:72
+msgid "Automated backup was cancelled. You can permanently disable it in the data settings."
+msgstr "Das automatisierte Backup wurde abgebrochen. In den Einstellungen kannst du sie auch permanent ausschalten."
+
 #: src/app/routes/settings/settings-data.tsx:35
 msgid "Backup data"
 msgstr "Daten sichern"
@@ -89,6 +101,10 @@ msgstr "Daten sichern"
 #: src/app/routes/settings/settings-data.tsx:61
 msgid "Backup reminder"
 msgstr "Backup-Erinnerung"
+
+#: src/features/data-backup/check-backup-reminder.tsx:33
+msgid "Backup Reminder"
+msgstr "Backup Erinnerung"
 
 #: src/app/routes/settings/settings-data.tsx:37
 msgid "Backup your data and import your backups. This is important since your data is only stored locally in your browser. Resetting your browser's data will also delete all data and settings of Clocktopus."
@@ -103,6 +119,7 @@ msgid "Border Radius"
 msgstr "Eckenabrundung"
 
 #: src/components/ui/dialog/dialog.tsx:75
+#: src/features/data-backup/check-backup-reminder.tsx:64
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -153,7 +170,7 @@ msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Fa
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Wähle eine Sprache aus, welche für die Texte in Clocktopus verwendet wird."
 
-#: src/components/ui/filter-input/filter-input.tsx:324
+#: src/components/ui/filter-input/filter-input.tsx:327
 msgid "Clear filters"
 msgstr "Filter zurücksetzen"
 
@@ -161,7 +178,7 @@ msgstr "Filter zurücksetzen"
 msgid "Close"
 msgstr "Schließen"
 
-#: src/components/ui/toaster/toast.tsx:104
+#: src/components/ui/toaster/toast.tsx:107
 msgid "Close message"
 msgstr "Nachricht schließen"
 
@@ -212,6 +229,10 @@ msgstr "Daten"
 #: src/features/data-backup/data-backup.ts:56
 msgid "Data imported"
 msgstr "Daten importiert"
+
+#: src/features/data-backup/check-backup-reminder.tsx:18
+msgid "Data settings"
+msgstr "Daten Einstellungen"
 
 #: src/features/csv-import/fragments/preview.tsx:34
 #: src/features/time-table/bulk-actions.tsx:136
@@ -341,6 +362,7 @@ msgid "Export .csv"
 msgstr ".csv exportieren"
 
 #: src/app/routes/settings/settings-data.tsx:46
+#: src/features/data-backup/check-backup-reminder.tsx:25
 msgid "Export data"
 msgstr "Daten exportieren"
 
@@ -782,6 +804,10 @@ msgstr "Jahr"
 #: src/app/routes/stats/stats-route.tsx:176
 msgid "years"
 msgstr "Jahre"
+
+#: src/features/data-backup/check-backup-reminder.tsx:35
+msgid "You didn't backup your data for a while. Please create an export and save it, to prevent data loss."
+msgstr "Du hast schon seit einer Weile kein Backup mehr erstellt. Bitte exportiere deine Daten, um Datenverluste zu verhindern."
 
 #: src/app/routes/search/search-side-route.tsx:42
 msgid "You didn't save any filters yet"

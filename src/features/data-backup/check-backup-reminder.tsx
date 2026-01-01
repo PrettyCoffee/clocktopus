@@ -1,3 +1,5 @@
+import { msg } from "@lingui/core/macro"
+import { Trans } from "@lingui/react/macro"
 import { HardDriveDownload, Settings } from "lucide-react"
 
 import { showToast, ToastAction } from "components/ui/toaster"
@@ -13,14 +15,14 @@ const shouldRemind = () => {
 
 const toBackupSettings: ToastAction = {
   icon: Settings,
-  label: "Data Settings",
+  label: msg`Data settings`,
   look: "flat",
   to: "settings/data",
 }
 
 const downloadBackup: ToastAction = {
   icon: HardDriveDownload,
-  label: "Export Data",
+  label: msg`Export data`,
   look: "ghost",
   onClick: dataBackup.download,
 }
@@ -28,12 +30,12 @@ const downloadBackup: ToastAction = {
 const suggestDownload = () => {
   const toast = showToast({
     kind: "warn",
-    title: "Backup Reminder",
+    title: msg`Backup Reminder`,
     message: (
-      <>
+      <Trans>
         You didn't backup your data for a while. Please create an export and
         save it, to prevent data loss.
-      </>
+      </Trans>
     ),
     actions: [toBackupSettings, downloadBackup],
   })
@@ -50,14 +52,16 @@ const autoDownload = () => {
 
   const toast = showToast({
     kind: "info",
-    title: "Automated backup",
+    title: msg`Automated backup`,
     duration: 5000,
     message: (
-      <>A backup of your data will be created automatically in a moment.</>
+      <Trans>
+        A backup of your data will be created automatically in a moment.
+      </Trans>
     ),
     actions: [
       {
-        label: "Cancel",
+        label: msg`Cancel`,
         look: "ghost",
         onClick: () => {
           canceled = true
@@ -65,10 +69,10 @@ const autoDownload = () => {
             kind: "warn",
             duration: undefined,
             message: (
-              <>
+              <Trans>
                 Automated backup was cancelled. You can permanently disable it
                 in the data settings.
-              </>
+              </Trans>
             ),
             actions: [toBackupSettings, downloadBackup],
           })

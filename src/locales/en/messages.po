@@ -34,6 +34,10 @@ msgstr "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is 
 msgid "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 msgstr "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 
+#: src/features/data-backup/check-backup-reminder.tsx:58
+msgid "A backup of your data will be created automatically in a moment."
+msgstr "A backup of your data will be created automatically in a moment."
+
 #: src/app/routes/settings/settings-theming.tsx:113
 msgid "Accent color"
 msgstr "Accent color"
@@ -84,6 +88,14 @@ msgstr "August"
 msgid "Auto download"
 msgstr "Auto download"
 
+#: src/features/data-backup/check-backup-reminder.tsx:55
+msgid "Automated backup"
+msgstr "Automated backup"
+
+#: src/features/data-backup/check-backup-reminder.tsx:72
+msgid "Automated backup was cancelled. You can permanently disable it in the data settings."
+msgstr "Automated backup was cancelled. You can permanently disable it in the data settings."
+
 #: src/app/routes/settings/settings-data.tsx:35
 msgid "Backup data"
 msgstr "Backup data"
@@ -91,6 +103,10 @@ msgstr "Backup data"
 #: src/app/routes/settings/settings-data.tsx:61
 msgid "Backup reminder"
 msgstr "Backup reminder"
+
+#: src/features/data-backup/check-backup-reminder.tsx:33
+msgid "Backup Reminder"
+msgstr "Backup Reminder"
 
 #: src/app/routes/settings/settings-data.tsx:37
 msgid "Backup your data and import your backups. This is important since your data is only stored locally in your browser. Resetting your browser's data will also delete all data and settings of Clocktopus."
@@ -105,6 +121,7 @@ msgid "Border Radius"
 msgstr "Border Radius"
 
 #: src/components/ui/dialog/dialog.tsx:75
+#: src/features/data-backup/check-backup-reminder.tsx:64
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -155,7 +172,7 @@ msgstr "Choose between dark and light mode, and decide if neutral colors should 
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Choose the language used for texts in Clocktopus."
 
-#: src/components/ui/filter-input/filter-input.tsx:324
+#: src/components/ui/filter-input/filter-input.tsx:327
 msgid "Clear filters"
 msgstr "Clear filters"
 
@@ -163,7 +180,7 @@ msgstr "Clear filters"
 msgid "Close"
 msgstr "Close"
 
-#: src/components/ui/toaster/toast.tsx:104
+#: src/components/ui/toaster/toast.tsx:107
 msgid "Close message"
 msgstr "Close message"
 
@@ -214,6 +231,10 @@ msgstr "Data"
 #: src/features/data-backup/data-backup.ts:56
 msgid "Data imported"
 msgstr "Data imported"
+
+#: src/features/data-backup/check-backup-reminder.tsx:18
+msgid "Data settings"
+msgstr "Data settings"
 
 #: src/features/csv-import/fragments/preview.tsx:34
 #: src/features/time-table/bulk-actions.tsx:136
@@ -343,6 +364,7 @@ msgid "Export .csv"
 msgstr "Export .csv"
 
 #: src/app/routes/settings/settings-data.tsx:46
+#: src/features/data-backup/check-backup-reminder.tsx:25
 msgid "Export data"
 msgstr "Export data"
 
@@ -784,6 +806,10 @@ msgstr "year"
 #: src/app/routes/stats/stats-route.tsx:176
 msgid "years"
 msgstr "years"
+
+#: src/features/data-backup/check-backup-reminder.tsx:35
+msgid "You didn't backup your data for a while. Please create an export and save it, to prevent data loss."
+msgstr "You didn't backup your data for a while. Please create an export and save it, to prevent data loss."
 
 #: src/app/routes/search/search-side-route.tsx:42
 msgid "You didn't save any filters yet"

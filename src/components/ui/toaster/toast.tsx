@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react"
 
+import { i18n } from "@lingui/core"
 import { t } from "@lingui/core/macro"
 import { keyframes } from "goober"
 import { X } from "lucide-react"
@@ -94,7 +95,9 @@ export const Toast = ({
           <Icon icon={alertStyles[kind].icon} color={kind} size="lg" />
         </div>
         <div className="my-2 flex-1 overflow-hidden">
-          <div className="truncate text-text-priority">{title}</div>
+          <div className="truncate text-text-priority">
+            {typeof title === "string" ? title : i18n._(title)}
+          </div>
           {message && (
             <div className="mt-1 line-clamp-3 text-sm text-text">{message}</div>
           )}
@@ -113,11 +116,14 @@ export const Toast = ({
             duration && "pb-2"
           )}
         >
-          {actions.map(({ label, ...action }) => (
-            <Button key={label} {...action}>
-              {label}
-            </Button>
-          ))}
+          {actions.map(({ label, ...action }) => {
+            const labelText = typeof label === "string" ? label : i18n._(label)
+            return (
+              <Button key={labelText} {...action}>
+                {labelText}
+              </Button>
+            )
+          })}
         </div>
       )}
       <span

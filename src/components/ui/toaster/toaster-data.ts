@@ -1,5 +1,7 @@
 import { ReactNode } from "react"
 
+import { MessageDescriptor } from "@lingui/core"
+
 import { createSlice } from "lib/yaasl"
 import { AlertKind } from "types/base-props"
 import { createId } from "utils/create-id"
@@ -17,13 +19,13 @@ export interface ToastAction extends Pick<
   ButtonProps,
   "look" | "onClick" | "icon" | "to"
 > {
-  label: string
+  label: MessageDescriptor | string
 }
 
 export interface ToastProps {
   id: string
   kind: AlertKind
-  title: string
+  title: MessageDescriptor | string
   message?: ReactNode
   duration?: number
   actions?: ToastAction[]
