@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, KeyboardEvent, useState } from "react"
+import {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from "react"
 
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
@@ -65,6 +71,14 @@ export const TimeInput = ({
   ...props
 }: TimeInputProps) => {
   const [text, setText] = useState(getNumbers(value))
+
+  useEffect(() => {
+    setText(state => {
+      const next = getNumbers(value)
+      const prev = getNumbers(forceTime(state))
+      return next === prev ? state : next
+    })
+  }, [value])
 
   const handleChange = (
     value: string,
