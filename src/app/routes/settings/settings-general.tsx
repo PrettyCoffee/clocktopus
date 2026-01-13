@@ -17,8 +17,8 @@ import {
 } from "./fragments/style-radio-button"
 
 const languages = {
-  de: "🇩🇪 Deutsch",
-  en: "🇬🇧 English",
+  de: "Deutsch",
+  en: "English",
 }
 
 const Language = () => {
