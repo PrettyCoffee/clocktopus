@@ -1,4 +1,4 @@
-import { Dispatch, useState } from "react"
+import { Dispatch, useEffect, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 
@@ -40,6 +40,9 @@ const DateComp = ({ entry, onChange, ...rest }: InputProps) => (
 
 const TimeStart = ({ entry, onChange, ...rest }: InputProps) => {
   const [start, setStart] = useState(entry.start)
+  useEffect(() => {
+    setStart(entry.start)
+  }, [entry.start])
   return (
     <TimeInput
       {...rest}
@@ -52,6 +55,9 @@ const TimeStart = ({ entry, onChange, ...rest }: InputProps) => {
 }
 const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => {
   const [end, setEnd] = useState(entry.end)
+  useEffect(() => {
+    setEnd(entry.end)
+  }, [entry.end])
   return (
     <TimeInput
       {...rest}
