@@ -54,7 +54,7 @@ const matchScore = (item: string, query: string) => {
 const normalize = (text: string) =>
   text.toLowerCase().replaceAll(/[^0-9a-z]+/g, " ")
 
-interface FilterProps<TData> {
+export interface FuzzyFilterProps<TData> {
   items: TData[]
   filter: string
   getFilterValue: (item: TData) => string
@@ -64,7 +64,7 @@ export const fuzzyFilter = <TData>({
   items,
   filter,
   getFilterValue,
-}: FilterProps<TData>) => {
+}: FuzzyFilterProps<TData>) => {
   if (!filter) return []
 
   return items

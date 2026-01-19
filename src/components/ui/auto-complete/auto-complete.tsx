@@ -14,9 +14,8 @@ import { Button } from "components/ui/button"
 import { Portal } from "components/utility/portal"
 import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
 import { useFocus } from "hooks/use-focus"
-import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
-import { fuzzyFilter } from "utils/fuzzy-filter"
+import { fuzzyFilter, FuzzyFilterProps } from "utils/fuzzy-filter"
 import { surface } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
@@ -69,11 +68,9 @@ const AutoCompleteDropdown = ({
   </Portal>
 )
 
-interface AutoCompleteProps<TData> extends ClassNameProp {
-  items: TData[]
-  filter: string
+interface AutoCompleteProps<TData> extends FuzzyFilterProps<TData> {
+  getId: (data: TData) => string
   onSelect: Dispatch<TData>
-  getFilterValue: (data: TData) => string
   renderOptionLabel?: (data: TData) => ReactNode
 }
 
@@ -81,6 +78,7 @@ export const AutoComplete = <TData,>({
   items: allItems,
   filter,
   getFilterValue,
+  getId,
   onSelect,
   children,
   renderOptionLabel = getFilterValue,
@@ -98,7 +96,7 @@ export const AutoComplete = <TData,>({
       items: noExact,
       getFilterValue,
     }).slice(0, 5)
-  }, [filter, getFilterValue, allItems])
+  }, [allItems, filter, getFilterValue])
 
   const dropdown = useDropdownNavigation({
     triggerRef: inputRef,
@@ -124,7 +122,7 @@ export const AutoComplete = <TData,>({
         <AutoCompleteDropdown ref={dropdownRef} anchorRect={inputRect.value}>
           {items.map((item, index) => (
             <Button
-              key={getFilterValue(item)}
+              key={getId(item)}
               size="sm"
               onClick={() => onSelect(item)}
               className={cn(

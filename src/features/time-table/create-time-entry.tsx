@@ -29,12 +29,14 @@ const useSearchableTimeEntries = () => {
   return useMemo(() => {
     const allItems = allEntries
       .filter(({ description }) => !!description)
+      .toSorted((a, b) => b.date.localeCompare(a.date))
       .map(({ description, categoryId }) => ({ description, categoryId }))
 
     const withoutDuplicates = allItems.reduce(
       (result, item) => {
-        if (result.check.has(item.description)) return result
-        result.check.add(item.description)
+        const checksum = `${item.description}__${item.categoryId}`
+        if (result.check.has(checksum)) return result
+        result.check.add(checksum)
         result.items.push(item)
         return result
       },
@@ -81,7 +83,7 @@ const OptionLabel = ({ description, category }: LabelProps) => (
 
 interface DescriptionAutoCompleteProps {
   filter: string
-  onSelect: Dispatch<{ description: string; category?: string }>
+  onSelect: Dispatch<{ description: string; categoryId?: string }>
 }
 const DescriptionAutoComplete = ({
   filter,
@@ -93,10 +95,13 @@ const DescriptionAutoComplete = ({
 
   return (
     <AutoComplete<(typeof entries)[number]>
+      getId={({ description, categoryId }) => `${description}__${categoryId}`}
       filter={filter}
       getFilterValue={({ description }) => description}
       items={entries}
-      onSelect={onSelect}
+      onSelect={({ description, categoryId }) =>
+        onSelect({ description, categoryId })
+      }
       renderOptionLabel={item => (
         <OptionLabel
           description={item.description}
