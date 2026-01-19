@@ -4,6 +4,7 @@ import { t } from "@lingui/core/macro"
 import { Lock, Unlock } from "lucide-react"
 
 import { Checkbox } from "components/ui/checkbox"
+import { Divider } from "components/ui/divider"
 import { IconButton } from "components/ui/icon-button"
 import { Tooltip } from "components/ui/tooltip"
 import { categoriesData } from "data/categories"
@@ -64,6 +65,10 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
       </Tooltip.Trigger>
       <Tooltip.Content align="end" side="bottom" asChild>
         <div className={cn(vstack({ justify: "end" }), "text-sm")}>
+          <span className="mx-auto text-text-gentle">
+            {entries.at(-1)?.start} – {entries[0]?.end}
+          </span>
+          <Divider color="gentle" className="mt-1 mb-2" />
           {totalTimeByCategory.map(({ duration, categoryId }) => (
             <span
               key={categoryId}
