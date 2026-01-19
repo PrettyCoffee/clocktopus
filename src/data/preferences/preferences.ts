@@ -1,6 +1,6 @@
 import { z } from "zod/mini"
 
-import { createSlice, indexedDb } from "lib/yaasl"
+import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
 
 export const preferencesSchema = z.object({
@@ -19,7 +19,7 @@ const defaultValue: Preferences = {
 export const preferencesData = createSlice({
   name: "preferences",
   defaultValue,
-  effects: [indexedDb()],
+  effects: [indexedDb(), sync()],
   reducers: {
     setLocale: (state, locale: string) => ({
       ...state,

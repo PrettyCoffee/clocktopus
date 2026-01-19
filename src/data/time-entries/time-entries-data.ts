@@ -1,6 +1,6 @@
 import { z } from "zod/mini"
 
-import { createSlice } from "lib/yaasl"
+import { createSlice, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
 import { createId } from "utils/create-id"
 
@@ -59,7 +59,7 @@ const pushEntries = (state: AtomState, ...entries: TimeEntry[]) =>
 export const timeEntriesData = createSlice({
   name: "time-entries",
   defaultValue: {} as AtomState,
-  effects: [idbEffect()],
+  effects: [idbEffect(), sync()],
 
   selectors: {
     getTrackedDates: state => Object.keys(state),

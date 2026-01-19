@@ -1,6 +1,6 @@
 import { z } from "zod/mini"
 
-import { createSlice, sessionStorage } from "lib/yaasl"
+import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
 import { getCssVarValue } from "utils/get-css-var-value"
 import { allColors, getThemeColorPath } from "utils/styles"
@@ -26,7 +26,7 @@ const defaultValue: ThemePreferences = {
 export const themeData = createSlice({
   name: "user-theme",
   defaultValue,
-  effects: [sessionStorage()],
+  effects: [indexedDb(), sync()],
 
   reducers: {
     setAccent: (state, accent: ThemePreferences["accent"]) => ({

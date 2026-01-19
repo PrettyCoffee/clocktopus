@@ -66,8 +66,10 @@ export const idbEffect = createEffect<undefined, AtomState>(({ atom }) => {
       changedDates.forEach(date => {
         if (!value[date]?.length) {
           void indexedDb.delete(getKey(date))
+          hashStore.set(date, [])
         } else {
           void indexedDb.set(getKey(date), value[date])
+          hashStore.set(date, value[date])
         }
       })
     },

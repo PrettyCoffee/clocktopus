@@ -1,4 +1,4 @@
-import { createAtom, indexedDb } from "lib/yaasl"
+import { createAtom, indexedDb, sync } from "lib/yaasl"
 import { dateHelpers } from "utils/date-helpers"
 
 interface DataBackupPreferences {
@@ -16,5 +16,5 @@ const defaultValue: DataBackupPreferences = {
 export const dataBackupData = createAtom({
   name: "data-backup",
   defaultValue,
-  effects: [indexedDb()],
+  effects: [indexedDb(), sync()],
 })
