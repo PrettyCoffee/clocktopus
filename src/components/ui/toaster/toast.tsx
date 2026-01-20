@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef } from "react"
 
-import { i18n } from "@lingui/core"
 import { t } from "@lingui/core/macro"
 import { keyframes } from "goober"
 import { X } from "lucide-react"
@@ -8,6 +7,7 @@ import { AnimationSequence } from "motion"
 import { useAnimate } from "motion/react"
 
 import { Icon } from "components/ui/icon"
+import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { ease } from "utils/ease"
 import { alertStyles, hstack, surface } from "utils/styles"
@@ -61,6 +61,7 @@ export const Toast = ({
   duration,
   onClose,
 }: ExtendedToastProps) => {
+  const trans = useTrans()
   const [scope, animate] = useAnimate<HTMLDivElement>()
   const timeout = useRef<Timer | undefined>(undefined)
 
@@ -96,7 +97,7 @@ export const Toast = ({
         </div>
         <div className="my-2 flex-1 overflow-hidden">
           <div className="truncate text-text-priority">
-            {typeof title === "string" ? title : i18n._(title)}
+            {typeof title === "string" ? title : trans(title)}
           </div>
           {message && (
             <div className="mt-1 line-clamp-3 text-sm text-text">{message}</div>
@@ -117,7 +118,7 @@ export const Toast = ({
           )}
         >
           {actions.map(({ label, ...action }) => {
-            const labelText = typeof label === "string" ? label : i18n._(label)
+            const labelText = typeof label === "string" ? label : trans(label)
             return (
               <Button key={labelText} {...action}>
                 {labelText}

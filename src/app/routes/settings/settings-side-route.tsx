@@ -1,8 +1,8 @@
-import { i18n } from "@lingui/core"
 import { msg } from "@lingui/core/macro"
 import { useHashLocation } from "wouter/use-hash-location"
 
 import { Button } from "components/ui/button"
+import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 
@@ -17,12 +17,13 @@ const routes = {
 }
 
 export const SettingsSideRoute = () => {
+  const trans = useTrans()
   const [path] = useHashLocation()
 
   return (
     <div className={cn(vstack({}), "[&_:where(button,a)]:justify-start")}>
       <Button to={routes.main.path} active={path === routes.main.path}>
-        {i18n._(routes.main.title)}
+        {trans(routes.main.title)}
       </Button>
 
       <div
@@ -33,7 +34,7 @@ export const SettingsSideRoute = () => {
       >
         {routes.subRoutes.map(route => (
           <Button key={route.path} to={route.path} active={path === route.path}>
-            {i18n._(route.title)}
+            {trans(route.title)}
           </Button>
         ))}
       </div>

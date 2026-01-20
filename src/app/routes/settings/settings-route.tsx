@@ -1,9 +1,9 @@
-import { i18n } from "@lingui/core"
 import { msg } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 import { Fragment } from "react/jsx-runtime"
 import { Route, Switch } from "wouter"
 
+import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
@@ -56,26 +56,30 @@ export const settingPages = [
   { path: "/data", title: msg`Data`, Component: SettingsData },
 ]
 
-export const SettingsRoute = () => (
-  <div className="mx-auto w-full max-w-2xl pb-4">
-    <SettingsHeader />
+export const SettingsRoute = () => {
+  const trans = useTrans()
 
-    <Switch>
-      {settingPages.map(({ path, title, Component }) => (
-        <Route key={path} path={path}>
-          <SectionHeader title={i18n._(title)} />
-          <Component />
-        </Route>
-      ))}
+  return (
+    <div className="mx-auto w-full max-w-2xl pb-4">
+      <SettingsHeader />
 
-      <Route path="">
+      <Switch>
         {settingPages.map(({ path, title, Component }) => (
-          <Fragment key={path}>
-            <SectionHeader title={i18n._(title)} />
+          <Route key={path} path={path}>
+            <SectionHeader title={trans(title)} />
             <Component />
-          </Fragment>
+          </Route>
         ))}
-      </Route>
-    </Switch>
-  </div>
-)
+
+        <Route path="">
+          {settingPages.map(({ path, title, Component }) => (
+            <Fragment key={path}>
+              <SectionHeader title={trans(title)} />
+              <Component />
+            </Fragment>
+          ))}
+        </Route>
+      </Switch>
+    </div>
+  )
+}

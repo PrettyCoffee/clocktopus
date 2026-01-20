@@ -1,6 +1,5 @@
 import { ReactNode } from "react"
 
-import { i18n } from "@lingui/core"
 import { msg } from "@lingui/core/macro"
 import { Settings, ClockFading, ChartNoAxesColumn, Search } from "lucide-react"
 import { useHashLocation } from "wouter/use-hash-location"
@@ -10,6 +9,7 @@ import { Layout } from "components/layouts/layout"
 import { Github } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
 import { ErrorBoundary } from "components/utility/error-boundary"
+import { useTrans } from "locales/locale-provider"
 
 const routes = [
   { to: "/", title: msg`Time Tracker`, icon: ClockFading },
@@ -26,6 +26,7 @@ const routes = [
 
 const SideActions = () => {
   const [path] = useHashLocation()
+  const trans = useTrans()
 
   const isActive = (to?: string) =>
     !to ? false : to.split("/").find(Boolean) === path.split("/").find(Boolean)
@@ -36,7 +37,7 @@ const SideActions = () => {
         <IconButton
           key={props.to ?? props.href}
           {...props}
-          title={i18n._(props.title)}
+          title={trans(props.title)}
           titleSide="right"
           active={isActive(props.to)}
         />

@@ -1,7 +1,8 @@
 import { PropsWithChildren, useEffect } from "react"
 
+// eslint-disable-next-line no-restricted-imports -- i18n may only be used here
 import { i18n, Messages } from "@lingui/core"
-import { I18nProvider } from "@lingui/react"
+import { I18nProvider, useLingui } from "@lingui/react"
 
 import { preferencesData } from "data/preferences"
 import { useSelector } from "lib/yaasl"
@@ -27,3 +28,5 @@ export const LocaleProvider = ({ children }: PropsWithChildren) => {
 
   return <I18nProvider i18n={i18n}>{children}</I18nProvider>
 }
+
+export const useTrans = () => useLingui()._

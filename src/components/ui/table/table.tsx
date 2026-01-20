@@ -1,7 +1,8 @@
 import { Fragment, ReactNode } from "react"
 
-import { i18n, type MessageDescriptor } from "@lingui/core"
+import { type MessageDescriptor } from "@lingui/core"
 
+import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { createContext } from "utils/create-context"
 import { createId } from "utils/create-id"
@@ -110,6 +111,7 @@ const TableBody = () => {
 }
 
 const TableHeader = () => {
+  const trans = useTrans()
   const { columns, hideHeaders } = Context.useRequiredValue()
 
   return (
@@ -123,7 +125,7 @@ const TableHeader = () => {
     >
       {columns.map(column => (
         <div key={column.id} role="columnheader" className="p-2">
-          {typeof column.name === "string" ? column.name : i18n._(column.name)}
+          {typeof column.name === "string" ? column.name : trans(column.name)}
         </div>
       ))}
     </div>
