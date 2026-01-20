@@ -1,11 +1,11 @@
-import { useMemo } from "react"
+import { PropsWithChildren, useMemo, useRef } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 import { Ghost } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
-import { timeEntriesData } from "data/time-entries"
+import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { selectedWeek } from "features/date-selection"
 import {
   TimeEntriesBulkActions,
@@ -19,6 +19,7 @@ import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
 import { vstack } from "utils/styles"
+import { timeHelpers } from "utils/time-helpers"
 
 const defaultEditableDates: Record<string, true> = {
   [dateHelpers.today()]: true,
@@ -76,7 +77,7 @@ const TimeTables = ({ dates }: { dates: string[] }) => {
   )
 }
 
-const FirstEntry = () => (
+const FirstEntry = ({ children }: PropsWithChildren) => (
   <div
     className={cn(
       vstack({ align: "center" }),
@@ -107,9 +108,7 @@ const FirstEntry = () => (
     </Trans>
 
     <div className="pt-8" />
-    <div className="mx-auto w-full max-w-2xl">
-      <CreateTimeEntry />
-    </div>
+    <div className="mx-auto w-full max-w-2xl">{children}</div>
   </div>
 )
 
@@ -127,7 +126,33 @@ export const MainRoute = () => {
 
   const { ref, isIntersecting } = useIntersectionObserver()
 
-  if (trackedDates.length === 0) return <FirstEntry />
+  const latestAdded = useRef({
+    date: dateHelpers.today(),
+    start: timeHelpers.now(),
+  })
+  const weekChanged = !selected.days.some(
+    date => dateHelpers.stringify(date) === latestAdded.current.date
+  )
+  if (weekChanged) {
+    latestAdded.current.date = dateHelpers.stringify(selected.days[0]!)
+    latestAdded.current.start = timeHelpers.now()
+  }
+
+  const createTimeEntry = (
+    <CreateTimeEntry
+      initialDate={latestAdded.current.date}
+      initialTime={latestAdded.current.start}
+      onCreate={(data: TimeEntry) => {
+        selectedWeek.actions.selectDate(data.date)
+        latestAdded.current.date = data.date
+        latestAdded.current.start = data.start
+      }}
+    />
+  )
+
+  if (trackedDates.length === 0) {
+    return <FirstEntry>{createTimeEntry}</FirstEntry>
+  }
 
   return (
     <div
@@ -141,7 +166,7 @@ export const MainRoute = () => {
           !isIntersecting && "z-20 -mx-2 shade-low px-2 pb-2"
         )}
       >
-        <CreateTimeEntry />
+        {createTimeEntry}
       </div>
 
       {visibleDates.length === 0 ? (

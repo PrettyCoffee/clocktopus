@@ -122,8 +122,19 @@ const getInitialState = (date?: string, start?: string): TimeEntry => ({
   date: date || dateHelpers.today(),
 })
 
-export const CreateTimeEntry = () => {
-  const [data, updateData] = useObjectState(getInitialState())
+interface CreateTimeEntryProps {
+  initialDate?: string
+  initialTime?: string
+  onCreate?: Dispatch<TimeEntry>
+}
+export const CreateTimeEntry = ({
+  onCreate,
+  initialDate,
+  initialTime,
+}: CreateTimeEntryProps) => {
+  const [data, updateData] = useObjectState(
+    getInitialState(initialDate, initialTime)
+  )
   const { atom } = useDateEntries(data.date)
 
   return (
@@ -166,6 +177,7 @@ export const CreateTimeEntry = () => {
             onClick={() => {
               atom.actions.add(data)
               updateData(getInitialState(data.date, data.end))
+              onCreate?.(data)
             }}
           />
         </div>

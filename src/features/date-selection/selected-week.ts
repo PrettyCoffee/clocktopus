@@ -1,4 +1,4 @@
-import { createAtom } from "lib/yaasl"
+import { createSlice } from "lib/yaasl"
 
 const getFirstMondayOfYear = (year: number) => {
   const firstDay = new Date(year, 0, 1).getDay()
@@ -49,11 +49,16 @@ interface SelectedWeekState {
   days: Date[]
 }
 
-export const selectedWeek = createAtom<SelectedWeekState>({
+const getWeek = (date: Date): SelectedWeekState => ({
+  year: date.getFullYear(),
+  week: getWeekNumber(date),
+  days: getWeekDays(date),
+})
+
+export const selectedWeek = createSlice({
   name: "selected-week",
-  defaultValue: {
-    year: today.getFullYear(),
-    week: getWeekNumber(today),
-    days: getWeekDays(today),
+  defaultValue: getWeek(today),
+  reducers: {
+    selectDate: (_state, date: Date | string) => getWeek(new Date(date)),
   },
 })
