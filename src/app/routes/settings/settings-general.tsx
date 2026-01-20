@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 import { LayoutGrid, TableProperties } from "lucide-react"
@@ -45,7 +47,18 @@ const Language = () => {
   )
 }
 
-const locales = {
+const isValidLocale = (locale: string) => {
+  try {
+    return (
+      Intl.DateTimeFormat.supportedLocalesOf(Intl.getCanonicalLocales(locale))
+        .length > 0
+    )
+  } catch {
+    return false
+  }
+}
+
+const locales: Record<string, string> = {
   "de-DE": "Deutsch",
   "en-GB": "English (GB)",
   "en-US": "English (US)",
@@ -53,6 +66,8 @@ const locales = {
 
 const Locale = () => {
   const { locale } = useAtom(preferencesData)
+  const [custom, setCustom] = useState(locales[locale] ? "" : locale)
+
   return (
     <Card
       title={t`Locale`}
@@ -66,7 +81,7 @@ const Locale = () => {
     >
       <OrChain>
         <Select.Root
-          value={locale}
+          value={locales[locale] ? locale : undefined}
           onChange={locale => preferencesData.actions.setLocale(locale)}
           placeholder={t`Locale`}
         >
@@ -83,10 +98,13 @@ const Locale = () => {
 
         <Input
           type="text"
-          value={
-            ["iso", ...Object.keys(locales)].includes(locale) ? "" : locale
-          }
-          onChange={locale => preferencesData.actions.setLocale(locale)}
+          value={custom}
+          alert={!custom || isValidLocale(custom) ? undefined : "error"}
+          onChange={locale => {
+            setCustom(locale)
+            if (!isValidLocale(locale)) return
+            preferencesData.actions.setLocale(locale)
+          }}
           placeholder={t`Custom locale (e.g. ja-JP)`}
         />
       </OrChain>

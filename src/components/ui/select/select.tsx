@@ -141,7 +141,7 @@ const Group = ({
 interface SelectRootProps extends ClassNameProp {
   caption?: string
   placeholder: string
-  value: string
+  value?: string
   onChange: Dispatch<string>
 }
 const Root = ({
