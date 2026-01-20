@@ -32,8 +32,10 @@ export const filteredStatsEntries = createSelector(
   [timeEntriesData, statsFilterData],
   (entries, { start, end }) =>
     Object.fromEntries(
-      Object.entries(entries).filter(([date]) =>
-        dateHelpers.isInRange(date, start, end)
+      Object.entries(entries).filter(
+        ([date]) =>
+          dateHelpers.isInRange(date, start, end) &&
+          date !== dateHelpers.today() // if day is still in progress, data might be misleading (i.e. avg end times)
       )
     )
 )
