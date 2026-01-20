@@ -16,7 +16,7 @@ msgid "- or -"
 msgstr "- oder -"
 
 #. placeholder {0}: matchingEntries.length
-#: src/app/routes/stats/stats-side-route.tsx:104
+#: src/app/routes/stats/stats-side-route.tsx:106
 msgid "{0} Matching time entries"
 msgstr "{0} gefundene Zeiteinträge"
 
@@ -28,7 +28,7 @@ msgstr "<0/> Daten werden importiert ({percent}%)"
 msgid "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
 msgstr "<0>💥KABOOM💥</0><1>Etwas ist gewaltig schiefgelaufen und jetzt brennt alles.</1>"
 
-#: src/app/routes/main/main-route.tsx:102
+#: src/app/routes/main/main-route.tsx:103
 msgid "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 msgstr "<0>Willkommen bei Clocktopus!</0><1>Sieht so aus, als hättest du deine Zeit noch nicht erfasst. Zeit, das zu ändern!</1>"
 
@@ -52,7 +52,7 @@ msgstr "Gib deinem Filter einen Namen und speichere ihn zur schnellen Verwendung
 msgid "Add category"
 msgstr "Kategorie hinzufügen"
 
-#: src/features/time-table/create-time-entry.tsx:159
+#: src/features/time-table/create-time-entry.tsx:175
 msgid "Add entry"
 msgstr "Eintrag hinzufügen"
 
@@ -64,7 +64,7 @@ msgstr "Gruppe hinzufügen"
 msgid "Adjust the border radius size of all elements."
 msgstr "Passe die Abrundung der Ecken aller Elemente an."
 
-#: src/app/routes/settings/settings-general.tsx:60
+#: src/app/routes/settings/settings-general.tsx:79
 msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
 msgstr "Passe das Locale an, um die Darstellung von Datumsangaben zu beeinflussen. Du kannst eines aus der Liste wählen oder ein eigenes im Textfeld angeben."
 
@@ -166,7 +166,7 @@ msgstr "Ändere die Akzentfarbe, mit der aktive und fokussierte Elemente hervorg
 msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
 msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Farben eine Tönung haben sollen."
 
-#: src/app/routes/settings/settings-general.tsx:30
+#: src/app/routes/settings/settings-general.tsx:32
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Wähle eine Sprache aus, welche für die Texte in Clocktopus verwendet wird."
 
@@ -178,7 +178,7 @@ msgstr "Filter zurücksetzen"
 msgid "Close"
 msgstr "Schließen"
 
-#: src/components/ui/toaster/toast.tsx:107
+#: src/components/ui/toaster/toast.tsx:108
 msgid "Close message"
 msgstr "Nachricht schließen"
 
@@ -209,14 +209,18 @@ msgstr "CSV-Import"
 msgid "CSV Import / Export"
 msgstr "CSV Import / Export"
 
-#: src/app/routes/stats/stats-side-route.tsx:85
-#: src/app/routes/stats/stats-side-route.tsx:96
+#: src/app/routes/stats/stats-side-route.tsx:87
+#: src/app/routes/stats/stats-side-route.tsx:98
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 #: src/app/routes/settings/settings-general.tsx:90
+msgid "Custom locale"
+msgstr "Eigenes Locale"
+
+#: src/app/routes/settings/settings-general.tsx:109
 msgid "Custom locale (e.g. ja-JP)"
-msgstr "Anderes Locale (z.B. ja-JP)"
+msgstr "Eigenes Locale (z.B. ja-JP)"
 
 #: src/app/routes/settings/settings-theming.tsx:69
 msgid "Dark mode"
@@ -249,7 +253,7 @@ msgstr "Tage Rhythmus"
 msgid "December"
 msgstr "Dezember"
 
-#: src/app/routes/settings/settings-general.tsx:102
+#: src/app/routes/settings/settings-general.tsx:121
 msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
 msgstr "Lege fest, wie die Übersicht vergangener Tage angezeigt wird – als Tabellenzeilen oder als Kacheln?"
 
@@ -349,7 +353,7 @@ msgstr "Bearbeite die gewünschten Felder und klicke auf Speichern, um die Ände
 msgid "Edit time entries"
 msgstr "Zeiteinträge bearbeiten"
 
-#: src/app/routes/stats/stats-side-route.tsx:91
+#: src/app/routes/stats/stats-side-route.tsx:93
 msgid "End date"
 msgstr "Enddatum"
 
@@ -400,7 +404,7 @@ msgstr "Zu den Einstellungen"
 msgid "Go to main page"
 msgstr "Zurück zur Hauptseite"
 
-#: src/app/routes/settings/settings-general.tsx:114
+#: src/app/routes/settings/settings-general.tsx:133
 msgid "Grid"
 msgstr "Raster"
 
@@ -451,10 +455,6 @@ msgstr "{0} Einträge importiert"
 msgid "Insufficient data"
 msgstr "Unzureichende Daten"
 
-#: src/app/routes/settings/settings-general.tsx:74
-msgid "ISO Standard"
-msgstr "ISO-Standard"
-
 #: src/app/routes/stats/stats-route.tsx:94
 #: src/features/date-selection/week.tsx:13
 msgid "January"
@@ -470,13 +470,13 @@ msgstr "Juli"
 msgid "June"
 msgstr "Juni"
 
-#: src/app/routes/settings/settings-general.tsx:28
-#: src/app/routes/settings/settings-general.tsx:36
+#: src/app/routes/settings/settings-general.tsx:30
+#: src/app/routes/settings/settings-general.tsx:38
 msgid "Language"
 msgstr "Sprache"
 
-#: src/app/routes/settings/settings-general.tsx:58
-#: src/app/routes/settings/settings-general.tsx:71
+#: src/app/routes/settings/settings-general.tsx:77
+#: src/app/routes/settings/settings-general.tsx:90
 msgid "Locale"
 msgstr "Locale"
 
@@ -592,7 +592,7 @@ msgid "Page size:"
 msgstr "Seitengröße:"
 
 #: src/app/routes/search/search-side-route.tsx:23
-#: src/app/routes/stats/stats-side-route.tsx:64
+#: src/app/routes/stats/stats-side-route.tsx:66
 msgid "Predefined Filters"
 msgstr "Vordefinierte Filter"
 
@@ -679,7 +679,7 @@ msgstr "Größe"
 msgid "Sorry, the page you are looking for does not exist."
 msgstr "Die gesuchte Seite existiert leider nicht."
 
-#: src/app/routes/stats/stats-side-route.tsx:80
+#: src/app/routes/stats/stats-side-route.tsx:82
 msgid "Start date"
 msgstr "Startdatum"
 
@@ -691,7 +691,7 @@ msgstr "Statistiken"
 msgid "Stats by"
 msgstr "Statistiken nach"
 
-#: src/app/routes/settings/settings-general.tsx:101
+#: src/app/routes/settings/settings-general.tsx:120
 msgid "Summary style"
 msgstr "Stil des Übersichtsmodus"
 
@@ -700,15 +700,15 @@ msgstr "Stil des Übersichtsmodus"
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: src/features/time-table/time-table-header.tsx:167
+#: src/features/time-table/time-table-header.tsx:172
 msgid "Switch to editable mode"
 msgstr "Zum Bearbeitungsmodus"
 
-#: src/features/time-table/time-table-header.tsx:168
+#: src/features/time-table/time-table-header.tsx:173
 msgid "Switch to summary mode"
 msgstr "Zum Übersichtsmodus"
 
-#: src/app/routes/settings/settings-general.tsx:108
+#: src/app/routes/settings/settings-general.tsx:127
 msgid "Table"
 msgstr "Tabelle"
 
@@ -728,7 +728,7 @@ msgstr "Die folgenden Datenfelder scheinen beschädigt zu sein: {errorPaths}"
 msgid "Theming"
 msgstr "Design"
 
-#: src/app/routes/main/main-route.tsx:151
+#: src/app/routes/main/main-route.tsx:176
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "Im ausgewählten Zeitraum gibt es noch keine Einträge. Zeit, welche hinzuzufügen!"
 
@@ -763,7 +763,7 @@ msgstr "Damit du das Erstellen von Backups nicht vergisst, wirst du regelmäßig
 msgid "Today"
 msgstr "Heute"
 
-#: src/features/time-table/time-table-header.tsx:53
+#: src/features/time-table/time-table-header.tsx:54
 msgid "Total: "
 msgstr "Gesamt: "
 

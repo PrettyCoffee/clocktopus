@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
@@ -58,15 +58,19 @@ const isValidLocale = (locale: string) => {
   }
 }
 
-const locales: Record<string, string> = {
-  "de-DE": "Deutsch",
-  "en-GB": "English (GB)",
-  "en-US": "English (US)",
-}
+const locales = [
+  { value: "iso", label: "ISO Standard" },
+  { value: "de-DE", label: "Deutsch" },
+  { value: "en-GB", label: "English (GB)" },
+  { value: "en-US", label: "English (US)" },
+]
+const availableLocales = new Set(locales.map(({ value }) => value))
 
 const Locale = () => {
   const { locale } = useAtom(preferencesData)
-  const [custom, setCustom] = useState(locales[locale] ? "" : locale)
+  const [custom, setCustom] = useState(
+    availableLocales.has(locale) ? "" : locale
+  )
 
   return (
     <Card
@@ -81,19 +85,16 @@ const Locale = () => {
     >
       <OrChain>
         <Select.Root
-          value={locales[locale] ? locale : undefined}
+          value={availableLocales.has(locale) ? locale : undefined}
           onChange={locale => preferencesData.actions.setLocale(locale)}
-          placeholder={t`Locale`}
+          placeholder={custom ? t`Custom locale` : t`Locale`}
         >
-          <Select.Option value="iso">
-            <Trans>ISO Standard</Trans>
-          </Select.Option>
-          <Select.Separator />
-          {Object.entries(locales)
-            .sort(([, a], [, b]) => a.localeCompare(b))
-            .map(([value, label]) => (
-              <Select.Option key={value} value={value} label={label} />
-            ))}
+          {locales.map(({ value, label }) => (
+            <Fragment key={value}>
+              <Select.Option value={value} label={label} />
+              {value === "iso" && <Select.Separator />}
+            </Fragment>
+          ))}
         </Select.Root>
 
         <Input
