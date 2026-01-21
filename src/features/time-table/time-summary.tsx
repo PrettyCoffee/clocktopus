@@ -66,7 +66,7 @@ const Cell = ({
   <div
     className={cn(
       hstack({ align: "center" }),
-      "h-8 px-2",
+      "min-h-8 px-2 py-1",
       muted && "text-text-muted"
     )}
   >
