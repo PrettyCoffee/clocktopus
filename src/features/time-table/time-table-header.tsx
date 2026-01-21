@@ -71,7 +71,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
           <Divider color="gentle" className="mt-1 mb-2" />
           {totalTimeByCategory.map(({ duration, categoryId }) => (
             <span
-              key={categoryId}
+              key={categoryId ?? "none"}
               className={hstack({ justify: "between", gap: 2 })}
             >
               <CategoryName categoryId={categoryId} />

@@ -78,7 +78,7 @@ export const Bars = ({
               x={top.x - barWidth / 2}
               y={top.y}
               width={barWidth}
-              height={bottom.y - top.y}
+              height={Math.abs(bottom.y - top.y)}
               strokeWidth={strokeColor === "none" ? 0 : 1}
               className={cn(
                 chartColor.stroke({ color: strokeColor }),
