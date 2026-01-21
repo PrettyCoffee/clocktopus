@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "l10n:build": "lingui extract --clean --overwrite && lingui compile --strict",
-    "build": "tsc -b && npm run l10n:build && vite build",
+    "build": "tsc -b && bun run l10n:build && vite build",
+    "build:release": "bun ./scripts/build-release.ts",
     "preview": "vite preview",
     "knip": "knip",
     "knip:fix": "knip --fix-type exports,types",

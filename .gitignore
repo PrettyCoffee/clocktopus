@@ -11,6 +11,7 @@
 # production
 /dist
 /src/locales/*/messages.js
+./worktree-*
 
 # local test files
 /.dump

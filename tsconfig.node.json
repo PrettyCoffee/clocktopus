@@ -35,5 +35,5 @@
     /* Completeness */
     "skipLibCheck": true,
   },
-  "include": ["*"]
+  "include": ["*", "scripts/*"]
 }
