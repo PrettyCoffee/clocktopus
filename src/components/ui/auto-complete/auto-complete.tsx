@@ -55,7 +55,7 @@ const AutoCompleteDropdown = ({
       className={cn(
         zIndex.popover,
         surface({ look: "overlay", size: "md" }),
-        "fixed p-1"
+        "fixed max-h-48 overflow-auto p-1"
       )}
       style={{
         top: (anchorRect?.bottom ?? 0) + 4,
@@ -95,7 +95,7 @@ export const AutoComplete = <TData,>({
       filter,
       items: noExact,
       getFilterValue,
-    }).slice(0, 5)
+    }).slice(0, 10)
   }, [allItems, filter, getFilterValue])
 
   const dropdown = useDropdownNavigation({
@@ -120,19 +120,26 @@ export const AutoComplete = <TData,>({
 
       {open && (
         <AutoCompleteDropdown ref={dropdownRef} anchorRect={inputRect.value}>
-          {items.map((item, index) => (
-            <Button
-              key={getId(item)}
-              size="sm"
-              onClick={() => onSelect(item)}
-              className={cn(
-                "w-full justify-between gap-2 truncate text-start",
-                index === dropdown.selectedIndex && "bgl-layer-w/10"
-              )}
-            >
-              {renderOptionLabel(item)}
-            </Button>
-          ))}
+          {items.map((item, index) => {
+            const isSelected = index === dropdown.selectedIndex
+            return (
+              <Button
+                key={getId(item)}
+                ref={ref => {
+                  if (isSelected)
+                    ref?.scrollIntoView({ behavior: "smooth", block: "center" })
+                }}
+                size="sm"
+                onClick={() => onSelect(item)}
+                className={cn(
+                  "w-full justify-between gap-2 truncate text-start",
+                  isSelected && "bgl-layer-w/10"
+                )}
+              >
+                {renderOptionLabel(item)}
+              </Button>
+            )
+          })}
         </AutoCompleteDropdown>
       )}
     </>
