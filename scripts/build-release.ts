@@ -46,7 +46,7 @@ const createWorktree = async (path: string, name: string) => {
 
 const build = async ($: ShellFn, name: string) => {
   console.info(`🏗️ Build ${name}:`)
-  await $`bun i --frozen-lockfile`
+  await $`bun install --frozen-lockfile`
   console.info(`   √ installed dependencies`)
   await $`bun run l10n:build`
   console.info(`   √ extracted translations`)
