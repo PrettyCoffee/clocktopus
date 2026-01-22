@@ -8,10 +8,9 @@ import {
   useState,
 } from "react"
 
-import { Slot } from "@radix-ui/react-slot"
-
 import { Button } from "components/ui/button"
 import { Portal } from "components/utility/portal"
+import { Slot } from "components/utility/slot"
 import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
 import { useFocus } from "hooks/use-focus"
 import { cn } from "utils/cn"

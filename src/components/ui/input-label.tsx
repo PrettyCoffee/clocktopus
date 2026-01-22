@@ -1,7 +1,6 @@
 import { PropsWithChildren, useId, ReactNode, isValidElement } from "react"
 
-import { Slot } from "@radix-ui/react-slot"
-
+import { Slot } from "components/utility/slot"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"

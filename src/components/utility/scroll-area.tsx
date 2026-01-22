@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react"
 
-import { Slot } from "@radix-ui/react-slot"
-
+import { Slot } from "components/utility/slot"
 import {
   AsChildProp,
   ClassNameProp,

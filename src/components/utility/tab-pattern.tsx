@@ -11,8 +11,7 @@ import {
   useState,
 } from "react"
 
-import { Slot } from "@radix-ui/react-slot"
-
+import { Slot } from "components/utility/slot"
 import { AsChildProp, ClassNameProp } from "types/base-props"
 import { createContext } from "utils/create-context"
 

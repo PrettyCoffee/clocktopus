@@ -5,10 +5,10 @@ import {
   PropsWithChildren,
 } from "react"
 
-import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Link } from "wouter"
 
+import { Slot } from "components/utility/slot"
 import {
   AsChildProp,
   ClassNameProp,
