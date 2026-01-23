@@ -40,7 +40,10 @@ const createWorktree = async (path: string, name: string) => {
     $: shell,
     mv: (source: string, target: string) =>
       $`mv -f "${join(pwd, source)}" "${join(ROOT_DIR, target)}"`.quiet(),
-    rm: () => $`rm -rf ${pwd}`.quiet(),
+    rm: async () => {
+      await $`git worktree remove -f ${pwd}`.quiet()
+      //await $`rm -rf ${pwd}`.quiet()
+    },
   }
 }
 
