@@ -64,7 +64,7 @@ msgstr "Gruppe hinzufügen"
 msgid "Adjust the border radius size of all elements."
 msgstr "Passe die Abrundung der Ecken aller Elemente an."
 
-#: src/app/routes/settings/settings-general.tsx:79
+#: src/app/routes/settings/settings-general.tsx:84
 msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
 msgstr "Passe das Locale an, um die Darstellung von Datumsangaben zu beeinflussen. Du kannst eines aus der Liste wählen oder ein eigenes im Textfeld angeben."
 
@@ -118,6 +118,10 @@ msgstr "Basisfarben"
 msgid "Border Radius"
 msgstr "Eckenabrundung"
 
+#: src/app/routes/settings/settings-general.tsx:165
+msgid "Bottom aligned"
+msgstr "Unten ausgerichtet"
+
 #: src/components/ui/dialog/dialog.tsx:75
 #: src/features/data-backup/check-backup-reminder.tsx:64
 msgid "Cancel"
@@ -158,6 +162,10 @@ msgstr "Kategoriename"
 msgid "Category order"
 msgstr "Kategorie Reihenfolge"
 
+#: src/app/routes/settings/settings-general.tsx:151
+msgid "Change how selection menus are aligned to the opening button. Either align the currently selected item with the button or move the menu underneath the button."
+msgstr "Ändere, wie Auswahlmenüs zum Button ausgerichtet werden. Entweder wird das aktuell ausgewählte Element mit dem Button ausgerichtet oder das Menü darunter platziert."
+
 #: src/app/routes/settings/settings-theming.tsx:114
 msgid "Change the accent color which highlights focused and active elements."
 msgstr "Ändere die Akzentfarbe, mit der aktive und fokussierte Elemente hervorgehoben werden."
@@ -166,7 +174,7 @@ msgstr "Ändere die Akzentfarbe, mit der aktive und fokussierte Elemente hervorg
 msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
 msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Farben eine Tönung haben sollen."
 
-#: src/app/routes/settings/settings-general.tsx:32
+#: src/app/routes/settings/settings-general.tsx:37
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Wähle eine Sprache aus, welche für die Texte in Clocktopus verwendet wird."
 
@@ -214,11 +222,11 @@ msgstr "CSV Import / Export"
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: src/app/routes/settings/settings-general.tsx:90
+#: src/app/routes/settings/settings-general.tsx:95
 msgid "Custom locale"
 msgstr "Eigenes Locale"
 
-#: src/app/routes/settings/settings-general.tsx:109
+#: src/app/routes/settings/settings-general.tsx:114
 msgid "Custom locale (e.g. ja-JP)"
 msgstr "Eigenes Locale (z.B. ja-JP)"
 
@@ -253,7 +261,7 @@ msgstr "Tage Rhythmus"
 msgid "December"
 msgstr "Dezember"
 
-#: src/app/routes/settings/settings-general.tsx:121
+#: src/app/routes/settings/settings-general.tsx:126
 msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
 msgstr "Lege fest, wie die Übersicht vergangener Tage angezeigt wird – als Tabellenzeilen oder als Kacheln?"
 
@@ -404,7 +412,7 @@ msgstr "Zu den Einstellungen"
 msgid "Go to main page"
 msgstr "Zurück zur Hauptseite"
 
-#: src/app/routes/settings/settings-general.tsx:133
+#: src/app/routes/settings/settings-general.tsx:138
 msgid "Grid"
 msgstr "Raster"
 
@@ -455,6 +463,10 @@ msgstr "{0} Einträge importiert"
 msgid "Insufficient data"
 msgstr "Unzureichende Daten"
 
+#: src/app/routes/settings/settings-general.tsx:157
+msgid "Item aligned"
+msgstr "Element ausgerichtet"
+
 #: src/app/routes/stats/stats-route.tsx:94
 #: src/features/date-selection/week.tsx:13
 msgid "January"
@@ -470,13 +482,13 @@ msgstr "Juli"
 msgid "June"
 msgstr "Juni"
 
-#: src/app/routes/settings/settings-general.tsx:30
-#: src/app/routes/settings/settings-general.tsx:38
+#: src/app/routes/settings/settings-general.tsx:35
+#: src/app/routes/settings/settings-general.tsx:43
 msgid "Language"
 msgstr "Sprache"
 
-#: src/app/routes/settings/settings-general.tsx:77
-#: src/app/routes/settings/settings-general.tsx:90
+#: src/app/routes/settings/settings-general.tsx:82
+#: src/app/routes/settings/settings-general.tsx:95
 msgid "Locale"
 msgstr "Locale"
 
@@ -660,6 +672,10 @@ msgstr "Suchergebnisse ({0})"
 msgid "Selected"
 msgstr "Ausgewählt"
 
+#: src/app/routes/settings/settings-general.tsx:150
+msgid "Selection menu alignment"
+msgstr "Ausrichtung von Auswahlmenüs"
+
 #: src/app/routes/stats/stats-route.tsx:102
 #: src/features/date-selection/week.tsx:21
 msgid "September"
@@ -691,7 +707,7 @@ msgstr "Statistiken"
 msgid "Stats by"
 msgstr "Statistiken nach"
 
-#: src/app/routes/settings/settings-general.tsx:120
+#: src/app/routes/settings/settings-general.tsx:125
 msgid "Summary style"
 msgstr "Stil des Übersichtsmodus"
 
@@ -708,7 +724,7 @@ msgstr "Zum Bearbeitungsmodus"
 msgid "Switch to summary mode"
 msgstr "Zum Übersichtsmodus"
 
-#: src/app/routes/settings/settings-general.tsx:127
+#: src/app/routes/settings/settings-general.tsx:132
 msgid "Table"
 msgstr "Tabelle"
 

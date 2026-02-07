@@ -7,6 +7,7 @@ export const preferencesSchema = z.object({
   locale: z.string(),
   language: z.string(),
   summaryStyle: z.enum(["table", "grid"]),
+  selectMenuAlignment: z.enum(["item-aligned", "popper"]),
 })
 type Preferences = Resolve<z.infer<typeof preferencesSchema>>
 
@@ -14,6 +15,7 @@ const defaultValue: Preferences = {
   locale: "iso",
   language: "en",
   summaryStyle: "table",
+  selectMenuAlignment: "item-aligned",
 }
 
 export const preferencesData = createSlice({
@@ -32,6 +34,13 @@ export const preferencesData = createSlice({
     setSummaryStye: (state, summaryStyle: Preferences["summaryStyle"]) => ({
       ...state,
       summaryStyle,
+    }),
+    setSelectMenuAlignment: (
+      state,
+      selectMenuAlignment: Preferences["selectMenuAlignment"]
+    ) => ({
+      ...state,
+      selectMenuAlignment,
     }),
   },
 })

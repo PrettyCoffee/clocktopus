@@ -5,6 +5,8 @@ import { Dispatch, PropsWithChildren } from "react"
 import * as Primitive from "@radix-ui/react-select"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
+import { preferencesData } from "data/preferences"
+import { useAtom } from "lib/yaasl"
 import { ClassNameProp, DisableProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, interactive, surface } from "utils/styles"
@@ -50,33 +52,37 @@ const ScrollDownButton = () => (
   </Primitive.ScrollDownButton>
 )
 
-const Content = ({ children }: PropsWithChildren) => (
-  <Primitive.Portal>
-    <Primitive.Content
-      position="item-aligned"
-      side="bottom"
-      sideOffset={4}
-      align="start"
-      className={cn(
-        zIndex.popover,
-        surface({ look: "overlay", size: "lg" }),
-        "relative max-h-(--radix-select-content-available-height) min-w-32 overflow-x-hidden overflow-y-auto p-0",
-        "origin-(--radix-select-content-transform-origin) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
-      )}
-    >
-      <ScrollUpButton />
-      <Primitive.Viewport
+const Content = ({ children }: PropsWithChildren) => {
+  const { selectMenuAlignment } = useAtom(preferencesData)
+
+  return (
+    <Primitive.Portal>
+      <Primitive.Content
+        position={selectMenuAlignment}
+        side="bottom"
+        sideOffset={4}
+        align="start"
         className={cn(
-          "p-1",
-          "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1"
+          zIndex.popover,
+          surface({ look: "overlay", size: "lg" }),
+          "relative max-h-(--radix-select-content-available-height) min-w-32 overflow-x-hidden overflow-y-auto p-0",
+          "origin-(--radix-select-content-transform-origin) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
         )}
       >
-        {children}
-      </Primitive.Viewport>
-      <ScrollDownButton />
-    </Primitive.Content>
-  </Primitive.Portal>
-)
+        <ScrollUpButton />
+        <Primitive.Viewport
+          className={cn(
+            "p-1",
+            "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1"
+          )}
+        >
+          {children}
+        </Primitive.Viewport>
+        <ScrollDownButton />
+      </Primitive.Content>
+    </Primitive.Portal>
+  )
+}
 
 interface OptionProps extends DisableProp, ClassNameProp {
   value: string

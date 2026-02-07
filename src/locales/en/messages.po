@@ -66,7 +66,7 @@ msgstr "Add group"
 msgid "Adjust the border radius size of all elements."
 msgstr "Adjust the border radius size of all elements."
 
-#: src/app/routes/settings/settings-general.tsx:79
+#: src/app/routes/settings/settings-general.tsx:84
 msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
 msgstr "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
 
@@ -120,6 +120,10 @@ msgstr "Base Colors"
 msgid "Border Radius"
 msgstr "Border Radius"
 
+#: src/app/routes/settings/settings-general.tsx:165
+msgid "Bottom aligned"
+msgstr "Bottom aligned"
+
 #: src/components/ui/dialog/dialog.tsx:75
 #: src/features/data-backup/check-backup-reminder.tsx:64
 msgid "Cancel"
@@ -160,6 +164,10 @@ msgstr "Category name"
 msgid "Category order"
 msgstr "Category order"
 
+#: src/app/routes/settings/settings-general.tsx:151
+msgid "Change how selection menus are aligned to the opening button. Either align the currently selected item with the button or move the menu underneath the button."
+msgstr "Change how selection menus are aligned to the opening button. Either align the currently selected item with the button or move the menu underneath the button."
+
 #: src/app/routes/settings/settings-theming.tsx:114
 msgid "Change the accent color which highlights focused and active elements."
 msgstr "Change the accent color which highlights focused and active elements."
@@ -168,7 +176,7 @@ msgstr "Change the accent color which highlights focused and active elements."
 msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
 msgstr "Choose between dark and light mode, and decide if neutral colors should have a hue."
 
-#: src/app/routes/settings/settings-general.tsx:32
+#: src/app/routes/settings/settings-general.tsx:37
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Choose the language used for texts in Clocktopus."
 
@@ -216,11 +224,11 @@ msgstr "CSV Import / Export"
 msgid "Custom"
 msgstr "Custom"
 
-#: src/app/routes/settings/settings-general.tsx:90
+#: src/app/routes/settings/settings-general.tsx:95
 msgid "Custom locale"
 msgstr "Custom locale"
 
-#: src/app/routes/settings/settings-general.tsx:109
+#: src/app/routes/settings/settings-general.tsx:114
 msgid "Custom locale (e.g. ja-JP)"
 msgstr "Custom locale (e.g. ja-JP)"
 
@@ -255,7 +263,7 @@ msgstr "day schedule"
 msgid "December"
 msgstr "December"
 
-#: src/app/routes/settings/settings-general.tsx:121
+#: src/app/routes/settings/settings-general.tsx:126
 msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
 msgstr "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
 
@@ -406,7 +414,7 @@ msgstr "Go to category settings"
 msgid "Go to main page"
 msgstr "Go to main page"
 
-#: src/app/routes/settings/settings-general.tsx:133
+#: src/app/routes/settings/settings-general.tsx:138
 msgid "Grid"
 msgstr "Grid"
 
@@ -457,6 +465,10 @@ msgstr "Imported {0} entries"
 msgid "Insufficient data"
 msgstr "Insufficient data"
 
+#: src/app/routes/settings/settings-general.tsx:157
+msgid "Item aligned"
+msgstr "Item aligned"
+
 #: src/app/routes/stats/stats-route.tsx:94
 #: src/features/date-selection/week.tsx:13
 msgid "January"
@@ -472,13 +484,13 @@ msgstr "July"
 msgid "June"
 msgstr "June"
 
-#: src/app/routes/settings/settings-general.tsx:30
-#: src/app/routes/settings/settings-general.tsx:38
+#: src/app/routes/settings/settings-general.tsx:35
+#: src/app/routes/settings/settings-general.tsx:43
 msgid "Language"
 msgstr "Language"
 
-#: src/app/routes/settings/settings-general.tsx:77
-#: src/app/routes/settings/settings-general.tsx:90
+#: src/app/routes/settings/settings-general.tsx:82
+#: src/app/routes/settings/settings-general.tsx:95
 msgid "Locale"
 msgstr "Locale"
 
@@ -662,6 +674,10 @@ msgstr "Search Results ({0})"
 msgid "Selected"
 msgstr "Selected"
 
+#: src/app/routes/settings/settings-general.tsx:150
+msgid "Selection menu alignment"
+msgstr "Selection menu alignment"
+
 #: src/app/routes/stats/stats-route.tsx:102
 #: src/features/date-selection/week.tsx:21
 msgid "September"
@@ -693,7 +709,7 @@ msgstr "Stats"
 msgid "Stats by"
 msgstr "Stats by"
 
-#: src/app/routes/settings/settings-general.tsx:120
+#: src/app/routes/settings/settings-general.tsx:125
 msgid "Summary style"
 msgstr "Summary style"
 
@@ -710,7 +726,7 @@ msgstr "Switch to editable mode"
 msgid "Switch to summary mode"
 msgstr "Switch to summary mode"
 
-#: src/app/routes/settings/settings-general.tsx:127
+#: src/app/routes/settings/settings-general.tsx:132
 msgid "Table"
 msgstr "Table"
 

@@ -2,7 +2,12 @@ import { Fragment, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { LayoutGrid, TableProperties } from "lucide-react"
+import {
+  AlignVerticalJustifyCenter,
+  AlignVerticalJustifyStart,
+  LayoutGrid,
+  TableProperties,
+} from "lucide-react"
 
 import { Card } from "components/ui/card"
 import { Input } from "components/ui/input"
@@ -138,10 +143,40 @@ const SummaryStyle = () => {
   )
 }
 
+const SelectStyle = () => {
+  const { selectMenuAlignment } = useAtom(preferencesData)
+  return (
+    <Card
+      title={t`Selection menu alignment`}
+      description={t`Change how selection menus are aligned to the opening button. Either align the currently selected item with the button or move the menu underneath the button.`}
+    >
+      <OrChain role="radiogroup" onKeyDown={styleRadioButtonFocusManager}>
+        <StyleRadioButton
+          active={selectMenuAlignment === "item-aligned"}
+          icon={AlignVerticalJustifyCenter}
+          label={t`Item aligned`}
+          onClick={() =>
+            preferencesData.actions.setSelectMenuAlignment("item-aligned")
+          }
+        />
+        <StyleRadioButton
+          active={selectMenuAlignment === "popper"}
+          icon={AlignVerticalJustifyStart}
+          label={t`Bottom aligned`}
+          onClick={() =>
+            preferencesData.actions.setSelectMenuAlignment("popper")
+          }
+        />
+      </OrChain>
+    </Card>
+  )
+}
+
 export const SettingsGeneral = () => (
   <div className={cn(vstack({ gap: 2 }))}>
     <Language />
     <Locale />
     <SummaryStyle />
+    <SelectStyle />
   </div>
 )
