@@ -4,17 +4,32 @@ import { $ } from "bun"
 
 const ROOT_DIR = resolve("./")
 const BUILD_DIR = "dist"
+const TMP_DIR = "_tmp_release_build"
 
 const getAbsolutePath = (path: string) => {
   const pwd = resolve(path)
 
   if (!pwd.includes(ROOT_DIR)) {
     // to protect you and me from big oopsies when running `rm -rf ${pwd}`
-    console.error(`Cannot escape project directory. pwd: ${pwd}\n`)
+    console.error(`Cannot escape project directory. path: ${pwd}\n`)
     process.exit(1)
   }
 
   return pwd
+}
+
+const rm = async (path: string) => {
+  const pwd = resolve(path)
+
+  if (!pwd.includes(ROOT_DIR)) {
+    // to protect you and me from big oopsies when running `rm -rf ${pwd}`
+    console.error(
+      `Cannot delete files outside of project directory. path: ${pwd}\n`
+    )
+    process.exit(1)
+  }
+
+  await $`rm -rf ${pwd}`.quiet()
 }
 
 const getLatestTag = async () =>
@@ -42,7 +57,7 @@ const createWorktree = async (path: string, name: string) => {
       $`mv -f "${join(pwd, source)}" "${join(ROOT_DIR, target)}"`.quiet(),
     rm: async () => {
       await $`git worktree remove -f ${pwd}`.quiet()
-      //await $`rm -rf ${pwd}`.quiet()
+      await rm(pwd)
     },
   }
 }
@@ -62,8 +77,14 @@ const main = async () => {
   try {
     const tag = await getLatestTag()
 
-    const prod = await createWorktree("./worktree-clocktopus-prod/", tag)
-    const main = await createWorktree("./worktree-clocktopus-main/", "main")
+    const prod = await createWorktree(
+      `./${TMP_DIR}/worktree-clocktopus-prod/`,
+      tag
+    )
+    const main = await createWorktree(
+      `./${TMP_DIR}/worktree-clocktopus-main/`,
+      "main"
+    )
 
     await build(main.$, main.name)
     await build(prod.$, prod.name)
@@ -76,6 +97,7 @@ const main = async () => {
     console.info("🧼 Cleaning up...")
     await prod.rm()
     await main.rm()
+    await rm(TMP_DIR)
   } catch (error) {
     console.error("⚠️ Error: Something went wrong\n")
     console.error(error)
