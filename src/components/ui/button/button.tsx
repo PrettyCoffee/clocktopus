@@ -6,6 +6,7 @@ import {
 } from "react"
 
 import { cva, type VariantProps } from "class-variance-authority"
+import { ExternalLink } from "lucide-react"
 import { Link } from "wouter"
 
 import { Slot } from "components/utility/slot"
@@ -21,6 +22,9 @@ import { interactive, InteractiveProps } from "utils/styles"
 
 import { Icon, IconProps } from "../icon"
 import { Spinner } from "../spinner"
+
+const isExternalLink = (href?: string) =>
+  href && URL.canParse(href) && !href.includes(window.location.origin)
 
 const button = cva(
   cn(
@@ -105,6 +109,14 @@ export const Button = ({
         />
       ) : null}
       {children}
+      {isExternalLink(props.href) && (
+        <Icon
+          icon={ExternalLink}
+          size="xs"
+          color="muted"
+          className="absolute top-0.5 right-0.5 size-2.5!"
+        />
+      )}
     </Comp>
   )
 }
