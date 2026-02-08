@@ -19,14 +19,14 @@ const SectionHeader = ({ title }: { title: string }) => (
       "mt-4 mb-1 h-10 pl-2 text-2xl font-bold first-of-type:mt-6"
     )}
   >
-    <span className="opacity-25 after:mx-2 after:text-highlight after:content-['>']" />
+    <span className="after:mx-2 after:text-highlight/25 after:content-['>']" />
     {title}
   </h2>
 )
 
 const SettingsHeader = () => (
   <div className="@container mx-auto flex w-full max-w-2xl items-center justify-between px-10 pt-10 pb-6">
-    <h1 className="text-[min(calc(15cqw),5rem)] font-bold text-highlight/15">
+    <h1 className="text-[min(calc(15cqw),5rem)] font-bold text-highlight/25">
       <Trans>Settings</Trans>
     </h1>
     <div className="relative size-[min(5rem,25cqw)] shrink-0">
