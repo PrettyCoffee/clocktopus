@@ -37,11 +37,13 @@ const rotateShadow = css`
       transform: translateX(0.25rem);
       width: 4.5rem;
       height: 0.5rem;
+      opacity: 0.5;
     }
     50% {
       transform: translateX(-0.25rem);
       width: 4.5rem;
       height: 0.5rem;
+      opacity: 0.5;
     }
   `};
 `
@@ -104,13 +106,13 @@ export const ContextInfo = ({
       />
       <div
         className={cn(
-          "absolute -bottom-4 rounded-[50%] bg-black",
+          "absolute -bottom-4 rounded-[50%] bg-[black]",
           animateIcon === "float" && floatShadow,
           animateIcon === "rotate" && rotateShadow
         )}
       />
     </div>
-    <span className="block max-w-80 text-center font-bold text-text">
+    <span className="block max-w-80 text-center font-bold text-text-gentle">
       {label}
     </span>
     {children && (
