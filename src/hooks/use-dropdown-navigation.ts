@@ -15,7 +15,7 @@ export const useDropdownNavigation = <TItem>({
   const [forceClose, setForceClose] = useState(false)
 
   useEffect(() => {
-    setSelection(0)
+    setSelection(prev => (prev > items.length ? items.length : prev))
   }, [items.length])
 
   const moveSelection = useEffectEvent((diff: number) => {

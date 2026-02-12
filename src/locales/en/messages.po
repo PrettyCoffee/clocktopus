@@ -54,7 +54,7 @@ msgstr "Add a name to your filter and save it for quick access in the side menu.
 msgid "Add category"
 msgstr "Add category"
 
-#: src/features/time-table/create-time-entry.tsx:175
+#: src/features/time-table/create-time-entry.tsx:178
 msgid "Add entry"
 msgstr "Add entry"
 
@@ -746,7 +746,7 @@ msgstr "The following data fields seem to be corrupted: {errorPaths}"
 msgid "Theming"
 msgstr "Theming"
 
-#: src/app/routes/main/main-route.tsx:176
+#: src/app/routes/main/main-route.tsx:180
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "There are no entries in the selected date range yet. Time to add some!"
 

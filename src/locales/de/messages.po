@@ -52,7 +52,7 @@ msgstr "Gib deinem Filter einen Namen und speichere ihn zur schnellen Verwendung
 msgid "Add category"
 msgstr "Kategorie hinzufügen"
 
-#: src/features/time-table/create-time-entry.tsx:175
+#: src/features/time-table/create-time-entry.tsx:178
 msgid "Add entry"
 msgstr "Eintrag hinzufügen"
 
@@ -744,7 +744,7 @@ msgstr "Die folgenden Datenfelder scheinen beschädigt zu sein: {errorPaths}"
 msgid "Theming"
 msgstr "Design"
 
-#: src/app/routes/main/main-route.tsx:176
+#: src/app/routes/main/main-route.tsx:180
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "Im ausgewählten Zeitraum gibt es noch keine Einträge. Zeit, welche hinzuzufügen!"
 
