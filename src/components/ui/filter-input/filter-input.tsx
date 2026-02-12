@@ -4,7 +4,6 @@ import {
   RefObject,
   useCallback,
   useEffect,
-  useEffectEvent,
   useRef,
   useState,
 } from "react"
@@ -14,7 +13,10 @@ import { css } from "goober"
 import { Search, XCircle } from "lucide-react"
 
 import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
+import { useEventListener } from "hooks/use-event-listener"
 import { useFocus } from "hooks/use-focus"
+import { useResizeObserver } from "hooks/use-resize-observer"
+import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
 import { hstack, surface, vstack } from "utils/styles"
 import { zIndex } from "utils/z-index"
@@ -124,7 +126,7 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
     className={cn(
       hstack({ align: "center" }),
       textStyles,
-      "absolute inset-0 right-10 left-10 -z-1 -ml-px h-full overflow-hidden pl-0.5"
+      "absolute inset-0 inset-x-10 -z-1 -ml-px h-full overflow-hidden pl-0.5"
     )}
   >
     {segments.map(({ tag, value, text, isTagValid, isValueValid }, index) =>
@@ -288,13 +290,32 @@ export const FilterInput = <TTagName extends string>({
 
   const open = !hideSuggestions && hasFocus && !dropdown.forceClose
 
+  const [scrollLeft, setScrollLeft] = useState(0)
+  useEventListener({
+    ref: inputRef,
+    event: "scroll",
+    onEmit: ({ currentTarget }) => {
+      if (!(currentTarget instanceof HTMLElement)) return
+      setScrollLeft(currentTarget.scrollLeft)
+    },
+  })
+
+  const [width, setWidth] = useState(0)
+  useResizeObserver({
+    ref: inputRef,
+    onResize: ([entry]) => {
+      if (!entry) return
+      setWidth(entry.contentRect.width)
+    },
+  })
+
   return (
     <div
       {...props}
       ref={wrapperRef}
       className={cn("relative inline-block", className)}
     >
-      <span className="pointer-events-none absolute top-1 bottom-1 left-1 grid size-8 place-items-center">
+      <span className="pointer-events-none absolute inset-y-1 left-1 grid size-8 place-items-center">
         <Icon icon={Search} size="sm" color="muted" />
       </span>
 
@@ -313,10 +334,11 @@ export const FilterInput = <TTagName extends string>({
           suggestions={suggestions}
           selectedIndex={dropdown.selectedIndex}
           onSelect={insertSuggestion}
-          offsetLeft={(() => {
-            const scroll = textRef.current?.scrollLeft ?? 0
-            return measureText(textValue.slice(0, cursorPos.start)) - scroll
-          })()}
+          offsetLeft={clamp(
+            measureText(textValue.slice(0, cursorPos.start)) - scrollLeft,
+            0,
+            width - 32 - 40
+          )}
         />
       )}
 
@@ -325,7 +347,7 @@ export const FilterInput = <TTagName extends string>({
           icon={XCircle}
           size="sm"
           title={t`Clear filters`}
-          className="absolute top-1 right-1 bottom-1"
+          className="absolute inset-y-1 right-1"
           onClick={() => updateFilters("")}
         />
       )}
