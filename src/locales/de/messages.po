@@ -178,7 +178,7 @@ msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Fa
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Wähle eine Sprache aus, welche für die Texte in Clocktopus verwendet wird."
 
-#: src/components/ui/filter-input/filter-input.tsx:354
+#: src/components/ui/filter-input/filter-input.tsx:355
 msgid "Clear filters"
 msgstr "Filter zurücksetzen"
 
@@ -322,7 +322,7 @@ msgstr "Ausgewählte Einträge gelöscht"
 #: src/features/csv-import/fragments/preview.tsx:38
 #: src/features/time-table/bulk-actions.tsx:118
 #: src/features/time-table/bulk-actions.tsx:121
-#: src/features/time-table/inputs.tsx:24
+#: src/features/time-table/inputs.tsx:25
 #: src/features/time-table/time-summary.tsx:79
 #: src/features/time-table/time-table-editable.tsx:40
 msgid "Description"

@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from "react"
+import { Dispatch } from "react"
 
 import { t } from "@lingui/core/macro"
 
@@ -7,6 +7,7 @@ import { Input } from "components/ui/input"
 import { TimeInput } from "components/ui/time-input"
 import { type TimeEntry } from "data/time-entries"
 import { CategorySelect } from "features/components/category-select"
+import { useSemiControlledValue } from "hooks/use-semi-controlled-value"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
@@ -39,10 +40,7 @@ const DateComp = ({ entry, onChange, ...rest }: InputProps) => (
 )
 
 const TimeStart = ({ entry, onChange, ...rest }: InputProps) => {
-  const [start, setStart] = useState(entry.start)
-  useEffect(() => {
-    setStart(entry.start)
-  }, [entry.start])
+  const [start, setStart] = useSemiControlledValue(entry.start)
   return (
     <TimeInput
       {...rest}
@@ -54,10 +52,7 @@ const TimeStart = ({ entry, onChange, ...rest }: InputProps) => {
   )
 }
 const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => {
-  const [end, setEnd] = useState(entry.end)
-  useEffect(() => {
-    setEnd(entry.end)
-  }, [entry.end])
+  const [end, setEnd] = useSemiControlledValue(entry.end)
   return (
     <TimeInput
       {...rest}

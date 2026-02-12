@@ -15,6 +15,7 @@ export const useDropdownNavigation = <TItem>({
   const [forceClose, setForceClose] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- must update selection when it is out of range
     setSelection(prev => (prev > items.length ? items.length : prev))
   }, [items.length])
 

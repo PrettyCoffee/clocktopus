@@ -73,6 +73,7 @@ export const TimeInput = ({
   const [text, setText] = useState(getNumbers(value))
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- needed to sync the input value when controlled value changes
     setText(state => {
       const next = getNumbers(value)
       const prev = getNumbers(forceTime(state))

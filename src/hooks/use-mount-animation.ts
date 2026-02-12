@@ -49,6 +49,7 @@ export const useMountAnimation = ({
     }
 
     if (!allowMotion) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- this mechanism cannot be implemented otherwise
       updateState(open ? "open" : "close")
       return
     }
