@@ -114,12 +114,15 @@ const DescriptionAutoComplete = ({
   )
 }
 
-const getInitialState = (date?: string, start?: string): TimeEntry => ({
+const getInitialState = (
+  date = dateHelpers.today(),
+  start = timeHelpers.now({ snap: 15 })
+): TimeEntry => ({
   id: createId("mini"),
   description: "",
-  start: start ?? timeHelpers.now({ snap: 15 }),
-  end: timeHelpers.now({ snap: 15 }),
-  date: date || dateHelpers.today(),
+  start,
+  end: date === dateHelpers.today() ? timeHelpers.now({ snap: 15 }) : start,
+  date,
 })
 
 interface CreateTimeEntryProps {

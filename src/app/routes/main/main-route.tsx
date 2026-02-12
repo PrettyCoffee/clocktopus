@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo, useRef } from "react"
+import { PropsWithChildren, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
@@ -126,26 +126,30 @@ export const MainRoute = () => {
 
   const { ref, isIntersecting } = useIntersectionObserver()
 
-  const latestAdded = useRef({
+  const [latestAdded, setLatestAdded] = useState({
     date: dateHelpers.today(),
     start: timeHelpers.now(),
   })
-  const weekChanged = !selected.days.some(
-    date => dateHelpers.stringify(date) === latestAdded.current.date
-  )
-  if (weekChanged) {
-    latestAdded.current.date = dateHelpers.stringify(selected.days[0]!)
-    latestAdded.current.start = timeHelpers.now()
-  }
+
+  const initial = useMemo(() => {
+    const weekChanged = !selected.days.some(
+      date => dateHelpers.stringify(date) === latestAdded.date
+    )
+    if (!weekChanged) return latestAdded
+
+    return {
+      ...latestAdded,
+      date: dateHelpers.stringify(selected.days[0]!),
+    }
+  }, [latestAdded, selected.days])
 
   const createTimeEntry = (
     <CreateTimeEntry
-      initialDate={latestAdded.current.date}
-      initialTime={latestAdded.current.start}
+      initialDate={initial.date}
+      initialTime={initial.start}
       onCreate={(data: TimeEntry) => {
         selectedWeek.actions.selectDate(data.date)
-        latestAdded.current.date = data.date
-        latestAdded.current.start = data.start
+        setLatestAdded({ date: data.date, start: data.end })
       }}
     />
   )
