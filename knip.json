@@ -6,7 +6,7 @@
     "lingui.config.js",
     "tailwind/tailwind.config.ts"
   ],
-  "ignore": ["**/*.d.ts", "**/tab-pattern.tsx", "**/auto-animate-height.tsx"],
+  "ignore": ["**/*.d.ts", "**/tab-pattern.tsx"],
   "project": ["./**/*.{ts,tsx,js,mjs}"],
   "paths": {
     "*": ["src/*"]
