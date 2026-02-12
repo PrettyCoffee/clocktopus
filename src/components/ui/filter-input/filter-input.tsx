@@ -15,6 +15,7 @@ import { Search, XCircle } from "lucide-react"
 import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
 import { useEventListener } from "hooks/use-event-listener"
 import { useFocus } from "hooks/use-focus"
+import { useLatest } from "hooks/use-latest"
 import { useResizeObserver } from "hooks/use-resize-observer"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
@@ -222,14 +223,18 @@ export const FilterInput = <TTagName extends string>({
   const [filter, setFilter] = useState(() => parseFilter(textValue, tagConfigs))
   const lastText = useRef("")
 
-  const updateFilters = useEffectEvent((newText: string) => {
-    if (lastText.current === newText) return
-    const filter = parseFilter(newText, tagConfigs)
+  const changeHandlerRef = useLatest(onChange)
+  const updateFilters = useCallback(
+    (newText: string) => {
+      if (lastText.current === newText) return
+      const filter = parseFilter(newText, tagConfigs)
 
-    lastText.current = newText
-    setFilter(filter)
-    onChange(newText, filter)
-  })
+      lastText.current = newText
+      setFilter(filter)
+      changeHandlerRef.current(newText, filter)
+    },
+    [changeHandlerRef, tagConfigs]
+  )
 
   useEffect(() => {
     updateFilters(textValue)

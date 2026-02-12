@@ -10,7 +10,6 @@ import { LocaleProvider } from "locales/locale-provider"
 
 export const AppProviders = ({ children }: PropsWithChildren) => (
   <LocaleProvider>
-    {/* eslint-disable-next-line react-compiler/react-compiler */}
     <Router hook={useHashLocation}>
       <Tooltip.Provider>
         <Toaster />

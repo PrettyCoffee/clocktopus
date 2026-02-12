@@ -58,7 +58,7 @@ export const useDropdownNavigation = <TItem>({
     return () => {
       trigger.removeEventListener("keydown", keyHandler)
     }
-  }, [keyHandler, triggerRef])
+  }, [triggerRef])
 
   return {
     selectedIndex: selection - 1,

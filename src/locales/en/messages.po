@@ -180,7 +180,7 @@ msgstr "Choose between dark and light mode, and decide if neutral colors should 
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Choose the language used for texts in Clocktopus."
 
-#: src/components/ui/filter-input/filter-input.tsx:327
+#: src/components/ui/filter-input/filter-input.tsx:354
 msgid "Clear filters"
 msgstr "Clear filters"
 

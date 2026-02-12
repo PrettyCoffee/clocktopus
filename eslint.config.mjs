@@ -11,8 +11,9 @@ export default defineConfig(
   globalIgnores(["dist", "node_modules", "src/locales/*/messages.js"]),
 
   {
-    // For some unknown reason vscode detects this rule as "warn", even when being disabled by prettyCozy.tailwind
     rules: {
+      "react-hooks/set-state-in-effect": "off",
+      // For some unknown reason vscode detects this rule as "warn", even when being disabled by prettyCozy.tailwind
       "better-tailwindcss/enforce-consistent-line-wrapping": "off",
     },
   },

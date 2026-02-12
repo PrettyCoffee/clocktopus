@@ -178,7 +178,7 @@ msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Fa
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Wähle eine Sprache aus, welche für die Texte in Clocktopus verwendet wird."
 
-#: src/components/ui/filter-input/filter-input.tsx:327
+#: src/components/ui/filter-input/filter-input.tsx:354
 msgid "Clear filters"
 msgstr "Filter zurücksetzen"
 

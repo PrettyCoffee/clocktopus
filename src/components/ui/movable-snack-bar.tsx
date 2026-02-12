@@ -26,7 +26,7 @@ const useWindowResize = (onResize: () => void) => {
     return () => {
       window.removeEventListener("resize", handler)
     }
-  }, [handler])
+  }, [])
 }
 
 const addDragOverlay = () => {
@@ -78,7 +78,7 @@ const useDragging = (
       window.removeEventListener("mousemove", moveHandler)
       window.removeEventListener("mouseup", mouseUpHandler)
     }
-  }, [handler, moving])
+  }, [moving])
 }
 
 const clampToWindow = (
