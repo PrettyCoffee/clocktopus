@@ -12,17 +12,23 @@ import { Button } from "components/ui/button"
 import { Portal } from "components/utility/portal"
 import { Slot } from "components/utility/slot"
 import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
+import { useEventListener } from "hooks/use-event-listener"
 import { useFocus } from "hooks/use-focus"
 import { cn } from "utils/cn"
 import { fuzzyFilter, FuzzyFilterProps } from "utils/fuzzy-filter"
+import { mergeRefs } from "utils/merge-refs"
 import { surface } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
 const useBoundingRect = () => {
+  const windowRef = useRef(window)
+  const ref = useRef<HTMLElement | null>(null)
+
   const [boundingRect, setBoundingRect] =
     useState<ReturnType<Element["getBoundingClientRect"]>>()
 
-  const updateBoundingRect = (element: Element | null) => {
+  const updateBoundingRect = () => {
+    const element = ref.current
     if (!element) return
     const box = element.getBoundingClientRect()
     if (
@@ -36,12 +42,27 @@ const useBoundingRect = () => {
     setBoundingRect(box)
   }
 
-  return { value: boundingRect, update: updateBoundingRect }
+  useEventListener({
+    ref: windowRef,
+    event: "resize",
+    onEmit: updateBoundingRect,
+  })
+
+  const setRef = (element: HTMLElement | null) => {
+    ref.current = element
+    updateBoundingRect()
+  }
+
+  return {
+    setRef,
+    value: boundingRect,
+    update: updateBoundingRect,
+  }
 }
 
 interface AutoCompleteDropdownProps {
   ref: RefObject<HTMLDivElement | null>
-  anchorRect?: DOMRect
+  anchorRect?: DOMRect | null
 }
 const AutoCompleteDropdown = ({
   anchorRect,
@@ -107,13 +128,7 @@ export const AutoComplete = <TData,>({
 
   return (
     <>
-      <Slot
-        className="relative"
-        ref={element => {
-          inputRef.current = element
-          inputRect.update(element)
-        }}
-      >
+      <Slot className="relative" ref={mergeRefs(inputRef, inputRect.setRef)}>
         {children}
       </Slot>
 
