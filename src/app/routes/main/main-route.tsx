@@ -7,13 +7,13 @@ import { Ghost } from "lucide-react"
 import { ContextInfo } from "components/ui/context-info"
 import { DetectIntersection } from "components/utility/detect-intersection"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
-import { selectedWeek } from "features/date-selection"
 import {
   TimeEntriesBulkActions,
   TimeTable,
   CheckedStateProvider,
 } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
+import { selectedWeek } from "features/week-selection"
 import { useAtom, createSlice } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"

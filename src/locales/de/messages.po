@@ -73,12 +73,12 @@ msgid "An unexpected error occurred during the import."
 msgstr "Beim Import ist ein unerwarteter Fehler aufgetreten."
 
 #: src/app/routes/stats/stats-route.tsx:97
-#: src/features/date-selection/week.tsx:16
+#: src/features/week-selection/week.tsx:16
 msgid "April"
 msgstr "April"
 
 #: src/app/routes/stats/stats-route.tsx:101
-#: src/features/date-selection/week.tsx:20
+#: src/features/week-selection/week.tsx:20
 msgid "August"
 msgstr "August"
 
@@ -257,7 +257,7 @@ msgid "day schedule"
 msgstr "Tage Rhythmus"
 
 #: src/app/routes/stats/stats-route.tsx:105
-#: src/features/date-selection/week.tsx:24
+#: src/features/week-selection/week.tsx:24
 msgid "December"
 msgstr "Dezember"
 
@@ -379,7 +379,7 @@ msgid "Export data"
 msgstr "Daten exportieren"
 
 #: src/app/routes/stats/stats-route.tsx:95
-#: src/features/date-selection/week.tsx:14
+#: src/features/week-selection/week.tsx:14
 msgid "February"
 msgstr "Februar"
 
@@ -468,17 +468,17 @@ msgid "Item aligned"
 msgstr "Element ausgerichtet"
 
 #: src/app/routes/stats/stats-route.tsx:94
-#: src/features/date-selection/week.tsx:13
+#: src/features/week-selection/week.tsx:13
 msgid "January"
 msgstr "Januar"
 
 #: src/app/routes/stats/stats-route.tsx:100
-#: src/features/date-selection/week.tsx:19
+#: src/features/week-selection/week.tsx:19
 msgid "July"
 msgstr "Juli"
 
 #: src/app/routes/stats/stats-route.tsx:99
-#: src/features/date-selection/week.tsx:18
+#: src/features/week-selection/week.tsx:18
 msgid "June"
 msgstr "Juni"
 
@@ -505,12 +505,12 @@ msgid "Manage groups that you can use to cluster your categories. For example, y
 msgstr "Verwalte Gruppen, mit denen du deine Kategorien bündeln kannst. Zum Beispiel könntest du die Kategorien „Feature-Entwicklung“ und „Code-Wartung“ in einer Gruppe „Entwicklung“ zusammenfassen."
 
 #: src/app/routes/stats/stats-route.tsx:96
-#: src/features/date-selection/week.tsx:15
+#: src/features/week-selection/week.tsx:15
 msgid "March"
 msgstr "März"
 
 #: src/app/routes/stats/stats-route.tsx:98
-#: src/features/date-selection/week.tsx:17
+#: src/features/week-selection/week.tsx:17
 msgid "May"
 msgstr "Mai"
 
@@ -548,7 +548,7 @@ msgid "Next month"
 msgstr "Nächster Monat"
 
 #: src/components/ui/calendar/calendar.tsx:107
-#: src/features/date-selection/date-selection.tsx:53
+#: src/features/week-selection/week-calendar.tsx:53
 msgid "Next year"
 msgstr "Nächstes Jahr"
 
@@ -582,12 +582,12 @@ msgid "No matches found"
 msgstr "Keine Treffer gefunden"
 
 #: src/app/routes/stats/stats-route.tsx:104
-#: src/features/date-selection/week.tsx:23
+#: src/features/week-selection/week.tsx:23
 msgid "November"
 msgstr "November"
 
 #: src/app/routes/stats/stats-route.tsx:103
-#: src/features/date-selection/week.tsx:22
+#: src/features/week-selection/week.tsx:22
 msgid "October"
 msgstr "Oktober"
 
@@ -617,7 +617,7 @@ msgid "Previous month"
 msgstr "Vorheriger Monat"
 
 #: src/components/ui/calendar/calendar.tsx:107
-#: src/features/date-selection/date-selection.tsx:40
+#: src/features/week-selection/week-calendar.tsx:40
 msgid "Previous year"
 msgstr "Vorheriges Jahr"
 
@@ -677,7 +677,7 @@ msgid "Selection menu alignment"
 msgstr "Ausrichtung von Auswahlmenüs"
 
 #: src/app/routes/stats/stats-route.tsx:102
-#: src/features/date-selection/week.tsx:21
+#: src/features/week-selection/week.tsx:21
 msgid "September"
 msgstr "September"
 

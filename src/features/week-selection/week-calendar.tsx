@@ -59,12 +59,12 @@ const YearCarousel = ({
   )
 }
 
-interface DateSelectionProps {
+interface WeekCalendarProps {
   initialYear?: number
 }
-export const DateSelection = ({
+export const WeekCalendar = ({
   initialYear = currentYear,
-}: DateSelectionProps) => {
+}: WeekCalendarProps) => {
   const [year, setYear] = useState(initialYear)
 
   return (

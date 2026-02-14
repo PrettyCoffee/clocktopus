@@ -1,3 +1,3 @@
-import { DateSelection } from "features/date-selection"
+import { WeekCalendar } from "features/week-selection"
 
-export const MainSideRoute = () => <DateSelection />
+export const MainSideRoute = () => <WeekCalendar />
