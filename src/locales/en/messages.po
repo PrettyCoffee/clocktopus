@@ -232,6 +232,10 @@ msgstr "Custom locale"
 msgid "Custom locale (e.g. ja-JP)"
 msgstr "Custom locale (e.g. ja-JP)"
 
+#: src/features/week-selection/week-carousel.tsx:55
+msgid "CW"
+msgstr "CW"
+
 #: src/app/routes/settings/settings-theming.tsx:69
 msgid "Dark mode"
 msgstr "Dark mode"
@@ -549,8 +553,13 @@ msgstr "Name"
 msgid "Next month"
 msgstr "Next month"
 
+#: src/features/week-selection/week-carousel.tsx:60
+msgid "Next week"
+msgstr "Next week"
+
 #: src/components/ui/calendar/calendar.tsx:107
 #: src/features/week-selection/week-calendar.tsx:53
+#: src/features/week-selection/week-carousel.tsx:67
 msgid "Next year"
 msgstr "Next year"
 
@@ -618,8 +627,13 @@ msgstr "Preview Sample"
 msgid "Previous month"
 msgstr "Previous month"
 
+#: src/features/week-selection/week-carousel.tsx:49
+msgid "Previous week"
+msgstr "Previous week"
+
 #: src/components/ui/calendar/calendar.tsx:107
 #: src/features/week-selection/week-calendar.tsx:40
+#: src/features/week-selection/week-carousel.tsx:43
 msgid "Previous year"
 msgstr "Previous year"
 
@@ -746,7 +760,7 @@ msgstr "The following data fields seem to be corrupted: {errorPaths}"
 msgid "Theming"
 msgstr "Theming"
 
-#: src/app/routes/main/main-route.tsx:184
+#: src/app/routes/main/main-route.tsx:193
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "There are no entries in the selected date range yet. Time to add some!"
 

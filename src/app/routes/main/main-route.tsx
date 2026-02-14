@@ -13,12 +13,12 @@ import {
   CheckedStateProvider,
 } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
-import { selectedWeek } from "features/week-selection"
+import { selectedWeek, WeekCarousel } from "features/week-selection"
 import { useAtom, createSlice } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
-import { vstack } from "utils/styles"
+import { hstack, vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
 const defaultEditableDates: Record<string, true> = {
@@ -163,6 +163,15 @@ export const MainRoute = () => {
       key={`${selected.year}-${selected.calendarWeek}`}
       className="flex min-h-full flex-col px-10"
     >
+      <div
+        className={cn(
+          hstack({ align: "center", justify: "center" }),
+          "z-21 -mb-2 pt-4"
+        )}
+      >
+        <WeekCarousel />
+      </div>
+
       <DetectIntersection
         onIntersect={setIsIntersecting}
         options={{ rootMargin: "1px 0px 0px 0px" }}

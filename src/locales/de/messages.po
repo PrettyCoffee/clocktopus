@@ -230,6 +230,10 @@ msgstr "Eigenes Locale"
 msgid "Custom locale (e.g. ja-JP)"
 msgstr "Eigenes Locale (z.B. ja-JP)"
 
+#: src/features/week-selection/week-carousel.tsx:55
+msgid "CW"
+msgstr "KW"
+
 #: src/app/routes/settings/settings-theming.tsx:69
 msgid "Dark mode"
 msgstr "Dunkler Modus"
@@ -547,8 +551,13 @@ msgstr "Name"
 msgid "Next month"
 msgstr "Nächster Monat"
 
+#: src/features/week-selection/week-carousel.tsx:60
+msgid "Next week"
+msgstr "Nächste Woche"
+
 #: src/components/ui/calendar/calendar.tsx:107
 #: src/features/week-selection/week-calendar.tsx:53
+#: src/features/week-selection/week-carousel.tsx:67
 msgid "Next year"
 msgstr "Nächstes Jahr"
 
@@ -616,8 +625,13 @@ msgstr "Beispielvorschau"
 msgid "Previous month"
 msgstr "Vorheriger Monat"
 
+#: src/features/week-selection/week-carousel.tsx:49
+msgid "Previous week"
+msgstr "Vorherige Woche"
+
 #: src/components/ui/calendar/calendar.tsx:107
 #: src/features/week-selection/week-calendar.tsx:40
+#: src/features/week-selection/week-carousel.tsx:43
 msgid "Previous year"
 msgstr "Vorheriges Jahr"
 
@@ -744,7 +758,7 @@ msgstr "Die folgenden Datenfelder scheinen beschädigt zu sein: {errorPaths}"
 msgid "Theming"
 msgstr "Design"
 
-#: src/app/routes/main/main-route.tsx:184
+#: src/app/routes/main/main-route.tsx:193
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "Im ausgewählten Zeitraum gibt es noch keine Einträge. Zeit, welche hinzuzufügen!"
 

@@ -1,5 +1,7 @@
 import { createSlice } from "lib/yaasl"
 
+import { selectedYear } from "./selected-year"
+
 const dayInMs = 1000 * 60 * 60 * 24
 
 const getWeekDay = (date: Date) => (date.getDay() + 6) % 7 // Adjust to 0 === monday instead of 0 === sunday
@@ -27,7 +29,9 @@ const getCwStartOfYear = (year: number) => {
 const roundUp = (value: number) =>
   Math.floor(value) < value ? Math.floor(value) + 1 : value
 
-const getWeekNumber = (date: Date): { week: number; yearChange: number } => {
+export const getWeekNumber = (
+  date: Date
+): { week: number; yearChange: number } => {
   const day = getDayOfYear(date)
   const offset = getCwDateOffset(date.getFullYear())
 
@@ -91,10 +95,31 @@ export const getWeek = (date: Date): SelectedWeekState => {
   }
 }
 
+const clampToPresent = (date: Date) => {
+  const now = new Date()
+  const isFuture = now.valueOf() < date.valueOf()
+  return isFuture ? now : date
+}
+
 export const selectedWeek = createSlice({
   name: "selected-week",
   defaultValue: getWeek(today),
   reducers: {
-    selectDate: (_state, date: Date | string) => getWeek(new Date(date)),
+    selectDate: (_state, dateArg: Date | string) => {
+      const date = new Date(dateArg)
+      const week = getWeek(clampToPresent(date))
+      selectedYear.set(week.year)
+      return week
+    },
+
+    selectWeek: (_state, year: number, calendarWeek: number) => {
+      const offset = getCwDateOffset(year)
+      const day = calendarWeek * 7 + offset
+      const date = new Date(year, 0, day)
+
+      const week = getWeek(clampToPresent(date))
+      selectedYear.set(week.year)
+      return week
+    },
   },
 })

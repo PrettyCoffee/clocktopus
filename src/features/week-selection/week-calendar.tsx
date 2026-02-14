@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 
 import { t } from "@lingui/core/macro"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -10,6 +10,7 @@ import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
+import { selectedYear } from "./selected-year"
 import { Year } from "./year"
 
 const Divider = () => (
@@ -59,17 +60,12 @@ const YearCarousel = ({
   )
 }
 
-interface WeekCalendarProps {
-  initialYear?: number
-}
-export const WeekCalendar = ({
-  initialYear = currentYear,
-}: WeekCalendarProps) => {
-  const [year, setYear] = useState(initialYear)
+export const WeekCalendar = () => {
+  const year = useAtom(selectedYear)
 
   return (
     <>
-      <YearCarousel year={year} setYear={setYear} />
+      <YearCarousel year={year} setYear={next => selectedYear.set(next)} />
       <Divider />
       <ScrollArea className="-mr-1 flex-1" innerClassName="py-2 pr-2">
         <Year year={year} />
