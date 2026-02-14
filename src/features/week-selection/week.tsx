@@ -39,7 +39,7 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
 
   return (
     <div className="relative pl-4">
-      {first && (
+      {first?.getFullYear() === year && (
         <span className="absolute bottom-1 left-1.5 inline-block origin-left -rotate-90 text-sm text-text-muted">
           {monthName(first.getMonth())}
         </span>
@@ -47,7 +47,7 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
 
       <Button
         size="sm"
-        onClick={() => selectedWeek.set({ year, week: calendarWeek, days })}
+        onClick={() => selectedWeek.set({ year, calendarWeek, days })}
         className={cn(
           "relative w-full justify-start border border-transparent px-1",
           isFirstOfYear && "justify-end",

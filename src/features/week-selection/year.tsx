@@ -2,29 +2,24 @@ import { useMemo } from "react"
 
 import { useAtom } from "lib/yaasl"
 
-import { selectedWeek } from "./selected-week"
+import { getWeek, selectedWeek } from "./selected-week"
 import { Week, WeekProps } from "./week"
 
 const getCalendarWeeks = (year: number) => {
-  let current = new Date(year, 0, 1)
+  let nextDate = new Date(year, 0, 1)
   const weeks: WeekProps[] = []
 
-  while (current.getFullYear() === year) {
-    if (!weeks[0] || current.getDay() === 1) {
-      const lastWeek = weeks.at(-1)
-      weeks.push({
-        year,
-        calendarWeek: (lastWeek?.calendarWeek ?? 0) + 1,
-        days: [],
-      })
-    }
+  while (nextDate.getFullYear() === year) {
+    const week = getWeek(nextDate)
+    weeks.push(week)
 
-    const week = weeks.at(-1)!
-    week.days.push(current)
-
-    const nextDate = new Date(current)
+    const currentEndDate = week.days.at(-1)
+    nextDate = new Date(currentEndDate ?? nextDate)
     nextDate.setDate(nextDate.getDate() + 1)
-    current = nextDate
+
+    if (weeks.length >= 60) {
+      return weeks
+    }
   }
 
   return weeks
@@ -49,10 +44,12 @@ export const Year = ({ year }: YearProps) => {
     <div className="grid grid-cols-1">
       {weeks.map(week => (
         <Week
-          key={week.calendarWeek}
+          key={`${week.year}-${week.calendarWeek}`}
           {...week}
+          year={year}
           selected={
-            selected.year === year && selected.week === week.calendarWeek
+            selected.year === week.year &&
+            selected.calendarWeek === week.calendarWeek
           }
         />
       ))}

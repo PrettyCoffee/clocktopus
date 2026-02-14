@@ -160,7 +160,7 @@ export const MainRoute = () => {
 
   return (
     <div
-      key={`${selected.year}-${selected.week}`}
+      key={`${selected.year}-${selected.calendarWeek}`}
       className="flex min-h-full flex-col px-10"
     >
       <DetectIntersection
