@@ -1,21 +1,26 @@
-import { useEffect, useRef, useState } from "react"
+import { RefObject, useEffect, useEffectEvent } from "react"
 
 import { DisableProp } from "types/base-props"
 
-export const useIntersectionObserver = (
-  options?: IntersectionObserverInit & DisableProp
-) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null)
+interface UseIntersectionObserverProps extends DisableProp {
+  ref: RefObject<HTMLElement | null>
+  onIntersection: IntersectionObserverCallback
+  options?: IntersectionObserverInit
+}
+
+export const useIntersectionObserver = ({
+  ref,
+  onIntersection,
+  options,
+  disabled,
+}: UseIntersectionObserverProps) => {
+  const intersectionEvent = useEffectEvent(onIntersection)
 
   useEffect(() => {
-    const node = ref.current
-    if (!node || options?.disabled) return
+    if (!ref.current || disabled) return
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setEntry(entry ?? null)
-      },
+      (...args) => intersectionEvent(...args),
       {
         root: options?.root,
         rootMargin: options?.rootMargin,
@@ -23,15 +28,8 @@ export const useIntersectionObserver = (
       }
     )
 
-    observer.observe(node)
+    observer.observe(ref.current)
 
     return () => observer.disconnect()
-  }, [
-    options?.disabled,
-    options?.root,
-    options?.rootMargin,
-    options?.threshold,
-  ])
-
-  return { ref, entry, isIntersecting: !!entry?.isIntersecting }
+  }, [disabled, options?.root, options?.rootMargin, options?.threshold, ref])
 }

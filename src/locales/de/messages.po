@@ -716,11 +716,11 @@ msgstr "Stil des Übersichtsmodus"
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: src/features/time-table/time-table-header.tsx:172
+#: src/features/time-table/time-table-header.tsx:176
 msgid "Switch to editable mode"
 msgstr "Zum Bearbeitungsmodus"
 
-#: src/features/time-table/time-table-header.tsx:173
+#: src/features/time-table/time-table-header.tsx:177
 msgid "Switch to summary mode"
 msgstr "Zum Übersichtsmodus"
 
@@ -744,7 +744,7 @@ msgstr "Die folgenden Datenfelder scheinen beschädigt zu sein: {errorPaths}"
 msgid "Theming"
 msgstr "Design"
 
-#: src/app/routes/main/main-route.tsx:180
+#: src/app/routes/main/main-route.tsx:184
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "Im ausgewählten Zeitraum gibt es noch keine Einträge. Zeit, welche hinzuzufügen!"
 

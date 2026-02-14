@@ -718,11 +718,11 @@ msgstr "Summary style"
 msgid "Sunday"
 msgstr "Sunday"
 
-#: src/features/time-table/time-table-header.tsx:172
+#: src/features/time-table/time-table-header.tsx:176
 msgid "Switch to editable mode"
 msgstr "Switch to editable mode"
 
-#: src/features/time-table/time-table-header.tsx:173
+#: src/features/time-table/time-table-header.tsx:177
 msgid "Switch to summary mode"
 msgstr "Switch to summary mode"
 
@@ -746,7 +746,7 @@ msgstr "The following data fields seem to be corrupted: {errorPaths}"
 msgid "Theming"
 msgstr "Theming"
 
-#: src/app/routes/main/main-route.tsx:180
+#: src/app/routes/main/main-route.tsx:184
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "There are no entries in the selected date range yet. Time to add some!"
 

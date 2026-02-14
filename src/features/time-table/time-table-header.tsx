@@ -7,10 +7,10 @@ import { Checkbox } from "components/ui/checkbox"
 import { Divider } from "components/ui/divider"
 import { IconButton } from "components/ui/icon-button"
 import { Tooltip } from "components/ui/tooltip"
+import { DetectIntersection } from "components/utility/detect-intersection"
 import { categoriesData } from "data/categories"
 import { type TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
-import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
@@ -119,10 +119,7 @@ export const TimeTableHeader = ({
 }: TimeTableHeaderProps) => {
   const { checked, onCheckedChange } = useCheckedState()
   const [topOffset, setTopOffset] = useState("0px")
-  const { ref, isIntersecting } = useIntersectionObserver({
-    rootMargin: `-${topOffset} 0px 0px 0px`, // trigger offset to the top of the scroll area (window)
-    disabled: !stickyHeader,
-  })
+  const [isIntersecting, setIsIntersecting] = useState(false)
 
   const checkedState = useMemo(() => {
     const hasChecked = entries.some(({ date, id }) => checked[date]?.[id])
@@ -142,7 +139,13 @@ export const TimeTableHeader = ({
 
   return (
     <>
-      <div ref={ref} />
+      <DetectIntersection
+        onIntersect={setIsIntersecting}
+        options={{
+          rootMargin: `-${topOffset} 0px 0px 0px`, // trigger offset to the top of the scroll area (window)
+        }}
+        disabled={!stickyHeader}
+      />
       <div
         ref={element => {
           if (!element) return
@@ -153,7 +156,8 @@ export const TimeTableHeader = ({
           hstack({ align: "center" }),
           "h-12 rounded-t-lg border-b border-stroke-gentle bg-background-page",
           stickyHeader && `sticky z-20 ${stickyHeader}`,
-          !isIntersecting && "rounded-lg shade-low border-b-0"
+          "transition-[box-shadow,border] duration-100",
+          !isIntersecting && "rounded-lg shade-low border-transparent"
         )}
       >
         {!locked?.value && (

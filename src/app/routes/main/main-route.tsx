@@ -5,6 +5,7 @@ import { Trans } from "@lingui/react/macro"
 import { Ghost } from "lucide-react"
 
 import { ContextInfo } from "components/ui/context-info"
+import { DetectIntersection } from "components/utility/detect-intersection"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { selectedWeek } from "features/date-selection"
 import {
@@ -13,7 +14,6 @@ import {
   CheckedStateProvider,
 } from "features/time-table"
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
-import { useIntersectionObserver } from "hooks/use-intersection-observer"
 import { useAtom, createSlice } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
@@ -124,7 +124,7 @@ export const MainRoute = () => {
     [selected, trackedDates]
   )
 
-  const { ref, isIntersecting } = useIntersectionObserver()
+  const [isIntersecting, setIsIntersecting] = useState(true)
 
   const [latestAdded, setLatestAdded] = useState({
     date: dateHelpers.today(),
@@ -163,11 +163,15 @@ export const MainRoute = () => {
       key={`${selected.year}-${selected.week}`}
       className="flex min-h-full flex-col px-10"
     >
-      <div ref={ref} />
+      <DetectIntersection
+        onIntersect={setIsIntersecting}
+        options={{ rootMargin: "1px 0px 0px 0px" }}
+      />
       <div
         className={cn(
-          "sticky top-0 rounded-md bg-background-page pt-6",
-          !isIntersecting && "z-20 -mx-2 shade-low px-2 pb-2"
+          "sticky top-0 z-20 -mx-2 rounded-md bg-background-page px-2 pt-6 pb-2",
+          "transition-shadow duration-100",
+          !isIntersecting && "shade-low"
         )}
       >
         {createTimeEntry}
@@ -181,7 +185,7 @@ export const MainRoute = () => {
           />
         </div>
       ) : (
-        <div className="flex-1 pt-3">
+        <div className="flex-1 pt-1">
           <TimeTables dates={visibleDates} />
         </div>
       )}
