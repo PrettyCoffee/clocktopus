@@ -1,6 +1,7 @@
 import { Dispatch } from "react"
 
 import { TimeEntry } from "data/time-entries"
+import { Alert } from "types/base-props"
 import { cn } from "utils/cn"
 import { surface } from "utils/styles"
 
@@ -13,6 +14,7 @@ interface TimeTableProps {
   entries: TimeEntry[]
   showTotal?: boolean
   stickyHeader?: `top-${number}`
+  alert?: Alert
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>
@@ -25,6 +27,7 @@ export const TimeTable = ({
   showTotal,
   stickyHeader,
   locked,
+  alert,
 }: TimeTableProps) => (
   <div
     className={cn(
@@ -38,6 +41,7 @@ export const TimeTable = ({
       showTotal={showTotal}
       stickyHeader={stickyHeader}
       locked={locked}
+      alert={alert}
     />
 
     {locked?.value ? (

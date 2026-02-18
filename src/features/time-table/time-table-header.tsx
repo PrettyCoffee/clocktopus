@@ -5,15 +5,17 @@ import { Lock, Unlock } from "lucide-react"
 
 import { Checkbox } from "components/ui/checkbox"
 import { Divider } from "components/ui/divider"
+import { Icon } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
-import { Tooltip } from "components/ui/tooltip"
+import { TitleTooltip, Tooltip } from "components/ui/tooltip"
 import { DetectIntersection } from "components/utility/detect-intersection"
 import { categoriesData } from "data/categories"
 import { type TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
 import { useAtom } from "lib/yaasl"
+import { Alert } from "types/base-props"
 import { cn } from "utils/cn"
-import { hstack, vstack } from "utils/styles"
+import { alertStyles, hstack, vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
 import { CheckedState, useCheckedState } from "./checked-context"
@@ -106,6 +108,7 @@ interface TimeTableHeaderProps {
   entries: TimeEntry[]
   showTotal?: boolean
   stickyHeader?: `top-${number}`
+  alert?: Alert
   locked?: {
     value: boolean
     onChange: Dispatch<boolean>
@@ -117,6 +120,7 @@ export const TimeTableHeader = ({
   showTotal,
   stickyHeader,
   locked,
+  alert,
 }: TimeTableHeaderProps) => {
   const { checked, onCheckedChange } = useCheckedState()
   const [topOffset, setTopOffset] = useState("0px")
@@ -183,6 +187,15 @@ export const TimeTableHeader = ({
           />
         )}
         <div className="flex-1" />
+        {alert && (
+          <TitleTooltip
+            title={alert.text}
+            side="left"
+            className="grid size-10 place-content-center rounded-md"
+          >
+            <Icon icon={alertStyles[alert.kind].icon} color={alert.kind} />
+          </TitleTooltip>
+        )}
         {showTotal && <DateDurations entries={entries} />}
       </div>
     </>

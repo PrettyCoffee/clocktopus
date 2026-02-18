@@ -4,6 +4,11 @@ import { LucideIcon } from "lucide-react"
 
 export type AlertKind = "info" | "success" | "warn" | "error"
 
+export interface Alert {
+  kind: AlertKind
+  text: string
+}
+
 export interface IconProp {
   /** Display an icon inside the component */
   icon?: LucideIcon

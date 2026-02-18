@@ -15,6 +15,7 @@ import {
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { selectedWeek, WeekCarousel } from "features/week-selection"
 import { useAtom, createSlice } from "lib/yaasl"
+import { Alert } from "types/base-props"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"
@@ -51,6 +52,41 @@ const formatDate = (date: string) => {
   })
 }
 
+const analyzeConsistency = (entries: TimeEntry[]) => {
+  const sorted = entries.toSorted((a, b) => a.start.localeCompare(b.start))
+
+  return sorted.reduce(
+    (result, entry) => {
+      if (result.hasOverlapping || result.hasGap) return result
+
+      const diff = timeHelpers.getDiff(result.lastEnd, entry.start)
+      result.hasGap = diff > 0
+      result.hasOverlapping = diff < 0
+      if (diff === 0) {
+        result.lastEnd = entry.end
+      }
+      return result
+    },
+    {
+      hasOverlapping: false,
+      hasGap: false,
+      lastEnd: sorted[0]?.start ?? "00:00",
+    }
+  )
+}
+
+const getAlert = (entries?: TimeEntry[]): Alert | undefined => {
+  if (!entries) return
+  const { hasGap, hasOverlapping, lastEnd } = analyzeConsistency(entries)
+  const text = hasOverlapping
+    ? t`There are overlapping time entries on this date at ${lastEnd}`
+    : hasGap
+      ? t`There is a gap in your time entries on this date at ${lastEnd}`
+      : null
+
+  return !text ? undefined : { kind: "warn", text }
+}
+
 const TimeTables = ({ dates }: { dates: string[] }) => {
   const allEntries = useAtom(timeEntriesData)
   const editable = useAtom(editableDates)
@@ -64,6 +100,7 @@ const TimeTables = ({ dates }: { dates: string[] }) => {
             key={date}
             title={formatDate(date)}
             entries={allEntries[date] ?? []}
+            alert={getAlert(allEntries[date])}
             showTotal
             stickyHeader="top-18"
             locked={{

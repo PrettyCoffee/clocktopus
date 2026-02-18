@@ -2,7 +2,7 @@ import { ChangeEvent, useState, DragEvent, useId } from "react"
 
 import { Upload } from "lucide-react"
 
-import { AlertKind, ClassNameProp, IconProp } from "types/base-props"
+import { Alert, ClassNameProp, IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 import {
   alertStyles,
@@ -16,7 +16,7 @@ import { TitleTooltip } from "../tooltip"
 
 interface FileInputProps extends ClassNameProp, IconProp {
   label?: string
-  alert?: { kind: AlertKind; text: string }
+  alert?: Alert
   onChange?: (value: File) => void
   accept?: string
 }

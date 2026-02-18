@@ -30,7 +30,7 @@ msgstr "<0/> Importing data ({percent}%)"
 msgid "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
 msgstr "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
 
-#: src/app/routes/main/main-route.tsx:103
+#: src/app/routes/main/main-route.tsx:140
 msgid "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 msgstr "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 
@@ -232,7 +232,7 @@ msgstr "Custom locale"
 msgid "Custom locale (e.g. ja-JP)"
 msgstr "Custom locale (e.g. ja-JP)"
 
-#: src/features/week-selection/week-carousel.tsx:55
+#: src/features/week-selection/week-carousel.tsx:57
 msgid "CW"
 msgstr "CW"
 
@@ -553,13 +553,13 @@ msgstr "Name"
 msgid "Next month"
 msgstr "Next month"
 
-#: src/features/week-selection/week-carousel.tsx:60
+#: src/features/week-selection/week-carousel.tsx:62
 msgid "Next week"
 msgstr "Next week"
 
 #: src/components/ui/calendar/calendar.tsx:107
-#: src/features/week-selection/week-calendar.tsx:53
-#: src/features/week-selection/week-carousel.tsx:67
+#: src/features/week-selection/week-calendar.tsx:54
+#: src/features/week-selection/week-carousel.tsx:69
 msgid "Next year"
 msgstr "Next year"
 
@@ -627,13 +627,13 @@ msgstr "Preview Sample"
 msgid "Previous month"
 msgstr "Previous month"
 
-#: src/features/week-selection/week-carousel.tsx:49
+#: src/features/week-selection/week-carousel.tsx:51
 msgid "Previous week"
 msgstr "Previous week"
 
 #: src/components/ui/calendar/calendar.tsx:107
-#: src/features/week-selection/week-calendar.tsx:40
-#: src/features/week-selection/week-carousel.tsx:43
+#: src/features/week-selection/week-calendar.tsx:41
+#: src/features/week-selection/week-carousel.tsx:45
 msgid "Previous year"
 msgstr "Previous year"
 
@@ -732,11 +732,11 @@ msgstr "Summary style"
 msgid "Sunday"
 msgstr "Sunday"
 
-#: src/features/time-table/time-table-header.tsx:176
+#: src/features/time-table/time-table-header.tsx:181
 msgid "Switch to editable mode"
 msgstr "Switch to editable mode"
 
-#: src/features/time-table/time-table-header.tsx:177
+#: src/features/time-table/time-table-header.tsx:182
 msgid "Switch to summary mode"
 msgstr "Switch to summary mode"
 
@@ -760,9 +760,17 @@ msgstr "The following data fields seem to be corrupted: {errorPaths}"
 msgid "Theming"
 msgstr "Theming"
 
-#: src/app/routes/main/main-route.tsx:193
+#: src/app/routes/main/main-route.tsx:230
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "There are no entries in the selected date range yet. Time to add some!"
+
+#: src/app/routes/main/main-route.tsx:82
+msgid "There are overlapping time entries on this date at {lastEnd}"
+msgstr "There are overlapping time entries on this date at {lastEnd}"
+
+#: src/app/routes/main/main-route.tsx:84
+msgid "There is a gap in your time entries on this date at {lastEnd}"
+msgstr "There is a gap in your time entries on this date at {lastEnd}"
 
 #: src/app/routes/settings/settings-data.tsx:251
 msgid "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
@@ -795,7 +803,7 @@ msgstr "To make sure you don't forget to backup your data, there will be a remin
 msgid "Today"
 msgstr "Today"
 
-#: src/features/time-table/time-table-header.tsx:54
+#: src/features/time-table/time-table-header.tsx:57
 msgid "Total: "
 msgstr "Total: "
 
