@@ -26,7 +26,12 @@ const getMinutes = (time: string) => {
 const getTimeDiff = (startTime: string, endTime: string) => {
   const start = getMinutes(startTime)
   const end = getMinutes(endTime)
-  return start > end ? end + 24 * 60 - start : end - start
+  return end - start
+}
+
+const getDuration = (startTime: string, endTime: string) => {
+  const diff = getTimeDiff(startTime, endTime)
+  return diff < 0 ? diff + 24 * 60 : diff
 }
 
 const timeFromMinutes = (minutesDiff: number) => {
@@ -57,6 +62,7 @@ const addMinutes = (timeString: string, diff: number) => {
 
 export const timeHelpers = {
   getDiff: getTimeDiff,
+  getDuration,
   toMinutes: getMinutes,
   fromMinutes: timeFromMinutes,
   toParsed: parseTime,

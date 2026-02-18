@@ -31,7 +31,7 @@ const summarize = (entries: TimeEntry[]): TimeSummary[] => {
       if (result[categoryId][description] == null) {
         result[categoryId][description] = 0
       }
-      result[categoryId][description] += timeHelpers.getDiff(start, end)
+      result[categoryId][description] += timeHelpers.getDuration(start, end)
       return result
     },
     {}

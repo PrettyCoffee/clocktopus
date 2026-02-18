@@ -32,7 +32,8 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
         entry => (entry.categoryId || "") === (category.id || "")
       )
       const minutes = items.reduce(
-        (result, { start, end }) => result + timeHelpers.getDiff(start, end),
+        (result, { start, end }) =>
+          result + timeHelpers.getDuration(start, end),
         0
       )
       return {

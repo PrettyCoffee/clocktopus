@@ -5,7 +5,7 @@ import { timeHelpers } from "utils/time-helpers"
 
 const totalDuration = (entries: TimeEntry[]) =>
   entries.reduce(
-    (total, entry) => total + timeHelpers.getDiff(entry.start, entry.end),
+    (total, entry) => total + timeHelpers.getDuration(entry.start, entry.end),
     0
   )
 
