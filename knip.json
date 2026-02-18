@@ -1,8 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "entry": [
-    "src/main.tsx",
-    "eslint.config.mjs",
     "lingui.config.js",
     "tailwind/tailwind.config.ts"
   ],
@@ -11,6 +9,5 @@
   "paths": {
     "*": ["src/*"]
   },
-  "ignoreBinaries": ["eslint"],
   "ignoreDependencies": [".*eslint.*"]
 }
