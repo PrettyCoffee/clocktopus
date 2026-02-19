@@ -17,6 +17,26 @@ interface StatsFilter {
 
 const allFilter: StatsFilter = { name: "All" }
 
+const today = new Date()
+const thisMonthFilter: StatsFilter = {
+  name: "This month",
+  start: dateHelpers.stringify(
+    new Date(today.getFullYear(), today.getMonth(), 1)
+  ),
+  end: dateHelpers.stringify(
+    new Date(today.getFullYear(), today.getMonth() + 1, 0)
+  ),
+}
+const lastMonthFilter: StatsFilter = {
+  name: "Last month",
+  start: dateHelpers.stringify(
+    new Date(today.getFullYear(), today.getMonth() - 1, 1)
+  ),
+  end: dateHelpers.stringify(
+    new Date(today.getFullYear(), today.getMonth(), 0)
+  ),
+}
+
 const createYearFilter = (year: number) => ({
   name: `${year}`,
   start: `${year}-01-01`,
@@ -58,6 +78,8 @@ export const StatsSideRoute = () => {
 
   const predefinedFilters: StatsFilter[] = [
     allFilter,
+    thisMonthFilter,
+    lastMonthFilter,
     ...years.map(createYearFilter),
   ]
 
