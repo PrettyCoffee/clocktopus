@@ -9,6 +9,7 @@ interface AxisProps {
   color?: LineProps["color"]
   name?: string
   ticks?: Record<number, string> | number[]
+  tickRotation?: number
 }
 
 const getTicks = (ticks: AxisProps["ticks"]) => {
@@ -31,8 +32,9 @@ interface TickProps {
   axisPosition: number
   label: string
   value: number
+  rotate?: number
 }
-const Tick = ({ axisPosition, value, label, axis }: TickProps) => {
+const Tick = ({ axisPosition, value, label, axis, rotate }: TickProps) => {
   const { scaleX, scaleY } = useChartContext()
   const point =
     axis === "x"
@@ -42,9 +44,10 @@ const Tick = ({ axisPosition, value, label, axis }: TickProps) => {
   const props: TextProps =
     axis === "x"
       ? {
-          x: point.x,
+          x: point.x + (!rotate ? 0 : rotate > 0 ? -8 : 8),
           y: point.y + 16,
-          anchor: "middle",
+          anchor: !rotate ? "middle" : rotate > 0 ? "start" : "end",
+          rotate,
         }
       : {
           x: point.x - 8,
@@ -85,6 +88,7 @@ const Axis = ({
   position = 0,
   color = "muted",
   ticks: ticksProp,
+  tickRotation,
 }: AxisProps) => {
   const ticks = getTicks(ticksProp)
   const { rect, scaleX, scaleY } = useChartContext()
@@ -121,6 +125,7 @@ const Axis = ({
           value={value}
           axis={axis}
           axisPosition={position}
+          rotate={tickRotation}
         />
       ))}
 
