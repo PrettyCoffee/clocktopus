@@ -137,7 +137,13 @@ const handleRemove = (date: string, id: string) =>
     },
   })
 
-export const TimeTableEditable = ({ entries }: { entries: TimeEntry[] }) => {
+export const TimeTableEditable = ({
+  entries,
+  highlighted,
+}: {
+  entries: TimeEntry[]
+  highlighted?: number
+}) => {
   const { checked, toggleChecked } = useCheckedState()
 
   return (
@@ -146,6 +152,7 @@ export const TimeTableEditable = ({ entries }: { entries: TimeEntry[] }) => {
       name="time-table"
       gridCols="grid-cols-[2.5rem_auto_auto_auto_auto_1fr_2.5rem] @xl:grid-cols-[2.5rem_1fr_auto_auto_auto_auto_auto_2.5rem] @4xl:grid-cols-[2.5rem_1fr_auto_auto_auto_auto_auto_auto_2.5rem]"
       rowData={entries}
+      highlighted={highlighted}
       columns={[
         checkedColumn,
         descriptionColumn,

@@ -98,6 +98,7 @@ const TimeTables = ({ dates }: { dates: string[] }) => {
         {dates.map(date => (
           <TimeTable
             key={date}
+            showTimeline
             title={formatDate(date)}
             entries={allEntries[date] ?? []}
             alert={getAlert(allEntries[date])}

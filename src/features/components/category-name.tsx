@@ -12,7 +12,7 @@ import { cn } from "utils/cn"
 import { colored } from "utils/styles"
 
 interface GetCategoryNameProps {
-  categoryId: string
+  categoryId?: string
   categories?: Category[]
   groups?: CategoryGroup[]
 }
@@ -34,6 +34,8 @@ export const getCategoryName = ({
       name: group.name,
       color: group.color,
     },
+    fullName:
+      [group.name, category.name].filter(Boolean).join(" - ") || undefined,
   }
 }
 

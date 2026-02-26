@@ -38,8 +38,7 @@ export const CategoriesChart = ({ stats, total }: TimeChartProps) => (
         return t`Others (${amount})`
       }
       const category = getCategoryName({ categoryId })
-      if (!category) return t`No category`
-      return [category.group?.name, category.name].filter(Boolean).join(" - ")
+      return category?.fullName ?? t`No category`
     }}
     valueLabel={y => {
       const hours = Math.round(y).toLocaleString(getLocale())
