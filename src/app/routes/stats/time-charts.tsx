@@ -1,8 +1,10 @@
+import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 
 import { Chart, Coordinate } from "components/ui/chart"
 import { timeHelpers } from "utils/time-helpers"
 
+import { BarChart } from "./bar-chart"
 import { TimeStats } from "./get-time-stats"
 
 const transformPoints = (
@@ -37,16 +39,10 @@ const getTicks = (
 }
 
 const timeDotLabel = ({ y }: Coordinate) => timeHelpers.fromMinutes(y)
-const hourDotLabel = ({ y }: Coordinate) => `${(y / 60).toFixed(1)}h`
 
 const getPadding = (items: number): [number, number] => {
   const extra = Math.max(0, 12 - items) * 8
   return [24, 24 + extra]
-}
-
-const getBarWidth = (items: number) => {
-  const extra = Math.max(0, 12 - items) * 4
-  return 12 + extra
 }
 
 interface TimeChartProps {
@@ -94,33 +90,16 @@ export const WorkingHoursChart = ({
   )
 }
 
-export const TotalTimeChart = ({
-  timeStats,
-  tickLabel = String,
-  transformX = x => x,
-}: TimeChartProps) => {
-  const points = transformPoints(timeStats, "total", transformX)
-  const ticks = getTicks(points, tickLabel)
-  const { maxX, maxY } = getGraphRange(points)
-
+export const TotalTimeChart = ({ timeStats }: TimeChartProps) => {
+  const data = Object.fromEntries(
+    Object.entries(timeStats).map(([name, { total }]) => [name, total])
+  )
   return (
-    <Chart.Root
-      maxX={maxX}
-      minY={0}
-      maxY={maxY}
-      padding={getPadding(points.length)}
-    >
-      <Chart.Caption>
-        <Trans>Working Time (avg)</Trans>
-      </Chart.Caption>
-      <Chart.Bars
-        barWidth={getBarWidth(points.length)}
-        points={points}
-        printValue={hourDotLabel}
-      />
-
-      <Chart.XAxis color="gentle" position={0} ticks={ticks} />
-      <Chart.Grid gapY={60} />
-    </Chart.Root>
+    <BarChart
+      title={t`Working Time (avg)`}
+      data={data}
+      tickLabel={String}
+      valueLabel={y => `${(y / 60).toFixed(1)}h`}
+    />
   )
 }

@@ -153,13 +153,13 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
   const tick = {
     weekday: weekdayTick,
     month: monthTick,
-    year: undefined,
+    year: String,
   }[mode]
 
   const transform = {
     weekday: transformWeekday,
-    month: undefined,
-    year: undefined,
+    month: Number,
+    year: Number,
   }[mode]
 
   if (Object.values(data).length < 2) {
@@ -193,9 +193,9 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
         transformX={transform}
       />
       <TotalTimeChart
-        timeStats={data}
-        tickLabel={tick}
-        transformX={transform}
+        timeStats={Object.fromEntries(
+          Object.entries(data).map(([x, y]) => [tick(transform(Number(x))), y])
+        )}
       />
     </div>
   )
