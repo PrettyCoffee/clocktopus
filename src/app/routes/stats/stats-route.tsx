@@ -1,4 +1,4 @@
-import { Dispatch, Fragment, useMemo, useState } from "react"
+import { Dispatch, Fragment, PropsWithChildren, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
@@ -9,7 +9,9 @@ import { TimeEntry } from "data/time-entries"
 import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
+import { timeHelpers } from "utils/time-helpers"
 
+import { CategoriesChart } from "./categories-chart"
 import { getTimeStats, TimeStats } from "./get-time-stats"
 import { filteredStatsEntries } from "./stats-side-route"
 import { WorkingHoursChart, TotalTimeChart } from "./time-charts"
@@ -29,11 +31,27 @@ const splitEntries = (
   return result
 }
 
-type TimeStatsByYear = Record<number, TimeStats>
+const getCategoryStats = (timeEntries: Record<string, TimeEntry[]>) => {
+  const byCategory: Record<string, number> = {}
+  let total = 0
+
+  Object.values(timeEntries)
+    .flat()
+    .forEach(({ categoryId = "", start, end }) => {
+      const duration = timeHelpers.getDuration(start, end) / 60
+      total += duration
+      byCategory[categoryId] ??= 0
+      byCategory[categoryId] += duration
+    }, {})
+
+  return { byCategory, total }
+}
+
+type StatsByTime = Record<number, TimeStats>
 
 const getYearStats = (timeEntries: Record<string, TimeEntry[]>) => {
   const byYear = splitEntries(timeEntries, date => new Date(date).getFullYear())
-  const allStats: TimeStatsByYear = {}
+  const allStats: StatsByTime = {}
 
   Object.entries(byYear).forEach(([year, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
@@ -44,11 +62,9 @@ const getYearStats = (timeEntries: Record<string, TimeEntry[]>) => {
   return allStats
 }
 
-type TimeStatsByMonth = Record<number, TimeStats>
-
 const getMonthStats = (timeEntries: Record<string, TimeEntry[]>) => {
   const byMonth = splitEntries(timeEntries, date => new Date(date).getMonth())
-  const allStats: TimeStatsByMonth = {}
+  const allStats: StatsByTime = {}
 
   Object.entries(byMonth).forEach(([month, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
@@ -59,11 +75,9 @@ const getMonthStats = (timeEntries: Record<string, TimeEntry[]>) => {
   return allStats
 }
 
-type TimeStatsByDay = Record<number, TimeStats>
-
 const getDayStats = (timeEntries: Record<string, TimeEntry[]>) => {
   const byWeekday = splitEntries(timeEntries, date => new Date(date).getDay())
-  const allStats: TimeStatsByDay = {}
+  const allStats: StatsByTime = {}
 
   Object.entries(byWeekday).forEach(([weekday, entriesByDate]) => {
     const stats = getTimeStats(entriesByDate)
@@ -105,7 +119,7 @@ const monthTick = (value: number) =>
     t`December`.slice(0, 3),
   ][value] ?? "N/A"
 
-type Mode = "weekday" | "month" | "year"
+type Mode = "weekday" | "month" | "year" | "categories"
 
 const StatsModeHeader = ({
   mode,
@@ -118,37 +132,89 @@ const StatsModeHeader = ({
     <span className="mr-2 text-text-muted">
       <Trans>Stats by</Trans>
     </span>
-    {(["weekday", "month", "year"] as const).map((value, index) => (
-      <Fragment key={value}>
-        {index !== 0 && <span className="font-bold text-text-muted"> | </span>}
-        <button
-          key={value}
-          onClick={() => onChange(value)}
-          className={cn(
-            "cursor-pointer font-bold text-text-gentle uppercase underline-offset-4 hover:text-text hover:underline",
-            value === mode && "text-text-priority"
+    {(["weekday", "month", "year", "categories"] as const).map(
+      (value, index) => (
+        <Fragment key={value}>
+          {index !== 0 && (
+            <span className="font-bold text-text-muted"> | </span>
           )}
-        >
-          {{ weekday: t`weekday`, month: t`month`, year: t`year` }[value]}
-        </button>
-      </Fragment>
-    ))}
+          <button
+            key={value}
+            onClick={() => onChange(value)}
+            className={cn(
+              "cursor-pointer font-bold text-text-gentle uppercase underline-offset-4 hover:text-text hover:underline",
+              value === mode && "text-text-priority"
+            )}
+          >
+            {
+              {
+                weekday: t`weekday`,
+                month: t`month`,
+                year: t`year`,
+                categories: t`categories`,
+              }[value]
+            }
+          </button>
+        </Fragment>
+      )
+    )}
   </h2>
 )
 
-const StatsCharts = ({ mode }: { mode: Mode }) => {
-  const filtered = useAtom(filteredStatsEntries)
+const InsufficientStatsData = ({ subject }: { subject: string }) => (
+  <div className="max-w-90 text-center">
+    <ContextInfo
+      animateIcon="rotate"
+      icon={ClockPlus}
+      label={t`Insufficient data`}
+    >
+      <Trans>
+        You will need to provide more data, to be able to see stats here. (at
+        least 2 {subject})
+      </Trans>
+    </ContextInfo>
+  </div>
+)
 
-  const data = useMemo(() => {
-    switch (mode) {
-      case "weekday":
-        return getDayStats(filtered)
-      case "month":
-        return getMonthStats(filtered)
-      case "year":
-        return getYearStats(filtered)
-    }
-  }, [mode, filtered])
+const ChartLayout = ({ children }: PropsWithChildren) => (
+  <div
+    className={cn(
+      vstack({ gap: 8 }),
+      "w-full max-w-xl gap-10 *:h-64 *:first:h-64"
+    )}
+  >
+    {children}
+  </div>
+)
+
+const CategoryStats = ({
+  entries,
+}: {
+  entries: Record<string, TimeEntry[]>
+}) => {
+  const { byCategory, total } = getCategoryStats(entries)
+
+  if (Object.keys(byCategory).length < 2) {
+    return <InsufficientStatsData subject={t`categories`} />
+  }
+
+  return (
+    <ChartLayout>
+      <CategoriesChart stats={byCategory} total={total} />
+    </ChartLayout>
+  )
+}
+
+interface TimeChartsProps {
+  entries: Record<string, TimeEntry[]>
+  mode: Exclude<Mode, "categories">
+}
+const TimeCharts = ({ entries, mode }: TimeChartsProps) => {
+  const data = {
+    weekday: getDayStats,
+    month: getMonthStats,
+    year: getYearStats,
+  }[mode](entries)
 
   const tick = {
     weekday: weekdayTick,
@@ -162,31 +228,18 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
     year: Number,
   }[mode]
 
+  const subject = {
+    weekday: t`weekdays`,
+    month: t`months`,
+    year: t`years`,
+  }[mode]
+
   if (Object.values(data).length < 2) {
-    return (
-      <div className="max-w-90 text-center">
-        <ContextInfo
-          animateIcon="rotate"
-          icon={ClockPlus}
-          label={t`Insufficient data`}
-        >
-          <Trans>
-            You will need to provide more data, to be able to see stats here.
-            (at least 2{" "}
-            {{ weekday: t`weekdays`, month: t`months`, year: t`years` }[mode]})
-          </Trans>
-        </ContextInfo>
-      </div>
-    )
+    return <InsufficientStatsData subject={subject} />
   }
 
   return (
-    <div
-      className={cn(
-        vstack({ gap: 8 }),
-        "w-full max-w-xl gap-10 *:h-64 *:first:h-64"
-      )}
-    >
+    <ChartLayout>
       <WorkingHoursChart
         timeStats={data}
         tickLabel={tick}
@@ -197,18 +250,23 @@ const StatsCharts = ({ mode }: { mode: Mode }) => {
           Object.entries(data).map(([x, y]) => [tick(transform(Number(x))), y])
         )}
       />
-    </div>
+    </ChartLayout>
   )
 }
 
 export const StatsRoute = () => {
   const [mode, setMode] = useState<Mode>("weekday")
+  const filtered = useAtom(filteredStatsEntries)
 
   return (
     <div className={cn(vstack({ align: "center" }), "min-h-full px-10 pt-20")}>
       <StatsModeHeader mode={mode} onChange={setMode} />
       <div className="pb-8" />
-      <StatsCharts mode={mode} />
+      {mode === "categories" ? (
+        <CategoryStats entries={filtered} />
+      ) : (
+        <TimeCharts mode={mode} entries={filtered} />
+      )}
       <div className="pb-8" />
     </div>
   )

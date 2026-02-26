@@ -9,7 +9,7 @@ const getGraphRange = (points: Coordinate[]) => {
   // For example: maxY = 1800 => scaleBase = 1000
   const scaleBase = Math.pow(10, max.y.toFixed().length - 1)
   const yAxisGap = Math.ceil((Math.ceil(max.y / scaleBase) * scaleBase) / 10)
-  const maxY = (Math.ceil(max.y / yAxisGap) + 0.5) * yAxisGap
+  const maxY = (Math.ceil(max.y / yAxisGap) + 1) * yAxisGap
 
   return {
     maxY: maxY,
