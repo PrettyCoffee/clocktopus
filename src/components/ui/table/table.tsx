@@ -42,6 +42,7 @@ type TwGridCols = `grid-cols-[${string}]` | `@${string}:grid-cols-[${string}]`
 type TableProps<TConfig extends TableConfig> = Pick<TConfig, "rowMeta"> & {
   hideHeaders?: boolean
   name?: string
+  highlighted?: number
   rowData: TConfig["rowData"][]
   columns: ColumnDef<TConfig>[]
   gridCols: Repeat<TwGridCols>
@@ -54,7 +55,7 @@ interface TableRowProps {
   index: number
 }
 const TableRow = ({ data, index }: TableRowProps) => {
-  const { columns, rowMeta, rowData } = Context.useRequiredValue()
+  const { columns, rowMeta, rowData, highlighted } = Context.useRequiredValue()
 
   const cellPropsByType = {
     decorator: {},
@@ -71,7 +72,9 @@ const TableRow = ({ data, index }: TableRowProps) => {
         subgridCols,
         "items-center gap-1 rounded-md p-1",
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
-        "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent"
+        "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent",
+        index === highlighted &&
+          "bg-highlight/5 hover:bg-highlight/10 focus-within:bg-highlight/10"
       )}
     >
       {columns.map(column => (
