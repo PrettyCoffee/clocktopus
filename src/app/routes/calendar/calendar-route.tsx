@@ -77,7 +77,13 @@ const TimeGrid = () => (
   </>
 )
 
-const DayColumn = ({ entries }: { entries: TimeEntry[] }) => (
+const DayColumn = ({
+  entries,
+  getDelay,
+}: {
+  entries: TimeEntry[]
+  getDelay: (startTime: string) => number
+}) => (
   <div className="relative h-[calc(24*4rem)] flex-1 border-r border-stroke-gentle first-of-type:border-l">
     {entries.length === 0 && (
       <div className="sticky inset-y-0 top-1/2 -translate-y-1/2 text-center font-bold text-text-muted">
@@ -94,10 +100,14 @@ const DayColumn = ({ entries }: { entries: TimeEntry[] }) => (
       return (
         <div
           key={id}
-          className={cn("absolute inset-x-1 p-0.5")}
+          className={cn(
+            "absolute inset-x-1 p-0.5",
+            "transition-opacity duration-500 starting:opacity-0"
+          )}
           style={{
             top: getYPos(startH).rem,
             height: `${height}rem`,
+            transitionDelay: getDelay(start) + "ms",
           }}
         >
           {showCategory ? (
@@ -140,26 +150,28 @@ export const CalendarRoute = () => {
 
     return selected.days.flatMap((date, index) => {
       const dateString = dateHelpers.stringify(date)
-      const entries = allEntries[dateString] ?? []
+      const entries = (allEntries[dateString] ?? []).toSorted(
+        (a, b) =>
+          timeHelpers.toMinutes(a.start) - timeHelpers.toMinutes(b.start)
+      )
       if (index > 4 && !showWeekend) return []
       return { date: dateString, entries }
     })
   }, [allEntries, selected.days])
 
   const scrollRef = useRef<HTMLDivElement>(null)
+  const earliestTime = Math.min(
+    ...days
+      .flatMap(days => days.entries)
+      .map(entry => timeHelpers.toMinutes(entry.start) / 60)
+  )
+  const firstVisibleHour = Math.floor(earliestTime)
   useEffect(() => {
-    const earliestTime = Math.min(
-      ...days
-        .flatMap(days => days.entries)
-        .map(entry => timeHelpers.toMinutes(entry.start) / 60)
-    )
-
-    const firstVisibleHour = Math.floor(earliestTime)
     scrollRef.current?.scroll({
       top: getYPos(firstVisibleHour - 0.25).px,
       behavior: "instant",
     })
-  }, [days])
+  }, [selected, firstVisibleHour])
 
   return (
     <div
@@ -182,8 +194,15 @@ export const CalendarRoute = () => {
         >
           <TimeGrid />
 
-          {days.map(day => (
-            <DayColumn key={day.date} entries={day.entries} />
+          {days.map((day, columnIndex) => (
+            <DayColumn
+              key={day.date}
+              entries={day.entries}
+              getDelay={start => {
+                const startHour = timeHelpers.toMinutes(start) / 60
+                return (columnIndex * 2 + (startHour - firstVisibleHour)) * 10
+              }}
+            />
           ))}
         </div>
       </ScrollArea>
