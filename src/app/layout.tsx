@@ -1,7 +1,13 @@
 import { ReactNode } from "react"
 
 import { msg } from "@lingui/core/macro"
-import { Settings, ClockFading, ChartNoAxesColumn, Search } from "lucide-react"
+import {
+  Settings,
+  ClockFading,
+  ChartNoAxesColumn,
+  Search,
+  CalendarRange,
+} from "lucide-react"
 import { useHashLocation } from "wouter/use-hash-location"
 
 import { PageCrashedRoute } from "app/routes/page-crashed"
@@ -13,6 +19,7 @@ import { useTrans } from "locales/locale-provider"
 
 const routes = [
   { to: "/", title: msg`Time Tracker`, icon: ClockFading },
+  { to: "/calendar", title: msg`Calendar View`, icon: CalendarRange },
   { to: "/search", title: msg`Search`, icon: Search },
   { to: "/stats", title: msg`Stats`, icon: ChartNoAxesColumn },
   { to: "/settings", title: msg`Settings`, icon: Settings },

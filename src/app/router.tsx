@@ -1,6 +1,8 @@
 import { Route, Switch } from "wouter"
 
 import { AppLayout } from "./layout"
+import { CalendarRoute } from "./routes/calendar/calendar-route"
+import { CalendarSideRoute } from "./routes/calendar/calendar-side-route"
 import { MainRoute } from "./routes/main/main-route"
 import { MainSideRoute } from "./routes/main/main-side-route"
 import { NotFoundRoute } from "./routes/not-found"
@@ -19,6 +21,7 @@ export const AppRouter = () => (
         <Route path="/settings" component={SettingsSideRoute} />
         <Route path="/search" component={SearchSideRoute} />
         <Route path="/stats" component={StatsSideRoute} />
+        <Route path="/calendar" component={CalendarSideRoute} />
         <Route path="/" component={MainSideRoute} />
       </Switch>
     }
@@ -27,6 +30,7 @@ export const AppRouter = () => (
         <Route path="/settings" nest component={SettingsRoute} />
         <Route path="/search" component={SearchRoute} />
         <Route path="/stats" component={StatsRoute} />
+        <Route path="/calendar" component={CalendarRoute} />
         <Route path="/" component={MainRoute} />
         <Route component={NotFoundRoute} />
       </Switch>

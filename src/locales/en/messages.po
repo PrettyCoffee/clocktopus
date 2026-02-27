@@ -30,7 +30,7 @@ msgstr "<0/> Importing data ({percent}%)"
 msgid "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
 msgstr "<0>💥KABOOM💥</0><1>Something went terribly wrong and everything is burning now.</1>"
 
-#: src/app/routes/main/main-route.tsx:140
+#: src/app/routes/main/main-route.tsx:141
 msgid "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 msgstr "<0>Welcome to Clocktopus!</0><1>Seems like you didn't clock your time yet. Time to change that!</1>"
 
@@ -123,6 +123,10 @@ msgstr "Border Radius"
 #: src/app/routes/settings/settings-general.tsx:165
 msgid "Bottom aligned"
 msgstr "Bottom aligned"
+
+#: src/app/layout.tsx:22
+msgid "Calendar View"
+msgstr "Calendar View"
 
 #: src/components/ui/dialog/dialog.tsx:75
 #: src/features/data-backup/check-backup-reminder.tsx:64
@@ -415,7 +419,7 @@ msgstr "Friday"
 msgid "General"
 msgstr "General"
 
-#: src/app/layout.tsx:21
+#: src/app/layout.tsx:28
 msgid "Github"
 msgstr "Github"
 
@@ -576,9 +580,11 @@ msgstr "Next year"
 msgid "No categories found"
 msgstr "No categories found"
 
+#: src/app/routes/calendar/calendar-route.tsx:105
+#: src/app/routes/calendar/calendar-route.tsx:110
 #: src/app/routes/search/search-route.tsx:30
 #: src/app/routes/stats/categories-chart.tsx:41
-#: src/features/components/category-name.tsx:64
+#: src/features/components/category-name.tsx:66
 #: src/features/components/category-select.tsx:76
 msgid "No category"
 msgstr "No category"
@@ -591,6 +597,10 @@ msgstr "No column"
 #: src/features/time-table/time-summary.tsx:119
 msgid "No description"
 msgstr "No description"
+
+#: src/app/routes/calendar/calendar-route.tsx:84
+msgid "No entries"
+msgstr "No entries"
 
 #: src/app/routes/settings/settings-categories.tsx:223
 #: src/app/routes/settings/settings-categories.tsx:224
@@ -685,7 +695,7 @@ msgstr "Save filter"
 msgid "Saved Filters"
 msgstr "Saved Filters"
 
-#: src/app/layout.tsx:16
+#: src/app/layout.tsx:23
 msgid "Search"
 msgstr "Search"
 
@@ -711,7 +721,7 @@ msgstr "Selection menu alignment"
 msgid "September"
 msgstr "September"
 
-#: src/app/layout.tsx:18
+#: src/app/layout.tsx:25
 #: src/app/routes/settings/settings-route.tsx:30
 #: src/app/routes/settings/settings-side-route.tsx:12
 msgid "Settings"
@@ -729,7 +739,7 @@ msgstr "Sorry, the page you are looking for does not exist."
 msgid "Start date"
 msgstr "Start date"
 
-#: src/app/layout.tsx:17
+#: src/app/layout.tsx:24
 msgid "Stats"
 msgstr "Stats"
 
@@ -774,7 +784,7 @@ msgstr "The following data fields seem to be corrupted: {errorPaths}"
 msgid "Theming"
 msgstr "Theming"
 
-#: src/app/routes/main/main-route.tsx:230
+#: src/app/routes/main/main-route.tsx:231
 msgid "There are no entries in the selected date range yet. Time to add some!"
 msgstr "There are no entries in the selected date range yet. Time to add some!"
 
@@ -805,7 +815,7 @@ msgstr "Time End"
 msgid "Time Start"
 msgstr "Time Start"
 
-#: src/app/layout.tsx:15
+#: src/app/layout.tsx:21
 msgid "Time Tracker"
 msgstr "Time Tracker"
 

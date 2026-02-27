@@ -78,7 +78,7 @@ export const TrackedTimeline = ({ entries, onHover }: TrackedTimelineProps) => {
                 color
                   ? colored({ color, type: "bg" })
                   : "bg-background-invert/25",
-                "size-full border-y border-y-background-page"
+                "size-full border-y-2 border-y-background-page"
               )}
             />
           </span>
