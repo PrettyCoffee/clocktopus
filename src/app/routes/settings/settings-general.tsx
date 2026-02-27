@@ -18,10 +18,7 @@ import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 
 import { OrChain } from "./fragments/or-chain"
-import {
-  StyleRadioButton,
-  styleRadioButtonFocusManager,
-} from "./fragments/style-radio-button"
+import { RadioOption, radioOptionFocusManager } from "./fragments/radio-option"
 
 const languages = {
   de: "Deutsch",
@@ -125,14 +122,14 @@ const SummaryStyle = () => {
       title={t`Summary style`}
       description={t`Decide how the time summary of past dates is displayed — as table rows or in grid items?`}
     >
-      <OrChain role="radiogroup" onKeyDown={styleRadioButtonFocusManager}>
-        <StyleRadioButton
+      <OrChain role="radiogroup" onKeyDown={radioOptionFocusManager}>
+        <RadioOption
           active={summaryStyle === "table"}
           icon={TableProperties}
           label={t`Table`}
           onClick={() => preferencesData.actions.setSummaryStye("table")}
         />
-        <StyleRadioButton
+        <RadioOption
           active={summaryStyle === "grid"}
           icon={LayoutGrid}
           label={t`Grid`}
@@ -150,8 +147,8 @@ const SelectStyle = () => {
       title={t`Selection menu alignment`}
       description={t`Change how selection menus are aligned to the opening button. Either align the currently selected item with the button or move the menu underneath the button.`}
     >
-      <OrChain role="radiogroup" onKeyDown={styleRadioButtonFocusManager}>
-        <StyleRadioButton
+      <OrChain role="radiogroup" onKeyDown={radioOptionFocusManager}>
+        <RadioOption
           active={selectMenuAlignment === "item-aligned"}
           icon={AlignVerticalJustifyCenter}
           label={t`Item aligned`}
@@ -159,7 +156,7 @@ const SelectStyle = () => {
             preferencesData.actions.setSelectMenuAlignment("item-aligned")
           }
         />
-        <StyleRadioButton
+        <RadioOption
           active={selectMenuAlignment === "popper"}
           icon={AlignVerticalJustifyStart}
           label={t`Bottom aligned`}

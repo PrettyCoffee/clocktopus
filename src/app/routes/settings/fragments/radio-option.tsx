@@ -18,7 +18,7 @@ const eventByKey: Record<string, (event: KeyboardEvent) => void> = {
   ArrowRight: event => shiftFocus(event, 1),
   ArrowDown: event => shiftFocus(event, 1),
 }
-export const styleRadioButtonFocusManager = (event: KeyboardEvent) => {
+export const radioOptionFocusManager = (event: KeyboardEvent) => {
   if (!Object.keys(eventByKey).includes(event.key)) {
     return
   }
@@ -26,22 +26,22 @@ export const styleRadioButtonFocusManager = (event: KeyboardEvent) => {
   eventByKey[event.key]?.(event)
 }
 
-interface StyleRadioButtonProps extends Required<IconProp> {
+interface RadioOptionProps extends Required<IconProp> {
   label: string
   active: boolean
   onClick: () => void
 }
-export const StyleRadioButton = ({
+export const RadioOption = ({
   active,
   label,
   icon,
   onClick,
-}: StyleRadioButtonProps) => (
+}: RadioOptionProps) => (
   <label
     className={cn(
       interactive({ look: "ghost" }),
-      hstack({ align: "center", justify: "between" }),
-      "rounded-lg border-stroke-gentle p-4 pr-5"
+      hstack({ align: "center", justify: "between", gap: 2 }),
+      "h-10 rounded-lg border-stroke-gentle pr-4 pl-2.5"
     )}
   >
     <button
@@ -49,14 +49,12 @@ export const StyleRadioButton = ({
       aria-checked={active}
       onClick={onClick}
       className={cn(
-        "relative inline-block size-5 rounded-full border-2 border-stroke-invert",
+        "relative inline-block size-5 rounded-full border-2 border-stroke-gentle",
         active &&
-          "border-highlight before:inline-block before:absolute before:inset-1 before:bg-highlight before:rounded-full"
+          "border-stroke-invert before:duration-500 before:transition-[opacity,scale] before:starting:opacity-0 before:starting:scale-50 before:inline-block before:absolute before:inset-1 before:bg-stroke-invert before:rounded-full"
       )}
     />
-    <div className="w-4" />
-    <Icon icon={icon} size="lg" />
-    <div className="w-2" />
+    <Icon icon={icon} size="md" />
     {label}
   </label>
 )
