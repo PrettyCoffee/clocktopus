@@ -9,14 +9,17 @@ import {
   TableProperties,
 } from "lucide-react"
 
+import { routes } from "app/layout"
 import { Card } from "components/ui/card"
 import { Input } from "components/ui/input"
 import { Select } from "components/ui/select"
 import { preferencesData } from "data/preferences"
 import { useAtom } from "lib/yaasl"
+import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 
+import { CheckOption, checkOptionFocusManager } from "./fragments/check-option"
 import { OrChain } from "./fragments/or-chain"
 import { RadioOption, radioOptionFocusManager } from "./fragments/radio-option"
 
@@ -169,10 +172,46 @@ const SelectStyle = () => {
   )
 }
 
+const HiddenRoutes = () => {
+  const trans = useTrans()
+  const { hiddenRoutes = [] } = useAtom(preferencesData)
+  const hidableRoutes = routes.filter(({ to, href }) =>
+    /search|stats|calendar|github/i.test(to ?? href)
+  )
+  return (
+    <Card
+      title={t`Hidden pages`}
+      description={t`Hide optional pages from the navigation of the side-menu, if you don't use them.`}
+    >
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div
+        className="flex flex-row flex-wrap gap-2"
+        onKeyDown={checkOptionFocusManager}
+      >
+        {hidableRoutes.map(({ title, icon, href, to }) => {
+          const active = !hiddenRoutes.includes(href ?? to)
+          return (
+            <CheckOption
+              key={href ?? to}
+              icon={icon}
+              label={trans(title)}
+              active={active}
+              onClick={() =>
+                preferencesData.actions.toggleHiddenRoute(href ?? to, active)
+              }
+            />
+          )
+        })}
+      </div>
+    </Card>
+  )
+}
+
 export const SettingsGeneral = () => (
   <div className={cn(vstack({ gap: 2 }))}>
     <Language />
     <Locale />
+    <HiddenRoutes />
     <SummaryStyle />
     <SelectStyle />
   </div>

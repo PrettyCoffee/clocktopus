@@ -64,7 +64,7 @@ msgstr "Gruppe hinzufügen"
 msgid "Adjust the border radius size of all elements."
 msgstr "Passe die Abrundung der Ecken aller Elemente an."
 
-#: src/app/routes/settings/settings-general.tsx:81
+#: src/app/routes/settings/settings-general.tsx:84
 msgid "Adjust the locale to influcene how dates are displayed. You can either select one in the dropdown or provide your own by using the text field."
 msgstr "Passe das Locale an, um die Darstellung von Datumsangaben zu beeinflussen. Du kannst eines aus der Liste wählen oder ein eigenes im Textfeld angeben."
 
@@ -118,11 +118,11 @@ msgstr "Basisfarben"
 msgid "Border Radius"
 msgstr "Eckenabrundung"
 
-#: src/app/routes/settings/settings-general.tsx:162
+#: src/app/routes/settings/settings-general.tsx:165
 msgid "Bottom aligned"
 msgstr "Unten ausgerichtet"
 
-#: src/app/layout.tsx:22
+#: src/app/layout.tsx:24
 msgid "Calendar View"
 msgstr "Kalenderansicht"
 
@@ -171,7 +171,7 @@ msgstr "Kategoriename"
 msgid "Category order"
 msgstr "Kategorie Reihenfolge"
 
-#: src/app/routes/settings/settings-general.tsx:148
+#: src/app/routes/settings/settings-general.tsx:151
 msgid "Change how selection menus are aligned to the opening button. Either align the currently selected item with the button or move the menu underneath the button."
 msgstr "Ändere, wie Auswahlmenüs zum Button ausgerichtet werden. Entweder wird das aktuell ausgewählte Element mit dem Button ausgerichtet oder das Menü darunter platziert."
 
@@ -183,7 +183,7 @@ msgstr "Ändere die Akzentfarbe, mit der aktive und fokussierte Elemente hervorg
 msgid "Choose between dark and light mode, and decide if neutral colors should have a hue."
 msgstr "Wechsel zwischen hellem und dunklem Modus und entscheide, ob neutrale Farben eine Tönung haben sollen."
 
-#: src/app/routes/settings/settings-general.tsx:34
+#: src/app/routes/settings/settings-general.tsx:37
 msgid "Choose the language used for texts in Clocktopus."
 msgstr "Wähle eine Sprache aus, welche für die Texte in Clocktopus verwendet wird."
 
@@ -231,11 +231,11 @@ msgstr "CSV Import / Export"
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: src/app/routes/settings/settings-general.tsx:92
+#: src/app/routes/settings/settings-general.tsx:95
 msgid "Custom locale"
 msgstr "Eigenes Locale"
 
-#: src/app/routes/settings/settings-general.tsx:111
+#: src/app/routes/settings/settings-general.tsx:114
 msgid "Custom locale (e.g. ja-JP)"
 msgstr "Eigenes Locale (z.B. ja-JP)"
 
@@ -274,7 +274,7 @@ msgstr "Tage Rhythmus"
 msgid "December"
 msgstr "Dezember"
 
-#: src/app/routes/settings/settings-general.tsx:123
+#: src/app/routes/settings/settings-general.tsx:126
 msgid "Decide how the time summary of past dates is displayed — as table rows or in grid items?"
 msgstr "Lege fest, wie die Übersicht vergangener Tage angezeigt wird – als Tabellenzeilen oder als Kacheln?"
 
@@ -417,7 +417,7 @@ msgstr "Freitag"
 msgid "General"
 msgstr "Allgemein"
 
-#: src/app/layout.tsx:28
+#: src/app/layout.tsx:30
 msgid "Github"
 msgstr "GitHub"
 
@@ -429,7 +429,7 @@ msgstr "Zu den Einstellungen"
 msgid "Go to main page"
 msgstr "Zurück zur Hauptseite"
 
-#: src/app/routes/settings/settings-general.tsx:135
+#: src/app/routes/settings/settings-general.tsx:138
 msgid "Grid"
 msgstr "Raster"
 
@@ -454,6 +454,14 @@ msgstr "Gruppenname"
 #: src/app/routes/settings/settings-categories.tsx:143
 msgid "Group order"
 msgstr "Gruppen Reihenfolge"
+
+#: src/app/routes/settings/settings-general.tsx:183
+msgid "Hidden pages"
+msgstr "Ausgeblendete Seiten"
+
+#: src/app/routes/settings/settings-general.tsx:184
+msgid "Hide optional pages from the navigation of the side-menu, if you don't use them."
+msgstr "Blende optionale Seiten in der Navigation des Seitenmenüs aus, wenn du sie nicht verwendest."
 
 #: src/app/routes/settings/settings-data.tsx:192
 msgid "Import .csv"
@@ -480,7 +488,7 @@ msgstr "{0} Einträge importiert"
 msgid "Insufficient data"
 msgstr "Unzureichende Daten"
 
-#: src/app/routes/settings/settings-general.tsx:154
+#: src/app/routes/settings/settings-general.tsx:157
 msgid "Item aligned"
 msgstr "Element ausgerichtet"
 
@@ -499,13 +507,13 @@ msgstr "Juli"
 msgid "June"
 msgstr "Juni"
 
-#: src/app/routes/settings/settings-general.tsx:32
-#: src/app/routes/settings/settings-general.tsx:40
+#: src/app/routes/settings/settings-general.tsx:35
+#: src/app/routes/settings/settings-general.tsx:43
 msgid "Language"
 msgstr "Sprache"
 
-#: src/app/routes/settings/settings-general.tsx:79
-#: src/app/routes/settings/settings-general.tsx:92
+#: src/app/routes/settings/settings-general.tsx:82
+#: src/app/routes/settings/settings-general.tsx:95
 msgid "Locale"
 msgstr "Locale"
 
@@ -693,7 +701,7 @@ msgstr "Filter speichern"
 msgid "Saved Filters"
 msgstr "Gespeicherte Filter"
 
-#: src/app/layout.tsx:23
+#: src/app/layout.tsx:25
 msgid "Search"
 msgstr "Suche"
 
@@ -710,7 +718,7 @@ msgstr "Suchergebnisse ({0})"
 msgid "Selected"
 msgstr "Ausgewählt"
 
-#: src/app/routes/settings/settings-general.tsx:147
+#: src/app/routes/settings/settings-general.tsx:150
 msgid "Selection menu alignment"
 msgstr "Ausrichtung von Auswahlmenüs"
 
@@ -719,7 +727,7 @@ msgstr "Ausrichtung von Auswahlmenüs"
 msgid "September"
 msgstr "September"
 
-#: src/app/layout.tsx:25
+#: src/app/layout.tsx:27
 #: src/app/routes/settings/settings-route.tsx:30
 #: src/app/routes/settings/settings-side-route.tsx:12
 msgid "Settings"
@@ -737,7 +745,7 @@ msgstr "Die gesuchte Seite existiert leider nicht."
 msgid "Start date"
 msgstr "Startdatum"
 
-#: src/app/layout.tsx:24
+#: src/app/layout.tsx:26
 msgid "Stats"
 msgstr "Statistiken"
 
@@ -745,7 +753,7 @@ msgstr "Statistiken"
 msgid "Stats by"
 msgstr "Statistiken nach"
 
-#: src/app/routes/settings/settings-general.tsx:122
+#: src/app/routes/settings/settings-general.tsx:125
 msgid "Summary style"
 msgstr "Stil des Übersichtsmodus"
 
@@ -762,7 +770,7 @@ msgstr "Zum Bearbeitungsmodus"
 msgid "Switch to summary mode"
 msgstr "Zum Übersichtsmodus"
 
-#: src/app/routes/settings/settings-general.tsx:129
+#: src/app/routes/settings/settings-general.tsx:132
 msgid "Table"
 msgstr "Tabelle"
 
@@ -813,7 +821,7 @@ msgstr "Endzeit"
 msgid "Time Start"
 msgstr "Startzeit"
 
-#: src/app/layout.tsx:21
+#: src/app/layout.tsx:23
 msgid "Time Tracker"
 msgstr "Zeiterfassung"
 

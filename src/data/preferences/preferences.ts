@@ -4,6 +4,7 @@ import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
 
 export const preferencesSchema = z.object({
+  hiddenRoutes: z.optional(z.array(z.string())), // optional for legacy reasons
   locale: z.string(),
   language: z.string(),
   summaryStyle: z.enum(["table", "grid"]),
@@ -23,6 +24,15 @@ export const preferencesData = createSlice({
   defaultValue,
   effects: [indexedDb(), sync()],
   reducers: {
+    toggleHiddenRoute: (state, route: string, checked: boolean) => {
+      const hiddenRoutes = (state.hiddenRoutes ?? []).filter(
+        path => path !== route
+      )
+      return {
+        ...state,
+        hiddenRoutes: checked ? [...hiddenRoutes, route] : hiddenRoutes,
+      }
+    },
     setLocale: (state, locale: string) => ({
       ...state,
       locale: locale || "iso",

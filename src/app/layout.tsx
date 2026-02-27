@@ -15,9 +15,11 @@ import { Layout } from "components/layouts/layout"
 import { Github } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
 import { ErrorBoundary } from "components/utility/error-boundary"
+import { preferencesData } from "data/preferences"
+import { useAtom } from "lib/yaasl"
 import { useTrans } from "locales/locale-provider"
 
-const routes = [
+export const routes = [
   { to: "/", title: msg`Time Tracker`, icon: ClockFading },
   { to: "/calendar", title: msg`Calendar View`, icon: CalendarRange },
   { to: "/search", title: msg`Search`, icon: Search },
@@ -34,13 +36,18 @@ const routes = [
 const SideActions = () => {
   const [path] = useHashLocation()
   const trans = useTrans()
+  const { hiddenRoutes = [] } = useAtom(preferencesData)
+
+  const visibleRoutes = routes.filter(
+    route => !hiddenRoutes.includes(route.to ?? route.href)
+  )
 
   const isActive = (to?: string) =>
     !to ? false : to.split("/").find(Boolean) === path.split("/").find(Boolean)
 
   return (
     <>
-      {routes.map(props => (
+      {visibleRoutes.map(props => (
         <IconButton
           key={props.to ?? props.href}
           {...props}
