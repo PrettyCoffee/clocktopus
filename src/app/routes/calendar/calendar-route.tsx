@@ -94,6 +94,11 @@ const TimeEntryBox = ({
 
   const height = pxToRem(getYPos(endH).px - getYPos(startH).px)
   const showCategory = height >= 2
+  const duration = (
+    timeHelpers.getDuration(entry.start, entry.end) / 60
+  ).toLocaleString(getLocale(), {
+    maximumFractionDigits: 2,
+  })
   return (
     <div
       className={cn(
@@ -114,7 +119,12 @@ const TimeEntryBox = ({
 
       <CursorTooltip trigger={<span className="absolute inset-0" />}>
         <div className="max-w-48">
-          <div className="truncate text-xs font-bold">
+          <span className="text-xs font-bold">
+            {entry.start} –⁠ {entry.end}{" "}
+            <span className="text-text-gentle">({duration}h)</span>
+          </span>
+
+          <div className="truncate text-sm font-bold">
             {category?.fullName || t`No category`}
           </div>
 
@@ -122,7 +132,7 @@ const TimeEntryBox = ({
             <div>{entry.description}</div>
           ) : (
             <div className="text-text-gentle">
-              <Trans>No descirption</Trans>
+              <Trans>No description</Trans>
             </div>
           )}
         </div>
