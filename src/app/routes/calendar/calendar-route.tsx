@@ -12,7 +12,7 @@ import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { createRange } from "utils/create-range"
 import { dateHelpers } from "utils/date-helpers"
-import { getLocale } from "utils/get-locale"
+import { getLanguage, getLocale } from "utils/get-locale"
 import { colored, hstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
@@ -32,27 +32,29 @@ const getYPos = (hours: number | string) => {
   return { rem: `${rem}rem`, px }
 }
 
+const formatDate = (date: string) =>
+  getLocale() === "iso"
+    ? date
+    : new Date(date).toLocaleDateString(getLocale(), {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+
+const getDayName = (date: string) =>
+  new Date(date).toLocaleDateString(getLanguage(), {
+    weekday: "long",
+  })
+
 const CalendarHeader = ({ dates }: { dates: string[] }) => (
   <div className={cn(hstack(), "pb-4 pl-8")}>
-    {dates.map(dateString => {
-      const date = new Date(dateString)
-      return (
-        <div
-          key={dateString}
-          className="grid flex-1 place-content-center text-center"
-        >
-          {date.toLocaleDateString(getLocale(), { weekday: "long" })}
-          <br />
-          <span className="text-xs text-text-muted">
-            {date.toLocaleDateString(getLocale(), {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}
-          </span>
-        </div>
-      )
-    })}
+    {dates.map(date => (
+      <div key={date} className="grid flex-1 place-content-center text-center">
+        {getDayName(date)}
+        <br />
+        <span className="text-xs text-text-muted">{formatDate(date)}</span>
+      </div>
+    ))}
   </div>
 )
 
