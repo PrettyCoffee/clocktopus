@@ -55,7 +55,7 @@ export const FileInput = ({
   }
 
   return (
-    <TitleTooltip title={alert?.text} side="bottom" asChild>
+    <TitleTooltip title={alert?.text}>
       <div
         className="inline-block"
         onDrop={handleDrop}

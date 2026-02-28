@@ -115,11 +115,7 @@ const DayColumn = ({
               {category?.fullName || t`No category`}
             </span>
           ) : (
-            <TitleTooltip
-              asChild
-              title={category?.fullName || t`No category`}
-              side="top"
-            >
+            <TitleTooltip title={category?.fullName || t`No category`}>
               <span className="absolute inset-0" />
             </TitleTooltip>
           )}

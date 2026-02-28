@@ -1,37 +1,44 @@
-import { ComponentProps } from "react"
+import { PropsWithChildren, ReactNode } from "react"
 
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
+import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
-import { surface } from "utils/styles"
-import { zIndex } from "utils/z-index"
 
-const Content = ({
-  ref,
-  className,
-  sideOffset = 4,
-  ...props
-}: ComponentProps<typeof TooltipPrimitive.Content>) => (
-  <TooltipPrimitive.Content
-    ref={ref}
-    sideOffset={sideOffset}
-    className={cn(
-      surface({ look: "overlay", size: "md" }),
-      "animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
-      "overflow-hidden px-3 py-1.5 text-sm",
-      zIndex.tooltip,
-      className
-    )}
-    {...props}
-  />
-)
+import { tooltipStyles } from "./tooltip-styles"
 
-const { Root, Trigger, Portal, Provider } = TooltipPrimitive
+export const TooltipProvider = TooltipPrimitive.Provider
 
-export const Tooltip = {
-  Root,
-  Trigger,
-  Content,
-  Portal,
-  Provider,
+interface TooltipProps extends ClassNameProp {
+  content: ReactNode
+  side?: TooltipPrimitive.TooltipContentProps["side"]
+  align?: TooltipPrimitive.TooltipContentProps["align"]
 }
+export const Tooltip = ({
+  content,
+  side,
+  align,
+  children,
+  className,
+}: PropsWithChildren<TooltipProps>) => (
+  <TooltipPrimitive.Root>
+    <TooltipPrimitive.Trigger asChild className={className}>
+      {children}
+    </TooltipPrimitive.Trigger>
+
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Content
+        side={side}
+        align={align}
+        sideOffset={4}
+        className={cn(
+          tooltipStyles,
+          "animate-in fade-in-0 zoom-in-75 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-75",
+          className
+        )}
+      >
+        {content}
+      </TooltipPrimitive.Content>
+    </TooltipPrimitive.Portal>
+  </TooltipPrimitive.Root>
+)

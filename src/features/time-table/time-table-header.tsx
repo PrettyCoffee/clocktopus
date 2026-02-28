@@ -7,7 +7,7 @@ import { Checkbox } from "components/ui/checkbox"
 import { Divider } from "components/ui/divider"
 import { Icon } from "components/ui/icon"
 import { IconButton } from "components/ui/icon-button"
-import { TitleTooltip, Tooltip } from "components/ui/tooltip"
+import { Tooltip, TitleTooltip } from "components/ui/tooltip"
 import { DetectIntersection } from "components/utility/detect-intersection"
 import { categoriesData } from "data/categories"
 import { type TimeEntry } from "data/time-entries"
@@ -59,31 +59,30 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
     </span>
   )
 
+  const content = (
+    <div className={cn(vstack({ justify: "end" }), "text-sm")}>
+      <span className="mx-auto text-text-gentle">
+        {entries.at(-1)?.start} – {entries[0]?.end}
+      </span>
+      <Divider color="gentle" className="mt-1 mb-2" />
+      {totalTimeByCategory.map(({ duration, categoryId }) => (
+        <span
+          key={categoryId ?? "none"}
+          className={hstack({ justify: "between", gap: 2 })}
+        >
+          <CategoryName categoryId={categoryId} />
+          <span className="font-mono">{duration}</span>
+        </span>
+      ))}
+    </div>
+  )
+
   return total === 0 ? (
     totalDuration
   ) : (
-    <Tooltip.Root>
-      <Tooltip.Trigger asChild>
-        <button className="rounded-md">{totalDuration}</button>
-      </Tooltip.Trigger>
-      <Tooltip.Content align="end" side="bottom" asChild>
-        <div className={cn(vstack({ justify: "end" }), "text-sm")}>
-          <span className="mx-auto text-text-gentle">
-            {entries.at(-1)?.start} – {entries[0]?.end}
-          </span>
-          <Divider color="gentle" className="mt-1 mb-2" />
-          {totalTimeByCategory.map(({ duration, categoryId }) => (
-            <span
-              key={categoryId ?? "none"}
-              className={hstack({ justify: "between", gap: 2 })}
-            >
-              <CategoryName categoryId={categoryId} />
-              <span className="font-mono">{duration}</span>
-            </span>
-          ))}
-        </div>
-      </Tooltip.Content>
-    </Tooltip.Root>
+    <Tooltip side="bottom" align="end" content={content}>
+      <button className="rounded-md">{totalDuration}</button>
+    </Tooltip>
   )
 }
 
@@ -188,12 +187,10 @@ export const TimeTableHeader = ({
         )}
         <div className="flex-1" />
         {alert && (
-          <TitleTooltip
-            title={alert.text}
-            side="left"
-            className="grid size-10 place-content-center rounded-md"
-          >
-            <Icon icon={alertStyles[alert.kind].icon} color={alert.kind} />
+          <TitleTooltip title={alert.text} side="left">
+            <button className="grid size-10 place-content-center rounded-md">
+              <Icon icon={alertStyles[alert.kind].icon} color={alert.kind} />
+            </button>
           </TitleTooltip>
         )}
         {showTotal && <DateDurations entries={entries} />}

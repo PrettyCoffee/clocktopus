@@ -589,7 +589,7 @@ msgid "No categories found"
 msgstr "No categories found"
 
 #: src/app/routes/calendar/calendar-route.tsx:115
-#: src/app/routes/calendar/calendar-route.tsx:120
+#: src/app/routes/calendar/calendar-route.tsx:118
 #: src/app/routes/search/search-route.tsx:30
 #: src/app/routes/stats/categories-chart.tsx:41
 #: src/features/components/category-name.tsx:66
@@ -764,11 +764,11 @@ msgstr "Summary style"
 msgid "Sunday"
 msgstr "Sunday"
 
-#: src/features/time-table/time-table-header.tsx:181
+#: src/features/time-table/time-table-header.tsx:180
 msgid "Switch to editable mode"
 msgstr "Switch to editable mode"
 
-#: src/features/time-table/time-table-header.tsx:182
+#: src/features/time-table/time-table-header.tsx:181
 msgid "Switch to summary mode"
 msgstr "Switch to summary mode"
 

@@ -47,7 +47,7 @@ export const IconButton = ({
   iconSize = "sm",
   ...delegated
 }: IconButtonProps) => (
-  <TitleTooltip title={hideTitle ? undefined : title} side={titleSide} asChild>
+  <TitleTooltip title={hideTitle ? undefined : title} side={titleSide}>
     <Button
       ref={ref}
       look={look}

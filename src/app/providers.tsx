@@ -5,17 +5,17 @@ import { useHashLocation } from "wouter/use-hash-location"
 
 import { DialogProvider } from "components/ui/dialog"
 import { Toaster } from "components/ui/toaster"
-import { Tooltip } from "components/ui/tooltip"
+import { TooltipProvider } from "components/ui/tooltip"
 import { LocaleProvider } from "locales/locale-provider"
 
 export const AppProviders = ({ children }: PropsWithChildren) => (
   <LocaleProvider>
     <Router hook={useHashLocation}>
-      <Tooltip.Provider>
+      <TooltipProvider>
         <Toaster />
         <DialogProvider />
         {children}
-      </Tooltip.Provider>
+      </TooltipProvider>
     </Router>
   </LocaleProvider>
 )

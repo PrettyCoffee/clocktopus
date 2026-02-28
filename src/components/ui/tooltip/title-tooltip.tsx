@@ -2,32 +2,28 @@ import { PropsWithChildren } from "react"
 
 import { TooltipContentProps } from "@radix-ui/react-tooltip"
 
-import { AsChildProp, ClassNameProp, TitleProp } from "types/base-props"
+import { ClassNameProp, TitleProp } from "types/base-props"
 
+import { CursorTooltip } from "./cursor-tooltip"
 import { Tooltip } from "./tooltip"
 
-export interface TitleTooltipProps
-  extends TitleProp, AsChildProp, ClassNameProp {
+export interface TitleTooltipProps extends TitleProp, ClassNameProp {
   side?: TooltipContentProps["side"]
-  force?: boolean
 }
 export const TitleTooltip = ({
   title,
-  asChild,
   side,
   children,
-  force,
   className,
 }: PropsWithChildren<TitleTooltipProps>) =>
   !title ? (
     children
+  ) : !side ? (
+    <CursorTooltip className={className} title={title}>
+      {children}
+    </CursorTooltip>
   ) : (
-    <Tooltip.Root open={force}>
-      <Tooltip.Trigger asChild={asChild} className={className}>
-        {children}
-      </Tooltip.Trigger>
-      <Tooltip.Portal>
-        <Tooltip.Content side={side}>{title}</Tooltip.Content>
-      </Tooltip.Portal>
-    </Tooltip.Root>
+    <Tooltip className={className} content={title} side={side}>
+      {children}
+    </Tooltip>
   )
