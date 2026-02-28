@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from "react"
+import { PropsWithChildren, ReactNode, useState } from "react"
 
 import {
   FloatingPortal,
@@ -15,16 +15,18 @@ import {
 } from "@floating-ui/react"
 
 import { Slot } from "components/utility/slot"
-import { ClassNameProp, TitleProp } from "types/base-props"
+import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { zIndex } from "utils/z-index"
 
 import { tooltipStyles } from "./tooltip-styles"
 
-interface CursorTooltipProps extends Required<TitleProp>, ClassNameProp {}
+interface CursorTooltipProps extends ClassNameProp {
+  content: ReactNode
+}
 
 export const CursorTooltip = ({
-  title,
+  content,
   children,
   className,
 }: PropsWithChildren<CursorTooltipProps>) => {
@@ -68,7 +70,7 @@ export const CursorTooltip = ({
             {...getFloatingProps()}
           >
             <div style={styles} className={cn(tooltipStyles, className)}>
-              {title}
+              {content}
             </div>
           </div>
         </FloatingPortal>

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef } from "react"
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 
-import { TitleTooltip } from "components/ui/tooltip"
+import { CursorTooltip } from "components/ui/tooltip/cursor-tooltip"
 import { ScrollArea } from "components/utility/scroll-area"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { getCategoryName } from "features/components/category-name"
@@ -81,6 +81,66 @@ const TimeGrid = () => (
   </>
 )
 
+const TimeEntryBox = ({
+  entry,
+  transitionDelay,
+}: {
+  entry: TimeEntry
+  transitionDelay: number
+}) => {
+  const startH = timeHelpers.toMinutes(entry.start) / 60
+  const endH = timeHelpers.toMinutes(entry.end) / 60
+  const category = getCategoryName({ categoryId: entry.categoryId })
+
+  const height = pxToRem(getYPos(endH).px - getYPos(startH).px)
+  const showCategory = height >= 2
+  return (
+    <div
+      className={cn(
+        "absolute inset-x-1 p-0.5",
+        "transition-opacity duration-500 starting:opacity-0"
+      )}
+      style={{
+        top: getYPos(startH).rem,
+        height: `${height}rem`,
+        transitionDelay: transitionDelay + "ms",
+      }}
+    >
+      {showCategory && (
+        <span className="absolute top-1.5 right-2 left-2 truncate text-sm font-bold text-text-invert">
+          {category?.fullName || t`No category`}
+        </span>
+      )}
+      <CursorTooltip
+        content={
+          <div className="max-w-48">
+            <div className="truncate text-xs font-bold">
+              {category?.fullName || t`No category`}
+            </div>
+
+            {entry.description ? (
+              <div>{entry.description}</div>
+            ) : (
+              <div className="text-text-gentle">
+                <Trans>No descirption</Trans>
+              </div>
+            )}
+          </div>
+        }
+      >
+        <span className="absolute inset-0" />
+      </CursorTooltip>
+      <div
+        className={cn(
+          "size-full rounded-sm",
+          colored({ type: "text", color: category?.group?.color }),
+          "bg-current/50 [:hover>&]:bg-current/75"
+        )}
+      />
+    </div>
+  )
+}
+
 const DayColumn = ({
   entries,
   getDelay,
@@ -94,45 +154,13 @@ const DayColumn = ({
         <Trans>No entries</Trans>
       </div>
     )}
-    {entries.map(({ id, start, end, categoryId }) => {
-      const startH = timeHelpers.toMinutes(start) / 60
-      const endH = timeHelpers.toMinutes(end) / 60
-      const category = getCategoryName({ categoryId })
-
-      const height = pxToRem(getYPos(endH).px - getYPos(startH).px)
-      const showCategory = height >= 2
-      return (
-        <div
-          key={id}
-          className={cn(
-            "absolute inset-x-1 p-0.5",
-            "transition-opacity duration-500 starting:opacity-0"
-          )}
-          style={{
-            top: getYPos(startH).rem,
-            height: `${height}rem`,
-            transitionDelay: getDelay(start) + "ms",
-          }}
-        >
-          {showCategory ? (
-            <span className="absolute top-1.5 right-2 left-2 truncate text-sm font-bold text-text-invert">
-              {category?.fullName || t`No category`}
-            </span>
-          ) : (
-            <TitleTooltip title={category?.fullName || t`No category`}>
-              <span className="absolute inset-0" />
-            </TitleTooltip>
-          )}
-          <div
-            className={cn(
-              "size-full rounded-sm",
-              colored({ type: "text", color: category?.group?.color }),
-              "bg-current/50 [:hover>&]:bg-current/75"
-            )}
-          />
-        </div>
-      )
-    })}
+    {entries.map(entry => (
+      <TimeEntryBox
+        key={entry.id}
+        transitionDelay={getDelay(entry.start)}
+        entry={entry}
+      />
+    ))}
   </div>
 )
 
