@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactNode, useState } from "react"
 
 import {
+  flip,
   FloatingPortal,
   offset,
   shift,
@@ -35,8 +36,12 @@ export const CursorTooltip = ({
   const { refs, floatingStyles, context } = useFloating({
     open,
     onOpenChange: setOpen,
-    middleware: [offset({ mainAxis: 16, crossAxis: 8 }), shift({ padding: 8 })],
-    placement: "bottom-start",
+    middleware: [
+      offset({ mainAxis: 8, crossAxis: 16 }),
+      shift({ padding: 8 }),
+      flip(),
+    ],
+    placement: "right-start",
   })
 
   const { isMounted, styles } = useTransitionStyles(context, {
