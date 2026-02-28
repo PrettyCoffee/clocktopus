@@ -608,7 +608,7 @@ msgstr "Keine Beschreibung"
 msgid "No description"
 msgstr "Keine Beschreibung"
 
-#: src/app/routes/calendar/calendar-route.tsx:154
+#: src/app/routes/calendar/calendar-route.tsx:152
 msgid "No entries"
 msgstr "Keine Einträge"
 

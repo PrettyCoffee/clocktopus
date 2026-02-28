@@ -19,11 +19,11 @@ export const TitleTooltip = ({
   !title ? (
     children
   ) : !side ? (
-    <CursorTooltip className={className} content={title}>
-      {children}
+    <CursorTooltip className={className} trigger={children}>
+      {title}
     </CursorTooltip>
   ) : (
-    <Tooltip className={className} content={title} side={side}>
-      {children}
+    <Tooltip className={className} trigger={children} side={side}>
+      {title}
     </Tooltip>
   )

@@ -107,29 +107,27 @@ const TimeEntryBox = ({
       }}
     >
       {showCategory && (
-        <span className="absolute top-1.5 right-2 left-2 truncate text-sm font-bold text-text-invert">
+        <span className="absolute inset-x-2 top-1.5 truncate text-sm font-bold text-text-invert">
           {category?.fullName || t`No category`}
         </span>
       )}
-      <CursorTooltip
-        content={
-          <div className="max-w-48">
-            <div className="truncate text-xs font-bold">
-              {category?.fullName || t`No category`}
-            </div>
 
-            {entry.description ? (
-              <div>{entry.description}</div>
-            ) : (
-              <div className="text-text-gentle">
-                <Trans>No descirption</Trans>
-              </div>
-            )}
+      <CursorTooltip trigger={<span className="absolute inset-0" />}>
+        <div className="max-w-48">
+          <div className="truncate text-xs font-bold">
+            {category?.fullName || t`No category`}
           </div>
-        }
-      >
-        <span className="absolute inset-0" />
+
+          {entry.description ? (
+            <div>{entry.description}</div>
+          ) : (
+            <div className="text-text-gentle">
+              <Trans>No descirption</Trans>
+            </div>
+          )}
+        </div>
       </CursorTooltip>
+
       <div
         className={cn(
           "size-full rounded-sm",

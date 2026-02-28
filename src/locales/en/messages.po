@@ -610,7 +610,7 @@ msgstr "No descirption"
 msgid "No description"
 msgstr "No description"
 
-#: src/app/routes/calendar/calendar-route.tsx:154
+#: src/app/routes/calendar/calendar-route.tsx:152
 msgid "No entries"
 msgstr "No entries"
 

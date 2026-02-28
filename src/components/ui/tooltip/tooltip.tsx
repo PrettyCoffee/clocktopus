@@ -10,12 +10,12 @@ import { tooltipStyles } from "./tooltip-styles"
 export const TooltipProvider = TooltipPrimitive.Provider
 
 interface TooltipProps extends ClassNameProp {
-  content: ReactNode
+  trigger: ReactNode
   side?: TooltipPrimitive.TooltipContentProps["side"]
   align?: TooltipPrimitive.TooltipContentProps["align"]
 }
 export const Tooltip = ({
-  content,
+  trigger,
   side,
   align,
   children,
@@ -23,7 +23,7 @@ export const Tooltip = ({
 }: PropsWithChildren<TooltipProps>) => (
   <TooltipPrimitive.Root>
     <TooltipPrimitive.Trigger asChild className={className}>
-      {children}
+      {trigger}
     </TooltipPrimitive.Trigger>
 
     <TooltipPrimitive.Portal>
@@ -37,7 +37,7 @@ export const Tooltip = ({
           className
         )}
       >
-        {content}
+        {children}
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   </TooltipPrimitive.Root>

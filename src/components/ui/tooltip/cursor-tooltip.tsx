@@ -22,11 +22,11 @@ import { zIndex } from "utils/z-index"
 import { tooltipStyles } from "./tooltip-styles"
 
 interface CursorTooltipProps extends ClassNameProp {
-  content: ReactNode
+  trigger: ReactNode
 }
 
 export const CursorTooltip = ({
-  content,
+  trigger,
   children,
   className,
 }: PropsWithChildren<CursorTooltipProps>) => {
@@ -57,7 +57,7 @@ export const CursorTooltip = ({
   return (
     <>
       <Slot ref={refs.setReference} {...getReferenceProps()}>
-        {children}
+        {trigger}
       </Slot>
 
       {isMounted && (
@@ -70,7 +70,7 @@ export const CursorTooltip = ({
             {...getFloatingProps()}
           >
             <div style={styles} className={cn(tooltipStyles, className)}>
-              {content}
+              {children}
             </div>
           </div>
         </FloatingPortal>

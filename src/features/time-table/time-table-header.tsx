@@ -59,29 +59,29 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
     </span>
   )
 
-  const content = (
-    <div className={cn(vstack({ justify: "end" }), "text-sm")}>
-      <span className="mx-auto text-text-gentle">
-        {entries.at(-1)?.start} – {entries[0]?.end}
-      </span>
-      <Divider color="gentle" className="mt-1 mb-2" />
-      {totalTimeByCategory.map(({ duration, categoryId }) => (
-        <span
-          key={categoryId ?? "none"}
-          className={hstack({ justify: "between", gap: 2 })}
-        >
-          <CategoryName categoryId={categoryId} />
-          <span className="font-mono">{duration}</span>
-        </span>
-      ))}
-    </div>
-  )
-
   return total === 0 ? (
     totalDuration
   ) : (
-    <Tooltip side="bottom" align="end" content={content}>
-      <button className="rounded-md">{totalDuration}</button>
+    <Tooltip
+      side="bottom"
+      align="end"
+      trigger={<button className="rounded-md">{totalDuration}</button>}
+    >
+      <div className={cn(vstack({ justify: "end" }), "text-sm")}>
+        <span className="mx-auto text-text-gentle">
+          {entries.at(-1)?.start} – {entries[0]?.end}
+        </span>
+        <Divider color="gentle" className="mt-1 mb-2" />
+        {totalTimeByCategory.map(({ duration, categoryId }) => (
+          <span
+            key={categoryId ?? "none"}
+            className={hstack({ justify: "between", gap: 2 })}
+          >
+            <CategoryName categoryId={categoryId} />
+            <span className="font-mono">{duration}</span>
+          </span>
+        ))}
+      </div>
     </Tooltip>
   )
 }
