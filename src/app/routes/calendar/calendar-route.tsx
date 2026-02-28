@@ -50,9 +50,11 @@ const CalendarHeader = ({ dates }: { dates: string[] }) => (
   <div className={cn(hstack(), "pb-4 pl-8")}>
     {dates.map(date => (
       <div key={date} className="grid flex-1 place-content-center text-center">
-        {getDayName(date)}
+        <span className="mx-2 truncate">{getDayName(date)}</span>
         <br />
-        <span className="text-xs text-text-muted">{formatDate(date)}</span>
+        <span className="mx-2 truncate text-xs text-text-muted">
+          {formatDate(date)}
+        </span>
       </div>
     ))}
   </div>
@@ -64,7 +66,7 @@ const TimeGrid = () => (
       <span
         key={value}
         className={cn(
-          "absolute right-0 left-6 block h-px bg-background",
+          "absolute right-0 left-6 block h-px bg-background select-none",
           "*:-translate-y-1/2 first-of-type:*:-translate-y-0.5 last-of-type:*:-translate-y-3"
         )}
         style={{ top: getYPos(value).rem }}
