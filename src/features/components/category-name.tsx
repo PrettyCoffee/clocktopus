@@ -66,7 +66,9 @@ export const CategoryName = ({
       <Trans>No category</Trans>
     </span>
   ) : (
-    <span className={className}>
+    <span
+      className={cn("inline-block max-w-48 truncate **:truncate", className)}
+    >
       {groupName}
       {category.name}
     </span>
