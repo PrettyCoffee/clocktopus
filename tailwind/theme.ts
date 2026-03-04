@@ -82,7 +82,7 @@ export const theme = createTheme({
         page: colors.neutral["100"],
         default: colors.neutral["50"],
         invert: colors.neutral["950"],
-        button: colors.neutral["800"],
+        button: colors.neutral["700"],
       },
       text: {
         priority: colors.neutral["950"],
@@ -226,7 +226,7 @@ theme.addVariant("dark", {
       page: colors.neutral["950"],
       default: colors.neutral["900"],
       invert: colors.neutral["50"],
-      button: colors.neutral["50"],
+      button: colors.neutral["300"],
     },
     text: {
       priority: colors.neutral["50"],
@@ -293,7 +293,7 @@ theme.addVariant("light-with-accent", {
       page: colors.neutralWithAccent["100"],
       default: colors.neutralWithAccent["50"],
       invert: colors.neutralWithAccent["950"],
-      button: colors.neutralWithAccent["800"],
+      button: colors.neutralWithAccent["700"],
     },
     text: {
       priority: colors.neutralWithAccent["950"],
@@ -360,7 +360,7 @@ theme.addVariant("dark-with-accent", {
       page: colors.neutralWithAccent["950"],
       default: colors.neutralWithAccent["900"],
       invert: colors.neutralWithAccent["50"],
-      button: colors.neutralWithAccent["50"],
+      button: colors.neutralWithAccent["300"],
     },
     text: {
       priority: colors.neutralWithAccent["50"],
