@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from "react"
+import { PropsWithChildren, useEffect, useState } from "react"
 
 // eslint-disable-next-line no-restricted-imports -- i18n may only be used here
 import { i18n, Messages } from "@lingui/core"
@@ -17,15 +17,18 @@ const activate = async (localeArg: string) => {
   const { messages } = await getMessages(locale)
   i18n.load(locale, messages)
   i18n.activate(locale)
+  return locale
 }
 
 export const LocaleProvider = ({ children }: PropsWithChildren) => {
   const locale = useSelector(preferencesData, data => data.language)
+  const [activeLocale, setActiveLocale] = useState<string>()
 
   useEffect(() => {
-    void activate(locale)
+    void activate(locale).then(setActiveLocale)
   }, [locale])
 
+  if (!activeLocale) return null
   return <I18nProvider i18n={i18n}>{children}</I18nProvider>
 }
 
