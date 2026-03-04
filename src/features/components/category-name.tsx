@@ -9,7 +9,7 @@ import {
 import { useAtom } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
-import { colored } from "utils/styles"
+import { colored, hstack } from "utils/styles"
 
 interface GetCategoryNameProps {
   categoryId?: string
@@ -53,12 +53,17 @@ export const CategoryName = ({
   })
 
   const groupName = !category?.group ? null : (
-    <span>
-      <span className={colored({ type: "text", color: category.group.color })}>
+    <>
+      <span
+        className={cn(
+          colored({ type: "text", color: category.group.color }),
+          "shrink-0"
+        )}
+      >
         {category.group.name}
       </span>
-      {" - "}
-    </span>
+      <span className="shrink-0">-</span>
+    </>
   )
 
   return !category ? (
@@ -67,10 +72,14 @@ export const CategoryName = ({
     </span>
   ) : (
     <span
-      className={cn("inline-block max-w-48 truncate **:truncate", className)}
+      className={cn(
+        hstack({ inline: true, gap: 1, align: "center" }),
+        "max-w-48 truncate **:truncate",
+        className
+      )}
     >
       {groupName}
-      {category.name}
+      <span>{category.name}</span>
     </span>
   )
 }

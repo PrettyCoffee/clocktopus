@@ -16,7 +16,7 @@ const CategoryOption = ({ category }: { category: Category }) => (
   <Select.Option key={category.id} label={category.name} value={category.id}>
     <CategoryName
       categoryId={category.id}
-      className="*:hidden [[role='combobox']_&_*]:inline"
+      className="*:not-last:hidden [[role='combobox']_&_*]:inline"
     />
   </Select.Option>
 )
