@@ -1,6 +1,5 @@
 import { z } from "zod/mini"
 
-import { themeData, themeSchema } from "data/theme"
 import { Resolve } from "types/util-types"
 
 import {
@@ -10,6 +9,7 @@ import {
   categoriesData,
 } from "./categories"
 import { preferencesData, preferencesSchema } from "./preferences"
+import { themeData, themeSchema } from "./theme"
 import { timeEntrySchema, timeEntriesData } from "./time-entries"
 
 const allDataSchema = z.object({
