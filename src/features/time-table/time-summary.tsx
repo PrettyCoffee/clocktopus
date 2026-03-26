@@ -95,7 +95,7 @@ const durationColumn = helper.column({
   render: ({ rowData }) => (
     <Duration
       minutes={rowData.minutes}
-      className="mx-2 inline-block w-15 text-end"
+      className="mx-2 mr-3 inline-block w-15 text-end text-base"
     />
   ),
 })

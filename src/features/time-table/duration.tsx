@@ -1,6 +1,7 @@
 import { type TimeEntry } from "data/time-entries"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
+import { getLocale } from "utils/get-locale"
 import { timeHelpers } from "utils/time-helpers"
 
 const totalDuration = (entries: TimeEntry[]) =>
@@ -13,14 +14,12 @@ export const Duration = ({
   entries = [],
   minutes = totalDuration(entries),
   className,
-}: ClassNameProp & { minutes?: number; entries?: TimeEntry[] }) => {
-  const duration = timeHelpers.toParsed(timeHelpers.fromMinutes(minutes))
-  return (
-    <span className={cn("text-base whitespace-nowrap", className)}>
-      {duration.hours}
-      <span className="mx-0.5 text-text-gentle">:</span>
-      {duration.minutes.toString().padStart(2, "0")}
-      <span className="mx-0.5 text-text-gentle">h</span>
-    </span>
-  )
-}
+}: ClassNameProp & { minutes?: number; entries?: TimeEntry[] }) => (
+  <span className={cn("text-sm whitespace-nowrap", className)}>
+    {(minutes / 60).toLocaleString(getLocale(), {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    })}
+    <span className="mx-0.5 text-text-muted">h</span>
+  </span>
+)

@@ -55,7 +55,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
   const totalDuration = (
     <span className="px-4 text-base">
       <span className="text-text-gentle">{t`Total: `}</span>
-      <Duration minutes={total} />
+      <Duration minutes={total} className="text-base" />
     </span>
   )
 
@@ -72,13 +72,13 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
           {entries.at(-1)?.start} – {entries[0]?.end}
         </span>
         <Divider color="gentle" className="mt-1 mb-2" />
-        {totalTimeByCategory.map(({ duration, categoryId }) => (
+        {totalTimeByCategory.map(({ minutes, categoryId }) => (
           <span
             key={categoryId ?? "none"}
             className={hstack({ justify: "between", gap: 2 })}
           >
             <CategoryName categoryId={categoryId} />
-            <span className="font-mono">{duration}</span>
+            <Duration minutes={minutes} />
           </span>
         ))}
       </div>
