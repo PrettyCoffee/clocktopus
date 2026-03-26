@@ -66,7 +66,7 @@ const GridBody = ({
         disabled={isDisabled(day)}
         className={cn(
           getSize(size),
-          day.toString() === selected && "border-stroke-focus border",
+          day.toString() === selected && "border border-stroke-focus",
           day.meta.isFiller && "text-text-muted",
           day.meta.isToday && "text-highlight"
         )}

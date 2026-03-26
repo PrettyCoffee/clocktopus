@@ -57,16 +57,19 @@ export default defineConfig(
     name: "situational-rules",
     rules: {
       // activate for temporary testing
-      // "import/no-cycle": "error",
+      // "import-x/no-cycle": "error",
     },
   },
 
   {
     name: "local-rules/check-file-naming",
-    plugins: { checkFile },
+    plugins: { "check-file": checkFile },
     rules: {
-      "checkFile/folder-naming-convention": ["error", { "*/**": "KEBAB_CASE" }],
-      "checkFile/filename-naming-convention": [
+      "check-file/folder-naming-convention": [
+        "error",
+        { "*/**": "KEBAB_CASE" },
+      ],
+      "check-file/filename-naming-convention": [
         "error",
         { "*/**": "KEBAB_CASE" },
         { ignoreMiddleExtensions: true },
@@ -76,14 +79,14 @@ export default defineConfig(
 
   {
     settings: {
-      "import/resolver": {
+      "import-x/resolver": {
         node: {
           paths: ["src"],
         },
       },
     },
     rules: {
-      "import/no-restricted-paths": [
+      "import-x/no-restricted-paths": [
         "error",
         {
           zones: [
@@ -130,7 +133,7 @@ export default defineConfig(
   {
     files: ["tailwind/**"],
     rules: {
-      "import/no-extraneous-dependencies": "off",
+      "import-x/no-extraneous-dependencies": "off",
     },
   },
 

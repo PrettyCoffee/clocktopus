@@ -74,7 +74,7 @@ const TableRow = ({ data, index }: TableRowProps) => {
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
         "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent",
         index === highlighted &&
-          "bg-highlight/5 hover:bg-highlight/10 focus-within:bg-highlight/10"
+          "bg-highlight/5 focus-within:bg-highlight/10 hover:bg-highlight/10"
       )}
     >
       {columns.map(column => (

@@ -51,7 +51,9 @@ export const RadioOption = ({
       className={cn(
         "relative inline-block size-5 rounded-full border-2 border-stroke-gentle",
         active &&
-          "border-stroke-invert before:duration-500 before:transition-[opacity,scale] before:starting:opacity-0 before:starting:scale-50 before:inline-block before:absolute before:inset-1 before:bg-stroke-invert before:rounded-full"
+          "border-stroke-invert before:absolute before:inset-1 before:inline-block before:rounded-full before:bg-stroke-invert before:transition-[opacity,scale] before:duration-500",
+        // eslint-disable-next-line better-tailwindcss/no-conflicting-classes -- false positive
+        "before:starting:scale-50 before:starting:opacity-0"
       )}
     />
     <Icon icon={icon} size="md" />

@@ -65,7 +65,7 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
               key={date}
               className={cn(
                 "w-[calc(100%/7)] border-text-gentle/50 font-mono",
-                isFirstOfMonth && "border-b-2 border-l-2 rounded-bl-sm",
+                isFirstOfMonth && "rounded-bl-sm border-b-2 border-l-2",
                 isLastMonth && "border-t-2",
                 isNextMonth && "border-b-2",
                 weekday === 0 || weekday === 6

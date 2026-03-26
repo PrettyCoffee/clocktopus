@@ -172,7 +172,7 @@ export const TimeTableHeader = ({
           "h-12 rounded-t-lg border-b border-stroke-gentle bg-background-page",
           stickyHeader && `sticky z-20 ${stickyHeader}`,
           "transition-[box-shadow,border] duration-100",
-          !isIntersecting && "rounded-lg shade-low border-transparent"
+          !isIntersecting && "rounded-lg border-transparent shade-low"
         )}
       >
         {!locked?.value && (

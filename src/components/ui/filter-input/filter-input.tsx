@@ -142,7 +142,7 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
             "inline-block rounded-[1px] outline-1 outline-offset-1 outline-solid",
             isTagValid && isValueValid
               ? "bg-highlight/10 text-highlight outline-highlight/20"
-              : "bg-background outline-stroke-gentle decoration-wavy underline decoration-alert-error"
+              : "bg-background underline decoration-alert-error decoration-wavy outline-stroke-gentle"
           )}
         >
           {text}
