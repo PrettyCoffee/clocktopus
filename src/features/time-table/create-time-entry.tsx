@@ -1,4 +1,4 @@
-import { Dispatch, PropsWithChildren, useMemo } from "react"
+import { Dispatch, PropsWithChildren, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Plus } from "lucide-react"
@@ -12,7 +12,6 @@ import {
   type TimeEntry,
 } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
-import { useObjectState } from "hooks/use-object-state"
 import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { createId } from "utils/create-id"
@@ -114,6 +113,16 @@ const DescriptionAutoComplete = ({
   )
 }
 
+// Prefer local variable over sessionStorage to keep the value isolated in a tab and reset it on refresh
+let previousInput: Partial<TimeEntry> = {}
+const getPreviousInput = () => previousInput
+const setPreviousInput = (entry: Partial<TimeEntry>) => {
+  const copy = structuredClone(entry)
+  delete copy.id
+  delete copy.date
+  previousInput = entry
+}
+
 const getInitialState = (
   date = dateHelpers.today(),
   start = timeHelpers.now({ snap: 15 })
@@ -123,6 +132,7 @@ const getInitialState = (
   start,
   end: date === dateHelpers.today() ? timeHelpers.now({ snap: 15 }) : start,
   date,
+  ...getPreviousInput(),
 })
 
 interface CreateTimeEntryProps {
@@ -135,10 +145,17 @@ export const CreateTimeEntry = ({
   initialDate,
   initialTime,
 }: CreateTimeEntryProps) => {
-  const [data, updateData] = useObjectState(
+  const [data, setData] = useState(() =>
     getInitialState(initialDate, initialTime)
   )
   const { atom } = useDateEntries(data.date)
+
+  const updateData = (entry: Partial<TimeEntry>) =>
+    setData(prev => {
+      const newEntry = { ...prev, ...entry }
+      setPreviousInput(newEntry)
+      return newEntry
+    })
 
   return (
     <div className="@container w-full flex-1">
@@ -178,6 +195,7 @@ export const CreateTimeEntry = ({
             title={t`Add entry`}
             hideTitle
             onClick={() => {
+              setPreviousInput({})
               atom.actions.add(data)
               updateData(getInitialState(data.date, data.end))
               onCreate?.(data)
