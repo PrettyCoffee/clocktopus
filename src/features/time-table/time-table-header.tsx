@@ -1,7 +1,7 @@
 import { Dispatch, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
-import { Lock, Unlock } from "lucide-react"
+import { ChevronDown, Lock, Unlock } from "lucide-react"
 
 import { Checkbox } from "components/ui/checkbox"
 import { Divider } from "components/ui/divider"
@@ -65,7 +65,18 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
     <Tooltip
       side="bottom"
       align="end"
-      trigger={<button className="rounded-md">{totalDuration}</button>}
+      sideOffset={-6}
+      trigger={
+        <button className="relative h-full rounded-md">
+          {totalDuration}
+          <Icon
+            icon={ChevronDown}
+            color="muted"
+            size="xs"
+            className="absolute right-1/2 bottom-3 translate-1/2"
+          />
+        </button>
+      }
     >
       <div className={cn(vstack({ justify: "end" }), "text-sm")}>
         <span className="mx-auto text-text-gentle">
