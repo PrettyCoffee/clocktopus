@@ -58,13 +58,13 @@
     "knip": "6.0.6",
     "tailwindcss": "4.2.2",
     "tailwindcss-animate": "1.0.7",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "vite": "7.3.1",
     "vite-tsconfig-paths": "6.1.1"
   },
   "overrides": {
     "@radix-ui/react-slot": "1.2.4",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "vite": "7.3.1"
   }
 }

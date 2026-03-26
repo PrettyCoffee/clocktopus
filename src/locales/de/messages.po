@@ -52,7 +52,7 @@ msgstr "Gib deinem Filter einen Namen und speichere ihn zur schnellen Verwendung
 msgid "Add category"
 msgstr "Kategorie hinzufügen"
 
-#: src/features/time-table/create-time-entry.tsx:178
+#: src/features/time-table/create-time-entry.tsx:195
 msgid "Add entry"
 msgstr "Eintrag hinzufügen"
 
@@ -590,7 +590,7 @@ msgstr "Keine Kategorien gefunden"
 #: src/app/routes/calendar/calendar-route.tsx:128
 #: src/app/routes/search/search-route.tsx:30
 #: src/app/routes/stats/categories-chart.tsx:41
-#: src/features/components/category-name.tsx:66
+#: src/features/components/category-name.tsx:71
 #: src/features/components/category-select.tsx:76
 msgid "No category"
 msgstr "Keine Kategorie"
@@ -763,11 +763,11 @@ msgstr "Stil des Übersichtsmodus"
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: src/features/time-table/time-table-header.tsx:180
+#: src/features/time-table/time-table-header.tsx:191
 msgid "Switch to editable mode"
 msgstr "Zum Bearbeitungsmodus"
 
-#: src/features/time-table/time-table-header.tsx:181
+#: src/features/time-table/time-table-header.tsx:192
 msgid "Switch to summary mode"
 msgstr "Zum Übersichtsmodus"
 

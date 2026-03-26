@@ -54,7 +54,7 @@ msgstr "Add a name to your filter and save it for quick access in the side menu.
 msgid "Add category"
 msgstr "Add category"
 
-#: src/features/time-table/create-time-entry.tsx:178
+#: src/features/time-table/create-time-entry.tsx:195
 msgid "Add entry"
 msgstr "Add entry"
 
@@ -592,7 +592,7 @@ msgstr "No categories found"
 #: src/app/routes/calendar/calendar-route.tsx:128
 #: src/app/routes/search/search-route.tsx:30
 #: src/app/routes/stats/categories-chart.tsx:41
-#: src/features/components/category-name.tsx:66
+#: src/features/components/category-name.tsx:71
 #: src/features/components/category-select.tsx:76
 msgid "No category"
 msgstr "No category"
@@ -765,11 +765,11 @@ msgstr "Summary style"
 msgid "Sunday"
 msgstr "Sunday"
 
-#: src/features/time-table/time-table-header.tsx:180
+#: src/features/time-table/time-table-header.tsx:191
 msgid "Switch to editable mode"
 msgstr "Switch to editable mode"
 
-#: src/features/time-table/time-table-header.tsx:181
+#: src/features/time-table/time-table-header.tsx:192
 msgid "Switch to summary mode"
 msgstr "Switch to summary mode"
 
