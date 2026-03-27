@@ -101,7 +101,7 @@ const getPageRange = (page: number, size: number) => {
   return { start, end }
 }
 
-export interface PageRange {
+interface PageRange {
   start: number
   end: number
 }

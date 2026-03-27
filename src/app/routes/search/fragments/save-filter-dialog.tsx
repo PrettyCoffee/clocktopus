@@ -5,7 +5,7 @@ import { Input } from "components/ui/input"
 import { InputLabel } from "components/ui/input-label"
 import { useObjectState } from "hooks/use-object-state"
 
-import { Filter, savedFilters } from "../search-data"
+import { savedFilters } from "../search-data"
 import { SearchFilterInput } from "./search-filter-input"
 
 interface SaveFilterDialogProps {
@@ -14,7 +14,7 @@ interface SaveFilterDialogProps {
 }
 
 export const SaveFilterDialog = ({ value, onClose }: SaveFilterDialogProps) => {
-  const [filter, updateFilter] = useObjectState<Omit<Filter, "id">>({
+  const [filter, updateFilter] = useObjectState({
     name: "",
     value,
   })

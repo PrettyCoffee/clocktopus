@@ -46,7 +46,7 @@ export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
     useObjectState<CategoryMapping>({})
 
   const { headers, rows } = useMemo(() => processCsv(csv), [csv])
-  const [columnLookup, updateColumnLookup] = useObjectState<ColumnLookup>(
+  const [columnLookup, updateColumnLookup] = useObjectState(
     getInitialColumnLookup(headers)
   )
 

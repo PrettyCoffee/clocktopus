@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 
-import { PageRange, Pagination } from "components/ui/pagination"
+import { Pagination } from "components/ui/pagination"
 import { TimeEntry } from "data/time-entries"
 import {
   CheckedStateProvider,
@@ -15,7 +15,7 @@ const pageSizes = [10, 15, 20, 25, 30] as const satisfies number[]
 const initialPageSize = 15 as const
 
 const SearchTableInner = ({ filtered }: { filtered: TimeEntry[] }) => {
-  const [pageRange, setPageRange] = useState<PageRange>({ start: 0, end: 15 })
+  const [pageRange, setPageRange] = useState({ start: 0, end: 15 })
   const { resetChecked } = useCheckedState()
 
   const pageEntries = useMemo(

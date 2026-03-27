@@ -6,7 +6,7 @@ export const searchText = createAtom({
   defaultValue: "",
 })
 
-export interface Filter {
+interface Filter {
   id: string
   name: string
   value: string
