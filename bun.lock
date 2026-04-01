@@ -14,7 +14,7 @@
         "@radix-ui/react-select": "2.2.6",
         "@radix-ui/react-switch": "1.2.6",
         "@radix-ui/react-tooltip": "1.2.8",
-        "@rolldown/plugin-babel": "^0.2.2",
+        "@rolldown/plugin-babel": "0.2.2",
         "@types/react": "19.2.14",
         "@types/react-dom": "19.2.3",
         "@yaasl/core": "0.15.0-alpha.1",
