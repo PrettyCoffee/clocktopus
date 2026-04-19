@@ -148,7 +148,7 @@ export const CreateTimeEntry = ({
   const [data, setData] = useState(() =>
     getInitialState(initialDate, initialTime)
   )
-  const { atom } = useDateEntries(data.date)
+  const dateAtom = useDateEntries(data.date)
 
   const updateData = (entry: Partial<TimeEntry>) =>
     setData(prev => {
@@ -196,7 +196,7 @@ export const CreateTimeEntry = ({
             hideTitle
             onClick={() => {
               setPreviousInput({})
-              atom.actions.add(data)
+              dateAtom.actions.add(data)
               updateData(getInitialState(data.date, data.end))
               onCreate?.(data)
             }}

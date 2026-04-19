@@ -8,6 +8,5 @@
   "project": ["./**/*.{ts,tsx,js,mjs}"],
   "paths": {
     "*": ["src/*"]
-  },
-  "ignoreDependencies": [".*eslint.*"]
+  }
 }

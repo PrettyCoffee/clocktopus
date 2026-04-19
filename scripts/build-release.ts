@@ -1,46 +1,45 @@
+import fs from "node:fs/promises"
 import { resolve, join } from "node:path"
 
-import { $ } from "bun"
+import { $ } from "@pretty-cozy/release-tools"
 
 const ROOT_DIR = resolve("./")
 const BUILD_DIR = "dist"
 const TMP_DIR = "_tmp_release_build"
 
 const getAbsolutePath = (path: string) => {
-  const pwd = resolve(path)
+  const absolute = resolve(path)
 
-  if (!pwd.includes(ROOT_DIR)) {
+  if (!absolute.includes(ROOT_DIR)) {
     // to protect you and me from big oopsies when running `rm -rf ${pwd}`
-    console.error(`Cannot escape project directory. path: ${pwd}\n`)
+    console.error(`Cannot escape project directory. path: ${absolute}\n`)
     process.exit(1)
   }
 
-  return pwd
+  return absolute
 }
 
-const rm = async (path: string) => {
-  const pwd = resolve(path)
-
-  if (!pwd.includes(ROOT_DIR)) {
-    // to protect you and me from big oopsies when running `rm -rf ${pwd}`
-    console.error(
-      `Cannot delete files outside of project directory. path: ${pwd}\n`
-    )
-    process.exit(1)
-  }
-
-  await $`rm -rf ${pwd}`.quiet()
+const rm = (path: string) => {
+  const absolute = getAbsolutePath(path)
+  return fs.rm(absolute, { force: true, recursive: true })
 }
 
-const getLatestTag = async () =>
-  $`git describe --tags $(git rev-list --tags --max-count=1)`
-    .text()
-    .then(out => out.trim())
+const getLatestTag = async () => {
+  const tagRef = await $`git rev-list --tags --max-count=1`.text()
+  const tag = await $`git describe --tags ${tagRef}`.text()
+  return tag.trim()
+}
 
-type ShellFn = (...args: Parameters<typeof $>) => Promise<string>
+type ShellFn = (...args: Parameters<typeof $>) => PromiseLike<string>
 
 const createWorktree = async (path: string, name: string) => {
   const pwd = getAbsolutePath(path)
+
+  const remove = async () => {
+    await $`git worktree remove -f ${pwd}`.noThrow().quiet()
+    await rm(pwd)
+  }
+  await remove()
 
   await $`git worktree add -f ${pwd} ${name}`.quiet()
 
@@ -55,20 +54,17 @@ const createWorktree = async (path: string, name: string) => {
     $: shell,
     mv: (source: string, target: string) =>
       $`mv -f "${join(pwd, source)}" "${join(ROOT_DIR, target)}"`.quiet(),
-    rm: async () => {
-      await $`git worktree remove -f ${pwd}`.quiet()
-      await rm(pwd)
-    },
+    rm: remove,
   }
 }
 
 const build = async ($: ShellFn, name: string) => {
   console.info(`🏗️ Build ${name}:`)
-  await $`bun install --frozen-lockfile`
+  await $`pnpm i`
   console.info(`   √ installed dependencies`)
-  await $`bun run l10n:build`
+  await $`pnpm run l10n:build`
   console.info(`   √ extracted translations`)
-  await $`vite build --outDir="./${BUILD_DIR}"`
+  await $`pnpm exec vite build --outDir="./${BUILD_DIR}"`
   console.info(`   √ bundled app`)
   console.info("")
 }
@@ -90,7 +86,7 @@ const main = async () => {
     await build(prod.$, prod.name)
 
     console.info("📦️ Creating final package...")
-    await $`rm -rf ./dist`.quiet().catch()
+    await rm("./dist")
     await prod.mv(BUILD_DIR, "./dist/")
     await main.mv(BUILD_DIR, "./dist/dev")
 

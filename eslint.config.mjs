@@ -2,7 +2,6 @@ import { readdirSync } from "node:fs"
 
 import prettyCozy from "@pretty-cozy/eslint-config"
 import { defineConfig, globalIgnores } from "eslint/config"
-import checkFile from "eslint-plugin-check-file"
 
 export default defineConfig(
   prettyCozy.baseTs,
@@ -58,22 +57,6 @@ export default defineConfig(
     rules: {
       // activate for temporary testing
       // "import-x/no-cycle": "error",
-    },
-  },
-
-  {
-    name: "local-rules/check-file-naming",
-    plugins: { "check-file": checkFile },
-    rules: {
-      "check-file/folder-naming-convention": [
-        "error",
-        { "*/**": "KEBAB_CASE" },
-      ],
-      "check-file/filename-naming-convention": [
-        "error",
-        { "*/**": "KEBAB_CASE" },
-        { ignoreMiddleExtensions: true },
-      ],
     },
   },
 

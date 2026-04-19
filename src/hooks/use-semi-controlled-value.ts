@@ -6,6 +6,7 @@ export const useSemiControlledValue = <T>(controlledValue: T) => {
   const [value, setValue] = useState(controlledValue)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- see comment above
     setValue(controlledValue)
   }, [controlledValue])
 
