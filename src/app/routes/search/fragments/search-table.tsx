@@ -24,6 +24,7 @@ const SearchTableInner = ({ filtered }: { filtered: TimeEntry[] }) => {
 
   useEffect(() => {
     resetChecked()
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies -- needs to reset if page changes
   }, [resetChecked, pageEntries])
 
   return (

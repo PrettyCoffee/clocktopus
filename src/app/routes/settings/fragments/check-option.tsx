@@ -71,6 +71,7 @@ export const CheckOption = ({
     )}
   >
     <button
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="checkbox"
       aria-checked={active}
       onClick={onClick}

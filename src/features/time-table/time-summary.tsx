@@ -45,7 +45,7 @@ const summarize = (entries: TimeEntry[]): TimeSummary[] => {
         minutes,
       })),
     )
-    .sort((a, b) =>
+    .toSorted((a, b) =>
       a.description && !b.description
         ? -1
         : !a.description && b.description

@@ -116,7 +116,7 @@ const SaveFilterButton = ({ filterText }: { filterText: string }) => {
 export const SearchRoute = () => {
   const raw = useAtom(timeEntriesData)
   const allFlat = useMemo(
-    () => Object.values(raw).flat().sort(sortLatestTop),
+    () => Object.values(raw).flat().toSorted(sortLatestTop),
     [raw],
   )
 

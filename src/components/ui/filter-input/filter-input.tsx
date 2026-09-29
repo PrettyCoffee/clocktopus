@@ -45,7 +45,7 @@ const measureText = (text: string) => {
   const span = document.createElement("span")
   span.innerText = text
   span.className = textStyles
-  document.body.appendChild(span)
+  document.body.append(span)
   const width = span.offsetWidth
   span.remove()
   return width

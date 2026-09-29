@@ -63,7 +63,8 @@ const getRelative = (date: Date, days: number) => {
   return newDate
 }
 
-const getWeekDays = (date: Date) => {
+export type DaysOfWeek = [Date, Date, Date, Date, Date, Date, Date]
+const getDaysOfWeek = (date: Date): DaysOfWeek => {
   const offsetToMonday = getWeekDay(date)
   const monday = getRelative(date, -offsetToMonday)
 
@@ -83,7 +84,7 @@ const today = new Date()
 interface SelectedWeekState {
   year: number
   calendarWeek: number
-  days: Date[]
+  days: DaysOfWeek
 }
 
 export const getWeek = (date: Date): SelectedWeekState => {
@@ -91,7 +92,7 @@ export const getWeek = (date: Date): SelectedWeekState => {
   return {
     year: date.getFullYear() + yearChange,
     calendarWeek: week,
-    days: getWeekDays(date),
+    days: getDaysOfWeek(date),
   }
 }
 

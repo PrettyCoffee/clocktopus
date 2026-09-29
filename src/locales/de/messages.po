@@ -586,8 +586,8 @@ msgstr "Nächstes Jahr"
 msgid "No categories found"
 msgstr "Keine Kategorien gefunden"
 
-#: src/app/routes/calendar/calendar-route.tsx:115
-#: src/app/routes/calendar/calendar-route.tsx:127
+#: src/app/routes/calendar/calendar-route.tsx:116
+#: src/app/routes/calendar/calendar-route.tsx:128
 #: src/app/routes/search/search-route.tsx:29
 #: src/app/routes/stats/categories-chart.tsx:40
 #: src/features/components/category-name.tsx:70
@@ -599,13 +599,13 @@ msgstr "Keine Kategorie"
 msgid "No column"
 msgstr "Keine Spalte"
 
-#: src/app/routes/calendar/calendar-route.tsx:134
+#: src/app/routes/calendar/calendar-route.tsx:135
 #: src/features/time-table/time-summary.tsx:83
 #: src/features/time-table/time-summary.tsx:118
 msgid "No description"
 msgstr "Keine Beschreibung"
 
-#: src/app/routes/calendar/calendar-route.tsx:162
+#: src/app/routes/calendar/calendar-route.tsx:163
 msgid "No entries"
 msgstr "Keine Einträge"
 
@@ -711,7 +711,7 @@ msgid "Search for time entries"
 msgstr "Zeiteinträge durchsuchen"
 
 #. placeholder {0}: filtered.length
-#: src/app/routes/search/fragments/search-table.tsx:35
+#: src/app/routes/search/fragments/search-table.tsx:36
 msgid "Search Results ({0})"
 msgstr "Suchergebnisse ({0})"
 

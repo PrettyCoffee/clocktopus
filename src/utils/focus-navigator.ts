@@ -21,7 +21,7 @@ const getCellRows = (grid: Element, cellSelector: string) => {
   )
 
   return Object.entries(rowsByPosition)
-    .sort(([yA], [yB]) => Number(yA) - Number(yB))
+    .toSorted(([yA], [yB]) => Number(yA) - Number(yB))
     .map(([, row]) => row)
 }
 

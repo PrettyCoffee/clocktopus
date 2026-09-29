@@ -43,6 +43,7 @@ export const Dots = ({ points, printValue, color = "priority" }: DotsProps) => {
               cy={y}
               r={3}
               strokeWidth={0}
+              // oxlint-disable-next-line unicorn/no-array-fill-with-reference-type -- false-positive
               className={chartColor.fill({ color })}
             />
             {text && (

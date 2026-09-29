@@ -17,7 +17,7 @@ const Divider = () => (
 )
 
 const getYears = (dates: string[]) => {
-  const years = [...new Set(dates.map(date => date.split("-")[0]!).map(Number))]
+  const years = [...new Set(dates.map(date => date.split("-")[0]).map(Number))]
   return years
 }
 

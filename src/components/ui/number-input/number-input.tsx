@@ -13,9 +13,9 @@ const meassureText = (text: string, reference: HTMLElement) => {
   element.style.position = "absolute"
   element.style.opacity = "0"
   element.innerHTML = text
-  document.body.appendChild(element)
+  document.body.append(element)
   const width = element.offsetWidth
-  document.body.removeChild(element)
+  element.remove()
   return width
 }
 

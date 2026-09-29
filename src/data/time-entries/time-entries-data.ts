@@ -50,9 +50,9 @@ const popEntries = (state: AtomState, ...items: DateAndId[]) =>
 
 const pushEntries = (state: AtomState, ...entries: TimeEntry[]) =>
   entries.reduce((result, entry) => {
-    const oldEntries = result[entry.date] ?? []
-    const newEntries = [...oldEntries, entry]
-    return { ...result, [entry.date]: sortEntries(newEntries) }
+    const entries = result[entry.date] ?? []
+    result[entry.date] = sortEntries([...entries, entry])
+    return result
   }, state)
 
 export const timeEntriesData = createSlice({

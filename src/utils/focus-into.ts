@@ -78,7 +78,7 @@ export const focusInto = (
   }
 
   const focusIndex = entry === "start" ? 0 : elements.length - 1
-  const element = elements[focusIndex]!
+  const element = elements[focusIndex] ?? null
 
   if (isRadioButtonWithGroup(element)) {
     focusElement(getPreferredRadioButton(element, elements))

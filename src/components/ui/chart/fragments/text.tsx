@@ -33,6 +33,7 @@ export const Text = ({
     textAnchor={anchor}
     transform={!rotate ? undefined : `rotate(${rotate} ${x} ${y})`}
     className={cn(
+      // oxlint-disable-next-line unicorn/no-array-fill-with-reference-type -- false-positive
       chartColor.fill({ color }),
       "fill-text-gentle text-sm",
       className,

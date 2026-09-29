@@ -9,9 +9,10 @@ const getMonthStart = (year: number, month: number) => {
 }
 
 const getMonthDays = (year: number, month: number) => {
-  const days: Day[] = [getMonthStart(year, month)]
-  let prev = days[0]!
-  let next = days[0]!
+  const start = getMonthStart(year, month)
+  const days: Day[] = [start]
+  let prev = start
+  let next = start
 
   /* Alternative to days.length < 42
   const endIsReached = () => {

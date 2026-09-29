@@ -17,7 +17,7 @@ interface ColorInputValueProps {
 
 const getColorName = (color: ThemeColor) => {
   const [first, ...rest] = color
-  return first!.toUpperCase() + rest.join("")
+  return first?.toUpperCase() + rest.join("")
 }
 
 interface ColorButtonProps extends ColorInputValueProps {

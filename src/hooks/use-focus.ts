@@ -14,7 +14,7 @@ export const useFocus = (refs: RefObject<Element | null>[]) => {
         element => element === target || element.contains(target),
       )
 
-      setFocus(!!focus)
+      setFocus(focus)
     }
 
     window.addEventListener("focusin", handler)

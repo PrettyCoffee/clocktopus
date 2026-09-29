@@ -15,7 +15,7 @@ const transformPoints = (
     .flatMap(([x, stats]) =>
       !stats[key] ? [] : { x: transformX(Number(x)), y: stats[key] },
     )
-    .sort((a, b) => a.x - b.x)
+    .toSorted((a, b) => a.x - b.x)
     .map(({ x, y }, index) => ({ x: index, y, actualX: x }))
 
 const getGraphRange = (points: Coordinate[]) => {

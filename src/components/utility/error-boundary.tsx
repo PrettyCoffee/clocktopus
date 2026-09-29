@@ -39,6 +39,7 @@ export class ErrorBoundary extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     const { children } = this.props
     if (children !== prevProps.children) {
+      // oxlint-disable-next-line react/no-did-update-set-state -- needed to revive
       this.setState({ error: null })
     }
   }

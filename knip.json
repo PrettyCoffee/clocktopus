@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "entry": ["lingui.config.js", "tailwind/tailwind.config.ts"],
-  "ignore": ["**/*.d.ts", "**/tab-pattern.tsx"],
+  "ignore": ["**/tab-pattern.tsx"],
   "project": ["./**/*.{ts,tsx,js,mjs}"],
   "paths": {
     "*": ["src/*"]

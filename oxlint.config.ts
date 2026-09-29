@@ -43,7 +43,10 @@ const restrictedPaths = {
 }
 */
 
-type GetRuleConfig<RuleName extends keyof DummyRuleMap> = Exclude<DummyRuleMap[RuleName], AllowWarnDeny | [AllowWarnDeny] | undefined>[1]
+type GetRuleConfig<RuleName extends keyof DummyRuleMap> = Exclude<
+  DummyRuleMap[RuleName],
+  AllowWarnDeny | [AllowWarnDeny] | undefined
+>[1]
 
 type RestrictedImports = GetRuleConfig<"no-restricted-imports">
 const restrictedImports: RestrictedImports = {
@@ -90,32 +93,35 @@ export default defineConfig({
     denyWarnings: true,
   },
   rules: {
-    /** Not yet available in oxlint.
-     *  @see https://github.com/oxc-project/oxc/issues/13789
-    "import/no-restricted-paths": [
-      "error",
-      restrictedPaths
-    ],
-    */
+    /**
+     * Not yet available in oxlint.
+     *
+     * @see https://github.com/oxc-project/oxc/issues/13789
+     *
+     * "import/no-restricted-paths": [
+     *   "error",
+     *   restrictedPaths
+     * ],
+     */
   },
   overrides: [
-    /** Not yet available in oxlint.
-     *  @see https://github.com/oxc-project/oxc/issues/1117
-    {
-      files: ["tailwind/**"],
-      rules: {
-        "import/no-extraneous-dependencies": "off",
-      },
-    },
-    */
+    /**
+     * Not yet available in oxlint.
+     *
+     * @see https://github.com/oxc-project/oxc/issues/1117
+     *
+     * {
+     *   files: ["tailwind/**"],
+     *   rules: {
+     *     "import/no-extraneous-dependencies": "off",
+     *   },
+     * },
+     */
     {
       files: ["**/*"],
       excludeFiles: ["src/lib/**"],
       rules: {
-        "eslint/no-restricted-imports": [
-          "error",
-          restrictedImports
-        ],
+        "eslint/no-restricted-imports": ["error", restrictedImports],
       },
     },
   ],

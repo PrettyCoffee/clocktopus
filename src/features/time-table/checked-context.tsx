@@ -3,6 +3,7 @@ import {
   type PropsWithChildren,
   type SetStateAction,
   useCallback,
+  useMemo,
   useState,
 } from "react"
 
@@ -54,12 +55,15 @@ export const CheckedStateProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <CheckedContext
-      value={{
-        checked,
-        onCheckedChange: setChecked,
-        resetChecked,
-        toggleChecked,
-      }}
+      value={useMemo(
+        () => ({
+          checked,
+          onCheckedChange: setChecked,
+          resetChecked,
+          toggleChecked,
+        }),
+        [checked, setChecked, resetChecked, toggleChecked],
+      )}
     >
       {children}
     </CheckedContext>

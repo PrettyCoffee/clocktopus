@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-non-null-assertion no-param-reassign
 const levenshtein = (a: string, b: string) => {
   if (a.length < b.length) [a, b] = [b, a]
 
@@ -77,6 +78,6 @@ export const fuzzyFilter = <TData>({
       return { item, score }
     })
     .filter(({ score }) => score < 2)
-    .sort((a, b) => a.score - b.score)
+    .toSorted((a, b) => a.score - b.score)
     .map(({ item }) => item)
 }

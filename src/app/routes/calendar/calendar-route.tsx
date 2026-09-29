@@ -21,10 +21,11 @@ const remToPx = (rem: number) =>
 const pxToRem = (px: number) =>
   px / Number.parseFloat(getComputedStyle(document.documentElement).fontSize)
 
-const getYPos = (hours: number | string) => {
-  if (typeof hours === "string") {
-    hours = timeHelpers.toMinutes(hours) / 60
-  }
+const getYPos = (hoursArg: number | string) => {
+  const hours =
+    typeof hoursArg === "number"
+      ? hoursArg
+      : timeHelpers.toMinutes(hoursArg) / 60
 
   const rem = hours * 4
   const px = remToPx(rem)
@@ -207,6 +208,7 @@ export const CalendarRoute = () => {
       top: getYPos(firstVisibleHour - 0.25).px,
       behavior: "instant",
     })
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies
   }, [selected, firstVisibleHour])
 
   return (

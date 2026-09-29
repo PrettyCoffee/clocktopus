@@ -6,6 +6,7 @@ type AtomState = Record<string, StateItem[]>
 const hash = (text = "") =>
   // oxlint-disable-next-line @typescript-eslint/no-misused-spread
   [...text]
+    // oxlint-disable-next-line no-bitwise
     .reduce((out, char) => (101 * out + char.charCodeAt(0)) >>> 0, 11)
     .toString(36)
 

@@ -9,6 +9,7 @@ import { useHashLocation } from "wouter/use-hash-location"
 
 export const AppProviders = ({ children }: PropsWithChildren) => (
   <LocaleProvider>
+    {/* oxlint-disable-next-line react/hooks -- library api enforces this */}
     <Router hook={useHashLocation}>
       <TooltipProvider>
         <Toaster />

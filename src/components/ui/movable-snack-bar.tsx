@@ -34,7 +34,7 @@ const addDragOverlay = () => {
     zIndex.dragOverlay,
     "fixed inset-0 h-screen w-screen cursor-grabbing",
   )
-  document.body.appendChild(dragOverlay)
+  document.body.append(dragOverlay)
   return () => dragOverlay.remove()
 }
 const useDragging = (

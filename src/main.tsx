@@ -6,6 +6,7 @@ import { isDevEnv } from "utils/is-dev-env"
 
 import { App } from "./app"
 import { initTheme } from "./data/theme"
+// oxlint-disable-next-line import/no-unassigned-import
 import "./index.css"
 
 const root = document.getElementById("root")

@@ -29,7 +29,7 @@ const toCsv = <TData,>(data: TData[], headers: Header<TData>[]) => {
 export const csvExport = (entries: Record<string, TimeEntry[]>) => {
   const allEntries = Object.values(entries)
     .flat()
-    .sort((a, b) =>
+    .toSorted((a, b) =>
       `${a.date}_${a.start}_${a.end}`.localeCompare(
         `${b.date}_${b.start}_${b.end}`,
       ),

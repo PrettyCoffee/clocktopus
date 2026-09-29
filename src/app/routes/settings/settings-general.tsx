@@ -42,7 +42,7 @@ const Language = () => {
         placeholder={t`Language`}
       >
         {Object.entries(languages)
-          .sort(([, a], [, b]) => a.localeCompare(b))
+          .toSorted(([, a], [, b]) => a.localeCompare(b))
           .map(([value, label]) => (
             <Select.Option key={value} value={value} label={label} />
           ))}

@@ -35,8 +35,8 @@ export const Year = ({ year }: YearProps) => {
   const weeks = useMemo(
     () =>
       getCalendarWeeks(year)
-        .reverse()
-        .filter(({ days }) => days[0]!.valueOf() <= now),
+        .toReversed()
+        .filter(({ days }) => days[0].valueOf() <= now),
     [year],
   )
 

@@ -21,7 +21,7 @@ const getImportedCategories = (rows: string[][], categoryIndex: number) => {
     .map(row => row[categoryIndex])
     .filter(Boolean) as string[]
 
-  return [...new Set(allCategories)].sort()
+  return [...new Set(allCategories)].toSorted()
 }
 
 const findHeader = (headers: string[], columnName: string) => {

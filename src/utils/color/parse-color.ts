@@ -29,6 +29,7 @@ const parseValue = (value: string) => {
 
 const parseHex = (value: string): ColorValue | null => {
   const match = HEX.exec(
+    // oxlint-disable-next-line max-params
     value.replace(SHORT_HEX, (_, r, g, b, a) => {
       const hex = ["#", r, r, g, g, b, b]
       if (a) hex.push(a, a)

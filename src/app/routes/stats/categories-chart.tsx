@@ -8,7 +8,7 @@ const aggregate = ({
   stats,
   maxBars,
 }: Pick<TimeChartProps, "stats"> & { maxBars: number }) => {
-  const all = Object.entries(stats).sort(([, a], [, b]) => b - a)
+  const all = Object.entries(stats).toSorted(([, a], [, b]) => b - a)
   if (all.length <= maxBars) return Object.fromEntries(all)
 
   const visible = all.slice(0, maxBars - 1)

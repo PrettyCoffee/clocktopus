@@ -2,7 +2,7 @@ import { git } from "@pretty-cozy/release-tools"
 
 const getLastTag = async () => {
   const tags = await git.allTags()
-  return tags.at(-1)!
+  return tags.at(-1)
 }
 
 type Commit = Awaited<ReturnType<typeof git.getCommits>>[number]

@@ -157,7 +157,7 @@ export const MainRoute = () => {
       selected.days
         .map(dateHelpers.stringify)
         .filter(date => trackedDates.includes(date))
-        .reverse(),
+        .toReversed(),
     [selected, trackedDates],
   )
 
@@ -176,7 +176,7 @@ export const MainRoute = () => {
 
     return {
       ...latestAdded,
-      date: dateHelpers.stringify(selected.days[0]!),
+      date: dateHelpers.stringify(selected.days[0]),
     }
   }, [latestAdded, selected.days])
 

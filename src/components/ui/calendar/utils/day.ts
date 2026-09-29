@@ -23,15 +23,16 @@ export class Day {
 
     this.weekday = this.date.toLocaleDateString("en", { weekday: "long" })
 
-    this.weekdayNumber = {
-      Monday: 1,
-      Tuesday: 2,
-      Wednesday: 3,
-      Thursday: 4,
-      Friday: 5,
-      Saturday: 6,
-      Sunday: 7,
-    }[this.weekday]!
+    this.weekdayNumber =
+      {
+        Monday: 1,
+        Tuesday: 2,
+        Wednesday: 3,
+        Thursday: 4,
+        Friday: 5,
+        Saturday: 6,
+        Sunday: 7,
+      }[this.weekday] ?? 1
 
     this.meta.isToday = dateHelpers.today() === this.toString()
   }

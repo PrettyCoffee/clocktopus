@@ -63,7 +63,7 @@ const getRandomSample = <T,>(data: T[], amount: number): T[] => {
   while (indeces.size < amount) {
     indeces.add(getRandomIndex())
   }
-  return [...indeces].map(index => data[index]!)
+  return [...indeces].map(index => data[index] as T)
 }
 
 export const Preview = ({ data }: { data: TimeEntry[] }) => {
@@ -87,7 +87,7 @@ export const Preview = ({ data }: { data: TimeEntry[] }) => {
     >
       <div className="bg-background max-h-80 overflow-auto rounded-md">
         <Table<TableConfig>
-          rowData={getRandomSample(data, 5).sort((a, b) =>
+          rowData={getRandomSample(data, 5).toSorted((a, b) =>
             b.date.localeCompare(a.date),
           )}
           columns={columns}

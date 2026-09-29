@@ -33,6 +33,7 @@ interface ShiftProps {
   y: number
 }
 
+// oxlint-disable-next-line max-statements
 const shiftGridFocus = (
   { event, name }: KeyDownProps,
   { x, y }: ShiftProps,
@@ -71,7 +72,8 @@ const shiftGridFocus = (
     return
   }
 
-  const maxCellIndex = rows[newRowIndex]!.length - 1
+  const newRow = rows[newRowIndex] ?? []
+  const maxCellIndex = newRow.length - 1
   const newCellIndex = clamp(currentCell + x, 0, maxCellIndex)
   focusGrid(grid, newCellIndex, newRowIndex)
 }

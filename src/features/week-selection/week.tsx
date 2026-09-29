@@ -5,7 +5,7 @@ import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 
-import { selectedWeek } from "./selected-week"
+import { type DaysOfWeek, selectedWeek } from "./selected-week"
 
 const monthName = (value: number) =>
   [
@@ -26,13 +26,13 @@ const monthName = (value: number) =>
 export interface WeekProps {
   year: number
   calendarWeek: number
-  days: Date[]
+  days: DaysOfWeek
   selected?: boolean
 }
 export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
   const trackedDates = useAtom(timeEntriesData.selectors.getTrackedDates)
   const first = days.find(day => day.getDate() === 1)
-  const isFirstOfYear = days[0]!.getMonth() === 0 && days[0]!.getDate() === 1
+  const isFirstOfYear = days[0].getMonth() === 0 && days[0].getDate() === 1
   const hasTimeEntry = (day: Date) =>
     trackedDates.includes(dateHelpers.stringify(day))
 

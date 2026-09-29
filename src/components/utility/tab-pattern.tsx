@@ -105,13 +105,13 @@ const TabList = ({
 }
 
 const getTabElements = (tabList: TabPatternContextState["tabList"]) => {
-  const tabRefs = Object.entries(tabList)
-    .map(([id, ref]) => ({ id, element: ref.current }))
-    .filter(Boolean)
+  const tabRefs = Object.entries(tabList).flatMap(([id, ref]) =>
+    !ref.current ? [] : { id, element: ref.current },
+  )
 
   return tabRefs.toSorted((a, b) => {
-    const rectA = a.element!.getBoundingClientRect()
-    const rectB = b.element!.getBoundingClientRect()
+    const rectA = a.element.getBoundingClientRect()
+    const rectB = b.element.getBoundingClientRect()
 
     const valueA = rectA.top + rectA.left
     const valueB = rectB.top + rectB.left

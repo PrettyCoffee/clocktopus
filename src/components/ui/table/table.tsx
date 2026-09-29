@@ -1,3 +1,4 @@
+// oxlint-disable jsx-a11y/prefer-tag-over-role
 import { Fragment, type ReactNode } from "react"
 
 import { type MessageDescriptor } from "@lingui/core"
@@ -140,7 +141,7 @@ export const Table = <TConfig extends TableConfig>(
   const { name, gridCols } = props
   return (
     <Context value={props as unknown as TableProps<TableConfig>}>
-      {/* oxlint-disable-next-line jsx-a11y/interactive-supports-focus */}
+      {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
       <div
         role="grid"
         data-grid-name={name}

@@ -36,8 +36,8 @@ const stringify = (date: Date | ParsedDate) => {
 const today = () => stringify(new Date())
 
 const isInRange = (date: string, start?: string, end?: string) => {
-  const afterStart = !start || [date, start].sort()[1] === date
-  const beforeEnd = !end || [date, end].sort()[0] === date
+  const afterStart = !start || [date, start].toSorted()[1] === date
+  const beforeEnd = !end || [date, end].toSorted()[0] === date
   return afterStart && beforeEnd
 }
 

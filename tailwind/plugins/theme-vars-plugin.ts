@@ -123,9 +123,11 @@ class Theme<
   public write<TPath extends ObjDeepPath<TTokens>>(
     path: TPath,
     value: ObjDeepValue<LoosenValues<TTokens>, TPath>,
-  ) {
+  ): [string, string | null] {
     const cssVar = this.getCssVar(path)
-    return [cssVar, String(value as string)] as const
+    if (value == null || typeof value === "object")
+      return [cssVar, null] as const
+    return [cssVar, String(value)] as const
   }
 }
 

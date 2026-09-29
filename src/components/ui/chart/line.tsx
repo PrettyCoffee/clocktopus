@@ -33,6 +33,7 @@ export const Line = ({ points, color = "priority" }: LineProps) => {
       strokeWidth={1}
       className={cn(
         chartColor.stroke({ color }),
+        // oxlint-disable-next-line unicorn/no-array-fill-with-reference-type -- false positive
         chartColor.fill({ color: "none" }),
       )}
     />

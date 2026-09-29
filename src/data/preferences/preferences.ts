@@ -1,3 +1,4 @@
+// oxlint-disable unicorn/max-nested-calls -- zods api requires deep nesting
 import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { type Resolve } from "types/util-types"
 import { z } from "zod/mini"

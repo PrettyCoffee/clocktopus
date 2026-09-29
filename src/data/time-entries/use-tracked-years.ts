@@ -8,5 +8,5 @@ export const useTrackedYears = () =>
       .map(date => date.slice(0, 4))
       .map(Number)
 
-    return [...new Set(years)].sort((a, b) => b - a)
+    return [...new Set(years)].toSorted((a, b) => b - a)
   })

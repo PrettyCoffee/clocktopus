@@ -27,7 +27,7 @@ export const download = (fileName: string, content: unknown) => {
   link.href = blobUrl
   link.download = fileName
 
-  document.body.appendChild(link)
+  document.body.append(link)
 
   link.dispatchEvent(
     new MouseEvent("click", {
@@ -37,5 +37,5 @@ export const download = (fileName: string, content: unknown) => {
     }),
   )
 
-  document.body.removeChild(link)
+  link.remove()
 }

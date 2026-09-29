@@ -45,7 +45,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
       }
     })
     .filter(({ minutes }) => minutes > 0)
-    .sort((a, b) => b.minutes - a.minutes)
+    .toSorted((a, b) => b.minutes - a.minutes)
 
   const total = totalTimeByCategory.reduce(
     (result, { minutes, isPrivate }) => (isPrivate ? result : result + minutes),

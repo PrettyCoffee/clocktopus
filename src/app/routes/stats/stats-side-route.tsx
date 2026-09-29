@@ -63,17 +63,17 @@ export const StatsSideRoute = () => {
   const selectedFilter = useAtom(statsFilterData)
   const entries = useAtom(timeEntriesData)
   const dates = Object.keys(entries)
-    .sort()
+    .toSorted()
     .map(date => new Date(date))
 
   const years = useTrackedYears()
 
   const matchingEntries = Object.values(useAtom(filteredStatsEntries)).flat()
 
-  const firstEntry = !dates[0] ? undefined : dateHelpers.stringify(dates[0])
-  const lastEntry = !dates.at(-1)
-    ? undefined
-    : dateHelpers.stringify(dates.at(-1)!)
+  const firstDate = dates[0]
+  const firstEntry = !firstDate ? undefined : dateHelpers.stringify(firstDate)
+  const lastDate = dates.at(-1)
+  const lastEntry = !lastDate ? undefined : dateHelpers.stringify(lastDate)
 
   const predefinedFilters: StatsFilter[] = [
     allFilter,

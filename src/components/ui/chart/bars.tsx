@@ -81,6 +81,7 @@ export const Bars = ({
               strokeWidth={strokeColor === "none" ? 0 : 1}
               className={cn(
                 chartColor.stroke({ color: strokeColor }),
+                // oxlint-disable-next-line unicorn/no-array-fill-with-reference-type -- false-positive
                 chartColor.fill({ color: fillColor }),
               )}
             />
