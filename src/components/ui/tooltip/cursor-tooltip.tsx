@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode, useState } from "react"
+import { type PropsWithChildren, type ReactNode, useState } from "react"
 
 import {
   flip,
@@ -15,7 +15,7 @@ import {
   useTransitionStyles,
 } from "@floating-ui/react"
 import { Slot } from "components/utility/slot"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { zIndex } from "utils/z-index"
 

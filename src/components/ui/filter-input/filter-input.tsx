@@ -1,7 +1,7 @@
 import {
-  Dispatch,
-  Ref,
-  RefObject,
+  type Dispatch,
+  type Ref,
+  type RefObject,
   useCallback,
   useEffect,
   useRef,
@@ -24,12 +24,12 @@ import { zIndex } from "utils/z-index"
 import { Button } from "../button"
 import { Icon } from "../icon"
 import { IconButton } from "../icon-button"
-import { Input, InputProps } from "../input"
+import { Input, type InputProps } from "../input"
 import {
-  EnrichedFilterItem,
-  Filters,
+  type EnrichedFilterItem,
+  type Filters,
   parseFilter,
-  TagConfig,
+  type TagConfig,
 } from "./parse-filter"
 
 const transparentText = css`

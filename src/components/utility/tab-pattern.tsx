@@ -1,18 +1,18 @@
 import {
-  Dispatch,
-  PropsWithChildren,
-  RefObject,
+  type Dispatch,
+  type PropsWithChildren,
+  type RefObject,
   useCallback,
   useEffect,
   useId,
   useMemo,
   useRef,
-  KeyboardEvent,
+  type KeyboardEvent,
   useState,
 } from "react"
 
 import { Slot } from "components/utility/slot"
-import { AsChildProp, ClassNameProp } from "types/base-props"
+import { type AsChildProp, type ClassNameProp } from "types/base-props"
 import { createContext } from "utils/create-context"
 
 type TabRef = RefObject<HTMLButtonElement | null>

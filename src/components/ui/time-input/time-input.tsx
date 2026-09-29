@@ -1,16 +1,16 @@
 import {
-  ChangeEvent,
-  Dispatch,
-  KeyboardEvent,
+  type ChangeEvent,
+  type Dispatch,
+  type KeyboardEvent,
   useEffect,
   useState,
 } from "react"
 
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
-import { ParsedTime, timeHelpers } from "utils/time-helpers"
+import { type ParsedTime, timeHelpers } from "utils/time-helpers"
 
-import { Input, InputProps } from "../input"
+import { Input, type InputProps } from "../input"
 
 const getNumbers = (value = "") => value.replaceAll(/[^\d]+/g, "")
 

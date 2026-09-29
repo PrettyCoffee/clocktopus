@@ -1,8 +1,8 @@
 import {
-  Dispatch,
-  PropsWithChildren,
-  ReactNode,
-  RefObject,
+  type Dispatch,
+  type PropsWithChildren,
+  type ReactNode,
+  type RefObject,
   useMemo,
   useRef,
   useState,
@@ -15,7 +15,7 @@ import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
 import { useEventListener } from "hooks/use-event-listener"
 import { useFocus } from "hooks/use-focus"
 import { cn } from "utils/cn"
-import { fuzzyFilter, FuzzyFilterProps } from "utils/fuzzy-filter"
+import { fuzzyFilter, type FuzzyFilterProps } from "utils/fuzzy-filter"
 import { mergeRefs } from "utils/merge-refs"
 import { surface } from "utils/styles"
 import { zIndex } from "utils/z-index"

@@ -1,9 +1,9 @@
-import { KeyboardEvent } from "react"
+import { type KeyboardEvent } from "react"
 
 import { Icon } from "components/ui/icon"
 import { css, keyframes } from "goober"
 import { Check } from "lucide-react"
-import { IconProp } from "types/base-props"
+import { type IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { focusNavigator } from "utils/focus-navigator"
 import { hstack, interactive } from "utils/styles"

@@ -1,4 +1,4 @@
-import { Dispatch, useState } from "react"
+import { type Dispatch, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
@@ -11,7 +11,7 @@ import { InputLabel } from "components/ui/input-label"
 import { MovableSnackBar } from "components/ui/movable-snack-bar"
 import { showToast } from "components/ui/toaster"
 import { preferencesData } from "data/preferences"
-import { timeEntriesData, TimeEntry } from "data/time-entries"
+import { timeEntriesData, type TimeEntry } from "data/time-entries"
 import { CategorySelect } from "features/components/category-select"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtom } from "lib/yaasl"
@@ -20,7 +20,7 @@ import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { hstack } from "utils/styles"
 
-import { CheckedState, useCheckedState } from "./checked-context"
+import { type CheckedState, useCheckedState } from "./checked-context"
 
 const getSelectedAmount = (checked: CheckedState) =>
   Object.values(checked).reduce(

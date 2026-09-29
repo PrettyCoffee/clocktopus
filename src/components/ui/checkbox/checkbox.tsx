@@ -1,9 +1,9 @@
-import { Dispatch } from "react"
+import { type Dispatch } from "react"
 
 import * as Primitive from "@radix-ui/react-checkbox"
 import { css, keyframes } from "goober"
 import { Check, Minus } from "lucide-react"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, interactive } from "utils/styles"
 

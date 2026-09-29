@@ -1,7 +1,7 @@
 import { createSelector } from "lib/yaasl"
 
-import { Category, categoriesData } from "./categories-data"
-import { categoryGroupsData, CategoryGroup } from "./category-groups-data"
+import { type Category, categoriesData } from "./categories-data"
+import { categoryGroupsData, type CategoryGroup } from "./category-groups-data"
 
 export interface GroupedCategories extends Partial<CategoryGroup> {
   categories: Category[]

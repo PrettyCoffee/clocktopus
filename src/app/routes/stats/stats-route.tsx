@@ -1,9 +1,14 @@
-import { Dispatch, Fragment, PropsWithChildren, useState } from "react"
+import {
+  type Dispatch,
+  Fragment,
+  type PropsWithChildren,
+  useState,
+} from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 import { ContextInfo } from "components/ui/context-info"
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import { useAtom } from "lib/yaasl"
 import { ClockPlus } from "lucide-react"
 import { cn } from "utils/cn"
@@ -11,7 +16,7 @@ import { vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
 import { CategoriesChart } from "./categories-chart"
-import { getTimeStats, TimeStats } from "./get-time-stats"
+import { getTimeStats, type TimeStats } from "./get-time-stats"
 import { filteredStatsEntries } from "./stats-side-route"
 import { WorkingHoursChart, TotalTimeChart } from "./time-charts"
 

@@ -1,11 +1,15 @@
-import { Dispatch, PropsWithChildren } from "react"
+import { type Dispatch, type PropsWithChildren } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 import { Select } from "components/ui/select"
-import { groupedCategories, GroupedCategories, Category } from "data/categories"
+import {
+  groupedCategories,
+  type GroupedCategories,
+  type Category,
+} from "data/categories"
 import { useAtom } from "lib/yaasl"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { colored } from "utils/styles"
 import { Link } from "wouter"
 
@@ -27,10 +31,7 @@ const NoGroup = ({ children }: PropsWithChildren) => (
   </>
 )
 
-const CategoryGroup = ({
-  categories: categories,
-  ...group
-}: GroupedCategories) => {
+const CategoryGroup = ({ categories, ...group }: GroupedCategories) => {
   if (categories.length === 0) return null
   const Group = !group.name ? NoGroup : Select.Group
 

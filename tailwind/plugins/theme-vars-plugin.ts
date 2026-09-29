@@ -1,7 +1,7 @@
 import defaultColors from "tailwindcss/colors"
 import plugin from "tailwindcss/plugin"
 
-import { ObjDeepPath, ObjDeepValue } from "../../src/types/util-types"
+import { type ObjDeepPath, type ObjDeepValue } from "../../src/types/util-types"
 import { parseColor, toOklch } from "../../src/utils/color"
 import { deepLoop } from "../../src/utils/deep-loop"
 import type { ThemeConfig } from "tailwindcss/plugin.js"

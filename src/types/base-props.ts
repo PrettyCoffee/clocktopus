@@ -1,6 +1,6 @@
-import { CSSProperties, Ref } from "react"
+import { type CSSProperties, type Ref } from "react"
 
-import { LucideIcon } from "lucide-react"
+import { type LucideIcon } from "lucide-react"
 
 export type AlertKind = "info" | "success" | "warn" | "error"
 

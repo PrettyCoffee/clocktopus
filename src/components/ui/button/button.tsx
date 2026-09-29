@@ -1,25 +1,25 @@
 import {
-  ButtonHTMLAttributes,
-  HTMLAttributeAnchorTarget,
-  KeyboardEventHandler,
-  PropsWithChildren,
+  type ButtonHTMLAttributes,
+  type HTMLAttributeAnchorTarget,
+  type KeyboardEventHandler,
+  type PropsWithChildren,
 } from "react"
 
 import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "components/utility/slot"
 import { ExternalLink } from "lucide-react"
 import {
-  AsChildProp,
-  ClassNameProp,
-  DisableProp,
-  IconProp,
-  RefProp,
+  type AsChildProp,
+  type ClassNameProp,
+  type DisableProp,
+  type IconProp,
+  type RefProp,
 } from "types/base-props"
 import { cn } from "utils/cn"
-import { interactive, InteractiveProps } from "utils/styles"
+import { interactive, type InteractiveProps } from "utils/styles"
 import { Link } from "wouter"
 
-import { Icon, IconProps } from "../icon"
+import { Icon, type IconProps } from "../icon"
 import { Spinner } from "../spinner"
 
 const isExternalLink = (href?: string) =>

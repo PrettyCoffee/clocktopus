@@ -1,4 +1,4 @@
-import { Dispatch, PropsWithChildren, useMemo, useState } from "react"
+import { type Dispatch, type PropsWithChildren, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { AutoComplete } from "components/ui/auto-complete"

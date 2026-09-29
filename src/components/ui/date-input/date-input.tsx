@@ -1,11 +1,11 @@
-import { Dispatch, useState } from "react"
+import { type Dispatch, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { CalendarDays } from "lucide-react"
 import { dateHelpers } from "utils/date-helpers"
 
 import { Button } from "../button"
-import { Calendar, CalendarProps } from "../calendar"
+import { Calendar, type CalendarProps } from "../calendar"
 import { Popover } from "../popover"
 
 const printDate = (date: string, locale: string) => {

@@ -1,7 +1,7 @@
-import { ChangeEvent, useState, DragEvent, useId } from "react"
+import { type ChangeEvent, useState, type DragEvent, useId } from "react"
 
 import { Upload } from "lucide-react"
-import { Alert, ClassNameProp, IconProp } from "types/base-props"
+import { type Alert, type ClassNameProp, type IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 import {
   alertStyles,

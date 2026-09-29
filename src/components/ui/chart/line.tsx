@@ -1,7 +1,7 @@
 import { cn } from "utils/cn"
 
-import { chartColor, ChartStrokeColor } from "./fragments/chart-color"
-import { Coordinate, useChartContext } from "./fragments/chart-context"
+import { chartColor, type ChartStrokeColor } from "./fragments/chart-color"
+import { type Coordinate, useChartContext } from "./fragments/chart-context"
 import { createTransition } from "./utils/get-transition"
 
 const { runTransition } = createTransition<SVGPolylineElement>({

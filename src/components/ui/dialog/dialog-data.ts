@@ -1,6 +1,6 @@
 import { createAtom } from "lib/yaasl"
 
-import { DialogProps } from "./dialog"
+import { type DialogProps } from "./dialog"
 
 interface DialogState {
   title: DialogProps["title"]

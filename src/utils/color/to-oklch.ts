@@ -1,5 +1,5 @@
 import { parseColor } from "./parse-color"
-import { ColorValue } from "./types"
+import { type ColorValue } from "./types"
 
 const hslToRgb = (h: number, s: number, l: number): ColorValue["color"] => {
   const a = s * Math.min(l, 1 - l)

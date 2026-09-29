@@ -1,10 +1,10 @@
-import { PropsWithChildren, useState } from "react"
+import { type PropsWithChildren, useState } from "react"
 
 import { msg, t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 import { IconButton } from "components/ui/icon-button"
 import { createColumnHelper, Table } from "components/ui/table"
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
 import { Dices } from "lucide-react"
 import { cn } from "utils/cn"

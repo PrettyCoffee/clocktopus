@@ -1,10 +1,10 @@
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { Chart, Coordinate } from "components/ui/chart"
+import { Chart, type Coordinate } from "components/ui/chart"
 import { timeHelpers } from "utils/time-helpers"
 
 import { BarChart } from "./bar-chart"
-import { TimeStats } from "./get-time-stats"
+import { type TimeStats } from "./get-time-stats"
 
 const transformPoints = (
   stats: Record<string, TimeStats>,

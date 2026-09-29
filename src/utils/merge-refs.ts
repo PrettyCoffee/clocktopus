@@ -1,4 +1,4 @@
-import { Ref, RefCallback } from "react"
+import { type Ref, type RefCallback } from "react"
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {}

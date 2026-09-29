@@ -1,7 +1,7 @@
 import { chartColor } from "./fragments/chart-color"
 import { useChartContext } from "./fragments/chart-context"
-import { Text, TextProps } from "./fragments/text"
-import { LineProps } from "./line"
+import { Text, type TextProps } from "./fragments/text"
+import { type LineProps } from "./line"
 
 interface AxisProps {
   axis: "x" | "y"

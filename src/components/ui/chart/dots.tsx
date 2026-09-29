@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime"
 
-import { chartColor, ChartFillColor } from "./fragments/chart-color"
-import { Coordinate, useChartContext } from "./fragments/chart-context"
+import { chartColor, type ChartFillColor } from "./fragments/chart-color"
+import { type Coordinate, useChartContext } from "./fragments/chart-context"
 import { Text } from "./fragments/text"
 import { createTransition } from "./utils/get-transition"
 

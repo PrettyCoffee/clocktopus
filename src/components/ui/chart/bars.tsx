@@ -5,10 +5,10 @@ import { cn } from "utils/cn"
 
 import {
   chartColor,
-  ChartFillColor,
-  ChartStrokeColor,
+  type ChartFillColor,
+  type ChartStrokeColor,
 } from "./fragments/chart-color"
-import { Coordinate, useChartContext } from "./fragments/chart-context"
+import { type Coordinate, useChartContext } from "./fragments/chart-context"
 import { Text } from "./fragments/text"
 import { createTransition } from "./utils/get-transition"
 

@@ -1,9 +1,9 @@
-import { PropsWithChildren, SVGAttributes } from "react"
+import { type PropsWithChildren, type SVGAttributes } from "react"
 
-import { ClassNameProp, RefProp } from "types/base-props"
+import { type ClassNameProp, type RefProp } from "types/base-props"
 import { cn } from "utils/cn"
 
-import { chartColor, ChartFillColor } from "./chart-color"
+import { chartColor, type ChartFillColor } from "./chart-color"
 
 export interface TextProps
   extends

@@ -1,12 +1,12 @@
 "use client"
 
-import { Dispatch, PropsWithChildren } from "react"
+import { type Dispatch, type PropsWithChildren } from "react"
 
 import * as Primitive from "@radix-ui/react-select"
 import { preferencesData } from "data/preferences"
 import { useAtom } from "lib/yaasl"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
-import { ClassNameProp, DisableProp } from "types/base-props"
+import { type ClassNameProp, type DisableProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, interactive, surface } from "utils/styles"
 import { zIndex } from "utils/z-index"

@@ -1,7 +1,7 @@
-import { PropsWithChildren } from "react"
+import { type PropsWithChildren } from "react"
 
-import { TooltipContentProps } from "@radix-ui/react-tooltip"
-import { ClassNameProp, TitleProp } from "types/base-props"
+import { type TooltipContentProps } from "@radix-ui/react-tooltip"
+import { type ClassNameProp, type TitleProp } from "types/base-props"
 
 import { CursorTooltip } from "./cursor-tooltip"
 import { Tooltip } from "./tooltip"

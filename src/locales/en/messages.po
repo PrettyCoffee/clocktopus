@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/routes/settings/fragments/or-chain.tsx:30
+#: src/app/routes/settings/fragments/or-chain.tsx:35
 msgid "- or -"
 msgstr "- or -"
 
@@ -74,12 +74,12 @@ msgstr "Adjust the locale to influcene how dates are displayed. You can either s
 msgid "An unexpected error occurred during the import."
 msgstr "An unexpected error occurred during the import."
 
-#: src/app/routes/stats/stats-route.tsx:110
+#: src/app/routes/stats/stats-route.tsx:115
 #: src/features/week-selection/week.tsx:15
 msgid "April"
 msgstr "April"
 
-#: src/app/routes/stats/stats-route.tsx:114
+#: src/app/routes/stats/stats-route.tsx:119
 #: src/features/week-selection/week.tsx:19
 msgid "August"
 msgstr "August"
@@ -133,8 +133,8 @@ msgstr "Calendar View"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/app/routes/stats/stats-route.tsx:153
-#: src/app/routes/stats/stats-route.tsx:197
+#: src/app/routes/stats/stats-route.tsx:158
+#: src/app/routes/stats/stats-route.tsx:202
 msgid "categories"
 msgstr "categories"
 
@@ -146,7 +146,7 @@ msgstr "Categories"
 msgid "category"
 msgstr "category"
 
-#: src/features/components/category-select.tsx:68
+#: src/features/components/category-select.tsx:69
 #: src/features/csv-import/fragments/preview.tsx:41
 #: src/features/time-table/bulk-actions.tsx:127
 #: src/features/time-table/time-summary.tsx:88
@@ -220,7 +220,7 @@ msgstr "Confirm deletion"
 
 #: src/app/routes/settings/settings-data.tsx:140
 #: src/app/routes/settings/settings-data.tsx:158
-#: src/features/csv-import/csv-import.tsx:63
+#: src/features/csv-import/csv-import.tsx:66
 msgid "CSV Import"
 msgstr "CSV Import"
 
@@ -271,7 +271,7 @@ msgstr "Date"
 msgid "day schedule"
 msgstr "day schedule"
 
-#: src/app/routes/stats/stats-route.tsx:118
+#: src/app/routes/stats/stats-route.tsx:123
 #: src/features/week-selection/week.tsx:23
 msgid "December"
 msgstr "December"
@@ -397,7 +397,7 @@ msgstr "Export .csv"
 msgid "Export data"
 msgstr "Export data"
 
-#: src/app/routes/stats/stats-route.tsx:108
+#: src/app/routes/stats/stats-route.tsx:113
 #: src/features/week-selection/week.tsx:13
 msgid "February"
 msgstr "February"
@@ -406,12 +406,12 @@ msgstr "February"
 msgid "Filter"
 msgstr "Filter"
 
-#: src/features/csv-import/csv-import.tsx:68
+#: src/features/csv-import/csv-import.tsx:71
 msgid "Finish import"
 msgstr "Finish import"
 
-#: src/app/routes/stats/stats-route.tsx:96
-#: src/components/ui/calendar/calendar.tsx:40
+#: src/app/routes/stats/stats-route.tsx:101
+#: src/components/ui/calendar/calendar.tsx:45
 msgid "Friday"
 msgstr "Friday"
 
@@ -423,7 +423,7 @@ msgstr "General"
 msgid "Github"
 msgstr "Github"
 
-#: src/features/components/category-select.tsx:88
+#: src/features/components/category-select.tsx:89
 msgid "Go to category settings"
 msgstr "Go to category settings"
 
@@ -486,7 +486,7 @@ msgstr "Import or export a .csv file to move your data between clocktopus and ot
 msgid "Imported {0} entries"
 msgstr "Imported {0} entries"
 
-#: src/app/routes/stats/stats-route.tsx:168
+#: src/app/routes/stats/stats-route.tsx:173
 msgid "Insufficient data"
 msgstr "Insufficient data"
 
@@ -494,17 +494,17 @@ msgstr "Insufficient data"
 msgid "Item aligned"
 msgstr "Item aligned"
 
-#: src/app/routes/stats/stats-route.tsx:107
+#: src/app/routes/stats/stats-route.tsx:112
 #: src/features/week-selection/week.tsx:12
 msgid "January"
 msgstr "January"
 
-#: src/app/routes/stats/stats-route.tsx:113
+#: src/app/routes/stats/stats-route.tsx:118
 #: src/features/week-selection/week.tsx:18
 msgid "July"
 msgstr "July"
 
-#: src/app/routes/stats/stats-route.tsx:112
+#: src/app/routes/stats/stats-route.tsx:117
 #: src/features/week-selection/week.tsx:17
 msgid "June"
 msgstr "June"
@@ -531,12 +531,12 @@ msgstr "Manage Category Groups"
 msgid "Manage groups that you can use to cluster your categories. For example, you could group the categories \"Feature Development\" and \"Code Maintenance\" in a \"Development\" group."
 msgstr "Manage groups that you can use to cluster your categories. For example, you could group the categories \"Feature Development\" and \"Code Maintenance\" in a \"Development\" group."
 
-#: src/app/routes/stats/stats-route.tsx:109
+#: src/app/routes/stats/stats-route.tsx:114
 #: src/features/week-selection/week.tsx:14
 msgid "March"
 msgstr "March"
 
-#: src/app/routes/stats/stats-route.tsx:111
+#: src/app/routes/stats/stats-route.tsx:116
 #: src/features/week-selection/week.tsx:16
 msgid "May"
 msgstr "May"
@@ -545,16 +545,16 @@ msgstr "May"
 msgid "Missing"
 msgstr "Missing"
 
-#: src/app/routes/stats/stats-route.tsx:92
-#: src/components/ui/calendar/calendar.tsx:36
+#: src/app/routes/stats/stats-route.tsx:97
+#: src/components/ui/calendar/calendar.tsx:41
 msgid "Monday"
 msgstr "Monday"
 
-#: src/app/routes/stats/stats-route.tsx:151
+#: src/app/routes/stats/stats-route.tsx:156
 msgid "month"
 msgstr "month"
 
-#: src/app/routes/stats/stats-route.tsx:232
+#: src/app/routes/stats/stats-route.tsx:237
 msgid "months"
 msgstr "months"
 
@@ -570,7 +570,7 @@ msgstr "Move up"
 msgid "Name"
 msgstr "Name"
 
-#: src/components/ui/calendar/calendar.tsx:105
+#: src/components/ui/calendar/calendar.tsx:110
 msgid "Next month"
 msgstr "Next month"
 
@@ -578,7 +578,7 @@ msgstr "Next month"
 msgid "Next week"
 msgstr "Next week"
 
-#: src/components/ui/calendar/calendar.tsx:106
+#: src/components/ui/calendar/calendar.tsx:111
 #: src/features/week-selection/week-calendar.tsx:53
 #: src/features/week-selection/week-carousel.tsx:68
 msgid "Next year"
@@ -593,7 +593,7 @@ msgstr "No categories found"
 #: src/app/routes/search/search-route.tsx:29
 #: src/app/routes/stats/categories-chart.tsx:40
 #: src/features/components/category-name.tsx:70
-#: src/features/components/category-select.tsx:75
+#: src/features/components/category-select.tsx:76
 msgid "No category"
 msgstr "No category"
 
@@ -621,12 +621,12 @@ msgstr "No group"
 msgid "No matches found"
 msgstr "No matches found"
 
-#: src/app/routes/stats/stats-route.tsx:117
+#: src/app/routes/stats/stats-route.tsx:122
 #: src/features/week-selection/week.tsx:22
 msgid "November"
 msgstr "November"
 
-#: src/app/routes/stats/stats-route.tsx:116
+#: src/app/routes/stats/stats-route.tsx:121
 #: src/features/week-selection/week.tsx:21
 msgid "October"
 msgstr "October"
@@ -656,7 +656,7 @@ msgstr "Predefined Filters"
 msgid "Preview Sample"
 msgstr "Preview Sample"
 
-#: src/components/ui/calendar/calendar.tsx:105
+#: src/components/ui/calendar/calendar.tsx:110
 msgid "Previous month"
 msgstr "Previous month"
 
@@ -664,7 +664,7 @@ msgstr "Previous month"
 msgid "Previous week"
 msgstr "Previous week"
 
-#: src/components/ui/calendar/calendar.tsx:106
+#: src/components/ui/calendar/calendar.tsx:111
 #: src/features/week-selection/week-calendar.tsx:40
 #: src/features/week-selection/week-carousel.tsx:44
 msgid "Previous year"
@@ -674,7 +674,7 @@ msgstr "Previous year"
 msgid "Private"
 msgstr "Private"
 
-#: src/features/csv-import/csv-import.tsx:64
+#: src/features/csv-import/csv-import.tsx:67
 msgid "Provide information about the .csv file to be used for the import."
 msgstr "Provide information about the .csv file to be used for the import."
 
@@ -682,8 +682,8 @@ msgstr "Provide information about the .csv file to be used for the import."
 msgid "Refresh"
 msgstr "Refresh"
 
-#: src/app/routes/stats/stats-route.tsx:97
-#: src/components/ui/calendar/calendar.tsx:41
+#: src/app/routes/stats/stats-route.tsx:102
+#: src/components/ui/calendar/calendar.tsx:46
 msgid "Saturday"
 msgstr "Saturday"
 
@@ -725,7 +725,7 @@ msgstr "Selected"
 msgid "Selection menu alignment"
 msgstr "Selection menu alignment"
 
-#: src/app/routes/stats/stats-route.tsx:115
+#: src/app/routes/stats/stats-route.tsx:120
 #: src/features/week-selection/week.tsx:20
 msgid "September"
 msgstr "September"
@@ -752,7 +752,7 @@ msgstr "Start date"
 msgid "Stats"
 msgstr "Stats"
 
-#: src/app/routes/stats/stats-route.tsx:132
+#: src/app/routes/stats/stats-route.tsx:137
 msgid "Stats by"
 msgstr "Stats by"
 
@@ -760,8 +760,8 @@ msgstr "Stats by"
 msgid "Summary style"
 msgstr "Summary style"
 
-#: src/app/routes/stats/stats-route.tsx:98
-#: src/components/ui/calendar/calendar.tsx:42
+#: src/app/routes/stats/stats-route.tsx:103
+#: src/components/ui/calendar/calendar.tsx:47
 msgid "Sunday"
 msgstr "Sunday"
 
@@ -809,8 +809,8 @@ msgstr "There is a gap in your time entries on this date at {lastEnd}"
 msgid "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
 msgstr "This website is hosted on GitHub Pages. GitHub may collect personal data from visitors to this website. For further information, please consult the <0>GitHub Privacy Statement</0>.<1/>Apart the processing described in GitHub's Privacy Statement, this website does not collect or track any personal data. Any data you enter is stored solely within your browser and is not transmitted to any server. Please note that clearing your browser's data may reset this website to its initial state and result in the loss of any data you have entered."
 
-#: src/app/routes/stats/stats-route.tsx:95
-#: src/components/ui/calendar/calendar.tsx:39
+#: src/app/routes/stats/stats-route.tsx:100
+#: src/components/ui/calendar/calendar.tsx:44
 msgid "Thursday"
 msgstr "Thursday"
 
@@ -840,8 +840,8 @@ msgstr "Today"
 msgid "Total: "
 msgstr "Total: "
 
-#: src/app/routes/stats/stats-route.tsx:93
-#: src/components/ui/calendar/calendar.tsx:37
+#: src/app/routes/stats/stats-route.tsx:98
+#: src/components/ui/calendar/calendar.tsx:42
 msgid "Tuesday"
 msgstr "Tuesday"
 
@@ -849,16 +849,16 @@ msgstr "Tuesday"
 msgid "Updated selected entries"
 msgstr "Updated selected entries"
 
-#: src/app/routes/stats/stats-route.tsx:94
-#: src/components/ui/calendar/calendar.tsx:38
+#: src/app/routes/stats/stats-route.tsx:99
+#: src/components/ui/calendar/calendar.tsx:43
 msgid "Wednesday"
 msgstr "Wednesday"
 
-#: src/app/routes/stats/stats-route.tsx:150
+#: src/app/routes/stats/stats-route.tsx:155
 msgid "weekday"
 msgstr "weekday"
 
-#: src/app/routes/stats/stats-route.tsx:231
+#: src/app/routes/stats/stats-route.tsx:236
 msgid "weekdays"
 msgstr "weekdays"
 
@@ -870,11 +870,11 @@ msgstr "Working Hours (avg)"
 msgid "Working Time (avg)"
 msgstr "Working Time (avg)"
 
-#: src/app/routes/stats/stats-route.tsx:152
+#: src/app/routes/stats/stats-route.tsx:157
 msgid "year"
 msgstr "year"
 
-#: src/app/routes/stats/stats-route.tsx:233
+#: src/app/routes/stats/stats-route.tsx:238
 msgid "years"
 msgstr "years"
 
@@ -886,6 +886,6 @@ msgstr "You didn't backup your data for a while. Please create an export and sav
 msgid "You didn't save any filters yet"
 msgstr "You didn't save any filters yet"
 
-#: src/app/routes/stats/stats-route.tsx:170
+#: src/app/routes/stats/stats-route.tsx:175
 msgid "You will need to provide more data, to be able to see stats here. (at least 2 {subject})"
 msgstr "You will need to provide more data, to be able to see stats here. (at least 2 {subject})"

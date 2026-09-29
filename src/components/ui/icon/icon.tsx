@@ -1,6 +1,10 @@
-import { VariantProps, cva } from "class-variance-authority"
-import { LucideProps } from "lucide-react"
-import { ClassNameProp, IconProp, RefProp } from "types/base-props"
+import { type VariantProps, cva } from "class-variance-authority"
+import { type LucideProps } from "lucide-react"
+import {
+  type ClassNameProp,
+  type IconProp,
+  type RefProp,
+} from "types/base-props"
 import { cn } from "utils/cn"
 
 const icon = cva("inline-block shrink-0", {

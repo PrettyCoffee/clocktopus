@@ -1,5 +1,5 @@
 import { createSlice, sync } from "lib/yaasl"
-import { Resolve } from "types/util-types"
+import { type Resolve } from "types/util-types"
 import { createId } from "utils/create-id"
 import { z } from "zod/mini"
 

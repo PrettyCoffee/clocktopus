@@ -1,8 +1,8 @@
-import { Dispatch, useState } from "react"
+import { type Dispatch, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"

@@ -1,6 +1,6 @@
 import { createDerived } from "lib/yaasl"
 
-import { timeEntriesData, TimeEntry } from "./time-entries-data"
+import { timeEntriesData, type TimeEntry } from "./time-entries-data"
 
 export const getDateAtom = (date: string) => {
   const atom = createDerived(

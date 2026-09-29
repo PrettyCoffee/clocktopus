@@ -1,5 +1,5 @@
-import { cva, VariantProps } from "class-variance-authority"
-import { ClassNameProp } from "types/base-props"
+import { cva, type VariantProps } from "class-variance-authority"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 
 const divider = cva("block shrink-0", {

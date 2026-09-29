@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react"
+import { type PropsWithChildren } from "react"
 
 import { DialogProvider } from "components/ui/dialog"
 import { Toaster } from "components/ui/toaster"

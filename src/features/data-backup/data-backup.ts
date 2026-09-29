@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro"
 import { showToast } from "components/ui/toaster"
-import { allData, AllData } from "data/all-data"
+import { allData, type AllData } from "data/all-data"
 import { dataBackupData } from "data/data-backup"
 import { dateHelpers } from "utils/date-helpers"
 import { download } from "utils/download"

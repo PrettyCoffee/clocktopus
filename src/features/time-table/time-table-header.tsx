@@ -1,4 +1,4 @@
-import { Dispatch, useMemo, useState } from "react"
+import { type Dispatch, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Checkbox } from "components/ui/checkbox"
@@ -12,12 +12,12 @@ import { type TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
 import { useAtom } from "lib/yaasl"
 import { ChevronDown, Lock, Unlock } from "lucide-react"
-import { Alert } from "types/base-props"
+import { type Alert } from "types/base-props"
 import { cn } from "utils/cn"
 import { alertStyles, hstack, vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
 
-import { CheckedState, useCheckedState } from "./checked-context"
+import { type CheckedState, useCheckedState } from "./checked-context"
 import { Duration } from "./duration"
 
 const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {

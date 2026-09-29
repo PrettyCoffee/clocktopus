@@ -1,17 +1,17 @@
 import {
-  ChangeEvent,
-  Dispatch,
-  KeyboardEvent,
-  FocusEventHandler,
-  MouseEvent,
+  type ChangeEvent,
+  type Dispatch,
+  type KeyboardEvent,
+  type FocusEventHandler,
+  type MouseEvent,
 } from "react"
 
 import {
-  AlertKind,
-  ClassNameProp,
-  DisableProp,
-  RefProp,
-  StyleProp,
+  type AlertKind,
+  type ClassNameProp,
+  type DisableProp,
+  type RefProp,
+  type StyleProp,
 } from "types/base-props"
 import { cn } from "utils/cn"
 import { alertStyles } from "utils/styles"

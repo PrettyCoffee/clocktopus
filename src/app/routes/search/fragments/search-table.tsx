@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Pagination } from "components/ui/pagination"
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import {
   CheckedStateProvider,
   TimeEntriesBulkActions,

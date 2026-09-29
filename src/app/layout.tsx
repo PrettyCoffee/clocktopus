@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { type ReactNode } from "react"
 
 import { msg } from "@lingui/core/macro"
 import { PageCrashedRoute } from "app/routes/page-crashed"

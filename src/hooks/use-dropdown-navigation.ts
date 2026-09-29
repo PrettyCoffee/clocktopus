@@ -1,4 +1,10 @@
-import { Dispatch, RefObject, useEffect, useEffectEvent, useState } from "react"
+import {
+  type Dispatch,
+  type RefObject,
+  useEffect,
+  useEffectEvent,
+  useState,
+} from "react"
 
 interface DropdownNavigationProps<TItem> {
   triggerRef: RefObject<HTMLElement | null>

@@ -1,5 +1,5 @@
 import { type TimeEntry } from "data/time-entries"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { getLocale } from "utils/get-locale"
 import { timeHelpers } from "utils/time-helpers"

@@ -1,4 +1,4 @@
-import { KeyboardEvent } from "react"
+import { type KeyboardEvent } from "react"
 
 import { clamp } from "utils/clamp"
 import { focusElement } from "utils/focus-element"

@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useEffectEvent } from "react"
+import { type RefObject, useEffect, useEffectEvent } from "react"
 
 interface UseResizeObserverProps {
   ref: RefObject<HTMLElement | null>

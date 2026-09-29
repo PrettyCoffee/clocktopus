@@ -1,6 +1,6 @@
 import { msg } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { showToast, ToastAction } from "components/ui/toaster"
+import { showToast, type ToastAction } from "components/ui/toaster"
 import { dataBackupData } from "data/data-backup"
 import { HardDriveDownload, Settings } from "lucide-react"
 import { dateHelpers } from "utils/date-helpers"

@@ -1,4 +1,4 @@
-import { Chart, Coordinate } from "components/ui/chart"
+import { Chart, type Coordinate } from "components/ui/chart"
 
 const transformPoints = (stats: Record<string, number>) =>
   Object.entries(stats).map(([x, y], index) => ({ x: index, tick: x, y }))

@@ -1,4 +1,9 @@
-import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react"
+import {
+  type Dispatch,
+  type PropsWithChildren,
+  type SetStateAction,
+  useState,
+} from "react"
 
 import { t } from "@lingui/core/macro"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -8,7 +13,7 @@ import { hstack, vstack } from "utils/styles"
 
 import { Button } from "../button"
 import { IconButton } from "../icon-button"
-import { Day } from "./utils/day"
+import { type Day } from "./utils/day"
 import { focusManager } from "./utils/focus-manager"
 import { Month } from "./utils/month"
 

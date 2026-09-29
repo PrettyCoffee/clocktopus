@@ -1,15 +1,15 @@
 import {
   Children,
   isValidElement,
-  PropsWithChildren,
-  ReactNode,
+  type PropsWithChildren,
+  type ReactNode,
   useState,
 } from "react"
 
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 
-import { ChartContext, Coordinate } from "./fragments/chart-context"
+import { ChartContext, type Coordinate } from "./fragments/chart-context"
 
 const normalize = (value: number, min: number, max: number) =>
   (value - min) / (max - min)

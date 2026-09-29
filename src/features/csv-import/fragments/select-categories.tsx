@@ -1,4 +1,4 @@
-import { Dispatch, Fragment } from "react"
+import { type Dispatch, Fragment } from "react"
 
 import { Trans } from "@lingui/react/macro"
 import { CategorySelect } from "features/components/category-select"

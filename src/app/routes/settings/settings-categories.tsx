@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { type Dispatch } from "react"
 
 import { msg, t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
@@ -14,9 +14,9 @@ import { Toggle } from "components/ui/toggle"
 import { ScrollArea } from "components/utility/scroll-area"
 import { VisuallyHidden } from "components/utility/visually-hidden"
 import {
-  Category,
+  type Category,
   categoryGroupsData,
-  CategoryGroup,
+  type CategoryGroup,
   categoriesData,
 } from "data/categories"
 import { useObjectState } from "hooks/use-object-state"

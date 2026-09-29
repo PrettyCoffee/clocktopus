@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { type Dispatch } from "react"
 
 import { msg, t } from "@lingui/core/macro"
 import { Checkbox } from "components/ui/checkbox"
@@ -8,7 +8,7 @@ import { createColumnHelper, Table } from "components/ui/table"
 import { timeEntriesData, type TimeEntry } from "data/time-entries"
 import { Trash } from "lucide-react"
 
-import { CheckedState, useCheckedState } from "./checked-context"
+import { type CheckedState, useCheckedState } from "./checked-context"
 import { Duration } from "./duration"
 import { inputs } from "./inputs"
 

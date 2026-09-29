@@ -3,7 +3,7 @@ import { resolve } from "node:path"
 import {
   git,
   promptVersions,
-  promptWorkspaces,
+  type promptWorkspaces,
   updateVersion,
   color,
   createSpinner,

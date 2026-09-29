@@ -1,15 +1,18 @@
-import { Dispatch, useMemo } from "react"
+import { type Dispatch, useMemo } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Dialog } from "components/ui/dialog"
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import { useObjectState } from "hooks/use-object-state"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 
 import { Preview } from "./fragments/preview"
-import { CategoryMapping, SelectCategory } from "./fragments/select-categories"
-import { SelectColumns, ColumnLookup } from "./fragments/select-columns"
+import {
+  type CategoryMapping,
+  SelectCategory,
+} from "./fragments/select-categories"
+import { SelectColumns, type ColumnLookup } from "./fragments/select-columns"
 import { buildRows } from "./utils/build-rows"
 import { processCsv } from "./utils/process-csv"
 

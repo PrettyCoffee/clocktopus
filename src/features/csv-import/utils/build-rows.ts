@@ -1,8 +1,8 @@
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import { createId } from "utils/create-id"
 
-import { CategoryMapping } from "../fragments/select-categories"
-import { ColumnLookup } from "../fragments/select-columns"
+import { type CategoryMapping } from "../fragments/select-categories"
+import { type ColumnLookup } from "../fragments/select-columns"
 
 const twoDigits = (number: number) => String(number).padStart(2, "0")
 

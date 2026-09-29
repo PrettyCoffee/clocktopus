@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
+import { type Dispatch, type SetStateAction } from "react"
 
 import { t } from "@lingui/core/macro"
 import { IconButton } from "components/ui/icon-button"

@@ -1,4 +1,4 @@
-import { dateHelpers, ParsedDate } from "utils/date-helpers"
+import { dateHelpers, type ParsedDate } from "utils/date-helpers"
 
 interface DayMeta {
   isFiller: boolean

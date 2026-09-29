@@ -2,7 +2,7 @@
  * Color Parser Sourced from Tailwind Reference:
  * https://github.com/tailwindlabs/tailwindcss/blob/main/src/util/color.js.
  */
-import { ColorValue } from "./types"
+import { type ColorValue } from "./types"
 
 const HEX = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i
 const SHORT_HEX = /^#([a-f\d])([a-f\d])([a-f\d])([a-f\d])?$/i

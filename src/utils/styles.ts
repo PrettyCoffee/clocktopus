@@ -1,12 +1,12 @@
-import { VariantProps, cva } from "class-variance-authority"
+import { type VariantProps, cva } from "class-variance-authority"
 import {
   BadgeAlert,
   BadgeCheck,
   BadgeInfo,
   BadgeX,
-  LucideIcon,
+  type LucideIcon,
 } from "lucide-react"
-import { AlertKind } from "types/base-props"
+import { type AlertKind } from "types/base-props"
 
 import { cn } from "./cn"
 

@@ -1,14 +1,14 @@
-import { PropsWithChildren, ReactNode, useState } from "react"
+import { type PropsWithChildren, type ReactNode, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
-import { Button, ButtonProps } from "../button"
+import { Button, type ButtonProps } from "../button"
 import { IconButton } from "../icon-button"
 
 const transitionStyles = {

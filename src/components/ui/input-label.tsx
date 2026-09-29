@@ -1,7 +1,12 @@
-import { PropsWithChildren, useId, ReactNode, isValidElement } from "react"
+import {
+  type PropsWithChildren,
+  useId,
+  type ReactNode,
+  isValidElement,
+} from "react"
 
 import { Slot } from "components/utility/slot"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 

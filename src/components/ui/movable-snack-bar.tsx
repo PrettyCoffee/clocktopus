@@ -1,7 +1,7 @@
 import {
-  Dispatch,
-  PropsWithChildren,
-  RefObject,
+  type Dispatch,
+  type PropsWithChildren,
+  type RefObject,
   useEffect,
   useEffectEvent,
   useRef,

@@ -1,7 +1,7 @@
-import { Dispatch } from "react"
+import { type Dispatch } from "react"
 
 import * as Primitive from "@radix-ui/react-switch"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, interactive } from "utils/styles"
 

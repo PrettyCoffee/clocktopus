@@ -1,7 +1,7 @@
-import { Dispatch, useRef } from "react"
+import { type Dispatch, useRef } from "react"
 
 import { useIntersectionObserver } from "hooks/use-intersection-observer"
-import { DisableProp } from "types/base-props"
+import { type DisableProp } from "types/base-props"
 
 interface DetectIntersectionProps extends DisableProp {
   onIntersect: Dispatch<boolean>

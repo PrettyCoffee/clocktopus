@@ -1,7 +1,7 @@
-import { Dispatch, useRef } from "react"
+import { type Dispatch, useRef } from "react"
 
 import { categoriesData, categoryGroupsData } from "data/categories"
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { colored } from "utils/styles"

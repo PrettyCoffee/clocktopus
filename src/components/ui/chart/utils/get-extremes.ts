@@ -1,4 +1,4 @@
-import { Coordinate } from "../fragments/chart-context"
+import { type Coordinate } from "../fragments/chart-context"
 
 const getMin = (points: Coordinate[]) => ({
   x: Math.min(...points.map(({ x }) => x)),

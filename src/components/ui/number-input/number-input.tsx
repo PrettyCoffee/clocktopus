@@ -1,6 +1,6 @@
-import { Dispatch, useState } from "react"
+import { type Dispatch, useState } from "react"
 
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
 

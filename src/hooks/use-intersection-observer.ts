@@ -1,6 +1,6 @@
-import { RefObject, useEffect, useEffectEvent } from "react"
+import { type RefObject, useEffect, useEffectEvent } from "react"
 
-import { DisableProp } from "types/base-props"
+import { type DisableProp } from "types/base-props"
 
 interface UseIntersectionObserverProps extends DisableProp {
   ref: RefObject<HTMLElement | null>

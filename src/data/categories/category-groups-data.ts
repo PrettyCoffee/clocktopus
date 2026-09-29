@@ -1,5 +1,5 @@
 import { createSlice, indexedDb, sync } from "lib/yaasl"
-import { Resolve } from "types/util-types"
+import { type Resolve } from "types/util-types"
 import { arrayMove } from "utils/array-move"
 import { createId } from "utils/create-id"
 import { allColors } from "utils/styles"

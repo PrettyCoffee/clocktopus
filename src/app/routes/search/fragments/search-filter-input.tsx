@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro"
-import { FilterInput, FilterInputProps } from "components/ui/filter-input"
+import { FilterInput, type FilterInputProps } from "components/ui/filter-input"
 import { dateHelpers } from "utils/date-helpers"
 
 const isYear = (value: string) => /^\d{4}$/.test(value)

@@ -1,7 +1,7 @@
-import { PropsWithChildren, ReactNode } from "react"
+import { type PropsWithChildren, type ReactNode } from "react"
 
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 
 import { tooltipStyles } from "./tooltip-styles"

@@ -1,4 +1,4 @@
-import { Config } from "tailwindcss"
+import { type Config } from "tailwindcss"
 import animatePlugin from "tailwindcss-animate"
 import twTheme from "tailwindcss/defaultTheme.js"
 

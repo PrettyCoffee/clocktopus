@@ -1,9 +1,9 @@
-import { PropsWithChildren, ReactNode } from "react"
+import { type PropsWithChildren, type ReactNode } from "react"
 
 import { Icon } from "components/ui/icon"
 import { keyframes, css } from "goober"
 import { Ghost } from "lucide-react"
-import { IconProp } from "types/base-props"
+import { type IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 
 import { hstack, vstack } from "../../../utils/styles"

@@ -1,10 +1,10 @@
-import { PropsWithChildren, useMemo, useState } from "react"
+import { type PropsWithChildren, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
 import { ContextInfo } from "components/ui/context-info"
 import { DetectIntersection } from "components/utility/detect-intersection"
-import { timeEntriesData, TimeEntry } from "data/time-entries"
+import { timeEntriesData, type TimeEntry } from "data/time-entries"
 import {
   TimeEntriesBulkActions,
   TimeTable,
@@ -14,7 +14,7 @@ import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { selectedWeek, WeekCarousel } from "features/week-selection"
 import { useAtom, createSlice } from "lib/yaasl"
 import { Ghost } from "lucide-react"
-import { Alert } from "types/base-props"
+import { type Alert } from "types/base-props"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { getLocale } from "utils/get-locale"

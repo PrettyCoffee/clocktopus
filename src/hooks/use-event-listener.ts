@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useEffectEvent } from "react"
+import { type RefObject, useEffect, useEffectEvent } from "react"
 
 type OnlyStrings<T> = T extends string ? T : never
 

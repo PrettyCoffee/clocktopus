@@ -1,11 +1,11 @@
-import { PropsWithChildren } from "react"
+import { type PropsWithChildren } from "react"
 
 import { Slot } from "components/utility/slot"
 import {
-  AsChildProp,
-  ClassNameProp,
-  RefProp,
-  StyleProp,
+  type AsChildProp,
+  type ClassNameProp,
+  type RefProp,
+  type StyleProp,
 } from "types/base-props"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"

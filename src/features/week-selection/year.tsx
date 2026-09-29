@@ -3,7 +3,7 @@ import { useMemo } from "react"
 import { useAtom } from "lib/yaasl"
 
 import { getWeek, selectedWeek } from "./selected-week"
-import { Week, WeekProps } from "./week"
+import { Week, type WeekProps } from "./week"
 
 const getCalendarWeeks = (year: number) => {
   let nextDate = new Date(year, 0, 1)

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
-import { VariantProps, cva } from "class-variance-authority"
+import { type VariantProps, cva } from "class-variance-authority"
 import { css, keyframes } from "goober"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 
 const strokeOffset = keyframes`

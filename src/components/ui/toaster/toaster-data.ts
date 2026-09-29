@@ -1,11 +1,11 @@
-import { ReactNode } from "react"
+import { type ReactNode } from "react"
 
-import { MessageDescriptor } from "@lingui/core"
+import { type MessageDescriptor } from "@lingui/core"
 import { createSlice } from "lib/yaasl"
-import { AlertKind } from "types/base-props"
+import { type AlertKind } from "types/base-props"
 import { createId } from "utils/create-id"
 
-import { ButtonProps } from "../button"
+import { type ButtonProps } from "../button"
 
 const defaultDurations: Record<AlertKind, number> = {
   info: 5000,

@@ -1,5 +1,5 @@
 import { categoriesData } from "data/categories"
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import { timeHelpers } from "utils/time-helpers"
 
 const average = (numbers: number[]) => {

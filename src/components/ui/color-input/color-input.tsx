@@ -1,4 +1,4 @@
-import { Dispatch, useState } from "react"
+import { type Dispatch, useState } from "react"
 
 import { Button } from "components/ui/button"
 import { Icon } from "components/ui/icon"
@@ -6,7 +6,7 @@ import { Popover } from "components/ui/popover"
 import { VisuallyHidden } from "components/utility/visually-hidden"
 import { Check } from "lucide-react"
 import { cn } from "utils/cn"
-import { allColors, colored, hstack, ThemeColor } from "utils/styles"
+import { allColors, colored, hstack, type ThemeColor } from "utils/styles"
 
 import { focusManager } from "./focus-manager"
 

@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from "react"
+import { type PropsWithChildren, type ReactNode } from "react"
 
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"

@@ -1,10 +1,10 @@
-import { PropsWithChildren, ReactNode } from "react"
+import { type PropsWithChildren, type ReactNode } from "react"
 
 import { t } from "@lingui/core/macro"
 import { useMountAnimation } from "hooks/use-mount-animation"
 import { createAtom, sessionStorage, useAtom } from "lib/yaasl"
 import { Menu } from "lucide-react"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 

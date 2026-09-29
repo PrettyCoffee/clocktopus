@@ -1,7 +1,7 @@
-import { Dispatch, useState } from "react"
+import { type Dispatch, useState } from "react"
 
-import { TimeEntry } from "data/time-entries"
-import { Alert } from "types/base-props"
+import { type TimeEntry } from "data/time-entries"
+import { type Alert } from "types/base-props"
 import { cn } from "utils/cn"
 import { surface } from "utils/styles"
 

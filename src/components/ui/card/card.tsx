@@ -1,6 +1,6 @@
-import { PropsWithChildren, ReactNode } from "react"
+import { type PropsWithChildren, type ReactNode } from "react"
 
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { surface } from "utils/styles"
 

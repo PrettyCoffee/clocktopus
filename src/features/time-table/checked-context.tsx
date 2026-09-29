@@ -1,12 +1,12 @@
 import {
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
+  type Dispatch,
+  type PropsWithChildren,
+  type SetStateAction,
   useCallback,
   useState,
 } from "react"
 
-import { TimeEntry } from "data/time-entries"
+import { type TimeEntry } from "data/time-entries"
 import { createContext } from "utils/create-context"
 
 const toggle = (state: CheckedState, { date, id }: TimeEntry): CheckedState => {

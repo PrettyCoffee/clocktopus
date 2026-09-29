@@ -5,7 +5,7 @@ import { Icon } from "components/ui/icon"
 import { keyframes } from "goober"
 import { useTrans } from "locales/locale-provider"
 import { X } from "lucide-react"
-import { AnimationSequence } from "motion"
+import { type AnimationSequence } from "motion"
 import { useAnimate } from "motion/react"
 import { cn } from "utils/cn"
 import { ease } from "utils/ease"
@@ -13,7 +13,7 @@ import { alertStyles, hstack, surface } from "utils/styles"
 
 import { Button } from "../button"
 import { IconButton } from "../icon-button"
-import { ToastProps } from "./toaster-data"
+import { type ToastProps } from "./toaster-data"
 
 interface ExtendedToastProps extends ToastProps {
   onClose: (id: string) => void

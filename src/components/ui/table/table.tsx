@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from "react"
+import { Fragment, type ReactNode } from "react"
 
 import { type MessageDescriptor } from "@lingui/core"
 import { useTrans } from "locales/locale-provider"

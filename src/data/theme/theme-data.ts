@@ -1,5 +1,5 @@
 import { createSlice, indexedDb, sync } from "lib/yaasl"
-import { Resolve } from "types/util-types"
+import { type Resolve } from "types/util-types"
 import { getCssVarValue } from "utils/get-css-var-value"
 import { allColors, getThemeColorPath } from "utils/styles"
 import { z } from "zod/mini"

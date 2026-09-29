@@ -2,9 +2,9 @@ import {
   mergeConfigs,
   extendTailwindMerge,
   validators,
-  Config,
+  type Config,
   twJoin,
-  ClassNameValue,
+  type ClassNameValue,
 } from "tailwind-merge"
 
 const getAny = () => [validators.isAny] as const

@@ -1,5 +1,5 @@
 import { createSlice, indexedDb, sync } from "lib/yaasl"
-import { Resolve } from "types/util-types"
+import { type Resolve } from "types/util-types"
 import { z } from "zod/mini"
 
 export const preferencesSchema = z.object({

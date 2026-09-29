@@ -1,4 +1,9 @@
-import { Children, Fragment, PropsWithChildren, HTMLProps } from "react"
+import {
+  Children,
+  Fragment,
+  type PropsWithChildren,
+  type HTMLProps,
+} from "react"
 
 import { Trans } from "@lingui/react/macro"
 import { cn } from "utils/cn"

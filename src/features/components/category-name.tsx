@@ -2,11 +2,11 @@ import { Trans } from "@lingui/react/macro"
 import {
   categoryGroupsData,
   categoriesData,
-  Category,
-  CategoryGroup,
+  type Category,
+  type CategoryGroup,
 } from "data/categories"
 import { useAtom } from "lib/yaasl"
-import { ClassNameProp } from "types/base-props"
+import { type ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { colored, hstack } from "utils/styles"
 

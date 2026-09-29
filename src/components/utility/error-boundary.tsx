@@ -1,4 +1,4 @@
-import { Component, FunctionComponent, ReactNode } from "react"
+import { Component, type FunctionComponent, type ReactNode } from "react"
 
 import { Trans } from "@lingui/react/macro"
 
