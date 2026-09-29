@@ -67,7 +67,7 @@ export const CursorTooltip = ({
       {isMounted && (
         <FloatingPortal>
           <div
-            // eslint-disable-next-line react-hooks/refs -- false positive
+            // oxlint-disable-next-line react-hooks/refs -- false positive
             ref={refs.setFloating}
             style={floatingStyles}
             className={zIndex.tooltip}

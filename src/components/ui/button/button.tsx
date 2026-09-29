@@ -75,7 +75,7 @@ export const Button = ({
   active,
   disabled,
   ...props
-  // eslint-disable-next-line complexity
+  // oxlint-disable-next-line complexity
 }: PropsWithChildren<ButtonProps>) => {
   const Comp = asChild
     ? Slot

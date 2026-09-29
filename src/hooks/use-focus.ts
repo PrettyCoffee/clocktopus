@@ -24,7 +24,7 @@ export const useFocus = (refs: RefObject<Element | null>[]) => {
       window.removeEventListener("focusin", handler)
       window.removeEventListener("click", handler)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, refs)
 
   return focus

@@ -41,7 +41,7 @@ export const useMountAnimation = ({
     [onChange],
   )
 
-  // eslint-disable-next-line complexity -- extracting anything here would resolve in too much argument passing
+  // oxlint-disable-next-line complexity -- extracting anything here would resolve in too much argument passing
   useEffect(() => {
     if (!didMount.current) {
       didMount.current = true
@@ -49,7 +49,7 @@ export const useMountAnimation = ({
     }
 
     if (!allowMotion) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- this mechanism cannot be implemented otherwise
+      // oxlint-disable-next-line react-hooks/set-state-in-effect -- this mechanism cannot be implemented otherwise
       updateState(open ? "open" : "close")
       return
     }

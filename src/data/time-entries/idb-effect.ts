@@ -4,7 +4,7 @@ type StateItem = unknown
 type AtomState = Record<string, StateItem[]>
 
 const hash = (text = "") =>
-  // eslint-disable-next-line @typescript-eslint/no-misused-spread
+  // oxlint-disable-next-line @typescript-eslint/no-misused-spread
   [...text]
     .reduce((out, char) => (101 * out + char.charCodeAt(0)) >>> 0, 11)
     .toString(36)

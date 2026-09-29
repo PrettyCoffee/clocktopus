@@ -185,7 +185,7 @@ export const Calendar = ({
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- event bubbles up to this element
+    // oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- event bubbles up to this element
     <div
       className={cn(vstack({ inline: true }))}
       onKeyDown={event => (event.skipGridNavigation = true)}
@@ -197,7 +197,7 @@ export const Calendar = ({
         min={min}
         setMonth={setMonth}
       />
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions
           -- event bubbles up to this element */}
       <div className="inline-grid grid-cols-7" onKeyDown={focusManager}>
         <GridHeader size={size} />

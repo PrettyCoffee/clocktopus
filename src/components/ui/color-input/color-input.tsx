@@ -39,7 +39,7 @@ const ColorButton = ({ value, onChange, isActive }: ColorButtonProps) => (
 )
 
 const ColorList = ({ value, onChange }: ColorInputValueProps) => (
-  // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- event bubbles up to this element
+  // oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- event bubbles up to this element
   <div className={hstack({ gap: 2, wrap: true })} onKeyDown={focusManager}>
     {allColors.map(color => (
       <ColorButton

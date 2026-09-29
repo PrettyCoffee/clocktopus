@@ -83,7 +83,7 @@ const nextToken = (text: string, lastToken?: Token) => {
 const isTagSymbol = (token?: Token) =>
   token?.type === "symbol" && token.value === ":"
 
-// eslint-disable-next-line complexity -- refactoring will make it more complex
+// oxlint-disable-next-line complexity -- refactoring will make it more complex
 const aggregateTokens = (first: Token) => {
   const items: FilterItem[] = []
 

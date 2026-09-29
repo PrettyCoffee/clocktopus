@@ -182,7 +182,7 @@ const HiddenRoutes = () => {
       title={t`Hidden pages`}
       description={t`Hide optional pages from the navigation of the side-menu, if you don't use them.`}
     >
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
         className="flex flex-row flex-wrap gap-2"
         onKeyDown={checkOptionFocusManager}

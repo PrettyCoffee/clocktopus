@@ -1,7 +1,7 @@
 import { type Ref, type RefCallback } from "react"
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = () => {}
+// oxlint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => { }
 
 export const mergeRefs = <T>(
   ...refs: (Ref<T> | undefined | null)[]

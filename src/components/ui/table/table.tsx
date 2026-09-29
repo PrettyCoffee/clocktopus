@@ -140,7 +140,7 @@ export const Table = <TConfig extends TableConfig>(
   const { name, gridCols } = props
   return (
     <Context value={props as unknown as TableProps<TableConfig>}>
-      {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
+      {/* oxlint-disable-next-line jsx-a11y/interactive-supports-focus */}
       <div
         role="grid"
         data-grid-name={name}

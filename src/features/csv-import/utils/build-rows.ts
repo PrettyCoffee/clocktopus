@@ -39,7 +39,7 @@ export const buildRows = (
   columnLookup: ColumnLookup,
   categoryMapping: CategoryMapping,
 ) => {
-  // eslint-disable-next-line complexity
+  // oxlint-disable-next-line complexity
   const create = (row: string[]): TimeEntry => {
     const raw = {
       date: row[columnLookup.date ?? -1],

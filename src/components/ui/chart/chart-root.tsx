@@ -42,7 +42,7 @@ const getPadding = (padProp: Padding = 24) => {
 }
 
 const getTypePriority = (child: ReactNode) => {
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define -- this function is only being used inside the component
+  // oxlint-disable-next-line @typescript-eslint/no-use-before-define -- this function is only being used inside the component
   const priority = ChartRoot._childrenPriority
 
   const type = !isValidElement(child) ? null : child.type

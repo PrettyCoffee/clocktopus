@@ -10,7 +10,7 @@ const detectSeparator = (csv: string) => {
 
 const cleanFieldValue = (text: string) => {
   const trimmed = text.trim()
-  // eslint-disable-next-line unused-imports/no-unused-vars
+  // oxlint-disable-next-line unused-imports/no-unused-vars
   const [_full, match] = /^["'](.*)["']$/.exec(trimmed) ?? []
   return match ?? trimmed
 }

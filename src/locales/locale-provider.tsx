@@ -1,6 +1,6 @@
 import { type PropsWithChildren, useEffect, useState } from "react"
 
-// eslint-disable-next-line no-restricted-imports -- i18n may only be used here
+// oxlint-disable-next-line no-restricted-imports -- i18n may only be used here
 import { i18n, type Messages } from "@lingui/core"
 import { I18nProvider, useLingui } from "@lingui/react"
 import { preferencesData } from "data/preferences"

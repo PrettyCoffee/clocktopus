@@ -60,7 +60,7 @@ const Root = ({
 
   const removeTab = useCallback(
     (tab: TabId) =>
-      // eslint-disable-next-line unused-imports/no-unused-vars -- explicitly used to remove this
+      // oxlint-disable-next-line unused-imports/no-unused-vars -- explicitly used to remove this
       setTabList(({ [tab]: _removed, ...tabList }) => tabList),
     [],
   )

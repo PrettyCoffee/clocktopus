@@ -50,7 +50,7 @@ const parseRgb = (value: string): ColorValue | null => {
   const match = RGB.exec(value)
   if (!match) return null
 
-  // eslint-disable-next-line unused-imports/no-unused-vars
+  // oxlint-disable-next-line unused-imports/no-unused-vars
   const [_full, _mode, r, g, b, a] = match.map(parseValue)
   return {
     mode: "rgb",
@@ -63,7 +63,7 @@ const parseHsl = (value: string): ColorValue | null => {
   const match = HSL.exec(value)
   if (!match) return null
 
-  // eslint-disable-next-line unused-imports/no-unused-vars
+  // oxlint-disable-next-line unused-imports/no-unused-vars
   const [_full, _mode, h, s, l, a] = match.map(parseValue)
   return {
     mode: "hsl",
@@ -76,7 +76,7 @@ const parseOklch = (value: string): ColorValue | null => {
   const match = OKLCH.exec(value)
   if (!match) return null
 
-  // eslint-disable-next-line unused-imports/no-unused-vars
+  // oxlint-disable-next-line unused-imports/no-unused-vars
   const [_full, _mode, l, c, h, a] = match.map(parseValue)
 
   return {

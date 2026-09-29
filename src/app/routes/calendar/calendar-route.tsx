@@ -155,7 +155,7 @@ const DayColumn = ({
   entries: TimeEntry[]
   getDelay: (startTime: string) => number
 }) => (
-  // eslint-disable-next-line better-tailwindcss/enforce-canonical-classes
+  // oxlint-disable-next-line better-tailwindcss/enforce-canonical-classes
   <div className="border-stroke-gentle relative h-[calc(24*4rem)] flex-1 border-r first-of-type:border-l">
     {entries.length === 0 && (
       <div className="text-text-muted sticky inset-y-0 top-1/2 -translate-y-1/2 text-center font-bold">

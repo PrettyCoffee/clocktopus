@@ -52,7 +52,7 @@ export const RadioOption = ({
         "border-stroke-gentle relative inline-block size-5 rounded-full border-2",
         active &&
           "border-stroke-invert before:bg-stroke-invert before:absolute before:inset-1 before:inline-block before:rounded-full before:transition-[opacity,scale] before:duration-500",
-        // eslint-disable-next-line better-tailwindcss/no-conflicting-classes -- false positive
+        // oxlint-disable-next-line better-tailwindcss/no-conflicting-classes -- false positive
         "before:starting:scale-50 before:starting:opacity-0",
       )}
     />

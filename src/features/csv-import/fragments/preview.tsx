@@ -67,7 +67,7 @@ const getRandomSample = <T,>(data: T[], amount: number): T[] => {
 }
 
 export const Preview = ({ data }: { data: TimeEntry[] }) => {
-  // eslint-disable-next-line react/hook-use-state
+  // oxlint-disable-next-line react/hook-use-state
   const setRerender = useState(0)[1]
 
   return (

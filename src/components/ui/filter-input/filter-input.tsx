@@ -131,11 +131,11 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
   >
     {segments.map(({ tag, value, text, isTagValid, isValueValid }, index) =>
       !tag ? (
-        // eslint-disable-next-line react/no-array-index-key
+        // oxlint-disable-next-line react/no-array-index-key
         <span key={`${value}-${index}`}>{text}</span>
       ) : (
         <span
-          // eslint-disable-next-line react/no-array-index-key
+          // oxlint-disable-next-line react/no-array-index-key
           key={`${value}-${tag}-${index}`}
           className={cn(
             "inline-block rounded-[1px] outline-1 outline-offset-1 outline-solid",
