@@ -1,7 +1,11 @@
-ignoreDepScripts: true
 blockExoticSubdeps: true
-minimumReleaseAge: 1440 # >=1 day
+minimumReleaseAge: 4320 # >=3 days
 preferFrozenLockfile: true
+savePrefix: ""
+
+allowBuilds:
+  esbuild: false
+  unrs-resolver: false
 
 trustPolicy: no-downgrade
 trustPolicyExclude:

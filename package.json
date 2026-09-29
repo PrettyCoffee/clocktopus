@@ -20,6 +20,10 @@
     "validate": "pnpm run build && pnpm run knip && pnpm run lint",
     "analyze": "analyze"
   },
+  "engines": {
+    "pnpm": "^11",
+    "node": ">=24"
+  },
   "dependencies": {
     "@floating-ui/react": "0.27.19",
     "@lingui/core": "5.9.5",
