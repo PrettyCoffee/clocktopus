@@ -1,8 +1,12 @@
 {
   "editor.formatOnSave": true,
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "oxc.fixKind": "safe_fix",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.format.oxc": "always"
   },
+  "oxc.enable.oxfmt": true,
+  "oxc.enable.oxlint": true,
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
