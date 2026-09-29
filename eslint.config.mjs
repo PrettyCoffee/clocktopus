@@ -11,6 +11,7 @@ export default defineConfig(
 
   {
     rules: {
+      "import/order": "off", // handled by oxlint
       // For some unknown reason vscode detects this rule as "warn", even when being disabled by prettyCozy.tailwind
       "better-tailwindcss/enforce-consistent-line-wrapping": "off",
     },
@@ -119,6 +120,4 @@ export default defineConfig(
       "import-x/no-extraneous-dependencies": "off",
     },
   },
-
-  prettyCozy.prettier
 )
