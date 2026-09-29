@@ -35,7 +35,7 @@ interface ShiftProps {
 
 const shiftGridFocus = (
   { event, name }: KeyDownProps,
-  { x, y }: ShiftProps
+  { x, y }: ShiftProps,
 ) => {
   const grid = event.currentTarget as Element
   const rows = getGridCells(grid)
@@ -44,7 +44,7 @@ const shiftGridFocus = (
   let currentCell = 0
   rows.some((row, rowIndex) => {
     const cellIndex = row.findIndex(
-      cell => cell === event.target || cell.contains(event.target as Node)
+      cell => cell === event.target || cell.contains(event.target as Node),
     )
     if (cellIndex === -1) return false
     currentCell = cellIndex

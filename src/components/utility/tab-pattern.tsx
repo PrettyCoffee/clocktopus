@@ -55,14 +55,14 @@ const Root = ({
   const addTab = useCallback(
     (tab: TabId, tabRef: TabRef) =>
       setTabList(tabList => ({ ...tabList, [tab]: tabRef })),
-    []
+    [],
   )
 
   const removeTab = useCallback(
     (tab: TabId) =>
       // eslint-disable-next-line unused-imports/no-unused-vars -- explicitly used to remove this
       setTabList(({ [tab]: _removed, ...tabList }) => tabList),
-    []
+    [],
   )
 
   const provided = useMemo<TabPatternContextState>(
@@ -75,7 +75,7 @@ const Root = ({
       addTab,
       removeTab,
     }),
-    [baseId, orientation, activeTab, tabList, addTab, removeTab]
+    [baseId, orientation, activeTab, tabList, addTab, removeTab],
   )
 
   return <Context value={provided}>{children}</Context>
@@ -122,7 +122,7 @@ const getTabElements = (tabList: TabPatternContextState["tabList"]) => {
 
 const getNavigableTabs = (
   tab: TabRef,
-  tabList: TabPatternContextState["tabList"]
+  tabList: TabPatternContextState["tabList"],
 ) => {
   const allTabs = getTabElements(tabList)
   const index = allTabs.findIndex(({ element }) => element === tab.current)
@@ -185,7 +185,7 @@ const Tab = ({
         event.preventDefault()
       }
     },
-    [onTabChange, orientation, tabList]
+    [onTabChange, orientation, tabList],
   )
 
   return (

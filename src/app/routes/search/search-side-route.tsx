@@ -1,13 +1,12 @@
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { Trash } from "lucide-react"
-
 import { Button } from "components/ui/button"
 import { Divider } from "components/ui/divider"
 import { IconButton } from "components/ui/icon-button"
 import { InputLabel } from "components/ui/input-label"
 import { useTrackedYears } from "data/time-entries"
 import { useAtom } from "lib/yaasl"
+import { Trash } from "lucide-react"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
 
@@ -38,7 +37,7 @@ export const SearchSideRoute = () => {
 
       <InputLabel label={t`Saved Filters`} />
       {filters.length === 0 && (
-        <span className="text-sm text-text-gentle">
+        <span className="text-text-gentle text-sm">
           <Trans>You didn't save any filters yet</Trans>
         </span>
       )}
@@ -47,7 +46,7 @@ export const SearchSideRoute = () => {
         {filters.map(filter => (
           <div
             key={filter.id}
-            className={cn(hstack({}), "rounded-md border border-stroke-gentle")}
+            className={cn(hstack({}), "border-stroke-gentle rounded-md border")}
           >
             <Button
               className="flex-1 justify-start"

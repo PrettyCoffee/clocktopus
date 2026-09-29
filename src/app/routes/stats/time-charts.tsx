@@ -1,6 +1,5 @@
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-
 import { Chart, Coordinate } from "components/ui/chart"
 import { timeHelpers } from "utils/time-helpers"
 
@@ -10,11 +9,11 @@ import { TimeStats } from "./get-time-stats"
 const transformPoints = (
   stats: Record<string, TimeStats>,
   key: keyof TimeStats,
-  transformX: (x: number) => number
+  transformX: (x: number) => number,
 ) =>
   Object.entries(stats)
     .flatMap(([x, stats]) =>
-      !stats[key] ? [] : { x: transformX(Number(x)), y: stats[key] }
+      !stats[key] ? [] : { x: transformX(Number(x)), y: stats[key] },
     )
     .sort((a, b) => a.x - b.x)
     .map(({ x, y }, index) => ({ x: index, y, actualX: x }))
@@ -31,7 +30,7 @@ const getGraphRange = (points: Coordinate[]) => {
 
 const getTicks = (
   points: ReturnType<typeof transformPoints>,
-  tickLabel: (x: number) => string
+  tickLabel: (x: number) => string,
 ) => {
   const ticks: Record<number, string> = {}
   points.forEach(({ x, actualX }) => (ticks[x] = tickLabel(actualX)))
@@ -92,7 +91,7 @@ export const WorkingHoursChart = ({
 
 export const TotalTimeChart = ({ timeStats }: TimeChartProps) => {
   const data = Object.fromEntries(
-    Object.entries(timeStats).map(([name, { total }]) => [name, total])
+    Object.entries(timeStats).map(([name, { total }]) => [name, total]),
   )
   return (
     <BarChart

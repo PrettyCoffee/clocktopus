@@ -12,8 +12,8 @@ export const groupedCategories = createSelector(
   (groups, allCategories) =>
     groups.map<GroupedCategories>(group => {
       const categories = allCategories.filter(
-        category => category.groupId === group.id
+        category => category.groupId === group.id,
       )
       return { ...group, categories: categories }
-    })
+    }),
 )

@@ -1,8 +1,6 @@
 import { Dispatch, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
-import { ChevronDown, Lock, Unlock } from "lucide-react"
-
 import { Checkbox } from "components/ui/checkbox"
 import { Divider } from "components/ui/divider"
 import { Icon } from "components/ui/icon"
@@ -13,6 +11,7 @@ import { categoriesData } from "data/categories"
 import { type TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
 import { useAtom } from "lib/yaasl"
+import { ChevronDown, Lock, Unlock } from "lucide-react"
 import { Alert } from "types/base-props"
 import { cn } from "utils/cn"
 import { alertStyles, hstack, vstack } from "utils/styles"
@@ -31,12 +30,12 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
     .map(category => {
       const items = entries.filter(
         // Use "" as fallback to catch entries without categoryId
-        entry => (entry.categoryId || "") === (category.id || "")
+        entry => (entry.categoryId || "") === (category.id || ""),
       )
       const minutes = items.reduce(
         (result, { start, end }) =>
           result + timeHelpers.getDuration(start, end),
-        0
+        0,
       )
       return {
         categoryId: category.id,
@@ -50,7 +49,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
 
   const total = totalTimeByCategory.reduce(
     (result, { minutes, isPrivate }) => (isPrivate ? result : result + minutes),
-    0
+    0,
   )
   const totalDuration = (
     <span className="px-4 text-base">
@@ -79,7 +78,7 @@ const DateDurations = ({ entries }: { entries: TimeEntry[] }) => {
       }
     >
       <div className={cn(vstack({ justify: "end" }), "text-sm")}>
-        <span className="mx-auto text-text-gentle">
+        <span className="text-text-gentle mx-auto">
           {entries.at(-1)?.start} – {entries[0]?.end}
         </span>
         <Divider color="gentle" className="mt-1 mb-2" />
@@ -147,8 +146,8 @@ export const TimeTableHeader = ({
       entries.reduce(
         (result, entry) =>
           value ? check(result, entry) : uncheck(result, entry),
-        { ...checked }
-      )
+        { ...checked },
+      ),
     )
   }
 
@@ -169,10 +168,10 @@ export const TimeTableHeader = ({
         }}
         className={cn(
           hstack({ align: "center" }),
-          "h-12 rounded-t-lg border-b border-stroke-gentle bg-background-page",
+          "border-stroke-gentle bg-background-page h-12 rounded-t-lg border-b",
           stickyHeader && `sticky z-20 ${stickyHeader}`,
           "transition-[box-shadow,border] duration-100",
-          !isIntersecting && "rounded-lg border-transparent shade-low"
+          !isIntersecting && "shade-low rounded-lg border-transparent",
         )}
       >
         {!locked?.value && (

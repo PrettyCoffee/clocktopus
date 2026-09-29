@@ -16,7 +16,7 @@ const flattenObject = (value: Nested, prefix?: string) =>
     const key = getKey(name, prefix)
     return Object.assign(
       result,
-      typeof value === "string" ? { [key]: value } : flattenObject(value, key)
+      typeof value === "string" ? { [key]: value } : flattenObject(value, key),
     )
   }, {})
 
@@ -26,10 +26,10 @@ const alphaMix = (color: string, alpha: number) =>
 const createSteps = (name: string, color: string, steps: number) => {
   const step = 100 / steps
   const alphaLevels = Array.from({ length: steps }, (_, i) =>
-    Math.round(i * step)
+    Math.round(i * step),
   )
   return Object.fromEntries(
-    alphaLevels.map(alpha => [`${name}/${alpha}`, alphaMix(color, alpha)])
+    alphaLevels.map(alpha => [`${name}/${alpha}`, alphaMix(color, alpha)]),
   )
 }
 
@@ -40,7 +40,7 @@ const createTransparencies = ({
   Object.entries(colors).reduce<Record<string, string>>(
     (colors, [name, color]) =>
       Object.assign(colors, createSteps(name, color, steps)),
-    {}
+    {},
   )
 
 interface BgLayerPluginOptions {
@@ -79,7 +79,7 @@ export const bgLayerPlugin = plugin.withOptions<BgLayerPluginOptions | void>(
             ...themeColors,
             ...transparencies,
           },
-        }
+        },
       )
-    }
+    },
 )

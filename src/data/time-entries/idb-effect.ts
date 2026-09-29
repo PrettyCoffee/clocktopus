@@ -55,7 +55,7 @@ export const idbEffect = createEffect<undefined, AtomState>(({ atom }) => {
       if (existing == null) return
 
       Object.entries(existing).forEach(([date, entries]) =>
-        hashStore.set(date, entries)
+        hashStore.set(date, entries),
       )
 
       set(existing)

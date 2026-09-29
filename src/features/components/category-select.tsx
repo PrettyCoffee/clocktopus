@@ -2,13 +2,12 @@ import { Dispatch, PropsWithChildren } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { Link } from "wouter"
-
 import { Select } from "components/ui/select"
 import { groupedCategories, GroupedCategories, Category } from "data/categories"
 import { useAtom } from "lib/yaasl"
 import { ClassNameProp } from "types/base-props"
 import { colored } from "utils/styles"
+import { Link } from "wouter"
 
 import { CategoryName } from "./category-name"
 
@@ -61,7 +60,7 @@ export const CategorySelect = ({
   const groups = useAtom(groupedCategories)
 
   const exists = groups.some(item =>
-    item.categories.some(({ id }) => id === value)
+    item.categories.some(({ id }) => id === value),
   )
 
   return (
@@ -84,7 +83,7 @@ export const CategorySelect = ({
 
       <Link
         to="/settings/categories"
-        className="m-2 h-8 text-sm text-text-gentle hover:text-text"
+        className="text-text-gentle hover:text-text m-2 h-8 text-sm"
       >
         <Trans>Go to category settings</Trans>
       </Link>

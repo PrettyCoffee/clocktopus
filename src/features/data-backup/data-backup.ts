@@ -1,11 +1,10 @@
 import { t } from "@lingui/core/macro"
-import { ZodError } from "zod"
-
 import { showToast } from "components/ui/toaster"
 import { allData, AllData } from "data/all-data"
 import { dataBackupData } from "data/data-backup"
 import { dateHelpers } from "utils/date-helpers"
 import { download } from "utils/download"
+import { ZodError } from "zod"
 
 const downloadBackup = () => {
   download(`clocktopus-export_${dateHelpers.today()}.json`, allData.get())
@@ -30,7 +29,7 @@ const validateData = (data: unknown) => {
     }
     const errorPaths = error.issues.flatMap(({ path }) => path).join(", ")
     throw new ImportError(
-      t`The following data fields seem to be corrupted: ${errorPaths}`
+      t`The following data fields seem to be corrupted: ${errorPaths}`,
     )
   }
 }

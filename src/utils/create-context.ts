@@ -9,7 +9,7 @@ export const createContext = <T>(name: string) => {
     const value = useOptionalValue()
     if (value == null)
       throw new Error(
-        `Value of ${name}Context can only be used within a ${name}Provider`
+        `Value of ${name}Context can only be used within a ${name}Provider`,
       )
     return value
   }

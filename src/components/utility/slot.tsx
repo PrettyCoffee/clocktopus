@@ -51,7 +51,7 @@ const mergeStyles = (slot: CSSProperties, child: CSSProperties) => ({
 
 const mergeProps = (
   slotProps: Record<string, unknown>,
-  childProps: Record<string, unknown>
+  childProps: Record<string, unknown>,
 ) => {
   const result: Record<string, unknown> = { ...childProps }
 
@@ -90,7 +90,7 @@ export const Slot = ({ children, ...slotProps }: SlotProps) => {
     children,
     mergeProps(
       slotProps as Record<string, unknown>,
-      children.props as Record<string, unknown>
-    )
+      children.props as Record<string, unknown>,
+    ),
   )
 }

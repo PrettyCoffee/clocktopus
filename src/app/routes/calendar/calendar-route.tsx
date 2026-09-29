@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-
 import { CursorTooltip } from "components/ui/tooltip/cursor-tooltip"
 import { ScrollArea } from "components/utility/scroll-area"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
@@ -52,7 +51,7 @@ const CalendarHeader = ({ dates }: { dates: string[] }) => (
       <div key={date} className="grid flex-1 place-content-center text-center">
         <span className="mx-2 truncate">{getDayName(date)}</span>
         <br />
-        <span className="mx-2 truncate text-xs text-text-muted">
+        <span className="text-text-muted mx-2 truncate text-xs">
           {formatDate(date)}
         </span>
       </div>
@@ -66,13 +65,13 @@ const TimeGrid = () => (
       <span
         key={value}
         className={cn(
-          "absolute right-0 left-6 block h-px bg-background select-none",
-          "*:-translate-y-1/2 first-of-type:*:-translate-y-0.5 last-of-type:*:-translate-y-3"
+          "bg-background absolute right-0 left-6 block h-px select-none",
+          "*:-translate-y-1/2 first-of-type:*:-translate-y-0.5 last-of-type:*:-translate-y-3",
         )}
         style={{ top: getYPos(value).rem }}
       >
         {value % 1 === 0 && (
-          <span className="absolute top-0 -left-6 font-mono text-xs text-text-muted">
+          <span className="text-text-muted absolute top-0 -left-6 font-mono text-xs">
             {String(value).padStart(2, "0")}
           </span>
         )}
@@ -103,7 +102,7 @@ const TimeEntryBox = ({
     <div
       className={cn(
         "absolute inset-x-1 p-0.5",
-        "transition-opacity duration-500 starting:opacity-0"
+        "transition-opacity duration-500 starting:opacity-0",
       )}
       style={{
         top: getYPos(startH).rem,
@@ -112,7 +111,7 @@ const TimeEntryBox = ({
       }}
     >
       {showCategory && (
-        <span className="absolute inset-x-2 top-1.5 truncate text-sm font-bold text-text-invert">
+        <span className="text-text-invert absolute inset-x-2 top-1.5 truncate text-sm font-bold">
           {category?.fullName || t`No category`}
         </span>
       )}
@@ -142,7 +141,7 @@ const TimeEntryBox = ({
         className={cn(
           "size-full rounded-sm",
           colored({ type: "text", color: category?.group?.color }),
-          "bg-current/50 [:hover>&]:bg-current/75"
+          "bg-current/50 [:hover>&]:bg-current/75",
         )}
       />
     </div>
@@ -155,11 +154,11 @@ const DayColumn = ({
 }: {
   entries: TimeEntry[]
   getDelay: (startTime: string) => number
-  }) => (
+}) => (
   // eslint-disable-next-line better-tailwindcss/enforce-canonical-classes
-  <div className="relative h-[calc(24*4rem)] flex-1 border-r border-stroke-gentle first-of-type:border-l">
+  <div className="border-stroke-gentle relative h-[calc(24*4rem)] flex-1 border-r first-of-type:border-l">
     {entries.length === 0 && (
-      <div className="sticky inset-y-0 top-1/2 -translate-y-1/2 text-center font-bold text-text-muted">
+      <div className="text-text-muted sticky inset-y-0 top-1/2 -translate-y-1/2 text-center font-bold">
         <Trans>No entries</Trans>
       </div>
     )}
@@ -189,7 +188,7 @@ export const CalendarRoute = () => {
       const dateString = dateHelpers.stringify(date)
       const entries = (allEntries[dateString] ?? []).toSorted(
         (a, b) =>
-          timeHelpers.toMinutes(a.start) - timeHelpers.toMinutes(b.start)
+          timeHelpers.toMinutes(a.start) - timeHelpers.toMinutes(b.start),
       )
       if (index > 4 && !showWeekend) return []
       return { date: dateString, entries }
@@ -200,7 +199,7 @@ export const CalendarRoute = () => {
   const earliestTime = Math.min(
     ...days
       .flatMap(days => days.entries)
-      .map(entry => timeHelpers.toMinutes(entry.start) / 60)
+      .map(entry => timeHelpers.toMinutes(entry.start) / 60),
   )
   const firstVisibleHour = Math.floor(earliestTime)
   useEffect(() => {
@@ -226,7 +225,7 @@ export const CalendarRoute = () => {
         <div
           className={cn(
             hstack({ gap: 0, justify: "stretch", align: "stretch" }),
-            "relative pl-8"
+            "relative pl-8",
           )}
         >
           <TimeGrid />

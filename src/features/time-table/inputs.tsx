@@ -1,7 +1,6 @@
 import { Dispatch } from "react"
 
 import { t } from "@lingui/core/macro"
-
 import { DateInput } from "components/ui/date-input"
 import { Input } from "components/ui/input"
 import { TimeInput } from "components/ui/time-input"
@@ -63,7 +62,7 @@ const TimeEnd = ({ entry, onChange, ...rest }: InputProps) => {
     />
   )
 }
-const TimeSeparator = () => <span className="mx-2 text-text-gentle">–⁠</span>
+const TimeSeparator = () => <span className="text-text-gentle mx-2">–⁠</span>
 
 const TableCategorySelect = ({ entry, onChange, ...rest }: InputProps) => (
   <CategorySelect

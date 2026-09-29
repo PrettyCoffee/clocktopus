@@ -1,6 +1,6 @@
 import { Config } from "tailwindcss"
-import twTheme from "tailwindcss/defaultTheme.js"
 import animatePlugin from "tailwindcss-animate"
+import twTheme from "tailwindcss/defaultTheme.js"
 
 import { screens } from "./breakpoints"
 import { bgLayerPlugin } from "./plugins/bg-layer-plugin"

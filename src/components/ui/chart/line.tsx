@@ -33,7 +33,7 @@ export const Line = ({ points, color = "priority" }: LineProps) => {
       strokeWidth={1}
       className={cn(
         chartColor.stroke({ color }),
-        chartColor.fill({ color: "none" })
+        chartColor.fill({ color: "none" }),
       )}
     />
   )

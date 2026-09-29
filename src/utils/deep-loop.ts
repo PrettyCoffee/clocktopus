@@ -17,7 +17,7 @@ const isObject = (value: unknown): value is ObjectItem =>
 export const deepLoop = <T extends ObjectItem>(
   parent: T,
   handler: DeepLoopHandler<T>,
-  prevPath: string[] = []
+  prevPath: string[] = [],
 ) =>
   Object.entries(parent).forEach(([key, value]) => {
     const path = [...prevPath, key]

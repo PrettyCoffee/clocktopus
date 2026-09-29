@@ -1,7 +1,7 @@
 import twColors from "tailwindcss/colors"
 
-import { createTheme } from "./plugins/theme-vars-plugin"
 import { parseColor } from "../src/utils/color"
+import { createTheme } from "./plugins/theme-vars-plugin"
 
 const parseOklch = (value: string) => {
   const color = parseColor(value)
@@ -33,7 +33,7 @@ const colors = {
       Object.entries(twColors.stone).map(([key, value]) => [
         key,
         replaceOklchHue(value, "var(--tw-theme-color-accentHue)"),
-      ])
+      ]),
     ) as typeof twColors.stone),
     "1000": "#000",
   },

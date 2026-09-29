@@ -2,13 +2,6 @@ import { Fragment, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import {
-  AlignVerticalJustifyCenter,
-  AlignVerticalJustifyStart,
-  LayoutGrid,
-  TableProperties,
-} from "lucide-react"
-
 import { routes } from "app/layout"
 import { Card } from "components/ui/card"
 import { Input } from "components/ui/input"
@@ -16,6 +9,12 @@ import { Select } from "components/ui/select"
 import { preferencesData } from "data/preferences"
 import { useAtom } from "lib/yaasl"
 import { useTrans } from "locales/locale-provider"
+import {
+  AlignVerticalJustifyCenter,
+  AlignVerticalJustifyStart,
+  LayoutGrid,
+  TableProperties,
+} from "lucide-react"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 
@@ -74,7 +73,7 @@ const availableLocales = new Set(locales.map(({ value }) => value))
 const Locale = () => {
   const { locale } = useAtom(preferencesData)
   const [custom, setCustom] = useState(
-    availableLocales.has(locale) ? "" : locale
+    availableLocales.has(locale) ? "" : locale,
   )
 
   return (
@@ -176,7 +175,7 @@ const HiddenRoutes = () => {
   const trans = useTrans()
   const { hiddenRoutes = [] } = useAtom(preferencesData)
   const hidableRoutes = routes.filter(({ to, href }) =>
-    /search|stats|calendar|github/i.test(to ?? href)
+    /search|stats|calendar|github/i.test(to ?? href),
   )
   return (
     <Card

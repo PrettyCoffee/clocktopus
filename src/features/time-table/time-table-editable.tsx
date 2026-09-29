@@ -1,13 +1,12 @@
 import { Dispatch } from "react"
 
 import { msg, t } from "@lingui/core/macro"
-import { Trash } from "lucide-react"
-
 import { Checkbox } from "components/ui/checkbox"
 import { showDialog } from "components/ui/dialog"
 import { IconButton } from "components/ui/icon-button"
 import { createColumnHelper, Table } from "components/ui/table"
 import { timeEntriesData, type TimeEntry } from "data/time-entries"
+import { Trash } from "lucide-react"
 
 import { CheckedState, useCheckedState } from "./checked-context"
 import { Duration } from "./duration"

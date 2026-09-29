@@ -14,7 +14,6 @@ import {
   useRole,
   useTransitionStyles,
 } from "@floating-ui/react"
-
 import { Slot } from "components/utility/slot"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"

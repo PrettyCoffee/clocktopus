@@ -1,7 +1,6 @@
 import { PropsWithChildren, useMemo } from "react"
 
 import { msg, t } from "@lingui/core/macro"
-
 import { Divider } from "components/ui/divider"
 import { createColumnHelper, Table } from "components/ui/table"
 import { preferencesData } from "data/preferences"
@@ -34,7 +33,7 @@ const summarize = (entries: TimeEntry[]): TimeSummary[] => {
       result[categoryId][description] += timeHelpers.getDuration(start, end)
       return result
     },
-    {}
+    {},
   )
 
   return Object.entries(clustered)
@@ -44,14 +43,14 @@ const summarize = (entries: TimeEntry[]): TimeSummary[] => {
         categoryId,
         description,
         minutes,
-      }))
+      })),
     )
     .sort((a, b) =>
       a.description && !b.description
         ? -1
         : !a.description && b.description
           ? 1
-          : b.minutes - a.minutes
+          : b.minutes - a.minutes,
     )
 }
 
@@ -67,7 +66,7 @@ const Cell = ({
     className={cn(
       hstack({ align: "center" }),
       "min-h-8 px-2 py-1",
-      muted && "text-text-muted"
+      muted && "text-text-muted",
     )}
   >
     {children}
@@ -101,7 +100,7 @@ const durationColumn = helper.column({
 })
 
 const TimeSummaryTable = ({ summary }: { summary: TimeSummary[] }) => (
-  <div className="rounded-b-lg bg-background">
+  <div className="bg-background rounded-b-lg">
     <Table<TableConfig>
       hideHeaders
       name="time-table"

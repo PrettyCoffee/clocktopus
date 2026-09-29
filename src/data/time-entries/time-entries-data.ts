@@ -1,8 +1,7 @@
-import { z } from "zod/mini"
-
 import { createSlice, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
 import { createId } from "utils/create-id"
+import { z } from "zod/mini"
 
 import { idbEffect } from "./idb-effect"
 
@@ -46,7 +45,7 @@ const popEntries = (state: AtomState, ...items: DateAndId[]) =>
       result.newState = newState
       return result
     },
-    { entries: [], newState: state }
+    { entries: [], newState: state },
   )
 
 const pushEntries = (state: AtomState, ...entries: TimeEntry[]) =>

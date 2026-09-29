@@ -9,5 +9,5 @@ export const screens = Object.fromEntries(
   Object.entries(breakpoints).map(([name, value]) => [
     name,
     { max: `${value}px` },
-  ])
+  ]),
 )

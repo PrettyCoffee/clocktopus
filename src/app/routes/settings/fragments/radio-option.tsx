@@ -41,7 +41,7 @@ export const RadioOption = ({
     className={cn(
       interactive({ look: "ghost" }),
       hstack({ align: "center", justify: "between", gap: 2 }),
-      "h-10 rounded-lg border-stroke-gentle pr-4 pl-2.5"
+      "border-stroke-gentle h-10 rounded-lg pr-4 pl-2.5",
     )}
   >
     <button
@@ -49,11 +49,11 @@ export const RadioOption = ({
       aria-checked={active}
       onClick={onClick}
       className={cn(
-        "relative inline-block size-5 rounded-full border-2 border-stroke-gentle",
+        "border-stroke-gentle relative inline-block size-5 rounded-full border-2",
         active &&
-          "border-stroke-invert before:absolute before:inset-1 before:inline-block before:rounded-full before:bg-stroke-invert before:transition-[opacity,scale] before:duration-500",
+          "border-stroke-invert before:bg-stroke-invert before:absolute before:inset-1 before:inline-block before:rounded-full before:transition-[opacity,scale] before:duration-500",
         // eslint-disable-next-line better-tailwindcss/no-conflicting-classes -- false positive
-        "before:starting:scale-50 before:starting:opacity-0"
+        "before:starting:scale-50 before:starting:opacity-0",
       )}
     />
     <Icon icon={icon} size="md" />

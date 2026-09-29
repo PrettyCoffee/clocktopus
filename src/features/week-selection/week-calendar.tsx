@@ -1,12 +1,11 @@
 import { Dispatch, SetStateAction } from "react"
 
 import { t } from "@lingui/core/macro"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-
 import { IconButton } from "components/ui/icon-button"
 import { ScrollArea } from "components/utility/scroll-area"
 import { timeEntriesData } from "data/time-entries"
 import { useAtom } from "lib/yaasl"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
@@ -14,7 +13,7 @@ import { selectedYear } from "./selected-year"
 import { Year } from "./year"
 
 const Divider = () => (
-  <div className="my-1 mb-2 ml-1 border-b border-stroke-gentle" />
+  <div className="border-stroke-gentle my-1 mb-2 ml-1 border-b" />
 )
 
 const getYears = (dates: string[]) => {

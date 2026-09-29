@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @config '../tailwind/tailwind.config.ts';
 
@@ -12,11 +12,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  :root input, :root textarea {
+  :root input,
+  :root textarea {
     @apply selection:bg-highlight/75;
     @apply selection:text-text-invert;
   }
-  html, body, #root {
+  html,
+  body,
+  #root {
     @apply m-0;
     @apply p-0;
     @apply overflow-hidden;
@@ -34,12 +37,12 @@
     @apply outline-none;
     @apply focus-visible:outline-solid;
   }
-  
+
   @supports (scrollbar-color: auto) {
     * {
       scrollbar-color: oklch(var(--tw-theme-color-stroke-default)) transparent;
     }
-    
+
     *:focus-visible {
       scrollbar-color: oklch(var(--tw-theme-color-accent)) transparent;
     }

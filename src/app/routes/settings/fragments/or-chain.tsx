@@ -1,7 +1,6 @@
 import { Children, Fragment, PropsWithChildren, HTMLProps } from "react"
 
 import { Trans } from "@lingui/react/macro"
-
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 
@@ -20,7 +19,7 @@ export const OrChain = ({
         wrap: true,
       }),
       "text-nowrap",
-      className
+      className,
     )}
   >
     {Children.map(children, (child, index) => (

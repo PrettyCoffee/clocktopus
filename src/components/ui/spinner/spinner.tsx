@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 
 import { VariantProps, cva } from "class-variance-authority"
 import { css, keyframes } from "goober"
-
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 
@@ -56,7 +55,7 @@ export const Spinner = ({ size, color, centered, className }: SpinnerProps) => {
         "inline-flex place-content-center",
         // eslint-disable-next-line better-tailwindcss/no-unknown-classes -- false positive
         centered ? "size-full" : sizes[size ?? "md"],
-        className
+        className,
       )}
     >
       {defer ? null : (

@@ -1,9 +1,8 @@
 import { KeyboardEvent } from "react"
 
+import { Icon } from "components/ui/icon"
 import { css, keyframes } from "goober"
 import { Check } from "lucide-react"
-
-import { Icon } from "components/ui/icon"
 import { IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { focusNavigator } from "utils/focus-navigator"
@@ -68,7 +67,7 @@ export const CheckOption = ({
     className={cn(
       interactive({ look: "ghost" }),
       hstack({ align: "center", justify: "between", gap: 2 }),
-      "h-10 rounded-lg border-stroke-gentle pr-4 pl-2.5"
+      "border-stroke-gentle h-10 rounded-lg pr-4 pl-2.5",
     )}
   >
     <button
@@ -76,8 +75,8 @@ export const CheckOption = ({
       aria-checked={active}
       onClick={onClick}
       className={cn(
-        "relative inline-grid size-5 cursor-pointer place-content-center rounded-sm border-2 border-stroke-gentle",
-        active && "border-stroke-invert"
+        "border-stroke-gentle relative inline-grid size-5 cursor-pointer place-content-center rounded-sm border-2",
+        active && "border-stroke-invert",
       )}
     >
       {active && (

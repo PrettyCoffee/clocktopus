@@ -1,105 +1,134 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="icon"
+      href="./icon-animated.png"
+      type="image/png"
+      sizes="48x48"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="./icon-animated.png" type="image/png" sizes="48x48" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="stylesheet" href="/fonts/fonts.css" />
+    <!-- Basic Meta -->
+    <title>Clocktopus</title>
+    <meta name="description" content="Web app to clock your time on tasks." />
 
-  <!-- Basic Meta -->
-  <title>Clocktopus</title>
-  <meta name="description" content="Web app to clock your time on tasks.">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Clocktopus" />
+    <meta property="og:title" content="Tracker" />
+    <meta
+      property="og:description"
+      content="Web app to clock your time on tasks."
+    />
+    <meta
+      property="og:url"
+      content="https://prettycoffee.github.io/clocktopus/"
+    />
+    <meta
+      property="og:image"
+      content="https://prettycoffee.github.io/clocktopus/preview-og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Clocktopus – time tracker" />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Clocktopus">
-  <meta property="og:title" content="Tracker">
-  <meta property="og:description" content="Web app to clock your time on tasks.">
-  <meta property="og:url" content="https://prettycoffee.github.io/clocktopus/">
-  <meta property="og:image" content="https://prettycoffee.github.io/clocktopus/preview-og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Clocktopus – time tracker">
+    <!-- Locale -->
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
 
-  <!-- Locale -->
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="de_DE">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Clocktopus" />
+    <meta
+      name="twitter:description"
+      content="Web app to clock your time on tasks."
+    />
+    <meta
+      name="twitter:image"
+      content="https://prettycoffee.github.io/clocktopus/preview-og.png"
+    />
+  </head>
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Clocktopus">
-  <meta name="twitter:description" content="Web app to clock your time on tasks.">
-  <meta name="twitter:image" content="https://prettycoffee.github.io/clocktopus/preview-og.png">
-</head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
 
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <script type="module" src="/src/main.tsx"></script>
-  
-  <div id="root">
-    <!-- Spinner to be displayed while javascript is loading, content will be removed when react mounts the app -->
-    <div class="spinner">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <g>
-          <circle
-            cx="12"
-            cy="12"
-            r="9.5"
-            fill="none"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </g>
-      </svg>
-    </div>
+    <div id="root">
+      <!-- Spinner to be displayed while javascript is loading, content will be removed when react mounts the app -->
+      <div class="spinner">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <circle
+              cx="12"
+              cy="12"
+              r="9.5"
+              fill="none"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </g>
+        </svg>
+      </div>
 
-    <style>
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-      @keyframes stroke-offset {
-        0% { stroke-dasharray: 0 150; stroke-dashoffset: 0; }
-        47.5% { stroke-dasharray: 42 150; stroke-dashoffset: -16; }
-        95%,100% { stroke-dasharray: 42 150; stroke-dashoffset: -59; }
-      }
-      :root {
-        --light: oklch(0.923 0.003 11.638);
-        --dark: oklch(0.147 0.004 11.638);
-        @media (prefers-color-scheme: light) {
-          color: var(--dark);
-          background: var(--light);
+      <style>
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
         }
-        @media (prefers-color-scheme: dark) {
-          color: var(--light);
-          background: var(--dark);
+        @keyframes stroke-offset {
+          0% {
+            stroke-dasharray: 0 150;
+            stroke-dashoffset: 0;
+          }
+          47.5% {
+            stroke-dasharray: 42 150;
+            stroke-dashoffset: -16;
+          }
+          95%,
+          100% {
+            stroke-dasharray: 42 150;
+            stroke-dashoffset: -59;
+          }
         }
-      }
-      #root > .spinner {
-        display: grid;
-        place-items: center;
-        height: 100dvh;
-        width: 100dvw;
+        :root {
+          --light: oklch(0.923 0.003 11.638);
+          --dark: oklch(0.147 0.004 11.638);
+          @media (prefers-color-scheme: light) {
+            color: var(--dark);
+            background: var(--light);
+          }
+          @media (prefers-color-scheme: dark) {
+            color: var(--light);
+            background: var(--dark);
+          }
+        }
+        #root > .spinner {
+          display: grid;
+          place-items: center;
+          height: 100dvh;
+          width: 100dvw;
 
-        > svg {
-          stroke: currentColor;
-          height: 6rem;
-          width: 6rem;
+          > svg {
+            stroke: currentColor;
+            height: 6rem;
+            width: 6rem;
 
-          > g {
-            transform-origin: center;
-            animation: spin 1s linear infinite;
+            > g {
+              transform-origin: center;
+              animation: spin 1s linear infinite;
 
-            > circle {
-              animation: stroke-offset 2s ease-in-out infinite;
+              > circle {
+                animation: stroke-offset 2s ease-in-out infinite;
+              }
             }
           }
         }
-      }
-    </style>
-  </div>
-
-</body>
-
+      </style>
+    </div>
+  </body>
 </html>

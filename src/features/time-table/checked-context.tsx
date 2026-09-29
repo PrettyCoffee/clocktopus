@@ -47,7 +47,7 @@ export const CheckedStateProvider = ({ children }: PropsWithChildren) => {
 
   const toggleChecked = useCallback(
     (entry: TimeEntry) => setChecked(state => toggle(state, entry)),
-    []
+    [],
   )
 
   const resetChecked = useCallback(() => setChecked(empty), [])

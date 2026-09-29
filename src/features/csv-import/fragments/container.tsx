@@ -11,11 +11,11 @@ export const Container = ({
     <div
       className={cn(
         hstack({ align: "center" }),
-        "absolute -top-2 left-6 h-8 rounded-md bg-background-page px-2 text-sm text-text-gentle"
+        "bg-background-page text-text-gentle absolute -top-2 left-6 h-8 rounded-md px-2 text-sm",
       )}
     >
       {title}
     </div>
-    <div className="rounded-lg border border-stroke-gentle p-4">{children}</div>
+    <div className="border-stroke-gentle rounded-lg border p-4">{children}</div>
   </div>
 )

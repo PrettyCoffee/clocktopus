@@ -2,8 +2,6 @@ import { Dispatch, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { CheckCheck, SquarePen, Trash } from "lucide-react"
-
 import { Button } from "components/ui/button"
 import { DateInput } from "components/ui/date-input"
 import { Dialog } from "components/ui/dialog"
@@ -17,6 +15,7 @@ import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { CategorySelect } from "features/components/category-select"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtom } from "lib/yaasl"
+import { CheckCheck, SquarePen, Trash } from "lucide-react"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { hstack } from "utils/styles"
@@ -26,7 +25,7 @@ import { CheckedState, useCheckedState } from "./checked-context"
 const getSelectedAmount = (checked: CheckedState) =>
   Object.values(checked).reduce(
     (result, checked) => result + Object.keys(checked).length,
-    0
+    0,
   )
 
 interface BulkDeleteModalProps {
@@ -60,14 +59,14 @@ const getInitialData = (checked: CheckedState) => {
       const dateEntries = data[date] ?? []
       const ids = new Set(Object.keys(checked))
       return dateEntries.filter(entry => ids.has(entry.id))
-    }
+    },
   )
 
   const sameDescription = rest.every(
-    ({ description }) => description === first?.description
+    ({ description }) => description === first?.description,
   )
   const sameCategory = rest.every(
-    ({ categoryId }) => categoryId === first?.categoryId
+    ({ categoryId }) => categoryId === first?.categoryId,
   )
   const sameDate = rest.every(({ date }) => date === first?.date)
 
@@ -157,7 +156,7 @@ export const TimeEntriesBulkActions = () => {
   const close = () => setStatus(null)
 
   const checkedItems = Object.entries(checked).flatMap(([date, checked]) =>
-    Object.keys(checked).map(id => ({ date, id }))
+    Object.keys(checked).map(id => ({ date, id })),
   )
 
   const handleDelete = () => {
@@ -169,7 +168,7 @@ export const TimeEntriesBulkActions = () => {
 
   const handleEdit = (data: Partial<TimeEntry>) => {
     timeEntriesData.actions.edit(
-      ...checkedItems.map(item => ({ ...item, data }))
+      ...checkedItems.map(item => ({ ...item, data })),
     )
     showToast({ kind: "success", title: t`Updated selected entries` })
     resetChecked()
@@ -187,8 +186,8 @@ export const TimeEntriesBulkActions = () => {
         >
           <div className={cn(hstack({ align: "center" }))}>
             <Icon icon={CheckCheck} size="sm" color="gentle" className="ml-2" />
-            <span className="mx-2 text-text-gentle">{selectedAmount}</span>
-            <span className="mx-2 h-6 w-px bg-stroke-gentle" />
+            <span className="text-text-gentle mx-2">{selectedAmount}</span>
+            <span className="bg-stroke-gentle mx-2 h-6 w-px" />
 
             <Button icon={SquarePen} onClick={() => setStatus("edit")}>
               <Trans>Edit</Trans>

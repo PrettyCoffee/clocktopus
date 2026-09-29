@@ -1,5 +1,4 @@
 import { t } from "@lingui/core/macro"
-
 import { Button } from "components/ui/button"
 import { timeEntriesData } from "data/time-entries"
 import { useAtom } from "lib/yaasl"
@@ -40,7 +39,7 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
   return (
     <div className="relative pl-4">
       {first?.getFullYear() === year && (
-        <span className="absolute bottom-1 left-1.5 inline-block origin-left -rotate-90 text-sm text-text-muted">
+        <span className="text-text-muted absolute bottom-1 left-1.5 inline-block origin-left -rotate-90 text-sm">
           {monthName(first.getMonth())}
         </span>
       )}
@@ -51,7 +50,7 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
         className={cn(
           "relative w-full justify-start border border-transparent px-1",
           isFirstOfYear && "justify-end",
-          selected && "border-stroke"
+          selected && "border-stroke",
         )}
       >
         {days.map(day => {
@@ -64,13 +63,13 @@ export const Week = ({ year, calendarWeek, days, selected }: WeekProps) => {
             <span
               key={date}
               className={cn(
-                "w-[calc(100%/7)] border-text-gentle/50 font-mono",
+                "border-text-gentle/50 w-[calc(100%/7)] font-mono",
                 isFirstOfMonth && "rounded-bl-sm border-b-2 border-l-2",
                 isLastMonth && "border-t-2",
                 isNextMonth && "border-b-2",
                 weekday === 0 || weekday === 6
                   ? "text-highlight/75"
-                  : "text-text-gentle"
+                  : "text-text-gentle",
               )}
             >
               <span className={cn(!hasTimeEntry(day) && "opacity-50")}>

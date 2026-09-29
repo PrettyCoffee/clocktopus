@@ -1,15 +1,6 @@
 import { ReactNode } from "react"
 
 import { msg } from "@lingui/core/macro"
-import {
-  Settings,
-  ClockFading,
-  ChartNoAxesColumn,
-  Search,
-  CalendarRange,
-} from "lucide-react"
-import { useHashLocation } from "wouter/use-hash-location"
-
 import { PageCrashedRoute } from "app/routes/page-crashed"
 import { Layout } from "components/layouts/layout"
 import { Github } from "components/ui/icon"
@@ -18,6 +9,14 @@ import { ErrorBoundary } from "components/utility/error-boundary"
 import { preferencesData } from "data/preferences"
 import { useAtom } from "lib/yaasl"
 import { useTrans } from "locales/locale-provider"
+import {
+  Settings,
+  ClockFading,
+  ChartNoAxesColumn,
+  Search,
+  CalendarRange,
+} from "lucide-react"
+import { useHashLocation } from "wouter/use-hash-location"
 
 export const routes = [
   { to: "/", title: msg`Time Tracker`, icon: ClockFading },
@@ -39,7 +38,7 @@ const SideActions = () => {
   const { hiddenRoutes = [] } = useAtom(preferencesData)
 
   const visibleRoutes = routes.filter(
-    route => !hiddenRoutes.includes(route.to ?? route.href)
+    route => !hiddenRoutes.includes(route.to ?? route.href),
   )
 
   const isActive = (to?: string) =>

@@ -25,7 +25,7 @@ export const TrackedTimeline = ({ entries, onHover }: TrackedTimelineProps) => {
     const start = normalize(
       timeHelpers.toMinutes(entry.start),
       startTime,
-      endTime
+      endTime,
     )
     const end = normalize(timeHelpers.toMinutes(entry.end), startTime, endTime)
     return {
@@ -70,7 +70,7 @@ export const TrackedTimeline = ({ entries, onHover }: TrackedTimelineProps) => {
             className={cn(
               "absolute block w-8 px-3 opacity-50 transition-[padding] duration-100",
               "hover:px-2 hover:opacity-75",
-              "first-of-type:*:rounded-t-full first-of-type:*:border-t-0 last-of-type:*:rounded-b-full last-of-type:*:border-b-0"
+              "first-of-type:*:rounded-t-full first-of-type:*:border-t-0 last-of-type:*:rounded-b-full last-of-type:*:border-b-0",
             )}
           >
             <div
@@ -78,7 +78,7 @@ export const TrackedTimeline = ({ entries, onHover }: TrackedTimelineProps) => {
                 color
                   ? colored({ color, type: "bg" })
                   : "bg-background-invert/25",
-                "size-full border-y-2 border-y-background-page"
+                "border-y-background-page size-full border-y-2",
               )}
             />
           </span>

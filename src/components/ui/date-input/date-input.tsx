@@ -2,7 +2,6 @@ import { Dispatch, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { CalendarDays } from "lucide-react"
-
 import { dateHelpers } from "utils/date-helpers"
 
 import { Button } from "../button"
@@ -43,7 +42,7 @@ export const DateInput = ({
         <Button
           icon={CalendarDays}
           iconColor="muted"
-          className="border border-stroke-gentle"
+          className="border-stroke-gentle border"
         >
           {caption ?? printDate(value, locale)}
         </Button>

@@ -47,7 +47,7 @@ export const BarChart = ({
   const { maxX, maxY, yAxisGap } = getGraphRange(points)
 
   const ticks = Object.fromEntries(
-    points.map(({ x, tick }) => [x, tickLabel(tick)] as const)
+    points.map(({ x, tick }) => [x, tickLabel(tick)] as const),
   )
 
   return (

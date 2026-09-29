@@ -53,7 +53,7 @@ const printChangelog = ({
       }
       return acc
     },
-    { breaking: [], feat: [], fix: [] }
+    { breaking: [], feat: [], fix: [] },
   )
 
   if (breaking.length > 0) {

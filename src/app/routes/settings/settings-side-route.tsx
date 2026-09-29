@@ -1,10 +1,9 @@
 import { msg } from "@lingui/core/macro"
-import { useHashLocation } from "wouter/use-hash-location"
-
 import { Button } from "components/ui/button"
 import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
+import { useHashLocation } from "wouter/use-hash-location"
 
 import { settingPages } from "./settings-route"
 
@@ -29,7 +28,7 @@ export const SettingsSideRoute = () => {
       <div
         className={cn(
           vstack({}),
-          "mt-2 ml-2 border-l border-l-stroke-gentle pl-2"
+          "border-l-stroke-gentle mt-2 ml-2 border-l pl-2",
         )}
       >
         {routes.subRoutes.map(route => (

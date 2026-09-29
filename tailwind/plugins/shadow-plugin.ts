@@ -1,8 +1,10 @@
 import plugin from "tailwindcss/plugin"
 
-/** Inspired by Josh W. Comeau's shadow palette generator
- *  @see https://www.joshwcomeau.com/css/introducing-shadow-palette-generator/
- **/
+/**
+ * Inspired by Josh W. Comeau's shadow palette generator.
+ *
+ * @see https://www.joshwcomeau.com/css/introducing-shadow-palette-generator/
+ */
 
 //const defaultColor = "hsla(230deg 52% 7% / 0.25)"
 const defaultColor = "hsla(230deg 52% 0% / 0.25)"
@@ -64,7 +66,7 @@ export const shadowPlugin = plugin.withOptions<ShadePluginOptions | void>(
   ({ colors } = defaultOptions) =>
     api => {
       const { lowElevation, mediumElevation, highElevation } = createColors(
-        colors.default
+        colors.default,
       )
 
       /* Needs more testing
@@ -83,7 +85,7 @@ export const shadowPlugin = plugin.withOptions<ShadePluginOptions | void>(
             [shadeColor]: value,
           }),
         },
-        { values: colors }
+        { values: colors },
       )
 
       api.matchUtilities(
@@ -98,7 +100,7 @@ export const shadowPlugin = plugin.withOptions<ShadePluginOptions | void>(
             medium: mediumElevation,
             high: highElevation,
           },
-        }
+        },
       )
-    }
+    },
 )

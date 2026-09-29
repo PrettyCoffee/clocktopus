@@ -1,5 +1,4 @@
 import { Trans } from "@lingui/react/macro"
-
 import {
   categoryGroupsData,
   categoriesData,
@@ -57,7 +56,7 @@ export const CategoryName = ({
       <span
         className={cn(
           colored({ type: "text", color: category.group.color }),
-          "shrink-0"
+          "shrink-0",
         )}
       >
         {category.group.name}
@@ -75,7 +74,7 @@ export const CategoryName = ({
       className={cn(
         hstack({ inline: true, gap: 1, align: "center" }),
         "max-w-48 truncate **:truncate",
-        className
+        className,
       )}
     >
       {groupName}

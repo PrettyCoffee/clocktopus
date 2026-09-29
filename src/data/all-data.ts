@@ -1,6 +1,5 @@
-import { z } from "zod/mini"
-
 import { Resolve } from "types/util-types"
+import { z } from "zod/mini"
 
 import {
   categoryGroupsData,

@@ -37,7 +37,7 @@ const toTime = (value: string | undefined) => {
 export const buildRows = (
   rows: string[][],
   columnLookup: ColumnLookup,
-  categoryMapping: CategoryMapping
+  categoryMapping: CategoryMapping,
 ) => {
   // eslint-disable-next-line complexity
   const create = (row: string[]): TimeEntry => {

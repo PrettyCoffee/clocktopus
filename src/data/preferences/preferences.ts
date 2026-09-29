@@ -1,7 +1,6 @@
-import { z } from "zod/mini"
-
 import { createSlice, indexedDb, sync } from "lib/yaasl"
 import { Resolve } from "types/util-types"
+import { z } from "zod/mini"
 
 export const preferencesSchema = z.object({
   hiddenRoutes: z.optional(z.array(z.string())), // optional for legacy reasons
@@ -26,7 +25,7 @@ export const preferencesData = createSlice({
   reducers: {
     toggleHiddenRoute: (state, route: string, checked: boolean) => {
       const hiddenRoutes = (state.hiddenRoutes ?? []).filter(
-        path => path !== route
+        path => path !== route,
       )
       return {
         ...state,
@@ -47,7 +46,7 @@ export const preferencesData = createSlice({
     }),
     setSelectMenuAlignment: (
       state,
-      selectMenuAlignment: Preferences["selectMenuAlignment"]
+      selectMenuAlignment: Preferences["selectMenuAlignment"],
     ) => ({
       ...state,
       selectMenuAlignment,

@@ -37,7 +37,7 @@ export const Year = ({ year }: YearProps) => {
       getCalendarWeeks(year)
         .reverse()
         .filter(({ days }) => days[0]!.valueOf() <= now),
-    [year]
+    [year],
   )
 
   return (

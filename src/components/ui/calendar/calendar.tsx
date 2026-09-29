@@ -2,7 +2,6 @@ import { Dispatch, PropsWithChildren, SetStateAction, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { hstack, vstack } from "utils/styles"
@@ -25,7 +24,7 @@ const GridHeaderCell = ({ children, size }: PropsWithChildren<SizeProp>) => (
     className={cn(
       hstack({ align: "center", justify: "center" }),
       "text-text-gentle",
-      getSize(size)
+      getSize(size),
     )}
   >
     {children}
@@ -66,9 +65,9 @@ const GridBody = ({
         disabled={isDisabled(day)}
         className={cn(
           getSize(size),
-          day.toString() === selected && "border border-stroke-focus",
+          day.toString() === selected && "border-stroke-focus border",
           day.meta.isFiller && "text-text-muted",
-          day.meta.isToday && "text-highlight"
+          day.meta.isToday && "text-highlight",
         )}
       >
         {day.parsed.day}

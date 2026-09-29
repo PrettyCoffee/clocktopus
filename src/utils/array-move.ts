@@ -3,7 +3,7 @@ import { clamp } from "./clamp"
 export const arrayMove = <T>(
   array: T[],
   oldIndex: number,
-  newIndex: number
+  newIndex: number,
 ) => {
   const clampedIndex = clamp(newIndex, 0, array.length - 1)
 

@@ -17,7 +17,7 @@ const getCellRows = (grid: Element, cellSelector: string) => {
       rows[y].push(cell)
       return rows
     },
-    {}
+    {},
   )
 
   return Object.entries(rowsByPosition)
@@ -41,7 +41,7 @@ const isDisabled = (element?: Element) => {
 const getNextInAxis = (
   rows: Element[][],
   position: Offset,
-  direction: Partial<Offset>
+  direction: Partial<Offset>,
 ) => {
   if (!direction.x && !direction.y) return undefined
 
@@ -58,7 +58,7 @@ const getNextInAxis = (
 const getNextNonDisabledCell = (
   rows: Element[][],
   position: Offset,
-  offset: Offset
+  offset: Offset,
 ) => {
   const getFirst = () => {
     if (offset.x !== -Infinity && offset.y !== -Infinity) return undefined

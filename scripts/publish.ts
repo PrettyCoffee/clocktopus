@@ -9,8 +9,8 @@ import {
   createSpinner,
 } from "@pretty-cozy/release-tools"
 
-import { createChangelog } from "./create-changelog"
 import pkg from "../package.json"
+import { createChangelog } from "./create-changelog"
 
 const mockedWorkspaces: Awaited<ReturnType<typeof promptWorkspaces>> = {
   root: {

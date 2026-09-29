@@ -1,6 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority"
 import { LucideProps } from "lucide-react"
-
 import { ClassNameProp, IconProp, RefProp } from "types/base-props"
 import { cn } from "utils/cn"
 

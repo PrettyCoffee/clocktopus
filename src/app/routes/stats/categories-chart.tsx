@@ -1,5 +1,4 @@
 import { t } from "@lingui/core/macro"
-
 import { getCategoryName } from "features/components/category-name"
 import { getLocale } from "utils/get-locale"
 

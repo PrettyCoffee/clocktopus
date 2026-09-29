@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useRef } from "react"
 
 import { t } from "@lingui/core/macro"
+import { Icon } from "components/ui/icon"
 import { keyframes } from "goober"
+import { useTrans } from "locales/locale-provider"
 import { X } from "lucide-react"
 import { AnimationSequence } from "motion"
 import { useAnimate } from "motion/react"
-
-import { Icon } from "components/ui/icon"
-import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { ease } from "utils/ease"
 import { alertStyles, hstack, surface } from "utils/styles"
 
-import { ToastProps } from "./toaster-data"
 import { Button } from "../button"
 import { IconButton } from "../icon-button"
+import { ToastProps } from "./toaster-data"
 
 interface ExtendedToastProps extends ToastProps {
   onClose: (id: string) => void
@@ -88,7 +87,7 @@ export const Toast = ({
       className={cn(
         surface({ look: "overlay", size: "md" }),
         "relative my-1 w-screen max-w-96 overflow-hidden border-2 p-1",
-        alertStyles[kind].borderGentle
+        alertStyles[kind].borderGentle,
       )}
     >
       <div className={hstack({})}>
@@ -96,11 +95,11 @@ export const Toast = ({
           <Icon icon={alertStyles[kind].icon} color={kind} size="lg" />
         </div>
         <div className="my-2 flex-1 overflow-hidden">
-          <div className="truncate text-text-priority">
+          <div className="text-text-priority truncate">
             {typeof title === "string" ? title : trans(title)}
           </div>
           {message && (
-            <div className="mt-1 line-clamp-3 text-sm text-text">{message}</div>
+            <div className="text-text mt-1 line-clamp-3 text-sm">{message}</div>
           )}
         </div>
         <IconButton
@@ -114,7 +113,7 @@ export const Toast = ({
         <div
           className={cn(
             hstack({ justify: "end", gap: 2, wrap: true }),
-            duration && "pb-2"
+            duration && "pb-2",
           )}
         >
           {actions.map(({ label, ...action }) => {

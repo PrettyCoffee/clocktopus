@@ -30,7 +30,7 @@ const roundUp = (value: number) =>
   Math.floor(value) < value ? Math.floor(value) + 1 : value
 
 export const getWeekNumber = (
-  date: Date
+  date: Date,
 ): { week: number; yearChange: number } => {
   const day = getDayOfYear(date)
   const offset = getCwDateOffset(date.getFullYear())

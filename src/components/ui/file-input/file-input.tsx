@@ -1,7 +1,6 @@
 import { ChangeEvent, useState, DragEvent, useId } from "react"
 
 import { Upload } from "lucide-react"
-
 import { Alert, ClassNameProp, IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 import {
@@ -68,10 +67,10 @@ export const FileInput = ({
             hstack({ gap: 2, align: "center", justify: "center" }),
             interactive({ look: "flat" }),
             focusWithinOutline,
-            "relative cursor-pointer rounded-md border-2 border-dashed border-stroke p-6",
+            "border-stroke relative cursor-pointer rounded-md border-2 border-dashed p-6",
             alert && alert.kind !== "info" && alertStyles[alert.kind].border,
             dragging && "border-stroke-focus bgl-layer-w/10",
-            className
+            className,
           )}
         >
           <input

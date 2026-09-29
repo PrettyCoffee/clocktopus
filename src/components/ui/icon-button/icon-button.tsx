@@ -1,5 +1,4 @@
 import { cva, VariantProps } from "class-variance-authority"
-
 import { VisuallyHidden } from "components/utility/visually-hidden"
 import { StyleProp } from "types/base-props"
 import { cn } from "utils/cn"

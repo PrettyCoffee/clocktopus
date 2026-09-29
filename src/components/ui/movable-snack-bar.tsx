@@ -8,10 +8,9 @@ import {
   useState,
 } from "react"
 
-import { GripHorizontal } from "lucide-react"
-
 import { Icon } from "components/ui/icon"
 import { Portal } from "components/utility/portal"
+import { GripHorizontal } from "lucide-react"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
 import { mergeRefs } from "utils/merge-refs"
@@ -33,14 +32,14 @@ const addDragOverlay = () => {
   const dragOverlay = document.createElement("div")
   dragOverlay.className = cn(
     zIndex.dragOverlay,
-    "fixed inset-0 h-screen w-screen cursor-grabbing"
+    "fixed inset-0 h-screen w-screen cursor-grabbing",
   )
   document.body.appendChild(dragOverlay)
   return () => dragOverlay.remove()
 }
 const useDragging = (
   ref: RefObject<HTMLElement | null>,
-  onDrag: Dispatch<MouseEvent>
+  onDrag: Dispatch<MouseEvent>,
 ) => {
   const [moving, setMoving] = useState(false)
 
@@ -83,7 +82,7 @@ const useDragging = (
 
 const clampToWindow = (
   position: Position | null,
-  element: HTMLElement | null
+  element: HTMLElement | null,
 ) => {
   if (!element || !position) return position
 
@@ -91,12 +90,12 @@ const clampToWindow = (
   const x = clamp(
     position.x,
     off,
-    window.innerWidth - element.offsetWidth - off
+    window.innerWidth - element.offsetWidth - off,
   )
   const y = clamp(
     position.y,
     off,
-    window.innerHeight - element.offsetHeight - off
+    window.innerHeight - element.offsetHeight - off,
   )
 
   const didChange = position.x !== x || position.y !== y
@@ -150,7 +149,7 @@ export const MovableSnackBar = ({
         className={cn(
           surface({ look: "overlay", size: "lg" }),
           zIndex.movableSnackBar,
-          "fixed flex scale-100 p-1 opacity-100 transition-[scale,opacity] duration-300 ease-bounce starting:scale-0 starting:opacity-0"
+          "ease-bounce fixed flex scale-100 p-1 opacity-100 transition-[scale,opacity] duration-300 starting:scale-0 starting:opacity-0",
         )}
         style={{ left: position?.x, top: position?.y }}
       >

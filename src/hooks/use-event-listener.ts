@@ -40,7 +40,7 @@ export const useEventListener = <
     return () => {
       element.removeEventListener(
         event,
-        emit as EventListenerOrEventListenerObject
+        emit as EventListenerOrEventListenerObject,
       )
     }
   }, [disabled, event, ref])

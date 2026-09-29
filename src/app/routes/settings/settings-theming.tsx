@@ -1,10 +1,9 @@
 import { t } from "@lingui/core/macro"
-import { css } from "goober"
-
 import { Card } from "components/ui/card"
 import { ColorInput } from "components/ui/color-input"
 import { Toggle } from "components/ui/toggle"
 import { themeData } from "data/theme"
+import { css } from "goober"
 import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"

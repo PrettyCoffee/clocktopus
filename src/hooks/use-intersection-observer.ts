@@ -25,7 +25,7 @@ export const useIntersectionObserver = ({
         root: options?.root,
         rootMargin: options?.rootMargin,
         threshold: options?.threshold,
-      }
+      },
     )
 
     observer.observe(ref.current)

@@ -1,5 +1,4 @@
 import { t } from "@lingui/core/macro"
-
 import { FilterInput, FilterInputProps } from "components/ui/filter-input"
 import { dateHelpers } from "utils/date-helpers"
 
@@ -31,7 +30,7 @@ export const SearchFilterInput = (
   props: Pick<
     FilterInputProps<keyof typeof tagConfigs>,
     "value" | "onChange" | "hideSuggestions"
-  >
+  >,
 ) => (
   <FilterInput
     className="block flex-1"

@@ -26,7 +26,7 @@ export const useMountAnimation = ({
   const allowMotion = useMediaQuery("(prefers-reduced-motion: no-preference)")
   const didMount = useRef(false)
   const [state, setState] = useState<MountAnimationState>(
-    open ? "open" : "close"
+    open ? "open" : "close",
   )
 
   const durations = toArray(duration)
@@ -38,7 +38,7 @@ export const useMountAnimation = ({
       onChange?.(state)
       setState(state)
     },
-    [onChange]
+    [onChange],
   )
 
   // eslint-disable-next-line complexity -- extracting anything here would resolve in too much argument passing

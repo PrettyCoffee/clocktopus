@@ -2,8 +2,6 @@ import { Dispatch } from "react"
 
 import { msg, t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { ChevronDown, ChevronUp, Plus, Trash } from "lucide-react"
-
 import { Card } from "components/ui/card"
 import { ColorInput } from "components/ui/color-input"
 import { showDialog } from "components/ui/dialog"
@@ -23,6 +21,7 @@ import {
 } from "data/categories"
 import { useObjectState } from "hooks/use-object-state"
 import { useAtom } from "lib/yaasl"
+import { ChevronDown, ChevronUp, Plus, Trash } from "lucide-react"
 import { cn } from "utils/cn"
 import { colored, hstack, interactive, vstack } from "utils/styles"
 
@@ -61,7 +60,7 @@ const AddGroup = () => {
 
   return (
     <div
-      className={cn(hstack({ gap: 2 }), "rounded-md bg-background-page/50 p-1")}
+      className={cn(hstack({ gap: 2 }), "bg-background-page/50 rounded-md p-1")}
     >
       <Input
         type="text"
@@ -104,7 +103,7 @@ const MoveButton = ({ direction, disabled, ...props }: MoveButtonProps) => {
       className={cn(
         interactive({ look: "flat", disabled }),
         hstack({ align: isUp ? "end" : "start", justify: "center" }),
-        "m-0 w-full flex-1 overflow-hidden"
+        "m-0 w-full flex-1 overflow-hidden",
       )}
     >
       <Icon size="sm" icon={icon} />
@@ -122,7 +121,7 @@ const MoveButtons = ({ canMoveDown, canMoveUp, onClick }: MoveButtonsProps) => (
   <div
     className={cn(
       vstack({ gap: 0, inline: true }),
-      "size-10 overflow-hidden rounded-md [[role='row']:not(:hover,:has(*:focus-visible))_&]:opacity-50"
+      "size-10 overflow-hidden rounded-md [[role='row']:not(:hover,:has(*:focus-visible))_&]:opacity-50",
     )}
   >
     <MoveButton
@@ -247,7 +246,7 @@ const AddCategory = () => {
 
   return (
     <div
-      className={cn(hstack({ gap: 2 }), "rounded-md bg-background-page/50 p-1")}
+      className={cn(hstack({ gap: 2 }), "bg-background-page/50 rounded-md p-1")}
     >
       <Input
         type="text"

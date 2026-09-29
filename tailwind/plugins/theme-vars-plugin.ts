@@ -1,10 +1,10 @@
 import defaultColors from "tailwindcss/colors"
 import plugin from "tailwindcss/plugin"
-import type { ThemeConfig } from "tailwindcss/plugin.js"
 
 import { ObjDeepPath, ObjDeepValue } from "../../src/types/util-types"
 import { parseColor, toOklch } from "../../src/utils/color"
 import { deepLoop } from "../../src/utils/deep-loop"
+import type { ThemeConfig } from "tailwindcss/plugin.js"
 
 type CustomThemeConfig = ThemeConfig["extend"]
 type DefaultColors = typeof defaultColors
@@ -25,7 +25,7 @@ type LoosenValues<T> = T extends object
 
 type ReadValue<T> = (
   path: ObjDeepPath<T>,
-  extra?: `${string}<var>${string}`
+  extra?: `${string}<var>${string}`,
 ) => string
 
 type CreateTokens<TTokens> =
@@ -35,18 +35,19 @@ type CreateTokens<TTokens> =
 type CreateTwTheme<TTokens, TTwTheme> = (get: ReadValue<TTokens>) => TTwTheme
 
 interface CreateThemeVariant<TTokens, TTwTheme> {
-  /** The underlying css theme with all possible values.
-   *  Will be used to write css variables.
-   **/
+  /**
+   * The underlying css theme with all possible values. Will be used to write
+   * css variables.
+   */
   tokens: CreateTokens<TTokens>
-  /** Function to retrieve the tokens which are used in tailwind */
+  /** Function to retrieve the tokens which are used in tailwind. */
   twTheme: CreateTwTheme<TTokens, TTwTheme>
 }
 
 interface GeneralThemeOptions<TTokens> {
-  /** Prefix for css variables */
+  /** Prefix for css variables. */
   prefix: string
-  /** Paths pointing to values that should be handled as colors */
+  /** Paths pointing to values that should be handled as colors. */
   colorPath: ObjDeepPath<TTokens> | ObjDeepPath<TTokens>[]
 }
 interface ThemeConstructorProps<TTokens, TTwTheme>
@@ -62,7 +63,7 @@ const getCssVar = <TTheme>(prefix: string, path: ObjDeepPath<TTheme>) => {
 const readVar = <TTokens>(
   { prefix, colorPath }: GeneralThemeOptions<TTokens>,
   path: ObjDeepPath<TTokens>,
-  extra?: `${string}<var>${string}`
+  extra?: `${string}<var>${string}`,
 ) => {
   const isColor = [colorPath]
     .flat()
@@ -79,7 +80,7 @@ const resolveTokens = <TTokens>(createTheme: CreateTokens<TTokens>): TTokens =>
 
 const resolveTwTheme = <TTokens, TTwTheme>(
   options: GeneralThemeOptions<TTokens>,
-  createTokens: CreateTwTheme<TTokens, TTwTheme>
+  createTokens: CreateTwTheme<TTokens, TTwTheme>,
 ): TTwTheme => createTokens((path, extra) => readVar(options, path, extra))
 
 class Theme<
@@ -121,7 +122,7 @@ class Theme<
 
   public write<TPath extends ObjDeepPath<TTokens>>(
     path: TPath,
-    value: ObjDeepValue<LoosenValues<TTokens>, TPath>
+    value: ObjDeepValue<LoosenValues<TTokens>, TPath>,
   ) {
     const cssVar = this.getCssVar(path)
     return [cssVar, String(value as string)] as const
@@ -132,7 +133,7 @@ export const createTheme = <
   TTokens extends TokenItem,
   TTwTheme extends Partial<CustomThemeConfig>,
 >(
-  props: ThemeConstructorProps<TTokens, TTwTheme>
+  props: ThemeConstructorProps<TTokens, TTwTheme>,
 ) => new Theme(props)
 
 const getCssVars = (theme: Theme, variantName?: string) => {
@@ -161,10 +162,12 @@ const getCssVars = (theme: Theme, variantName?: string) => {
 interface ThemeVarsPluginOptions {
   /** The theme that should be used. Must be created with `createTheme`. */
   theme: Theme
-  /** Merging strategy of the theme tokens.
-   *  - "replace" will overwrite the original tailwind theme tokens
-   *  - "extend" will add the tokens alongside to the tailwind theme tokens
-   **/
+  /**
+   * Merging strategy of the theme tokens.
+   *
+   * - "replace" will overwrite the original tailwind theme tokens
+   * - "extend" will add the tokens alongside to the tailwind theme tokens
+   */
   strategy?: "replace" | "extend"
 }
 
@@ -192,5 +195,5 @@ export const themeVarsPlugin = plugin.withOptions<ThemeVarsPluginOptions>(
   ({ theme, strategy } = fallbackOptions) => {
     if (strategy === "replace") return { theme: theme.twTheme }
     return { theme: { extend: theme.twTheme } }
-  }
+  },
 )

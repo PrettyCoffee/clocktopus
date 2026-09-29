@@ -1,7 +1,6 @@
 import { Dispatch, useMemo } from "react"
 
 import { t } from "@lingui/core/macro"
-
 import { Dialog } from "components/ui/dialog"
 import { TimeEntry } from "data/time-entries"
 import { useObjectState } from "hooks/use-object-state"
@@ -25,7 +24,7 @@ const getImportedCategories = (rows: string[][], categoryIndex: number) => {
 const findHeader = (headers: string[], columnName: string) => {
   const nameParts = columnName.toLowerCase().split(/\s+/)
   return headers.findIndex(header =>
-    nameParts.every(part => header.toLowerCase().includes(part))
+    nameParts.every(part => header.toLowerCase().includes(part)),
   )
 }
 const getInitialColumnLookup = (headers: string[]): ColumnLookup => ({
@@ -47,16 +46,16 @@ export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
 
   const { headers, rows } = useMemo(() => processCsv(csv), [csv])
   const [columnLookup, updateColumnLookup] = useObjectState(
-    getInitialColumnLookup(headers)
+    getInitialColumnLookup(headers),
   )
 
   const importedCategories = useMemo(
     () => getImportedCategories(rows, columnLookup.category ?? -1),
-    [columnLookup.category, rows]
+    [columnLookup.category, rows],
   )
   const data = useMemo(
     () => buildRows(rows, columnLookup, categoryMapping),
-    [columnLookup, rows, categoryMapping]
+    [columnLookup, rows, categoryMapping],
   )
 
   return (
@@ -73,7 +72,7 @@ export const CsvImport = ({ csv, onImport, onClose }: CsvImportProps) => {
       cancel={{}}
     >
       <div className={cn(vstack({ justify: "evenly" }), "h-full")}>
-        <div className={cn(hstack({}), "pb-2 *:flex-1 tablet:flex-col")}>
+        <div className={cn(hstack({}), "tablet:flex-col pb-2 *:flex-1")}>
           <SelectColumns
             headers={headers}
             columnLookup={columnLookup}

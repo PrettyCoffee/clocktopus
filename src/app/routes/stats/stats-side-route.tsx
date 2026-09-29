@@ -1,5 +1,4 @@
 import { t } from "@lingui/core/macro"
-
 import { Button } from "components/ui/button"
 import { DateInput } from "components/ui/date-input"
 import { Divider } from "components/ui/divider"
@@ -21,19 +20,19 @@ const today = new Date()
 const thisMonthFilter: StatsFilter = {
   name: "This month",
   start: dateHelpers.stringify(
-    new Date(today.getFullYear(), today.getMonth(), 1)
+    new Date(today.getFullYear(), today.getMonth(), 1),
   ),
   end: dateHelpers.stringify(
-    new Date(today.getFullYear(), today.getMonth() + 1, 0)
+    new Date(today.getFullYear(), today.getMonth() + 1, 0),
   ),
 }
 const lastMonthFilter: StatsFilter = {
   name: "Last month",
   start: dateHelpers.stringify(
-    new Date(today.getFullYear(), today.getMonth() - 1, 1)
+    new Date(today.getFullYear(), today.getMonth() - 1, 1),
   ),
   end: dateHelpers.stringify(
-    new Date(today.getFullYear(), today.getMonth(), 0)
+    new Date(today.getFullYear(), today.getMonth(), 0),
   ),
 }
 
@@ -55,9 +54,9 @@ export const filteredStatsEntries = createSelector(
       Object.entries(entries).filter(
         ([date]) =>
           dateHelpers.isInRange(date, start, end) &&
-          date !== dateHelpers.today() // if day is still in progress, data might be misleading (i.e. avg end times)
-      )
-    )
+          date !== dateHelpers.today(), // if day is still in progress, data might be misleading (i.e. avg end times)
+      ),
+    ),
 )
 
 export const StatsSideRoute = () => {

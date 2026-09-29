@@ -1,10 +1,9 @@
 import { Trans } from "@lingui/react/macro"
-
 import { Button } from "components/ui/button"
 
 export const PageCrashedRoute = () => (
   <div
-    className="flex size-full flex-col items-center justify-center text-alert-error"
+    className="text-alert-error flex size-full flex-col items-center justify-center"
     role="alert"
   >
     <h2 className="text-lg font-semibold">
@@ -14,7 +13,7 @@ export const PageCrashedRoute = () => (
       className="mt-4"
       onClick={() =>
         window.location.assign(
-          window.location.origin + window.location.pathname
+          window.location.origin + window.location.pathname,
         )
       }
     >

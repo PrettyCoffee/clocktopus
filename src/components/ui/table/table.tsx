@@ -1,7 +1,6 @@
 import { Fragment, ReactNode } from "react"
 
 import { type MessageDescriptor } from "@lingui/core"
-
 import { useTrans } from "locales/locale-provider"
 import { cn } from "utils/cn"
 import { createContext } from "utils/create-context"
@@ -34,7 +33,7 @@ interface ColumnDef<TConfig extends TableConfig> {
       rowData: TConfig["rowData"]
       allData: TConfig["rowData"][]
       rowIndex: number
-    } & TConfig["rowMeta"]
+    } & TConfig["rowMeta"],
   ) => ReactNode
 }
 
@@ -74,7 +73,7 @@ const TableRow = ({ data, index }: TableRowProps) => {
         "focus-within:bg-background-page/50 hover:bg-background-page/50",
         "[&_input]:bg-transparent [&:not(:hover,:focus-within)_:is(input,button)]:border-transparent",
         index === highlighted &&
-          "bg-highlight/5 focus-within:bg-highlight/10 hover:bg-highlight/10"
+          "bg-highlight/5 focus-within:bg-highlight/10 hover:bg-highlight/10",
       )}
     >
       {columns.map(column => (
@@ -103,7 +102,7 @@ const TableBody = () => {
       {rowData.map((data, index) => (
         <Fragment key={data.id}>
           {index !== 0 && (
-            <div className="col-span-full mx-2 border-b border-stroke-gentle" />
+            <div className="border-stroke-gentle col-span-full mx-2 border-b" />
           )}
 
           <TableRow data={data} index={index} />
@@ -123,7 +122,7 @@ const TableHeader = () => {
       className={cn(
         hideHeaders
           ? "sr-only"
-          : cn(subgridCols, "border-b border-stroke-gentle")
+          : cn(subgridCols, "border-stroke-gentle border-b"),
       )}
     >
       {columns.map(column => (
@@ -136,7 +135,7 @@ const TableHeader = () => {
 }
 
 export const Table = <TConfig extends TableConfig>(
-  props: TableProps<TConfig>
+  props: TableProps<TConfig>,
 ) => {
   const { name, gridCols } = props
   return (
@@ -159,7 +158,7 @@ export const Table = <TConfig extends TableConfig>(
 
 export const createColumnHelper = <TConfig extends TableConfig>() => {
   const column = (
-    colDef: Omit<ColumnDef<TConfig>, "id" | "type">
+    colDef: Omit<ColumnDef<TConfig>, "id" | "type">,
   ): ColumnDef<TConfig> => ({
     ...colDef,
     type: "data",
@@ -167,7 +166,7 @@ export const createColumnHelper = <TConfig extends TableConfig>() => {
   })
 
   const decorator = (
-    colDef: Omit<ColumnDef<TConfig>, "id" | "type">
+    colDef: Omit<ColumnDef<TConfig>, "id" | "type">,
   ): ColumnDef<TConfig> => ({
     ...colDef,
     type: "decorator",

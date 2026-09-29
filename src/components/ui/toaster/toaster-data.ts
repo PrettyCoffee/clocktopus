@@ -1,7 +1,6 @@
 import { ReactNode } from "react"
 
 import { MessageDescriptor } from "@lingui/core"
-
 import { createSlice } from "lib/yaasl"
 import { AlertKind } from "types/base-props"
 import { createId } from "utils/create-id"

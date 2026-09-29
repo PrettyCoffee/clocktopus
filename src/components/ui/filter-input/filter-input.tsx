@@ -10,18 +10,20 @@ import {
 
 import { t } from "@lingui/core/macro"
 import { css } from "goober"
-import { Search, XCircle } from "lucide-react"
-
 import { useDropdownNavigation } from "hooks/use-dropdown-navigation"
 import { useEventListener } from "hooks/use-event-listener"
 import { useFocus } from "hooks/use-focus"
 import { useLatest } from "hooks/use-latest"
 import { useResizeObserver } from "hooks/use-resize-observer"
+import { Search, XCircle } from "lucide-react"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
 import { hstack, surface, vstack } from "utils/styles"
 import { zIndex } from "utils/z-index"
 
+import { Button } from "../button"
+import { Icon } from "../icon"
+import { IconButton } from "../icon-button"
 import { Input, InputProps } from "../input"
 import {
   EnrichedFilterItem,
@@ -29,9 +31,6 @@ import {
   parseFilter,
   TagConfig,
 } from "./parse-filter"
-import { Button } from "../button"
-import { Icon } from "../icon"
-import { IconButton } from "../icon-button"
 
 const transparentText = css`
   -webkit-text-fill-color: transparent;
@@ -40,7 +39,7 @@ const transparentText = css`
   }
 `
 
-const textStyles = cn("text-sm whitespace-pre text-text **:whitespace-pre")
+const textStyles = cn("text-text text-sm whitespace-pre **:whitespace-pre")
 
 const measureText = (text: string) => {
   const span = document.createElement("span")
@@ -65,7 +64,7 @@ const useCursorPos = (ref: RefObject<HTMLInputElement | null>) => {
         return !didChange ? prev : { start, end }
       })
     },
-    []
+    [],
   )
 
   useEffect(() => {
@@ -127,7 +126,7 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
     className={cn(
       hstack({ align: "center" }),
       textStyles,
-      "absolute inset-0 inset-x-10 -z-1 -ml-px h-full overflow-hidden pl-0.5"
+      "absolute inset-0 inset-x-10 -z-1 -ml-px h-full overflow-hidden pl-0.5",
     )}
   >
     {segments.map(({ tag, value, text, isTagValid, isValueValid }, index) =>
@@ -142,12 +141,12 @@ const FilterTextDisplay = ({ ref, segments }: FilterTextDisplayProps) => (
             "inline-block rounded-[1px] outline-1 outline-offset-1 outline-solid",
             isTagValid && isValueValid
               ? "bg-highlight/10 text-highlight outline-highlight/20"
-              : "bg-background underline decoration-alert-error decoration-wavy outline-stroke-gentle"
+              : "bg-background decoration-alert-error outline-stroke-gentle underline decoration-wavy",
           )}
         >
           {text}
         </span>
-      )
+      ),
     )}
   </div>
 )
@@ -169,7 +168,7 @@ const FilterSuggestions = ({
       surface({ size: "md", look: "overlay" }),
       vstack(),
       zIndex.popover,
-      "absolute top-11 left-8 p-0 transition-transform duration-200 ease-out"
+      "absolute top-11 left-8 p-0 transition-transform duration-200 ease-out",
     )}
     style={{
       translate: offsetLeft,
@@ -181,12 +180,12 @@ const FilterSuggestions = ({
         className={cn(
           vstack({ align: "start", gap: 0 }),
           "px-2",
-          index === selectedIndex && "bgl-layer-w/10"
+          index === selectedIndex && "bgl-layer-w/10",
         )}
         onClick={() => onSelect(item.name)}
       >
-        <span className="-my-0.5 text-sm text-text">{item.name}</span>
-        <span className="text-xs text-text-muted">e.g. {item.example}</span>
+        <span className="text-text -my-0.5 text-sm">{item.name}</span>
+        <span className="text-text-muted text-xs">e.g. {item.example}</span>
       </Button>
     ))}
   </div>
@@ -233,7 +232,7 @@ export const FilterInput = <TTagName extends string>({
       setFilter(filter)
       changeHandlerRef.current(newText, filter)
     },
-    [changeHandlerRef, tagConfigs]
+    [changeHandlerRef, tagConfigs],
   )
 
   useEffect(() => {
@@ -342,7 +341,7 @@ export const FilterInput = <TTagName extends string>({
           offsetLeft={clamp(
             measureText(textValue.slice(0, cursorPos.start)) - scrollLeft,
             0,
-            width - 32 - 40
+            width - 32 - 40,
           )}
         />
       )}

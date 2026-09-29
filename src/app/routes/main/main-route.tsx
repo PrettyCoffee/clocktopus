@@ -2,8 +2,6 @@ import { PropsWithChildren, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { Ghost } from "lucide-react"
-
 import { ContextInfo } from "components/ui/context-info"
 import { DetectIntersection } from "components/utility/detect-intersection"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
@@ -15,6 +13,7 @@ import {
 import { CreateTimeEntry } from "features/time-table/create-time-entry"
 import { selectedWeek, WeekCarousel } from "features/week-selection"
 import { useAtom, createSlice } from "lib/yaasl"
+import { Ghost } from "lucide-react"
 import { Alert } from "types/base-props"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
@@ -71,7 +70,7 @@ const analyzeConsistency = (entries: TimeEntry[]) => {
       hasOverlapping: false,
       hasGap: false,
       lastEnd: sorted[0]?.start ?? "00:00",
-    }
+    },
   )
 }
 
@@ -119,7 +118,7 @@ const FirstEntry = ({ children }: PropsWithChildren) => (
   <div
     className={cn(
       vstack({ align: "center" }),
-      "min-h-full w-full px-10 pt-[max(20vh,3rem)] pb-12 mobile:pt-8"
+      "mobile:pt-8 min-h-full w-full px-10 pt-[max(20vh,3rem)] pb-12",
     )}
   >
     <div className="relative size-40">
@@ -159,7 +158,7 @@ export const MainRoute = () => {
         .map(dateHelpers.stringify)
         .filter(date => trackedDates.includes(date))
         .reverse(),
-    [selected, trackedDates]
+    [selected, trackedDates],
   )
 
   const [isIntersecting, setIsIntersecting] = useState(true)
@@ -171,7 +170,7 @@ export const MainRoute = () => {
 
   const initial = useMemo(() => {
     const weekChanged = !selected.days.some(
-      date => dateHelpers.stringify(date) === latestAdded.date
+      date => dateHelpers.stringify(date) === latestAdded.date,
     )
     if (!weekChanged) return latestAdded
 
@@ -204,7 +203,7 @@ export const MainRoute = () => {
       <div
         className={cn(
           hstack({ align: "center", justify: "center" }),
-          "z-21 -mb-2 pt-4"
+          "z-21 -mb-2 pt-4",
         )}
       >
         <WeekCarousel />
@@ -216,9 +215,9 @@ export const MainRoute = () => {
       />
       <div
         className={cn(
-          "sticky top-0 z-20 -mx-2 rounded-md bg-background-page px-2 pt-6 pb-2",
+          "bg-background-page sticky top-0 z-20 -mx-2 rounded-md px-2 pt-6 pb-2",
           "transition-shadow duration-100",
-          !isIntersecting && "shade-low"
+          !isIntersecting && "shade-low",
         )}
       >
         {createTimeEntry}

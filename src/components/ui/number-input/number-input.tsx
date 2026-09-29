@@ -25,7 +25,7 @@ interface ParseNumberOptions {
 }
 const parseNumber = (
   value: string,
-  { min = -Infinity, max = Infinity }: ParseNumberOptions = {}
+  { min = -Infinity, max = Infinity }: ParseNumberOptions = {},
 ) => {
   const string = /(-?\d*\.?\d*)/.exec(value)?.[0] ?? ""
   const number = Number.parseFloat(string)
@@ -82,8 +82,8 @@ export const NumberInput = ({
           setDigitsWidth(
             Math.max(
               meassureText(placeholder, element),
-              meassureText(internal, element)
-            )
+              meassureText(internal, element),
+            ),
           )
         }}
         {...delegated}
@@ -93,7 +93,7 @@ export const NumberInput = ({
         onBlur={() => setInternal(String(value ?? ""))}
         className={cn(
           "w-[calc(var(--digits)+var(--unit-width)+theme(width.4)+theme(width.4))] pr-[calc(var(--unit-width)+theme(width.4))] text-end",
-          className
+          className,
         )}
         style={{
           // @ts-expect-error ts(2353)
@@ -106,7 +106,7 @@ export const NumberInput = ({
           if (!element) return
           setUnitWidth(meassureText(unit ?? "", element))
         }}
-        className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-sm text-text-muted"
+        className="text-text-muted pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-sm"
       >
         {unit}
       </span>

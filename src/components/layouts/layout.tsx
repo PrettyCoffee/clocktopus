@@ -1,10 +1,9 @@
 import { PropsWithChildren, ReactNode } from "react"
 
 import { t } from "@lingui/core/macro"
-import { Menu } from "lucide-react"
-
 import { useMountAnimation } from "hooks/use-mount-animation"
 import { createAtom, sessionStorage, useAtom } from "lib/yaasl"
+import { Menu } from "lucide-react"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
@@ -36,12 +35,12 @@ const Side = ({ children, actions = [], className }: LayoutSideProps) => {
         className={cn(
           vstack(),
           "relative -ml-5 h-full py-3 pr-7 pl-3",
-          "rounded-r-lg border-y border-r border-stroke-gentle",
+          "border-stroke-gentle rounded-r-lg border-y border-r",
           "transition-[max-width,min-width,padding] duration-0 ease-in-out motion-safe:duration-300",
           isOpen
             ? "max-w-[clamp(theme(width.64),20vw,theme(width.80))] min-w-[clamp(theme(width.64),20vw,theme(width.80))]"
             : "max-w-0 min-w-0 pr-3",
-          className
+          className,
         )}
       >
         <div
@@ -49,7 +48,7 @@ const Side = ({ children, actions = [], className }: LayoutSideProps) => {
             vstack({ gap: 2, align: "stretch" }),
             "-m-2 flex-1 overflow-y-scroll p-2 transition-opacity duration-0 motion-safe:duration-300",
             animate.state !== "open" && "overflow-hidden **:overflow-hidden",
-            isOpen ? "opacity-100" : "opacity-0"
+            isOpen ? "opacity-100" : "opacity-0",
           )}
         >
           {animate.mounted && children}
@@ -58,8 +57,8 @@ const Side = ({ children, actions = [], className }: LayoutSideProps) => {
         <div
           className={cn(
             vstack({}),
-            "absolute top-3 -right-5 rounded-2xl border border-stroke-gentle bg-background-page",
-            "[&_:where(button,a)]:size-10 [&_:where(button,a)]:rounded-2xl [&_:where(button,a)_svg]:size-5"
+            "border-stroke-gentle bg-background-page absolute top-3 -right-5 rounded-2xl border",
+            "[&_:where(button,a)]:size-10 [&_:where(button,a)]:rounded-2xl [&_:where(button,a)_svg]:size-5",
           )}
         >
           <IconButton

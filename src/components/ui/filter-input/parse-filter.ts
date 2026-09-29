@@ -128,7 +128,7 @@ export interface EnrichedFilterItem extends FilterItem {
 
 const enrichItems = (
   items: FilterItem[],
-  tagConfigs: Record<string, TagConfig>
+  tagConfigs: Record<string, TagConfig>,
 ): EnrichedFilterItem[] =>
   items.map(({ tag, value, text }) => {
     const config = tagConfigs[tag ?? ""]
@@ -147,7 +147,7 @@ export interface Filters<TTagName extends string> {
 }
 const aggregateFilterResult = <TTagName extends string>(
   items: EnrichedFilterItem[],
-  tagConfigs: Record<TTagName, TagConfig>
+  tagConfigs: Record<TTagName, TagConfig>,
 ) => {
   const initial: Filters<TTagName> = {
     text: "",
@@ -169,7 +169,7 @@ const aggregateFilterResult = <TTagName extends string>(
 
 export const parseFilter = <TTagName extends string>(
   filter: string,
-  tagConfigs: Record<TTagName, TagConfig>
+  tagConfigs: Record<TTagName, TagConfig>,
 ) => {
   const first = nextToken(filter)
   const items = aggregateTokens(first)

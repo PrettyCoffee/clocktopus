@@ -3,7 +3,6 @@ import { Dispatch } from "react"
 import * as Primitive from "@radix-ui/react-checkbox"
 import { css, keyframes } from "goober"
 import { Check, Minus } from "lucide-react"
-
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, interactive } from "utils/styles"
@@ -35,9 +34,9 @@ const checkAnimation = css`
 `
 
 interface CheckboxProps extends ClassNameProp {
-  /** Checked state of the checkbox */
+  /** Checked state of the checkbox. */
   checked: Primitive.CheckedState
-  /** Handler top be called when clicking the checkbox */
+  /** Handler top be called when clicking the checkbox. */
   onCheckedChange: Dispatch<boolean>
 }
 
@@ -53,12 +52,12 @@ export const Checkbox = ({
       interactive({ look: "flat" }),
       hstack({ align: "center", justify: "center" }),
       "relative size-10 shrink-0 rounded-md",
-      className
+      className,
     )}
   >
     <div
       className={cn(
-        "absolute size-6 shrink-0 rounded-sm border border-stroke/50 [:hover>&]:border-stroke"
+        "border-stroke/50 [:hover>&]:border-stroke absolute size-6 shrink-0 rounded-sm border",
       )}
     />
     <Primitive.Indicator asChild>

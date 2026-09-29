@@ -52,7 +52,7 @@ const getTypePriority = (child: ReactNode) => {
 
 const sortChildren = (children: ReactNode) =>
   Children.toArray(children).toSorted(
-    (a, b) => getTypePriority(a) - getTypePriority(b)
+    (a, b) => getTypePriority(a) - getTypePriority(b),
   )
 
 interface ChartRootProps extends ClassNameProp {
@@ -107,7 +107,7 @@ export const ChartRoot = Object.assign(
       setRect(prev =>
         prev.height === height && prev.width === width
           ? prev
-          : { height, width }
+          : { height, width },
       )
     }
 
@@ -134,5 +134,5 @@ export const ChartRoot = Object.assign(
       </ChartContext>
     )
   },
-  { _childrenPriority: [] as unknown[] }
+  { _childrenPriority: [] as unknown[] },
 )

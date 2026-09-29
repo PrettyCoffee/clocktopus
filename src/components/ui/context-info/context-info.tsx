@@ -1,9 +1,8 @@
 import { PropsWithChildren, ReactNode } from "react"
 
+import { Icon } from "components/ui/icon"
 import { keyframes, css } from "goober"
 import { Ghost } from "lucide-react"
-
-import { Icon } from "components/ui/icon"
 import { IconProp } from "types/base-props"
 import { cn } from "utils/cn"
 
@@ -12,7 +11,8 @@ import { hstack, vstack } from "../../../utils/styles"
 const animationOptions = "2.5s infinite ease-in-out"
 
 const floatShadow = css`
-  animation: ${animationOptions} ${keyframes`
+  animation: ${animationOptions}
+    ${keyframes`
   0%, 100% {
     transform: translateX(1.5rem);
     width: 3.25rem;
@@ -32,7 +32,8 @@ const floatShadow = css`
 `};
 `
 const rotateShadow = css`
-  animation: ${animationOptions} ${keyframes`
+  animation: ${animationOptions}
+    ${keyframes`
      0%, 100% {
       transform: translateX(0.25rem);
       width: 4.5rem;
@@ -49,7 +50,8 @@ const rotateShadow = css`
 `
 
 const floatIcon = css`
-  animation: ${animationOptions} ${keyframes`
+  animation: ${animationOptions}
+    ${keyframes`
     0%, 100% {
       translate: 1rem;
       rotate: -10deg;
@@ -66,7 +68,8 @@ const floatIcon = css`
   `};
 `
 const rotateIcon = css`
-  animation: ${animationOptions} ${keyframes`
+  animation: ${animationOptions}
+    ${keyframes`
     0%, 100% {
       rotate: 10deg;
       translate: 0.25rem 0;
@@ -92,7 +95,7 @@ export const ContextInfo = ({
     <div
       className={cn(
         hstack({ align: "center", justify: "center" }),
-        "relative mb-4 size-20"
+        "relative mb-4 size-20",
       )}
     >
       <Icon
@@ -101,18 +104,18 @@ export const ContextInfo = ({
         className={cn(
           "absolute size-18",
           animateIcon === "float" && floatIcon,
-          animateIcon === "rotate" && rotateIcon
+          animateIcon === "rotate" && rotateIcon,
         )}
       />
       <div
         className={cn(
           "absolute -bottom-4 rounded-[50%] bg-[black]",
           animateIcon === "float" && floatShadow,
-          animateIcon === "rotate" && rotateShadow
+          animateIcon === "rotate" && rotateShadow,
         )}
       />
     </div>
-    <span className="block max-w-80 text-center font-bold text-text-gentle">
+    <span className="text-text-gentle block max-w-80 text-center font-bold">
       {label}
     </span>
     {children && (

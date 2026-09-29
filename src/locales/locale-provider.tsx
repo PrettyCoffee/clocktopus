@@ -3,7 +3,6 @@ import { PropsWithChildren, useEffect, useState } from "react"
 // eslint-disable-next-line no-restricted-imports -- i18n may only be used here
 import { i18n, Messages } from "@lingui/core"
 import { I18nProvider, useLingui } from "@lingui/react"
-
 import { preferencesData } from "data/preferences"
 import { useSelector } from "lib/yaasl"
 

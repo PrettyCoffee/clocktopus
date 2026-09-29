@@ -1,7 +1,6 @@
 import { Dispatch, Fragment } from "react"
 
 import { Trans } from "@lingui/react/macro"
-
 import { Select } from "components/ui/select"
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"

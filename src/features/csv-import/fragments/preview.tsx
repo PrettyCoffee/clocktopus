@@ -2,12 +2,11 @@ import { PropsWithChildren, useState } from "react"
 
 import { msg, t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { Dices } from "lucide-react"
-
 import { IconButton } from "components/ui/icon-button"
 import { createColumnHelper, Table } from "components/ui/table"
 import { TimeEntry } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
+import { Dices } from "lucide-react"
 import { cn } from "utils/cn"
 
 import { Container } from "./container"
@@ -16,7 +15,7 @@ const Cell = ({ children }: PropsWithChildren<{ empty?: boolean }>) => (
   <div
     className={cn(
       "inline-flex items-center p-2 text-nowrap",
-      !children && "text-text-muted"
+      !children && "text-text-muted",
     )}
   >
     {children || t`Missing`}
@@ -86,10 +85,10 @@ export const Preview = ({ data }: { data: TimeEntry[] }) => {
         </>
       }
     >
-      <div className="max-h-80 overflow-auto rounded-md bg-background">
+      <div className="bg-background max-h-80 overflow-auto rounded-md">
         <Table<TableConfig>
           rowData={getRandomSample(data, 5).sort((a, b) =>
-            b.date.localeCompare(a.date)
+            b.date.localeCompare(a.date),
           )}
           columns={columns}
           gridCols="grid-cols-[auto_auto_auto_auto_auto]"

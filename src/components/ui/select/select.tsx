@@ -3,10 +3,9 @@
 import { Dispatch, PropsWithChildren } from "react"
 
 import * as Primitive from "@radix-ui/react-select"
-import { Check, ChevronDown, ChevronUp } from "lucide-react"
-
 import { preferencesData } from "data/preferences"
 import { useAtom } from "lib/yaasl"
+import { Check, ChevronDown, ChevronUp } from "lucide-react"
 import { ClassNameProp, DisableProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, interactive, surface } from "utils/styles"
@@ -23,9 +22,9 @@ const Trigger = ({ placeholder, caption, className }: TriggerProps) => (
   <Primitive.Trigger asChild>
     <Button
       className={cn(
-        "justify-between gap-2 border border-stroke-gentle data-placeholder:text-text-muted",
-        "[&_svg]:transition [&_svg]:duration-400 [&_svg]:ease-bounce data-[state='open']:[&_svg]:rotate-180",
-        className
+        "border-stroke-gentle data-placeholder:text-text-muted justify-between gap-2 border",
+        "[&_svg]:ease-bounce [&_svg]:transition [&_svg]:duration-400 data-[state='open']:[&_svg]:rotate-180",
+        className,
       )}
     >
       <Primitive.Value placeholder={placeholder}>{caption}</Primitive.Value>
@@ -66,14 +65,14 @@ const Content = ({ children }: PropsWithChildren) => {
           zIndex.popover,
           surface({ look: "overlay", size: "lg" }),
           "relative max-h-(--radix-select-content-available-height) min-w-32 overflow-x-hidden overflow-y-auto p-0",
-          "origin-(--radix-select-content-transform-origin) data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+          "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 origin-(--radix-select-content-transform-origin)",
         )}
       >
         <ScrollUpButton />
         <Primitive.Viewport
           className={cn(
             "p-1",
-            "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1"
+            "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1",
           )}
         >
           {children}
@@ -102,9 +101,9 @@ const Option = ({
     className={cn(
       interactive({ disabled }),
       hstack({ align: "center", gap: 2 }),
-      "underline-offset-2 outline-none focus-visible:text-highlight focus-visible:underline",
+      "focus-visible:text-highlight underline-offset-2 outline-none focus-visible:underline",
       "relative h-8 w-full rounded-md pr-8 pl-2 text-sm select-none",
-      className
+      className,
     )}
   >
     <Primitive.ItemText>{children || label}</Primitive.ItemText>
@@ -118,7 +117,7 @@ const Option = ({
 
 const Separator = ({ className }: ClassNameProp) => (
   <Primitive.Separator
-    className={cn("pointer-events-none m-1 h-px bg-stroke-gentle", className)}
+    className={cn("bg-stroke-gentle pointer-events-none m-1 h-px", className)}
   />
 )
 
@@ -133,7 +132,7 @@ const Group = ({
 }: PropsWithChildren<GroupProps>) => (
   <Primitive.Group>
     <Primitive.Label
-      className={cn("px-2 py-1.5 text-xs text-text-gentle", labelClassName)}
+      className={cn("text-text-gentle px-2 py-1.5 text-xs", labelClassName)}
     >
       {label}
     </Primitive.Label>

@@ -31,8 +31,8 @@ export const csvExport = (entries: Record<string, TimeEntry[]>) => {
     .flat()
     .sort((a, b) =>
       `${a.date}_${a.start}_${a.end}`.localeCompare(
-        `${b.date}_${b.start}_${b.end}`
-      )
+        `${b.date}_${b.start}_${b.end}`,
+      ),
     )
 
   const categories = categoriesData.get()

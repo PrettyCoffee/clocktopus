@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
-import { Save } from "lucide-react"
-
 import { ContextInfo } from "components/ui/context-info"
 import { IconButton } from "components/ui/icon-button"
 import { groupedCategories } from "data/categories"
 import { timeEntriesData, TimeEntry } from "data/time-entries"
 import { useAtom, useSelector } from "lib/yaasl"
+import { Save } from "lucide-react"
 import { cn } from "utils/cn"
 import { dateHelpers } from "utils/date-helpers"
 import { fuzzyFilter } from "utils/fuzzy-filter"
@@ -31,10 +30,10 @@ const useCategoryNames = () =>
       ...groups.flatMap(({ name: groupName, categories }) =>
         categories.map(
           ({ id, name }) =>
-            [id, [groupName, name].filter(Boolean).join(" - ")] as const
-        )
+            [id, [groupName, name].filter(Boolean).join(" - ")] as const,
+        ),
       ),
-    ])
+    ]),
   )
 
 interface Filters {
@@ -72,14 +71,14 @@ const useFilters = (items: TimeEntry[], filter: Filters) => {
         dateHelpers.isInRange(
           date,
           `${filter.year}-01-01`,
-          `${filter.year}-12-31`
-        )
+          `${filter.year}-12-31`,
+        ),
       )
     }
 
     if (filter.fromDate || filter.untilDate) {
       filtered = filtered.filter(({ date }) =>
-        dateHelpers.isInRange(date, filter.fromDate, filter.untilDate)
+        dateHelpers.isInRange(date, filter.fromDate, filter.untilDate),
       )
     }
 
@@ -118,7 +117,7 @@ export const SearchRoute = () => {
   const raw = useAtom(timeEntriesData)
   const allFlat = useMemo(
     () => Object.values(raw).flat().sort(sortLatestTop),
-    [raw]
+    [raw],
   )
 
   const filterText = useAtom(searchText)

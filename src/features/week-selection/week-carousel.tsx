@@ -1,13 +1,12 @@
 import { t } from "@lingui/core/macro"
+import { IconButton } from "components/ui/icon-button"
+import { useAtom } from "lib/yaasl"
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react"
-
-import { IconButton } from "components/ui/icon-button"
-import { useAtom } from "lib/yaasl"
 import { cn } from "utils/cn"
 import { hstack } from "utils/styles"
 

@@ -2,13 +2,6 @@ import { useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import {
-  FileJson2,
-  HardDriveDownload,
-  Trash,
-  FileSpreadsheet,
-} from "lucide-react"
-
 import { Button } from "components/ui/button"
 import { Card } from "components/ui/card"
 import { showDialog } from "components/ui/dialog"
@@ -24,6 +17,12 @@ import { CsvImport } from "features/csv-import"
 import { csvExport } from "features/csv-import/csv-export"
 import { dataBackup } from "features/data-backup"
 import { useAtom } from "lib/yaasl"
+import {
+  FileJson2,
+  HardDriveDownload,
+  Trash,
+  FileSpreadsheet,
+} from "lucide-react"
 import { cn } from "utils/cn"
 import { sleep } from "utils/sleep"
 import { hstack, vstack } from "utils/styles"
@@ -151,7 +150,7 @@ const importCsv = async (data: TimeEntry[]) => {
       toast.edit({
         message: <CsvImportProgress {...progress} />,
       })
-    })
+    }),
   )
 
   toast.edit({
@@ -172,7 +171,7 @@ const ImportCsvData = () => {
           Import or export a .csv file to move your data between clocktopus and
           other time tracking tools.
           <br />
-          <span className="font-bold text-text">Note: </span>
+          <span className="text-text font-bold">Note: </span>
           The new data will be added to your existing data! Make sure to create
           a backup before starting the import. If you want a clean start, delete
           your data first.
@@ -232,7 +231,7 @@ const DeleteData = () => (
       <Trans>
         Delete all data and reset Clocktopus to its initial state.
         <br />
-        <span className="font-bold text-text">Note: </span>
+        <span className="text-text font-bold">Note: </span>
         Make sure to create a backup before deleting your data, this cannot be
         undone!
       </Trans>

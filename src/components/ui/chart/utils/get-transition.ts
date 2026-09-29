@@ -14,7 +14,7 @@ const toCssProperties = (styles: CSSProperties) =>
 
 const applyStyles = (node: AllowedElement, styles: CSSProperties) => {
   Object.entries(styles).forEach(([key, value]) =>
-    node.style.setProperty(toCssProperty(key), String(value || ""))
+    node.style.setProperty(toCssProperty(key), String(value || "")),
   )
 }
 

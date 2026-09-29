@@ -1,7 +1,6 @@
-import { Fragment } from "react/jsx-runtime"
-
 import { themeData } from "data/theme"
 import { useAtom } from "lib/yaasl"
+import { Fragment } from "react/jsx-runtime"
 import { cn } from "utils/cn"
 
 import {
@@ -82,7 +81,7 @@ export const Bars = ({
               strokeWidth={strokeColor === "none" ? 0 : 1}
               className={cn(
                 chartColor.stroke({ color: strokeColor }),
-                chartColor.fill({ color: fillColor })
+                chartColor.fill({ color: fillColor }),
               )}
             />
             {text && (

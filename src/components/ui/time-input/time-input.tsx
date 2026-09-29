@@ -83,7 +83,7 @@ export const TimeInput = ({
 
   const handleChange = (
     value: string,
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     const target = event.currentTarget
     const start = target.selectionStart
@@ -129,7 +129,7 @@ export const TimeInput = ({
         aria-hidden
         className={cn(
           hstack({ align: "center", justify: "center" }),
-          "pointer-events-none absolute inset-0 m-auto size-full text-sm [&:has(+input:focus-visible)]:text-transparent"
+          "pointer-events-none absolute inset-0 m-auto size-full text-sm [&:has(+input:focus-visible)]:text-transparent",
         )}
       >
         {text.slice(0, 2).padEnd(2, "-")}

@@ -70,10 +70,10 @@ export const Input = ({
       onKeyDown?.(event)
     }}
     className={cn(
-      "h-10 rounded-md px-3 text-sm text-text outline-none placeholder:text-text-gentle",
-      "border border-stroke-gentle invalid:border-alert-error hover:border-stroke focus-visible:border-stroke-focus",
+      "text-text placeholder:text-text-gentle h-10 rounded-md px-3 text-sm outline-none",
+      "border-stroke-gentle invalid:border-alert-error hover:border-stroke focus-visible:border-stroke-focus border",
       alert && alertStyles[alert].border,
-      className
+      className,
     )}
   />
 )

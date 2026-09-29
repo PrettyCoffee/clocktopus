@@ -38,8 +38,8 @@ export const InputLabel = ({
       <Label
         htmlFor={id}
         className={cn(
-          "w-max truncate text-sm font-semibold text-text-gentle",
-          className
+          "text-text-gentle w-max truncate text-sm font-semibold",
+          className,
         )}
       >
         {label}

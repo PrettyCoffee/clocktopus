@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
-
 import { Pagination } from "components/ui/pagination"
 import { TimeEntry } from "data/time-entries"
 import {
@@ -20,7 +19,7 @@ const SearchTableInner = ({ filtered }: { filtered: TimeEntry[] }) => {
 
   const pageEntries = useMemo(
     () => filtered.slice(pageRange.start, pageRange.end),
-    [filtered, pageRange.end, pageRange.start]
+    [filtered, pageRange.end, pageRange.start],
   )
 
   useEffect(() => {

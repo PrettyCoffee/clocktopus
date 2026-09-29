@@ -1,8 +1,7 @@
 /**
- * Color Parser
- * Sourced from Tailwind
- * Reference: https://github.com/tailwindlabs/tailwindcss/blob/main/src/util/color.js
- **/
+ * Color Parser Sourced from Tailwind Reference:
+ * https://github.com/tailwindlabs/tailwindcss/blob/main/src/util/color.js.
+ */
 import { ColorValue } from "./types"
 
 const HEX = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i
@@ -12,14 +11,14 @@ const SEP = /(?:\s*,\s*|\s+)/
 const ALPHA_SEP = /\s*[,/]\s*/
 
 const RGB = new RegExp(
-  `^(rgba?)\\(\\s*(${VALUE.source})(?:${SEP.source}(${VALUE.source}))(?:${SEP.source}(${VALUE.source}))(?:${ALPHA_SEP.source}(${VALUE.source}))?\\s*\\)$`
+  `^(rgba?)\\(\\s*(${VALUE.source})(?:${SEP.source}(${VALUE.source}))(?:${SEP.source}(${VALUE.source}))(?:${ALPHA_SEP.source}(${VALUE.source}))?\\s*\\)$`,
 )
 const HSL = new RegExp(
-  `^(hsla?)\\(\\s*((?:${VALUE.source})(?:deg|rad|grad|turn)?)(?:${SEP.source}(${VALUE.source}))(?:${SEP.source}(${VALUE.source}))(?:${ALPHA_SEP.source}(${VALUE.source}))?\\s*\\)$`
+  `^(hsla?)\\(\\s*((?:${VALUE.source})(?:deg|rad|grad|turn)?)(?:${SEP.source}(${VALUE.source}))(?:${SEP.source}(${VALUE.source}))(?:${ALPHA_SEP.source}(${VALUE.source}))?\\s*\\)$`,
 )
 
 const OKLCH = new RegExp(
-  `^(oklcha?)\\(\\s*(${VALUE.source})(?:${SEP.source}(${VALUE.source}))(?:${SEP.source}(${VALUE.source}))(?:${ALPHA_SEP.source}(${VALUE.source}))?\\s*\\)$`
+  `^(oklcha?)\\(\\s*(${VALUE.source})(?:${SEP.source}(${VALUE.source}))(?:${SEP.source}(${VALUE.source}))(?:${ALPHA_SEP.source}(${VALUE.source}))?\\s*\\)$`,
 )
 
 const parseValue = (value: string) => {
@@ -34,7 +33,7 @@ const parseHex = (value: string): ColorValue | null => {
       const hex = ["#", r, r, g, g, b, b]
       if (a) hex.push(a, a)
       return hex.join("")
-    })
+    }),
   )
 
   if (!match) return null

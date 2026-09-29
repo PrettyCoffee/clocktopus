@@ -75,11 +75,11 @@ const main = async () => {
 
     const prod = await createWorktree(
       `./${TMP_DIR}/worktree-clocktopus-prod/`,
-      tag
+      tag,
     )
     const main = await createWorktree(
       `./${TMP_DIR}/worktree-clocktopus-main/`,
-      "main"
+      "main",
     )
 
     await build(main.$, main.name)

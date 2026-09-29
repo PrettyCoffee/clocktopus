@@ -10,7 +10,7 @@ import {
 const getAny = () => [validators.isAny] as const
 
 const withBgl = <ClassGroupIds extends string, ThemeGroupIds extends string>(
-  prevConfig: Config<ClassGroupIds, ThemeGroupIds>
+  prevConfig: Config<ClassGroupIds, ThemeGroupIds>,
 ) =>
   mergeConfigs(prevConfig, {
     extend: {

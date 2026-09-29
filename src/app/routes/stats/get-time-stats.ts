@@ -17,7 +17,7 @@ export interface TimeStats {
 }
 
 export const getTimeStats = (
-  entries: Record<string, TimeEntry[]>
+  entries: Record<string, TimeEntry[]>,
 ): TimeStats | null => {
   const total: number[] = []
   const start: number[] = []
@@ -30,7 +30,7 @@ export const getTimeStats = (
         : {
             start: timeHelpers.toMinutes(start),
             end: timeHelpers.toMinutes(end),
-          }
+          },
     )
     if (times.length === 0) return
 

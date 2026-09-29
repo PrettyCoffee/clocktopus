@@ -11,7 +11,7 @@ export const useFocus = (refs: RefObject<Element | null>[]) => {
 
       const target = document.activeElement
       const focus = elements.some(
-        element => element === target || element.contains(target)
+        element => element === target || element.contains(target),
       )
 
       setFocus(!!focus)

@@ -7,7 +7,7 @@ import { timeHelpers } from "utils/time-helpers"
 const totalDuration = (entries: TimeEntry[]) =>
   entries.reduce(
     (total, entry) => total + timeHelpers.getDuration(entry.start, entry.end),
-    0
+    0,
   )
 
 export const Duration = ({
@@ -20,6 +20,6 @@ export const Duration = ({
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     })}
-    <span className="mx-0.5 text-text-muted">h</span>
+    <span className="text-text-muted mx-0.5">h</span>
   </span>
 )

@@ -35,7 +35,7 @@ export const Text = ({
     className={cn(
       chartColor.fill({ color }),
       "fill-text-gentle text-sm",
-      className
+      className,
     )}
   >
     {children}

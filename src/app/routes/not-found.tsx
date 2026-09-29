@@ -1,8 +1,7 @@
 import { Trans } from "@lingui/react/macro"
-import { ArrowLeft, Frown } from "lucide-react"
-
 import { Button } from "components/ui/button"
 import { ContextInfo } from "components/ui/context-info"
+import { ArrowLeft, Frown } from "lucide-react"
 
 export const NotFoundRoute = () => (
   <div className="grid size-full place-content-center">

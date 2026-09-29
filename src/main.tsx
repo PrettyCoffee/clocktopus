@@ -6,7 +6,6 @@ import { isDevEnv } from "utils/is-dev-env"
 
 import { App } from "./app"
 import { initTheme } from "./data/theme"
-
 import "./index.css"
 
 const root = document.getElementById("root")
@@ -22,5 +21,5 @@ void checkBackupReminder()
 createRoot(root).render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
 )

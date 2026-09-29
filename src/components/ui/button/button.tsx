@@ -6,10 +6,8 @@ import {
 } from "react"
 
 import { cva, type VariantProps } from "class-variance-authority"
-import { ExternalLink } from "lucide-react"
-import { Link } from "wouter"
-
 import { Slot } from "components/utility/slot"
+import { ExternalLink } from "lucide-react"
 import {
   AsChildProp,
   ClassNameProp,
@@ -19,6 +17,7 @@ import {
 } from "types/base-props"
 import { cn } from "utils/cn"
 import { interactive, InteractiveProps } from "utils/styles"
+import { Link } from "wouter"
 
 import { Icon, IconProps } from "../icon"
 import { Spinner } from "../spinner"
@@ -28,7 +27,7 @@ const isExternalLink = (href?: string) =>
 
 const button = cva(
   cn(
-    "relative inline-flex shrink-0 items-center justify-center rounded-md text-sm font-medium whitespace-nowrap"
+    "relative inline-flex shrink-0 items-center justify-center rounded-md text-sm font-medium whitespace-nowrap",
   ),
   {
     variants: {
@@ -40,7 +39,7 @@ const button = cva(
     defaultVariants: {
       size: "md",
     },
-  }
+  },
 )
 
 type ButtonHtmlProps = ButtonHTMLAttributes<HTMLButtonElement>
@@ -95,7 +94,7 @@ export const Button = ({
       aria-selected={active}
       className={cn(
         interactive({ look, active, disabled }),
-        button({ size, className })
+        button({ size, className }),
       )}
     >
       {isLoading ? (

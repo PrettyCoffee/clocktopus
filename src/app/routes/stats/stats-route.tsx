@@ -2,11 +2,10 @@ import { Dispatch, Fragment, PropsWithChildren, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-import { ClockPlus } from "lucide-react"
-
 import { ContextInfo } from "components/ui/context-info"
 import { TimeEntry } from "data/time-entries"
 import { useAtom } from "lib/yaasl"
+import { ClockPlus } from "lucide-react"
 import { cn } from "utils/cn"
 import { vstack } from "utils/styles"
 import { timeHelpers } from "utils/time-helpers"
@@ -18,7 +17,7 @@ import { WorkingHoursChart, TotalTimeChart } from "./time-charts"
 
 const splitEntries = (
   timeEntries: Record<string, TimeEntry[]>,
-  getKey: (date: string) => number
+  getKey: (date: string) => number,
 ) => {
   const result: Record<number, Record<string, TimeEntry[]>> = {}
 
@@ -129,21 +128,21 @@ const StatsModeHeader = ({
   onChange: Dispatch<Mode>
 }) => (
   <h2 className="mb-2 text-xl">
-    <span className="mr-2 text-text-muted">
+    <span className="text-text-muted mr-2">
       <Trans>Stats by</Trans>
     </span>
     {(["weekday", "month", "year", "categories"] as const).map(
       (value, index) => (
         <Fragment key={value}>
           {index !== 0 && (
-            <span className="font-bold text-text-muted"> | </span>
+            <span className="text-text-muted font-bold"> | </span>
           )}
           <button
             key={value}
             onClick={() => onChange(value)}
             className={cn(
-              "cursor-pointer font-bold text-text-gentle uppercase underline-offset-4 hover:text-text hover:underline",
-              value === mode && "text-text-priority"
+              "text-text-gentle hover:text-text cursor-pointer font-bold uppercase underline-offset-4 hover:underline",
+              value === mode && "text-text-priority",
             )}
           >
             {
@@ -156,7 +155,7 @@ const StatsModeHeader = ({
             }
           </button>
         </Fragment>
-      )
+      ),
     )}
   </h2>
 )
@@ -180,7 +179,7 @@ const ChartLayout = ({ children }: PropsWithChildren) => (
   <div
     className={cn(
       vstack({ gap: 8 }),
-      "w-full max-w-xl gap-10 *:h-64 *:first:h-64"
+      "w-full max-w-xl gap-10 *:h-64 *:first:h-64",
     )}
   >
     {children}
@@ -247,7 +246,7 @@ const TimeCharts = ({ entries, mode }: TimeChartsProps) => {
       />
       <TotalTimeChart
         timeStats={Object.fromEntries(
-          Object.entries(data).map(([x, y]) => [tick(transform(Number(x))), y])
+          Object.entries(data).map(([x, y]) => [tick(transform(Number(x))), y]),
         )}
       />
     </ChartLayout>

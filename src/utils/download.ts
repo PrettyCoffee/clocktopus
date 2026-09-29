@@ -34,7 +34,7 @@ export const download = (fileName: string, content: unknown) => {
       bubbles: true,
       cancelable: true,
       view: window,
-    })
+    }),
   )
 
   document.body.removeChild(link)

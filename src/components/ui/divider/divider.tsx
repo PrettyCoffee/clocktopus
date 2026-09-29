@@ -1,5 +1,4 @@
 import { cva, VariantProps } from "class-variance-authority"
-
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 

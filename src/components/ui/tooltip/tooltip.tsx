@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react"
 
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
-
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 
@@ -36,7 +35,7 @@ export const Tooltip = ({
         className={cn(
           tooltipStyles,
           "animate-in fade-in-0 zoom-in-75 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-75",
-          className
+          className,
         )}
       >
         {children}

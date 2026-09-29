@@ -13,7 +13,7 @@ const focusableSelector = [
 ].join(",")
 
 const isRadioButtonWithGroup = (
-  element: Element | null
+  element: Element | null,
 ): element is HTMLInputElement =>
   element instanceof HTMLInputElement &&
   element.type === "radio" &&
@@ -21,7 +21,7 @@ const isRadioButtonWithGroup = (
 
 const getPreferredRadioButton = (
   currentRadio: HTMLInputElement,
-  elements: Element[]
+  elements: Element[],
 ) => {
   if (currentRadio.checked) return currentRadio
 
@@ -29,7 +29,7 @@ const getPreferredRadioButton = (
     element =>
       isRadioButtonWithGroup(element) &&
       element.name === currentRadio.name &&
-      element.checked
+      element.checked,
   )
 
   return checkedRadio ?? currentRadio
@@ -52,9 +52,11 @@ const splitNegativeTabIndex = (elements: Element[]) =>
 const getPreferredElements = (container: Element | null) => {
   const elements = getFocusableElements(container)
 
-  /** Elements with tabIndex={-1} are usually not accessible via the tab key.
-   *  Therefore, we prefer to focus elements that are actually accessible via tab.
-   **/
+  /**
+   * Elements with tabIndex={-1} are usually not accessible via the tab key.
+   * Therefore, we prefer to focus elements that are actually accessible via
+   * tab.
+   */
   const [tabbable, nonTabbable] = splitNegativeTabIndex(elements)
 
   return tabbable.length > 0 ? tabbable : nonTabbable
@@ -65,7 +67,7 @@ export const hasFocusableChild = (element: Element | null) =>
 
 export const focusInto = (
   container: Element | null,
-  entry: "start" | "end" = "start"
+  entry: "start" | "end" = "start",
 ) => {
   if (!container) return
 

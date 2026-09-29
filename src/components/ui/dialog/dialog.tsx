@@ -3,7 +3,6 @@ import { PropsWithChildren, ReactNode, useState } from "react"
 import { t } from "@lingui/core/macro"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
-
 import { ClassNameProp } from "types/base-props"
 import { cn } from "utils/cn"
 import { hstack, vstack } from "utils/styles"
@@ -105,32 +104,32 @@ export const Dialog = ({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
           className={cn(
-            "fixed inset-0 size-full bg-background-page/50",
+            "bg-background-page/50 fixed inset-0 size-full",
             zIndex.dialog,
-            transition.overlayClassName
+            transition.overlayClassName,
           )}
         />
 
         <DialogPrimitive.Content
           className={cn(
             vstack({}),
-            "fixed inset-1/2 h-max w-96 -translate-1/2 rounded-lg border border-stroke-gentle bg-background-page",
+            "border-stroke-gentle bg-background-page fixed inset-1/2 h-max w-96 -translate-1/2 rounded-lg border",
             zIndex.dialog,
             transition.contentClassName,
-            className
+            className,
           )}
         >
           <DialogPrimitive.Title
             className={cn(
               hstack({ align: "center" }),
-              "h-12 truncate pr-12 pl-4 text-xl text-text-priority"
+              "text-text-priority h-12 truncate pr-12 pl-4 text-xl",
             )}
           >
             <span className="truncate">{title}</span>
           </DialogPrimitive.Title>
 
           {description && (
-            <DialogPrimitive.Description className="px-4 pb-4 text-sm text-text-gentle">
+            <DialogPrimitive.Description className="text-text-gentle px-4 pb-4 text-sm">
               {description}
             </DialogPrimitive.Description>
           )}

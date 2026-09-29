@@ -6,7 +6,6 @@ import {
   BadgeX,
   LucideIcon,
 } from "lucide-react"
-
 import { AlertKind } from "types/base-props"
 
 import { cn } from "./cn"
@@ -46,7 +45,7 @@ export const alertStyles: Record<AlertKind, AlertStyle> = {
 }
 
 export const focusWithinOutline = cn(
-  "focus-visible:outline-solid [&:has(*:focus-visible)]:outline-solid"
+  "focus-visible:outline-solid [&:has(*:focus-visible)]:outline-solid",
 )
 
 export const interactive = cva("cursor-pointer", {
@@ -54,11 +53,11 @@ export const interactive = cva("cursor-pointer", {
     look: {
       key: "text-text-button bgl-base-background-button hover:bgl-layer-b/15 active:bgl-layer-b/20",
       ghost:
-        "border border-stroke-button text-text bgl-base-transparent hover:bgl-layer-w/10 active:bgl-layer-w/15",
+        "border-stroke-button text-text bgl-base-transparent hover:bgl-layer-w/10 active:bgl-layer-w/15 border",
       flat: "text-text bgl-base-transparent hover:bgl-layer-w/10 active:bgl-layer-w/15",
       link: "text-text-priority underline-offset-4 hover:underline active:opacity-80",
       destructive:
-        "border border-alert-error bg-alert-error/5 text-alert-error hover:bg-alert-error/15 active:bg-alert-error/20",
+        "border-alert-error bg-alert-error/5 text-alert-error hover:bg-alert-error/15 active:bg-alert-error/20 border",
     },
     active: {
       false: "",
@@ -139,9 +138,9 @@ export const hstack = (props?: StackProps) =>
 export const surface = cva("border", {
   variants: {
     look: {
-      card: "rounded-lg border-stroke-gentle bg-background shade-low",
+      card: "border-stroke-gentle bg-background shade-low rounded-lg",
       overlay:
-        "border-text-gentle/25 text-text shade-low backdrop-blur-md bgl-base-b/75",
+        "border-text-gentle/25 text-text shade-low bgl-base-b/75 backdrop-blur-md",
     },
     size: {
       md: "rounded-md p-2",

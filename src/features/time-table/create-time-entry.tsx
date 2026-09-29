@@ -1,8 +1,6 @@
 import { Dispatch, PropsWithChildren, useMemo, useState } from "react"
 
 import { t } from "@lingui/core/macro"
-import { Plus } from "lucide-react"
-
 import { AutoComplete } from "components/ui/auto-complete"
 import { IconButton } from "components/ui/icon-button"
 import { categoryGroupsData, categoriesData } from "data/categories"
@@ -13,6 +11,7 @@ import {
 } from "data/time-entries"
 import { CategoryName } from "features/components/category-name"
 import { useAtom } from "lib/yaasl"
+import { Plus } from "lucide-react"
 import { cn } from "utils/cn"
 import { createId } from "utils/create-id"
 import { dateHelpers } from "utils/date-helpers"
@@ -39,7 +38,7 @@ const useSearchableTimeEntries = () => {
         result.items.push(item)
         return result
       },
-      { check: new Set<string>(), items: [] as typeof allItems }
+      { check: new Set<string>(), items: [] as typeof allItems },
     )
 
     return withoutDuplicates.items
@@ -63,9 +62,9 @@ const useCategory = () => {
               groupColor: group?.color,
             },
           ] as const
-        })
+        }),
       ),
-    [categories, groups]
+    [categories, groups],
   )
 }
 
@@ -125,7 +124,7 @@ const setPreviousInput = (entry: Partial<TimeEntry>) => {
 
 const getInitialState = (
   date = dateHelpers.today(),
-  start = timeHelpers.now({ snap: 15 })
+  start = timeHelpers.now({ snap: 15 }),
 ): TimeEntry => ({
   id: createId("mini"),
   description: "",
@@ -146,7 +145,7 @@ export const CreateTimeEntry = ({
   initialTime,
 }: CreateTimeEntryProps) => {
   const [data, setData] = useState(() =>
-    getInitialState(initialDate, initialTime)
+    getInitialState(initialDate, initialTime),
   )
   const dateAtom = useDateEntries(data.date)
 
@@ -162,7 +161,7 @@ export const CreateTimeEntry = ({
       <div
         className={cn(
           "grid items-center gap-2",
-          "grid-cols-[auto_auto_1fr_2.5rem] @xl:grid-cols-[1fr_auto_auto_auto_2.5rem] @4xl:grid-cols-[1fr_auto_auto_auto_auto_2.5rem]"
+          "grid-cols-[auto_auto_1fr_2.5rem] @xl:grid-cols-[1fr_auto_auto_auto_2.5rem] @4xl:grid-cols-[1fr_auto_auto_auto_auto_2.5rem]",
         )}
       >
         <DescriptionAutoComplete

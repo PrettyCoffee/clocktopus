@@ -13,7 +13,7 @@ const levenshtein = (a: string, b: string) => {
       current[j] = Math.min(
         prev[j]! + 1,
         current[j - 1]! + 1,
-        prev[j - 1]! + cost
+        prev[j - 1]! + cost,
       )
     }
     ;[prev, current] = [current, prev]
@@ -72,7 +72,7 @@ export const fuzzyFilter = <TData>({
       const value = getFilterValue(item)
       const score = Math.min(
         matchScore(value.toLowerCase(), filter.toLowerCase()),
-        matchScore(normalize(value), normalize(filter)) * 1.1
+        matchScore(normalize(value), normalize(filter)) * 1.1,
       )
       return { item, score }
     })

@@ -1,12 +1,11 @@
 import { PropsWithChildren } from "react"
 
-import { Router } from "wouter"
-import { useHashLocation } from "wouter/use-hash-location"
-
 import { DialogProvider } from "components/ui/dialog"
 import { Toaster } from "components/ui/toaster"
 import { TooltipProvider } from "components/ui/tooltip"
 import { LocaleProvider } from "locales/locale-provider"
+import { Router } from "wouter"
+import { useHashLocation } from "wouter/use-hash-location"
 
 export const AppProviders = ({ children }: PropsWithChildren) => (
   <LocaleProvider>

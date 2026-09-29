@@ -1,7 +1,6 @@
 import { Dispatch, Fragment } from "react"
 
 import { Trans } from "@lingui/react/macro"
-
 import { CategorySelect } from "features/components/category-select"
 
 import { Container } from "./container"

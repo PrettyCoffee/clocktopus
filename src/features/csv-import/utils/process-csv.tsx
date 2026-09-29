@@ -20,7 +20,7 @@ export const processCsv = (csv: string) => {
   const separator = detectSeparator(csv)
 
   const [headers = [], ...rows] = lines.map(line =>
-    line.split(separator).map(cleanFieldValue)
+    line.split(separator).map(cleanFieldValue),
   )
   return { headers, rows }
 }

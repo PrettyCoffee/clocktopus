@@ -22,12 +22,12 @@ export const Card = ({
       className={cn(
         surface({ look: "card", size: "lg" }),
         "p-4 pt-2",
-        className
+        className,
       )}
     >
-      <Headline className="mb-1 font-bold text-text-priority">{title}</Headline>
+      <Headline className="text-text-priority mb-1 font-bold">{title}</Headline>
       {description && (
-        <p className={cn("text-sm text-text-gentle", children && "mb-4")}>
+        <p className={cn("text-text-gentle text-sm", children && "mb-4")}>
           {description}
         </p>
       )}

@@ -75,7 +75,7 @@ const AutoCompleteDropdown = ({
       className={cn(
         zIndex.popover,
         surface({ look: "overlay", size: "md" }),
-        "fixed max-h-48 overflow-auto p-1"
+        "fixed max-h-48 overflow-auto p-1",
       )}
       style={{
         top: (anchorRect?.bottom ?? 0) + 4,
@@ -147,7 +147,7 @@ export const AutoComplete = <TData,>({
                 onClick={() => onSelect(item)}
                 className={cn(
                   "w-full justify-between gap-2 truncate text-start",
-                  isSelected && "bgl-layer-w/10"
+                  isSelected && "bgl-layer-w/10",
                 )}
               >
                 {renderOptionLabel(item)}

@@ -6,7 +6,7 @@ export const getDateAtom = (date: string) => {
   const atom = createDerived(
     ({ get }) => get(timeEntriesData)[date] ?? [],
     ({ set, value }) =>
-      set(timeEntriesData, state => ({ ...state, [date]: value }))
+      set(timeEntriesData, state => ({ ...state, [date]: value })),
   )
 
   return Object.assign(atom, {

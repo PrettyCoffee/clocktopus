@@ -43,7 +43,7 @@ export class Month {
   constructor(
     public readonly locale: string,
     public readonly year: number,
-    public readonly month: number
+    public readonly month: number,
   ) {
     this.days = getMonthDays(year, month)
 
@@ -52,13 +52,13 @@ export class Month {
 
     this.name = this.firstDay.date.toLocaleDateString(
       locale === "iso" ? "en" : locale,
-      { month: "long" }
+      { month: "long" },
     )
     this.nameShort = this.firstDay.date.toLocaleDateString(
       locale === "iso" ? "en" : locale,
       {
         month: "short",
-      }
+      },
     )
   }
 

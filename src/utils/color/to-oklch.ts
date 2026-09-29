@@ -9,10 +9,9 @@ const hslToRgb = (h: number, s: number, l: number): ColorValue["color"] => {
 }
 
 /**
- * rgb to oklch conversion
- * Sourced from Github Gist
- * Reference: https://gist.github.com/ronniebasak/e5331e54cf9414ab0fec23b4f6a27e2a
- **/
+ * Rgb to oklch conversion Sourced from Github Gist Reference:
+ * https://gist.github.com/ronniebasak/e5331e54cf9414ab0fec23b4f6a27e2a.
+ */
 const rgbToOklch = (...rgb: ColorValue["color"]): ColorValue["color"] => {
   // Step 1: Convert RGB to Linear RGB
   const r = rgb[0] / 255

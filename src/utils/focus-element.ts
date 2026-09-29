@@ -2,7 +2,7 @@ const isFocusable = (element: Element | null): element is HTMLElement =>
   !!element && "focus" in element
 
 const isSelectable = (
-  element: Element | null
+  element: Element | null,
 ): element is HTMLInputElement | HTMLTextAreaElement =>
   !!element && "select" in element
 

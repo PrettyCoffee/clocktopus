@@ -33,14 +33,14 @@ export const TimeTable = ({
   showTimeline,
 }: TimeTableProps) => {
   const [hoveredTimeline, setHoveredTimeline] = useState<number | undefined>(
-    undefined
+    undefined,
   )
 
   return (
     <div
       className={cn(
         surface({ look: "card", size: "lg" }),
-        "isolate bg-transparent p-0"
+        "isolate bg-transparent p-0",
       )}
     >
       <TimeTableHeader
@@ -55,7 +55,7 @@ export const TimeTable = ({
       {locked?.value ? (
         <TimeSummary entries={entries} />
       ) : (
-        <div className="relative rounded-b-lg bg-background">
+        <div className="bg-background relative rounded-b-lg">
           <TimeTableEditable entries={entries} highlighted={hoveredTimeline} />
           {showTimeline && (
             <TrackedTimeline entries={entries} onHover={setHoveredTimeline} />

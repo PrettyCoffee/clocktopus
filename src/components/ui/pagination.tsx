@@ -2,7 +2,6 @@ import { Dispatch, useState } from "react"
 
 import { t } from "@lingui/core/macro"
 import { Trans } from "@lingui/react/macro"
-
 import { ClassNameProp } from "types/base-props"
 import { clamp } from "utils/clamp"
 import { cn } from "utils/cn"
@@ -51,7 +50,7 @@ const PaginationButtons = ({
         })
 
   const ellipsis = (
-    <span className="inline-grid w-8 place-content-center font-bold text-text-muted before:content-['...']" />
+    <span className="text-text-muted inline-grid w-8 place-content-center font-bold before:content-['...']" />
   )
 
   const firstPage = 0
