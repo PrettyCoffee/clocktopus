@@ -26,9 +26,9 @@ jobs:
           persist-credentials: false
 
       - name: Install pnpm
-        uses: pnpm/setup@v3.0.0
+        uses: pnpm/setup@v3.1.1
         with:
-          version: 11.26.0
+          version: 11.28.5
           runtime: node@24.21.0
           install: true
           require-lockfile: true
